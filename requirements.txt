@@ -33,3 +33,4 @@ gaffer
 gevent
 psycopg2
 PIL
+dj-database-url

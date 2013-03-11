@@ -197,7 +197,7 @@ LOGGING = {
     }
 }
 
-try:
+if 'DEBUG' in os.environ.keys():
     # Load .env file and
     # Parse database configuration from $DATABASE_URL
     import dj_database_url
@@ -211,7 +211,7 @@ try:
                 setattr(sys.modules[__name__], setting, json.loads(value))
             except:
                 setattr(sys.modules[__name__], setting, value)
-except ImportError:
+else:
     from local_settings import *
 except ImportError, e:
     print """Caught %s trying to import local_settings. Please make sure
