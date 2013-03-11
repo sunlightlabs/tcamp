@@ -1,0 +1,1 @@
+web: /usr/bin/env python tcamp/manage.py run_gunicorn -b "0.0.0.0:$PORT" -w 3 -k gevent --preload

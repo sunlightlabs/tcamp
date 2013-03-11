@@ -1,0 +1,8 @@
+*.pyc
+*.pyo
+.DS_Store
+.static/
+.media/
+;fixtures/
+.env
+local_settings.py

@@ -1,0 +1,35 @@
+Django==1.5
+django-debug-toolbar
+django-pdb
+django-template-repl
+django-grappelli
+django-extensions
+bpython
+
+boto>=2.8
+django-compressor
+django-storages
+django-tastypie
+django-postmark
+django-disqus
+django-taggit
+django-treenav
+django-reversion
+django-markdown-deux
+django-markitup
+python-dateutil==1.5
+validictory
+jsonfield
+south
+-e git://github.com/jamesturk/django-markupfield.git#egg=markupfield
+
+python-social-auth
+python-flickr
+python-openid
+-e git://github.com/jcarbaugh/django-googleauth.git#egg=googleauth
+
+gunicorn
+gaffer
+gevent
+psycopg2
+PIL

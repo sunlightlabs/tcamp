@@ -1,0 +1,17 @@
+{% extends subsite.theme_path %}
+{% load staticfiles repl %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "brainstorm/scoped-bootstrap-form.css" %}">
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script src="{% static "brainstorm/app.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+{% endblock %}
+

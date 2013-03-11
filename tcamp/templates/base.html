@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+{% load compress staticfiles pages_tags treenav_tags %}
+<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}TransparencyCamp{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ FAVICON }}">
+    <link rel="apple-touch-icon" href="{{ APPLE_TOUCH_ICON }}">
+    <meta name="description" content="">
+    <meta property="fb:app_id" content="{{ FB_APP_ID }}">
+    <meta name="author" content="{% block meta_author %}The Sunlight Foundation{% endblock %}">
+    <meta property="og:site_name" content="TransparencyCamp">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ SHARING_IMAGE }}">
+    {% block opengraph %}
+    <meta property="og:title">
+    <meta property="og:description">
+    <meta property="og:url">
+    {% endblock opengraph %}
+    {% compress css %}
+    <link href="{% static "styles/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "styles/bootstrap-responsive.css" %}" rel="stylesheet">
+    <link href="{% static "styles/app.css" %}" rel="stylesheet">
+    {% endcompress %}
+    {% block css %}
+    {% endblock css %}
+</head>
+<body {% block bodyattrs %}{% endblock %}>
+    {% block container %}
+
+    <header>
+        {% block outerheader %}
+
+        {% block brandingbar %}
+        <div class="brandingbar">
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <p class="pull-right">An unconference by <strong class="replace sunlight-brand">The Sunlight Foundation</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock brandingbar %}
+        <div class="masthead">
+            <div class="container">
+                {% block header %}
+                <div class="row">
+                    {% chunk "siteheader" %}
+                </div>
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <div class="nav-collapse collapse">
+                            {% show_treenav "transparencycamp" full_tree="True" %}
+                            {% if CURRENT_EVENT.registration_is_open %}
+                            <form action="{{ CURRENT_EVENT.registration_url }}" class="navbar-form pull-right" method="get">
+                                <button class="btn btn-inverse" type="submit">Register Now</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endblock header %}
+            </div>
+        </div>
+
+        {% endblock outerheader %}
+    </header>
+
+    <div id="content">
+        <div class="container">
+        {% block content %}
+        {% endblock content %}
+        </div>
+    </div>
+
+    <footer>
+    {% block outerfooter %}
+        <div class="sf-footer container">
+            {% block footer %}
+            <div class="row">
+                <div class="span6 signup span-divider">
+                    <h4>Like this Project and Want to Discover Others Like It?</h4>
+                    <span class="tip">Join the Sunlight Foundation's open government community to learn more</span>
+                    <form action="http://sunlightfoundation.com/subscribe/" method="post" id="sfapp-subscribe-form" class="form-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="response" value="json">
+                        <input type="text" name="email" placeholder="your email address">
+                        <input type="text" name="zipcode" placeholder="your zip code">
+                        <button type="submit" class="btn btn-sunlight">Sign Up</button>
+                    </form>
+                </div>
+                <div class="span6 terms">
+                    <p>Our <a href="http://sunlightfoundation.com/legal/privacy/">privacy policy</a> details how personally identifiable information that is collected on our web sites is handled. Read our <a href="http://sunlightfoundation.com/legal/terms/">terms of service</a>.</p>
+                    <p>This work by <a href="http://sunlightfoundation.com">Sunlight Foundation</a>, unless <a href="http://sunlightfoundation.com/colophon/">otherwise noted</a>, is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution 3.0 United States License</a>.</p>
+                </div>
+            </div>
+            {% endblock footer %}
+        </div>
+    {% endblock outerfooter %}
+    </footer>
+
+
+    {% endblock container %}
+    {% compress js %}
+    <script src="{% static "scripts/jquery.js" %}"></script>
+    <script src="{% static "scripts/bootstrap.js" %}"></script>
+    <script src="http://assets.sunlightfoundation.com/sfapp/static/js/sfapp.js"></script>
+    <script src="http://assets.sunlightfoundation.com.s3.amazonaws.com/social/scripts/simple-socialite-pack.min.js"></script>
+    {% endcompress %}
+    {% block js %}
+    {% endblock js %}
+    {% block analytics %}
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '{{ GOOGLE_ANALYTICS_ID }}']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    {% endblock %}
+</body>
+</html>

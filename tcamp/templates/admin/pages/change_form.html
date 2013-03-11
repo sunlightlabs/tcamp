@@ -1,0 +1,39 @@
+{% extends "admin/change_form.html" %}
+{% load staticfiles %}
+
+{% block javascripts %}
+{{ block.super }}
+<style>
+    .ace_editor { position: relative !important; }
+</style>
+<script src="{% static "admin/js/ace.js" %}"></script>
+<script>
+(function($, window, undefined){
+  $(function(){
+    $('.vLargeTextField').each(function(){
+      var content = $(this).text();
+      $(this).after('<div id="ace_' + this.id + '"></div>')
+        .css({
+          position: 'absolute',
+          left: '-9999px'
+        }).attr('tabindex', -1).next('div')
+          .css({
+            height: '400px',
+            width: '758px'
+        });
+      el = $('#ace_' + this.id);
+      el.attr('data-target', this.id);
+      el.text(content);
+      var editor = ace.edit(el.attr('id'));
+      $(this).data('editor', editor);
+      editor.setTheme('ace/theme/tomorrow');
+      editor.getSession().setUseSoftTabs(true);
+      editor.getSession().setMode('ace/mode/html');
+      editor.getSession().on('change', function(e){
+        $('#' + $(editor.container).attr('data-target')).val(editor.getSession().getValue());
+      })
+    });
+  });
+})(django.jQuery, this)
+</script>
+{% endblock %}
