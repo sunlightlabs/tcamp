@@ -4,5 +4,6 @@
 .static/
 .media/
 ;fixtures/
+;fixtures/auth.json
 .env
 local_settings.py
