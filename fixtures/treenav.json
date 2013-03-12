@@ -1,1 +1,154 @@
-[{"pk": 1, "model": "treenav.menuitem", "fields": {"is_enabled": true, "rght": 9, "parent": 8, "level": 1, "object_id": null, "slug": "about", "lft": 2, "href": "/about/", "link": "/about/", "content_type": null, "tree_id": 2, "label": "About", "order": 0}}, {"pk": 2, "model": "treenav.menuitem", "fields": {"is_enabled": true, "rght": 4, "parent": 1, "level": 2, "object_id": null, "slug": "logistics", "lft": 3, "href": "/about/logistics/", "link": "/about/logistics/", "content_type": null, "tree_id": 2, "label": "Logistics", "order": 0}}, {"pk": 3, "model": "treenav.menuitem", "fields": {"is_enabled": true, "rght": 6, "parent": 1, "level": 2, "object_id": null, "slug": "tips", "lft": 5, "href": "/about/tips/", "link": "/about/tips/", "content_type": null, "tree_id": 2, "label": "Tips", "order": 1}}, {"pk": 4, "model": "treenav.menuitem", "fields": {"is_enabled": true, "rght": 8, "parent": 1, "level": 2, "object_id": null, "slug": "pastcamps", "lft": 7, "href": "/about/pastcamps/", "link": "/about/pastcamps/", "content_type": null, "tree_id": 2, "label": "PastCamps", "order": 2}}, {"pk": 5, "model": "treenav.menuitem", "fields": {"is_enabled": true, "rght": 11, "parent": 8, "level": 1, "object_id": null, "slug": "schedule", "lft": 10, "href": "/schedule/", "link": "/schedule/", "content_type": null, "tree_id": 2, "label": "Schedule", "order": 1}}, {"pk": 6, "model": "treenav.menuitem", "fields": {"is_enabled": true, "rght": 13, "parent": 8, "level": 1, "object_id": null, "slug": "sponsorship", "lft": 12, "href": "/sponsors/", "link": "/sponsors/", "content_type": null, "tree_id": 2, "label": "Sponsorship", "order": 2}}, {"pk": 7, "model": "treenav.menuitem", "fields": {"is_enabled": true, "rght": 15, "parent": 8, "level": 1, "object_id": null, "slug": "how-to", "lft": 14, "href": "/how-to/", "link": "/how-to/", "content_type": null, "tree_id": 2, "label": "Host your own", "order": 3}}, {"pk": 8, "model": "treenav.menuitem", "fields": {"is_enabled": true, "rght": 16, "parent": null, "level": 0, "object_id": null, "slug": "transparencycamp", "lft": 1, "href": "/", "link": "/", "content_type": null, "tree_id": 2, "label": "TransparencyCamp", "order": 0}}]
+[
+  {
+    "pk": 1,
+    "model": "treenav.menuitem",
+    "fields": {
+      "is_enabled": true,
+      "rght": 9,
+      "parent": 8,
+      "level": 1,
+      "object_id": null,
+      "slug": "about",
+      "lft": 2,
+      "href": "/about/",
+      "link": "/about/",
+      "content_type": null,
+      "tree_id": 2,
+      "label": "About",
+      "order": 0
+    }
+  },
+  {
+    "pk": 2,
+    "model": "treenav.menuitem",
+    "fields": {
+      "is_enabled": true,
+      "rght": 4,
+      "parent": 1,
+      "level": 2,
+      "object_id": null,
+      "slug": "logistics",
+      "lft": 3,
+      "href": "/about/logistics/",
+      "link": "/about/logistics/",
+      "content_type": null,
+      "tree_id": 2,
+      "label": "Logistics",
+      "order": 0
+    }
+  },
+  {
+    "pk": 3,
+    "model": "treenav.menuitem",
+    "fields": {
+      "is_enabled": true,
+      "rght": 6,
+      "parent": 1,
+      "level": 2,
+      "object_id": null,
+      "slug": "tips",
+      "lft": 5,
+      "href": "/about/tips/",
+      "link": "/about/tips/",
+      "content_type": null,
+      "tree_id": 2,
+      "label": "Tips",
+      "order": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "treenav.menuitem",
+    "fields": {
+      "is_enabled": true,
+      "rght": 8,
+      "parent": 1,
+      "level": 2,
+      "object_id": null,
+      "slug": "pastcamps",
+      "lft": 7,
+      "href": "/about/pastcamps/",
+      "link": "/about/pastcamps/",
+      "content_type": null,
+      "tree_id": 2,
+      "label": "PastCamps",
+      "order": 2
+    }
+  },
+  {
+    "pk": 5,
+    "model": "treenav.menuitem",
+    "fields": {
+      "is_enabled": true,
+      "rght": 11,
+      "parent": 8,
+      "level": 1,
+      "object_id": null,
+      "slug": "schedule",
+      "lft": 10,
+      "href": "/schedule/",
+      "link": "/schedule/",
+      "content_type": null,
+      "tree_id": 2,
+      "label": "Schedule",
+      "order": 1
+    }
+  },
+  {
+    "pk": 6,
+    "model": "treenav.menuitem",
+    "fields": {
+      "is_enabled": true,
+      "rght": 13,
+      "parent": 8,
+      "level": 1,
+      "object_id": null,
+      "slug": "sponsorship",
+      "lft": 12,
+      "href": "/sponsors/",
+      "link": "/sponsors/",
+      "content_type": null,
+      "tree_id": 2,
+      "label": "Sponsorship",
+      "order": 2
+    }
+  },
+  {
+    "pk": 7,
+    "model": "treenav.menuitem",
+    "fields": {
+      "is_enabled": true,
+      "rght": 15,
+      "parent": 8,
+      "level": 1,
+      "object_id": null,
+      "slug": "how-to",
+      "lft": 14,
+      "href": "/how-to/",
+      "link": "/how-to/",
+      "content_type": null,
+      "tree_id": 2,
+      "label": "Host your own",
+      "order": 3
+    }
+  },
+  {
+    "pk": 8,
+    "model": "treenav.menuitem",
+    "fields": {
+      "is_enabled": true,
+      "rght": 16,
+      "parent": null,
+      "level": 0,
+      "object_id": null,
+      "slug": "transparencycamp",
+      "lft": 1,
+      "href": "/",
+      "link": "/",
+      "content_type": null,
+      "tree_id": 2,
+      "label": "TransparencyCamp",
+      "order": 0
+    }
+  }
+]

@@ -26,7 +26,7 @@ south
 python-social-auth
 python-flickr
 python-openid
--e git://github.com/jcarbaugh/django-googleauth.git#egg=googleauth
+-e git://github.com/drinks/django-googleauth.git#egg=googleauth
 
 gunicorn
 gaffer

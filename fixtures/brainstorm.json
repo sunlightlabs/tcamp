@@ -1,1 +1,160 @@
-[{"pk": "ideas", "model": "brainstorm.subsite", "fields": {"upvotes_label": "<span class=\"upvotes\">{0}</span>", "name": "TCamp13 Brainstorm", "upvote_label": "Vote Up", "post_status": 0, "timestamp": "2013-03-04T17:24:03", "downvotes_label": "<span class=\"downvotes\">{0}</span>", "ideas_per_page": 20, "theme": "brainstorm/default.html", "idea_label": "idea", "downvote_label": "Vote Down", "scoring_algorithm": 0, "allow_downvote": true, "voted_label": "Clear Vote", "description": "What issues, topics, and ideas do you want to hear discussed at TransparencyCamp 2013? This is your space to suggest sessions (that you either want to lead or see others lead) and to vote for your favorites. Although the majority of the schedule will still be created on site during TCamp13, the most popular events from this forum will become the first sessions on Day One of the Camp. Voting will close 2 days before Camp starts and folks will be notified in advance if their session made it into the starting block."}}, {"pk": 4, "model": "brainstorm.idea", "fields": {"description": "Want to help the transparency community but aren't sure where to start? Lots of projects are open source, but may not have the documentation or help available to help you get started contributing right away. Here are 10 projects that you can jump into right now. Audience participation welcome!", "title": "How Can I Help? 10 Projects That Need Your Coding Skills or Volunteer Help Right Now", "timestamp": "2013-03-05T14:17:51", "downvotes": 0, "score": 2, "user": null, "is_public": true, "upvotes": 2, "subsite": "ideas", "email": "kdevine@sunlightfoundation.com", "name": "Kaitlin Devine"}}, {"pk": 5, "model": "brainstorm.idea", "fields": {"description": "Good questions insist on accountability, and good questioners insist on real answers, not obfuscations.\r\nWhen we as individuals and as a society fail to ask good questions of those with power or those who act in our name, democracy falters. So, how can we foster more asking of good questions (and less of bad ones)? See http://www.goodquestionproject.com for more on this work in progress.", "title": "The Good Question Project", "timestamp": "2013-03-06T18:34:45", "downvotes": 0, "score": 1, "user": null, "is_public": true, "upvotes": 1, "subsite": "ideas", "email": "msifry@gmail.com", "name": "Micah Sifry"}}, {"pk": 2, "model": "brainstorm.idea", "fields": {"description": "this is another test to hide instead of delete.", "title": "Another test", "timestamp": "2013-03-04T17:55:16", "downvotes": 0, "score": 0, "user": null, "is_public": false, "upvotes": 0, "subsite": "ideas", "email": "dan.drinkard@gmail.com", "name": "Dan Drinkard"}}, {"pk": 3, "model": "brainstorm.idea", "fields": {"description": "this government is sorely in need of pants . strong pants that can withstand the fierce winds threatening to blow them from the breeches of good governance . in this session we would discuss the merits of left side top stitching ; hidden casing for elastics ; and the dirty secrets hidden inside gussets ; and \"pleats : friend or foe?\" . invited are any haberdashers , tailors , mantua-makers , seamstresses and sweatshop workers interested in covering america w/ a brighter stronger pant of today for a better tomorrow .", "title": "pants", "timestamp": "2013-03-05T11:13:44", "downvotes": 4, "score": -4, "user": null, "is_public": false, "upvotes": 0, "subsite": "ideas", "email": "pants@pants.com", "name": "senior pants"}}, {"pk": 11, "model": "brainstorm.vote", "fields": {"timestamp": "2013-03-07T15:47:15", "user": 3, "value": 1, "idea": 5}}, {"pk": 10, "model": "brainstorm.vote", "fields": {"timestamp": "2013-03-05T16:47:57", "user": 3, "value": 1, "idea": 4}}, {"pk": 9, "model": "brainstorm.vote", "fields": {"timestamp": "2013-03-05T16:18:53", "user": 10, "value": 1, "idea": 4}}, {"pk": 8, "model": "brainstorm.vote", "fields": {"timestamp": "2013-03-05T11:43:01", "user": 11, "value": -1, "idea": 3}}, {"pk": 7, "model": "brainstorm.vote", "fields": {"timestamp": "2013-03-05T11:31:08", "user": 3, "value": -1, "idea": 3}}, {"pk": 6, "model": "brainstorm.vote", "fields": {"timestamp": "2013-03-05T11:28:17", "user": 13, "value": -1, "idea": 3}}, {"pk": 5, "model": "brainstorm.vote", "fields": {"timestamp": "2013-03-05T11:17:47", "user": 10, "value": -1, "idea": 3}}]
+[
+  {
+    "pk": "ideas",
+    "model": "brainstorm.subsite",
+    "fields": {
+      "upvotes_label": "<span class=\"upvotes\">{0}</span>",
+      "name": "TCamp13 Brainstorm",
+      "upvote_label": "Vote Up",
+      "post_status": 0,
+      "timestamp": "2013-03-04T17:24:03",
+      "downvotes_label": "<span class=\"downvotes\">{0}</span>",
+      "ideas_per_page": 20,
+      "theme": "brainstorm/default.html",
+      "idea_label": "idea",
+      "downvote_label": "Vote Down",
+      "scoring_algorithm": 0,
+      "allow_downvote": true,
+      "voted_label": "Clear Vote",
+      "description": "What issues, topics, and ideas do you want to hear discussed at TransparencyCamp 2013? This is your space to suggest sessions (that you either want to lead or see others lead) and to vote for your favorites. Although the majority of the schedule will still be created on site during TCamp13, the most popular events from this forum will become the first sessions on Day One of the Camp. Voting will close 2 days before Camp starts and folks will be notified in advance if their session made it into the starting block."
+    }
+  },
+  {
+    "pk": 4,
+    "model": "brainstorm.idea",
+    "fields": {
+      "description": "Want to help the transparency community but aren't sure where to start? Lots of projects are open source, but may not have the documentation or help available to help you get started contributing right away. Here are 10 projects that you can jump into right now. Audience participation welcome!",
+      "title": "How Can I Help? 10 Projects That Need Your Coding Skills or Volunteer Help Right Now",
+      "timestamp": "2013-03-05T14:17:51",
+      "downvotes": 0,
+      "score": 2,
+      "user": null,
+      "is_public": true,
+      "upvotes": 2,
+      "subsite": "ideas",
+      "email": "kdevine@sunlightfoundation.com",
+      "name": "Kaitlin Devine"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "brainstorm.idea",
+    "fields": {
+      "description": "Good questions insist on accountability, and good questioners insist on real answers, not obfuscations.\r\nWhen we as individuals and as a society fail to ask good questions of those with power or those who act in our name, democracy falters. So, how can we foster more asking of good questions (and less of bad ones)? See http://www.goodquestionproject.com for more on this work in progress.",
+      "title": "The Good Question Project",
+      "timestamp": "2013-03-06T18:34:45",
+      "downvotes": 0,
+      "score": 1,
+      "user": null,
+      "is_public": true,
+      "upvotes": 1,
+      "subsite": "ideas",
+      "email": "msifry@gmail.com",
+      "name": "Micah Sifry"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "brainstorm.idea",
+    "fields": {
+      "description": "this is another test to hide instead of delete.",
+      "title": "Another test",
+      "timestamp": "2013-03-04T17:55:16",
+      "downvotes": 0,
+      "score": 0,
+      "user": null,
+      "is_public": false,
+      "upvotes": 0,
+      "subsite": "ideas",
+      "email": "dan.drinkard@gmail.com",
+      "name": "Dan Drinkard"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "brainstorm.idea",
+    "fields": {
+      "description": "this government is sorely in need of pants . strong pants that can withstand the fierce winds threatening to blow them from the breeches of good governance . in this session we would discuss the merits of left side top stitching ; hidden casing for elastics ; and the dirty secrets hidden inside gussets ; and \"pleats : friend or foe?\" . invited are any haberdashers , tailors , mantua-makers , seamstresses and sweatshop workers interested in covering america w/ a brighter stronger pant of today for a better tomorrow .",
+      "title": "pants",
+      "timestamp": "2013-03-05T11:13:44",
+      "downvotes": 4,
+      "score": -4,
+      "user": null,
+      "is_public": false,
+      "upvotes": 0,
+      "subsite": "ideas",
+      "email": "pants@pants.com",
+      "name": "senior pants"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "brainstorm.vote",
+    "fields": {
+      "timestamp": "2013-03-07T15:47:15",
+      "user": 3,
+      "value": 1,
+      "idea": 5
+    }
+  },
+  {
+    "pk": 10,
+    "model": "brainstorm.vote",
+    "fields": {
+      "timestamp": "2013-03-05T16:47:57",
+      "user": 3,
+      "value": 1,
+      "idea": 4
+    }
+  },
+  {
+    "pk": 9,
+    "model": "brainstorm.vote",
+    "fields": {
+      "timestamp": "2013-03-05T16:18:53",
+      "user": 10,
+      "value": 1,
+      "idea": 4
+    }
+  },
+  {
+    "pk": 8,
+    "model": "brainstorm.vote",
+    "fields": {
+      "timestamp": "2013-03-05T11:43:01",
+      "user": 11,
+      "value": -1,
+      "idea": 3
+    }
+  },
+  {
+    "pk": 7,
+    "model": "brainstorm.vote",
+    "fields": {
+      "timestamp": "2013-03-05T11:31:08",
+      "user": 3,
+      "value": -1,
+      "idea": 3
+    }
+  },
+  {
+    "pk": 6,
+    "model": "brainstorm.vote",
+    "fields": {
+      "timestamp": "2013-03-05T11:28:17",
+      "user": 13,
+      "value": -1,
+      "idea": 3
+    }
+  },
+  {
+    "pk": 5,
+    "model": "brainstorm.vote",
+    "fields": {
+      "timestamp": "2013-03-05T11:17:47",
+      "user": 10,
+      "value": -1,
+      "idea": 3
+    }
+  }
+]

@@ -1,0 +1,1 @@
+tcamp/manage.py

@@ -38,6 +38,7 @@ LOGIN_REDIRECT_URL = '/logged-in/'
 LOGOUT_URL = '/logout/'
 GOOGLEAUTH_DOMAIN = 'sunlightfoundation.com'
 GOOGLEAUTH_IS_STAFF = True
+GOOGLEAUTH_GROUPS = ('staff', )
 GOOGLEAUTH_REALM = 'transparencycamp.org'
 
 DEBUG_TOOLBAR_CONFIG = {
