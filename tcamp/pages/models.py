@@ -1,9 +1,11 @@
 import re
 
 from django.conf import settings
+from django.core.cache import cache
 from django.db import models
 from django.template import TemplateSyntaxError
 from django.template.loader import get_template, get_template_from_string
+from django.db.models.signals import post_save
 
 from markupfield.fields import MarkupField
 from taggit.managers import TaggableManager
@@ -72,6 +74,10 @@ class Page(models.Model):
     def get_absolute_url(self):
         return self.path
 
+    @property
+    def cache_key(self):
+        return 'pages.page.%s' % self.path
+
     def blocks_as_template_string(self):
         return "\n".join([block.as_template_string() for block in self.blocks.all()])
 
@@ -86,6 +92,9 @@ class Page(models.Model):
         return base_template.lstrip("\r\n\t").format(**ctx).replace("%%", '%')
 
     def as_renderable(self):
+        cached = cache.get(self.cache_key)
+        if cached:
+            return cached
         renderable = None
         tries = 0
         template_string = self.as_template_string()
@@ -108,6 +117,7 @@ class Page(models.Model):
             raise TemplateSyntaxError('''The Pages app tried and failed to
                 remove duplicate blocks from your template. Take a look
                 at settings.PAGES_BASE_TEMPLATE''')
+        cache.set(self.cache_key, renderable)
         return renderable
 
     def save(self, **kwargs):
@@ -124,8 +134,17 @@ class Block(models.Model):
     def __unicode__(self):
         return u"'%s' on %s" % (self.name, self.page)
 
+    @property
+    def cache_key(self):
+        return 'pages.block.%s.%s' % (self.page, self.name)
+
     def as_template_string(self):
-        return '{%% block %s %%}%s{%% endblock %%}' % (self.name, self.content.rendered)
+        cached = cache.get(self.cache_key)
+        if cached:
+            return cached
+        template_string = '{%% block %s %%}%s{%% endblock %%}' % (self.name, self.content.rendered)
+        cache.set(self.cache_key, template_string)
+        return template_string
 
 
 class Chunk(models.Model):
@@ -138,3 +157,20 @@ class Chunk(models.Model):
 
     def __unicode__(self):
         return self.slug
+
+    @property
+    def cache_key(self):
+        return 'pages.chunk.%s' % self.slug
+
+
+def clear_cache(sender, instance, **kwargs):
+    from django.core.cache import cache
+    try:
+        key = instance.cache_key
+    except:
+        return
+    cache.delete(key)
+
+post_save.connect(clear_cache, sender=Chunk)
+post_save.connect(clear_cache, sender=Block)
+post_save.connect(clear_cache, sender=Page)

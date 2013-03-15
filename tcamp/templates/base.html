@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load compress staticfiles pages_tags treenav_tags %}
+{% load compress staticfiles pages_tags treenav_tags cache repl %}
 <!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
@@ -78,6 +78,15 @@
 
     <div id="content">
         <div class="container">
+            <div class="row">
+                <div class="span12">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <p class="alert alert-{{ message.tags }}">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
         {% block content %}
         {% endblock content %}
         </div>
@@ -112,6 +121,7 @@
 
     {% endblock container %}
     {% compress js %}
+    <script src="{% static "scripts/underscore.js" %}"></script>
     <script src="{% static "scripts/jquery.js" %}"></script>
     <script src="{% static "scripts/bootstrap.js" %}"></script>
     <script src="http://assets.sunlightfoundation.com/sfapp/static/js/sfapp.js"></script>
