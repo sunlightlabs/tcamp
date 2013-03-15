@@ -27,8 +27,8 @@
                         </span>
                         {% if not forloop.last %}, {% endif %}
                         {% endspaceless %}
-                        <span class="location">{{ session.location }}</span>
                         {% endfor %}
+                        <span class="location">{{ session.location }}</span>
                     </p>
                 </li>
                 {% empty %}
