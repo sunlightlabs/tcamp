@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load markdown_deux_tags %}
+
+{% block content %}
+<h2>{{ session.title }}</h2>
+{% if session.is_public %}
+<h5>{{ session.start_time|date:"N j, H:i a"}}, {{ session.location }}</h5>
+{% endif %}
+<p class="meta">
+    {% for speaker in session.speakers %}
+    {% spaceless %}
+        <span class="speaker">{{ speaker.name }}
+        {% if speaker.twitter %} <a class="muted" href="http://twitter.com/{{ speaker.twitter }}">@{{ speaker.twitter }}</a>{% endif %}
+        </span>
+        {% if not forloop.last %}, {% endif %}
+    {% endspaceless %}
+    {% endfor %}
+</p>
+{{ session.description|markdown }}
+
+{% endblock %}

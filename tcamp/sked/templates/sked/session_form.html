@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block title %}Submit a new Session{% endblock %}
+
+{% block content %}
+{% if request.path|slice:"-4:" == "new/" %}
+<form action="{% url "sked:new_session" event.slug %}" method="post" class="form-horizontal">
+{% else %}
+<form action="{% url "sked:edit_session" event.slug session.slug %}?{{ session.edit_key }}" method="post" class="form-horizontal">
+{% endif %}
+    {% csrf_token %}
+    <h3>Submit a new Session</h3>
+    {{ form.non_field_errors }}
+    <fieldset>
+        <legend>Basic Information</legend>
+        <div class="control-group">
+            <label for="title">Session Title</label>
+            <div class="controls">
+                {{ form.title.errors }}
+                {{ form.title }}
+                {% if form.title.help_text %}
+                <p class="help-block">
+                    {{ form.title.help_text}}
+                </p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="description">Brief Abstract</label>
+            <div class="controls">
+                {{ form.description.errors }}
+                {{ form.description }}
+                {% if form.description.help_text %}
+                <p class="help-block">
+                    {{ form.description.help_text}}
+                </p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="extra_data_has_slides">Do you have slides to accompany your session?</label>
+            <div class="controls">
+                <select name="extra_data[has_slides]" id="extra_data_has_slides" class="span2">
+                    <option value="false">No</option>
+                    <option value="true" {% if form.extra_data.data.has_slides %}selected="selected"{% endif %}>Yes</option>
+                </select>
+                <p class="help-block alert alert-warning {% if not form.extra_data.data.has_slides %}hide{% endif %}">
+                    Don't forget your laptop and connector! We'll have a few spare
+                    connectors, but we won't be able to promise their availability.
+                    You can request a connector from the registration desk on the way to
+                    your session, if you need one.
+                </p>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Speaker Information</legend>
+        <div class="control-group" id="speaker_0">
+            <label for="speakers_0_name">Speaker 1</label>
+            <div class="controls">
+                {{ form.speakers.errors }}
+                <input type="text" id="speakers_0_name" name="speakers[name]" placeholder="Full Name" value="{{ form.speakers.data.0.name }}" />
+                <input type="text" id="speakers_0_email" name="speakers[email]" placeholder="Your Email" value="{{ form.speakers.data.0.email }}" />
+                <div class="input-prepend">
+                    <span class="add-on">@</span>
+                    <input type="text" id="speakers_0_twitter" name="speakers[twitter]" placeholder="Twitter (optional)" value="{{ form.speakers.data.0.twitter }}" />
+                </div>
+                <input type="text" class="input-xxlarge" id="speakers_0_position" name="speakers[position]" placeholder="Job Title at Organization (optional)" value="{{ form.speakers.data.0.position }}" />
+            </div>
+        </div>
+        {% for speaker in form.speakers.data %}
+        {% if not forloop.first %}
+        <div class="control-group" id="speaker_{{ forloop.counter|add:-1 }}">
+            <label for="speakers_{{ forloop.counter|add:-1 }}_name">Speaker {{ forloop.counter }}</label>
+            <div class="controls">
+                <input type="text" id="speakers_{{ forloop.counter|add:-1 }}_name" name="speakers[name]" placeholder="Full Name" value="{{ speaker.name }}" />
+                <div class="input-prepend">
+                    <span class="add-on">@</span>
+                    <input type="text" id="speakers_{{ forloop.counter|add:-1 }}_twitter" name="speakers[twitter]" placeholder="Twitter (optional)" value="{{ speaker.twitter }}">
+                </div>
+                <input type="text" class="input-xxlarge" id="speakers_{{ forloop.counter|add:-1 }}_position" name="speakers[position]" placeholder="Job Title at Organization (optional)" value="{{ speaker.position }}" />
+                <a href="#" class="close pull-right" data-action="remove">&times;</a>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <div class="control-group" id="add_speaker">
+            <div class="controls">
+                <a href="#" class="btn btn-link"><span>+</span> Add a speaker</a>
+            </div>
+        </div>
+    </fieldset>
+    <div class="control-group">
+        <div class="controls">
+            {% if request.path|slice:"-4:" != "new/" %}
+            <button class="btn btn-primary" type="submit">Save Changes</button>
+            <button class="btn btn-danger" name="delete" value="delete">Delete This Session</button>
+            {% else %}
+            <button class="btn btn-primary" type="submit">Submit</button>
+            {% endif %}
+        </div>
+    </div>
+</form>
+
+<script type="template" id="new_speaker" type="text/underscore_template">
+<div class="control-group" id="speaker_<%= idx %>">
+    <label for="speakers_<%= idx %>_name">Speaker <%= idx + 1 %></label>
+    <div class="controls">
+        <input type="text" id="speakers_<%= idx %>_name" name="speakers[name]" placeholder="Full Name" value="" />
+        <div class="input-prepend">
+            <span class="add-on">@</span>
+            <input type="text" id="speakers_<%= idx %>_twitter" name="speakers[twitter]" placeholder="Twitter (optional)" value="">
+        </div>
+        <input type="text" class="input-xxlarge" id="speakers_<%= idx %>_position" name="speakers[position]" placeholder="Job Title at Organization (optional)" value="" />
+        <a href="#" class="close pull-right" data-action="remove">&times;</a>
+    </div>
+</div>
+</script>
+
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script>
+(function($, window, undefined){
+    $(function(){
+        // add speaker button
+        var newSpeaker = _.template($('#new_speaker').html());
+        $('#add_speaker a[href="#"]').click(function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            var idx = $(this).parents('fieldset')
+                    .find('div.control-group[id^="speaker_"]').length;
+            $(this).parents('.control-group').before(newSpeaker({idx: idx}));
+        });
+
+        // bind speaker remove links
+        $('body').on('click', '.control-group[id^="speaker_"] a[data-action="remove"]', function(e){
+            e.preventDefault();
+            $(this).parents('.control-group').remove();
+        });
+
+        // toggle slide notice when select changes to yes
+        $('#extra_data_has_slides').change(function(){
+            if($(this).val() == 'true'){
+                $(this).parents('.controls').find('.help-block').fadeIn();
+            }else{
+                $(this).parents('.controls').find('.help-block').fadeOut();
+            }
+        });
+
+        $('.btn-danger').click(function(e){
+            var ok = confirm('Are you sure? This will delete your proposal.');
+            if(!ok){
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        })
+    });
+})(jQuery, this);
+</script>
+{% endblock %}

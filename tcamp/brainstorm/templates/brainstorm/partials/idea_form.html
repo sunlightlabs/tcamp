@@ -1,6 +1,6 @@
 {% load brainstorm %}
 {% if request.user|can_post_in:subsite %}
-    <form class="brainstorm brainstorm-form" action="{% url "new_idea" subsite.slug %}" method="post">
+    <form class="brainstorm brainstorm-form" action="{% url "brainstorm:new_idea" subsite.slug %}" method="post">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <fieldset>

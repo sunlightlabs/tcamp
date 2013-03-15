@@ -45,7 +45,7 @@ class Subsite(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('ideas_popular', args=[self.slug])
+        return reverse('brainstorm:ideas_popular', args=[self.slug])
 
     @property
     def theme_path(self):
@@ -97,7 +97,7 @@ class Idea(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('idea_detail', args=[self.subsite_id, self.id])
+        return reverse('brainstorm:idea_detail', args=[self.subsite_id, self.id])
 
     def calculate_score(self):
         if self.subsite.scoring_algorithm is FRECENCY:

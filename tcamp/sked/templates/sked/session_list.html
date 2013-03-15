@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="span9"><h2>{{ event.name }} Schedule</h2></div>
+    <div class="span3"><a href="{% url "sked:new_session" event.slug %}" class="btn btn-large">Submit a Session</a></div>
+</div>
+{% regroup session_list by start_time as grouped_sessions %}
+{% for sessions in grouped_sessions %}
+<div class="row">
+    <div class="span12">
+        <h4>{{ sessions.grouper|date:"H:i a" }}</h4>
+        {% if sessions.list|length == 1 %}
+        <h3>{{ sessions.list.0.title }}</h3>
+        <p class="meta">{{ sessions.list.0.location }}</p>
+        {% else %}
+        <div class="row">
+            <ul class="unstyled clearfix">
+                {% for session in sessions.list %}
+                <li class="span6">
+                    <h4><a href="{% url "sked:session_detail" event.slug session.slug %}">{{ session.title }}</a></h4>
+                    <p class="meta">
+                        {% for speaker in session.speakers %}
+                        {% spaceless %}
+                        <span class="speaker">{{ speaker.name }}
+                        {% if speaker.twitter %} <a class="muted" href="http://twitter.com/{{ speaker.twitter }}">@{{ speaker.twitter }}</a>{% endif %}
+                        </span>
+                        {% if not forloop.last %}, {% endif %}
+                        {% endspaceless %}
+                        <span class="location">{{ session.location }}</span>
+                        {% endfor %}
+                    </p>
+                </li>
+                {% empty %}
+                <li class="span12">There are no sessions in this time slot.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

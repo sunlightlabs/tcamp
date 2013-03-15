@@ -1,6 +1,7 @@
 from django.db import models
 
-from sked.models import Event
+from sked.models import Event, Session
+from brainstorm.models import Idea
 
 
 class SponsorshipLevelManager(models.Manager):

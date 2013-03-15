@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from taggit.models import Tag, TaggedItem
-from sked.models import Event, Session
+from sked.models import Event, Location, Session
 
 
 class SessionTagsListFilter(admin.SimpleListFilter):
@@ -34,13 +34,35 @@ class EventAdmin(admin.ModelAdmin):
     inlines = (SessionInline, )
 
 
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'event', 'is_official', )
+    list_editable = ('event', 'is_official', )
+    list_filter = ('event', )
+    search_fields = ('name', )
+
+
 class SessionAdmin(admin.ModelAdmin):
-    list_display = ('title', 'url', 'speaker_names', 'start_time', 'is_public',
-                    'published_by', )
+    list_display = ('title', 'url', 'speaker_names', 'start_time',
+                    'location', 'is_public', 'published_by', )
+    list_editable = ('start_time', 'location', )
+    readonly_fields = ('is_public', )
     list_filter = (SessionTagsListFilter, 'published_by', )
     prepopulated_fields = {'slug': ('title', )}
     search_fields = ('title', 'description', 'speaker_names')
     date_hierarchy = 'start_time'
+    actions = ['make_public', ]
+    raw_id_fields = ('location', )
+    autocomplete_lookup_fields = {
+        'fk': ['location', ]
+    }
+
+    def make_public(modeladmin, request, queryset):
+        for obj in queryset.filter():
+            obj.__dict__.update(is_public=True, published_by=request.user)
+            obj.save()
+    make_public.short_description = 'Make selected sessions public'
+
 
 admin.site.register(Event, EventAdmin)
+admin.site.register(Location, LocationAdmin)
 admin.site.register(Session, SessionAdmin)
