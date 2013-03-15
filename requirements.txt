@@ -10,15 +10,17 @@ boto>=2.8
 django-compressor
 django-storages
 django-tastypie
-django-postmark
 django-disqus
 django-taggit
 django-treenav
 django-reversion
 django-markdown-deux
 django-markitup
+django-timedeltafield
 python-dateutil==1.5
+python-postmark
 validictory
+djutils
 jsonfield
 south
 -e git://github.com/jamesturk/django-markupfield.git#egg=markupfield
