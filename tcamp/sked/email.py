@@ -12,6 +12,8 @@ class SessionConfirmationEmailThread(threading.Thread):
         super(SessionConfirmationEmailThread, self).__init__(**kwargs)
 
     def run(self):
+        if settings.DEBUG is True:
+            return
         send_mail('[TCamp] Session confirmation & edit link',
                   '''Thanks for submitting a session at TCamp! We'll \
                      be reviewing all of the proposals, and you'll get \
@@ -34,6 +36,8 @@ class SessionApprovedEmailThread(threading.Thread):
         super(SessionApprovedEmailThread, self).__init__(**kwargs)
 
     def run(self):
+        if settings.DEBUG is True:
+            return
         send_mail('[TCamp] Your Session is on the wall!',
                   '''Your session has been approved and scheduled for:
 

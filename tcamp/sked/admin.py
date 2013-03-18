@@ -42,7 +42,7 @@ class LocationAdmin(admin.ModelAdmin):
 
 
 class SessionAdmin(admin.ModelAdmin):
-    list_display = ('title', 'url', 'speaker_names', 'start_time',
+    list_display = ('title', 'url', 'speaker_names', 'contact_email', 'start_time',
                     'location', 'is_public', 'published_by', )
     list_editable = ('start_time', 'location', )
     readonly_fields = ('is_public', )

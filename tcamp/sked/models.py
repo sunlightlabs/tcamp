@@ -186,6 +186,13 @@ class Session(models.Model):
             return ''
 
     @property
+    def contact_email(self):
+        try:
+            return self.speakers[0]['email']
+        except:
+            return None
+
+    @property
     def url(self):
         return self.get_absolute_url()
 
@@ -198,6 +205,9 @@ class Session(models.Model):
 def send_confirmation_email(sender, **kwargs):
     instance = kwargs['instance']
     created = kwargs['created']
-    if not created or not (len(instance.speakers) and instance.speakers[0].get('email')):
+    if (settings.DEBUG is True or
+            not created or
+            not (len(instance.speakers) and instance.speakers[0].get('email')) or
+            instance.is_public):
         return
     SessionConfirmationEmailThread(instance).run()
