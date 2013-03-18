@@ -48,9 +48,9 @@ class SessionAdmin(admin.ModelAdmin):
     readonly_fields = ('is_public', )
     list_filter = (SessionTagsListFilter, 'published_by', )
     prepopulated_fields = {'slug': ('title', )}
-    search_fields = ('title', 'description', 'speaker_names')
+    search_fields = ('title', 'description', 'speakers')
     date_hierarchy = 'start_time'
-    actions = ['make_public', ]
+    actions = ['make_public', 'unpublish', ]
     raw_id_fields = ('location', )
     autocomplete_lookup_fields = {
         'fk': ['location', ]
@@ -61,6 +61,12 @@ class SessionAdmin(admin.ModelAdmin):
             obj.__dict__.update(is_public=True, published_by=request.user)
             obj.save()
     make_public.short_description = 'Make selected sessions public'
+
+    def unpublish(modeladmin, request, queryset):
+        for obj in queryset.filter():
+            obj.__dict__.update(is_public=False, published_by=request.user)
+            obj.save()
+    unpublish.short_description = 'Unpublish selected sessions'
 
 
 admin.site.register(Event, EventAdmin)
