@@ -1,5 +1,6 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 
-urlpatterns = patterns('sms',
+urlpatterns = patterns('sms.views',
     # url(r'^$', 'tcamp.views.home', name='home'),
+    url(r'^$', 'coming_up'),
 )

@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from taggit.models import Tag, TaggedItem
 from sked.models import Event, Location, Session
+from sked.email import SessionApprovedEmailThread
 
 
 class SessionTagsListFilter(admin.SimpleListFilter):
@@ -57,9 +58,10 @@ class SessionAdmin(admin.ModelAdmin):
     }
 
     def make_public(modeladmin, request, queryset):
-        for obj in queryset.filter():
+        for obj in queryset.filter(is_public=False):
             obj.__dict__.update(is_public=True, published_by=request.user)
             obj.save()
+            SessionApprovedEmailThread(obj).run()
     make_public.short_description = 'Make selected sessions public'
 
     def unpublish(modeladmin, request, queryset):

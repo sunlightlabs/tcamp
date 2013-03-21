@@ -9,10 +9,10 @@ class SessionConfirmationEmailThread(threading.Thread):
     def __init__(self, session, **kwargs):
         self.session = session
         self.recipient = session.speakers[0]['email']
-        super(SessionConfirmationEmailThread, self).__init__(**kwargs)
+        return super(SessionConfirmationEmailThread, self).__init__(**kwargs)
 
     def run(self):
-        if settings.DEBUG is True:
+        if settings.DEBUG is True and self.recipient not in dict(settings.ADMINS).values():
             return
         send_mail('[TCamp] Session confirmation & edit link',
                   '''Thanks for submitting a session at TCamp! We'll \
@@ -33,10 +33,10 @@ class SessionApprovedEmailThread(threading.Thread):
     def __init__(self, session, **kwargs):
         self.session = session
         self.recipient = session.speakers[0]['email']
-        super(SessionApprovedEmailThread, self).__init__(**kwargs)
+        return super(SessionApprovedEmailThread, self).__init__(**kwargs)
 
     def run(self):
-        if settings.DEBUG is True:
+        if settings.DEBUG is True and self.recipient not in dict(settings.ADMINS).values():
             return
         send_mail('[TCamp] Your Session is on the wall!',
                   '''Your session has been approved and scheduled for:

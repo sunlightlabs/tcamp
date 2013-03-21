@@ -27,6 +27,7 @@ south
 
 python-social-auth
 python-flickr
+python-twitter
 python-openid
 -e git://github.com/jcarbaugh/django-googleauth.git#egg=googleauth
 
@@ -35,4 +36,5 @@ gaffer
 gevent
 psycopg2
 PIL
+pytz
 dj-database-url

@@ -144,8 +144,8 @@ INSTALLED_APPS = (
     'pages',
     'sked',
     'camp',
-    # 'sms',
-    # 'tweets',
+    'sms',
+    'twit',
 )
 
 LOGGING = {

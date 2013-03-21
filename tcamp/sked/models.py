@@ -205,8 +205,7 @@ class Session(models.Model):
 def send_confirmation_email(sender, **kwargs):
     instance = kwargs['instance']
     created = kwargs['created']
-    if (settings.DEBUG is True or
-            not created or
+    if (not created or
             not (len(instance.speakers) and instance.speakers[0].get('email')) or
             instance.is_public):
         return

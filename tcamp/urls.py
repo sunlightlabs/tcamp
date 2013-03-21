@@ -11,6 +11,7 @@ urlpatterns = patterns(
     url(r'^staff/$', RedirectView.as_view(url="/staff/login")),
     url(r'^staff/', include('googleauth.urls')),
     url(r'^schedule/', include('sked.urls', namespace='sked')),
+    url(r'^sms/', include('sms.urls', namespace='sms')),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/', 'redirect_field_name': 'next'}, name='logout'),
     url(r'^', include('social.apps.django_app.urls', namespace='social')),
     url(r'^', include('camp.urls')),
