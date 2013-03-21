@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'tastypie',
     'djutils',
+    'django_twilio',
 
     'django_extensions',
     # 'debug_toolbar',

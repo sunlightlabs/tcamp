@@ -14,6 +14,7 @@ django-disqus
 django-taggit
 django-treenav
 django-reversion
+django-twilio
 django-markdown-deux
 django-markitup
 django-timedeltafield
