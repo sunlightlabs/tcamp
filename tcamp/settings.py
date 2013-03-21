@@ -191,7 +191,7 @@ LOGGING = {
             'level': 'DEBUG',
         },
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['console'],
             'level': 'ERROR',
             'propagate': False,
         },
