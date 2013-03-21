@@ -10,7 +10,7 @@ from sked.models import Event, Session
 def coming_up(request, message, to=None, sender=None, action=None, method=None,
               status_callback=None):
     try:
-        sessions = Session.objects.filter(event_id=Event.objects.current(), is_public=True)
+        sessions = Session.objects.filter(event=Event.objects.current(), is_public=True)
         inmsg = request.REQUEST.get('Body').strip() or 'next'
         if inmsg.lower() == 'next':
             message = _as_sms(Session.objects.next())
