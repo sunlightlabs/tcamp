@@ -10,9 +10,9 @@ class EventResource(ModelResource):
 
 class SessionResource(ModelResource):
     class Meta:
-        queryset = Session.objects.select_related().published().prefetch_related('location')
+        queryset = Session.objects.published().select_related().prefetch_related('location')
 
 
 class LocationResource(ModelResource):
     class Meta:
-        queryset = Location.objects.prefetch_related('events').prefetch_related('sessions')
+        queryset = Location.objects.prefetch_related('events', 'sessions')
