@@ -1,5 +1,6 @@
 from twilio.twiml import Response
 from django_twilio.decorators import twilio_view
+from django.views.decorators.http import require_http_methods
 from django.utils import timezone
 from dateutil.parser import parse as dateparse
 
@@ -7,10 +8,12 @@ from sked.models import Event, Session
 
 
 @twilio_view
+@require_http_methods(['POST', ])
 def coming_up(request):
     sessions = Session.objects.filter(event=Event.objects.current(), is_public=True)
     r = Response()
-    inmsg = request.REQUEST.get('Body').strip() or 'next'
+    inmsg = request.POST.get('Body').strip() or 'next'
+    print inmsg
     if inmsg.lower() == 'next':
         message = _as_sms(Session.objects.next())
     if inmsg.lower() == 'now':
