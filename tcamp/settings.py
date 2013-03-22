@@ -135,7 +135,7 @@ INSTALLED_APPS = (
     'django_twilio',
 
     'django_extensions',
-    # 'debug_toolbar',
+    'debug_toolbar',
     'django_pdb',
     'template_repl',
     'gunicorn',
