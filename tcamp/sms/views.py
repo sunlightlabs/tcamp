@@ -10,13 +10,21 @@ from sked.models import Event, Session
 @twilio_view
 @require_http_methods(['POST', ])
 def coming_up(request):
-    sessions = Session.objects.filter(is_public=True)
+    sessions = Session.objects.filter(is_public=True, event=Event.objects.current())
     r = Response()
     inmsg = request.POST.get('Body').strip() or 'next'
     if inmsg.lower() == 'next':
         messages = _as_sms(Session.objects.next())
     elif inmsg.lower() == 'now':
         messages = _as_sms(Session.objects.current())
+    elif inmsg.lower() == 'lunch':
+        try:
+            messages = _as_sms(Session.objects.filter(start_time__date=timezone.now().date(),
+                                                      title__icontains='lunch')[0])
+        except IndexError:
+            messages = ["No lunch on the schedule for today, sorry."]
+    elif inmsg == '?' or inmsg.lower() == 'help':
+        messages = ["Welcome to TCamp!\n\nOptions:\nnow: Current sessions\nnext: Next timeslot\nlunch: When's lunch?\n<time>, eg. 4:30pm: What's happening at 4:30?"]
     else:
         try:
             ts = dateparse(inmsg).replace(tzinfo=timezone.get_current_timezone())
@@ -26,7 +34,7 @@ def coming_up(request):
 
     l = len(messages)
     for i, message in enumerate(messages):
-        r.sms(message + '\n\n(%d/%d)' % (i+1, l))
+        r.sms(message + '\n(%d/%d)' % (i+1, l))
     return r
 
 
