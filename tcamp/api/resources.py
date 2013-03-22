@@ -7,7 +7,7 @@ from sked.models import Event, Session, Location
 
 class EventResource(ModelResource):
     url = fields.CharField(attribute='url')
-    sessions = fields.ToManyField('api.resources.SessionResource', sessions, blank=True)
+    sessions = fields.ToManyField('api.resources.SessionResource', 'sessions', blank=True)
 
     class Meta:
         queryset = Event.objects.select_related().filter(is_public=True)
