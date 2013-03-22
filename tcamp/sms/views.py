@@ -16,7 +16,7 @@ def coming_up(request):
     print inmsg
     if inmsg.lower() == 'next':
         message = _as_sms(Session.objects.next())
-    if inmsg.lower() == 'now':
+    elif inmsg.lower() == 'now':
         message = _as_sms(Session.objects.current())
     else:
         try:
@@ -31,11 +31,15 @@ def coming_up(request):
 
 def _as_sms(qset):
     msg = 'No events.'
+    now = timezone.now()
     if not qset.count():
         return msg
 
     tm = qset[0].start_time.astimezone(timezone.get_current_timezone())
-    msg = u'At %s:\n' % tm.strftime('%-I:%M')
+    if qset.start_time.date() == now.date():
+        msg = u'At %s:\n' % tm.strftime('%-I:%M')
+    else:
+        msg = u'%s at %s:\n' % (tm.strftime('%A'), tm.strftime('%-I:%M'))
     msg += u'\n\n'.join(['%s (%s)' % (s.title, s.location.name) for s in qset])
 
     return msg
