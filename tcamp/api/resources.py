@@ -2,7 +2,13 @@ from tastypie import fields
 from tastypie.resources import ModelResource
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
+from taggit.models import Tag
 from sked.models import Event, Session, Location
+
+
+class TagResource(ModelResource):
+    class Meta:
+        queryset = Tag.objects.all()
 
 
 class EventResource(ModelResource):
@@ -11,6 +17,8 @@ class EventResource(ModelResource):
 
     class Meta:
         queryset = Event.objects.select_related().filter(is_public=True)
+        excludes = ['is_public', 'label', 'session_label', 'created_at',
+                    'updated_at', 'created_by']
         filtering = {
             'name': ALL,
             'slug': ALL,
@@ -22,11 +30,14 @@ class EventResource(ModelResource):
 class SessionResource(ModelResource):
     event = fields.ToOneField(EventResource, 'event', null=True)
     location = fields.ToOneField('api.resources.LocationResource', 'location', null=True, full=True)
+    tags = fields.ToManyField(TagResource, 'tags', null=True, full=True)
     speaker_names = fields.CharField(attribute='speaker_names')
     url = fields.CharField(attribute='url')
 
     class Meta:
         queryset = Session.objects.published().select_related().prefetch_related('location')
+        excludes = ['speakers', 'extra_data', 'is_public', 'created_at',
+                    'updated_at', 'published_by']
         filtering = {
             'title': ALL,
             'slug': ALL,
@@ -45,6 +56,7 @@ class LocationResource(ModelResource):
 
     class Meta:
         queryset = Location.objects.prefetch_related('event', 'sessions')
+        excludes = ['created_at', 'updated_at']
         filtering = {
             'name': ALL,
             'is_official': ALL,
