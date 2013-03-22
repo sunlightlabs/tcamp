@@ -19,12 +19,15 @@ def coming_up(request):
         messages = _as_sms(Session.objects.current())
     elif inmsg.lower() == 'lunch':
         try:
-            messages = _as_sms(Session.objects.filter(start_time__date=timezone.now().date(),
+            now = timezone.now()
+            messages = _as_sms(Session.objects.filter(start_time__day=now.day,
+                                                      start_time__month=now.month,
+                                                      start_time__year=now.year,
                                                       title__icontains='lunch')[0])
         except IndexError:
             messages = ["No lunch on the schedule for today, sorry."]
     elif inmsg == '?' or inmsg.lower() == 'help':
-        messages = ["Welcome to TCamp!\n\nOptions:\nnow: Current sessions\nnext: Next timeslot\nlunch: When's lunch?\n<time>, eg. 4:30pm: What's happening at 4:30?"]
+        messages = ["Welcome to TCamp!\n\nOptions:\nnow: Current sessions\nnext: Next timeslot\nlunch: When's lunch?\n<time>, eg. 4:30pm: What's happening at 4:30?\n"]
     else:
         try:
             ts = dateparse(inmsg).replace(tzinfo=timezone.get_current_timezone())
