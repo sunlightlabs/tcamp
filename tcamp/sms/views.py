@@ -10,17 +10,16 @@ from sked.models import Event, Session
 @twilio_view
 @require_http_methods(['POST', ])
 def coming_up(request):
-    sessions = Session.objects.filter(event=Event.objects.current(), is_public=True)
+    sessions = Session.objects.filter(is_public=True)
     r = Response()
     inmsg = request.POST.get('Body').strip() or 'next'
-    print inmsg
     if inmsg.lower() == 'next':
         message = _as_sms(Session.objects.next())
     elif inmsg.lower() == 'now':
         message = _as_sms(Session.objects.current())
     else:
         try:
-            ts = dateparse('%s').replace(tzinfo=timezone.get_current_timezone())
+            ts = dateparse(inmsg).replace(tzinfo=timezone.get_current_timezone())
             message = _as_sms(sessions.filter(start_time__lte=ts, end_time__gte=ts))
         except:
             message = 'Unable to parse that time. Try something like "4:30", or "next"'
