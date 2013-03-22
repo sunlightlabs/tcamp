@@ -14,31 +14,38 @@ def coming_up(request):
     r = Response()
     inmsg = request.POST.get('Body').strip() or 'next'
     if inmsg.lower() == 'next':
-        message = _as_sms(Session.objects.next())
+        messages = _as_sms(Session.objects.next())
     elif inmsg.lower() == 'now':
-        message = _as_sms(Session.objects.current())
+        messages = _as_sms(Session.objects.current())
     else:
         try:
             ts = dateparse(inmsg).replace(tzinfo=timezone.get_current_timezone())
-            message = _as_sms(sessions.filter(start_time__lte=ts, end_time__gte=ts))
+            messages = _as_sms(sessions.filter(start_time__lte=ts, end_time__gte=ts))
         except:
-            message = 'Unable to parse that time. Try something like "4:30", or "next"'
+            messages = ['Unable to parse that time. Try something like "4:30", or "next"']
 
-    r.sms(message)
+    for message in messages:
+        r.sms(message)
     return r
 
 
 def _as_sms(qset):
-    msg = 'No events.'
+    msgs = ['No events.']
     now = timezone.now()
     if not qset.count():
-        return msg
+        return msgs
 
     tm = qset[0].start_time.astimezone(timezone.get_current_timezone())
     if tm.date() == now.date():
-        msg = u'At %s:\n' % tm.strftime('%-I:%M')
+        msgs[0] = u'At %s:\n' % tm.strftime('%-I:%M')
     else:
-        msg = u'%s at %s:\n' % (tm.strftime('%A'), tm.strftime('%-I:%M'))
-    msg += u'\n\n'.join(['%s (%s)' % (s.title, s.location.name) for s in qset])
+        msgs[0] = u'%s at %s:\n' % (tm.strftime('%A'), tm.strftime('%-I:%M'))
 
-    return msg
+    for s in qset:
+        line = u'\n%s (%s)\n' % (s.title, s.location.name)
+        if len(msgs[-1] + line) <= 160:
+            msgs[-1] += line
+        else:
+            msgs.append(line)
+
+    return msgs
