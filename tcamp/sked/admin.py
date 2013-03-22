@@ -62,7 +62,8 @@ class SessionAdmin(admin.ModelAdmin):
         for obj in queryset.filter(is_public=False):
             obj.__dict__.update(is_public=True, published_by=request.user)
             obj.save()
-            SessionApprovedEmailThread(obj).run()
+            if obj.speakers:
+                SessionApprovedEmailThread(obj).run()
     make_public.short_description = 'Make selected sessions public'
 
     def unpublish(modeladmin, request, queryset):
