@@ -60,6 +60,10 @@ class SessionAdmin(admin.ModelAdmin):
         'fk': ['location', ]
     }
 
+    def queryset(self, request):
+        qs = super(SessionAdmin, self).queryset(request)
+        return qs.prefetch_related('location')
+
     def make_public(modeladmin, request, queryset):
         for obj in queryset.filter(is_public=False):
             obj.__dict__.update(is_public=True, published_by_id=request.user.id)
