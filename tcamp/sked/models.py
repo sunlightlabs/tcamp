@@ -19,11 +19,11 @@ class EventManager(models.Manager):
     def current(qset, is_public=True):
         cid = getattr(settings, 'CURRENT_EVENT_ID', 0)
         try:
-            conf = qset.select_related().get(pk=int(cid))
+            conf = qset.select_related().prefetch_related('sessions').get(pk=int(cid))
         except Event.DoesNotExist:
             conf = qset.filter()
             if is_public:
-                conf = conf.filter(is_public=True).select_related()
+                conf = conf.select_related().prefetch_related('sessions').filter(is_public=True)
             return conf[0]
         return conf
 

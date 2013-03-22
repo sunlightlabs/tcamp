@@ -12,7 +12,7 @@
         <h4>{{ sessions.grouper|date:"H:i a" }}</h4>
         {% if sessions.list|length == 1 %}
         <h3>{{ sessions.list.0.title }}</h3>
-        <p class="meta">{{ sessions.list.0.location }}</p>
+        <p class="meta">{{ sessions.list.0.location.name }}</p>
         {% else %}
         <div class="row">
             <ul class="unstyled clearfix">
@@ -28,7 +28,7 @@
                         {% if not forloop.last %}, {% endif %}
                         {% endspaceless %}
                         {% endfor %}
-                        <span class="location">{{ session.location }}</span>
+                        <span class="location">{{ session.location.name }}</span>
                     </p>
                 </li>
                 {% empty %}
