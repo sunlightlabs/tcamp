@@ -25,15 +25,18 @@ def coming_up(request):
                                                       start_time__year=now.year,
                                                       title__icontains='lunch')[0])
         except IndexError:
-            messages = ["No lunch on the schedule for today, sorry."]
+            messages = ["No lunch on the schedule for today, sorry.\n"]
     elif inmsg == '?' or inmsg.lower() == 'help':
         messages = ["Welcome to TCamp!\n\nOptions:\nnow: Current sessions\nnext: Next timeslot\nlunch: When's lunch?\n<time>, eg. 4:30pm: What's happening at 4:30?\n"]
     else:
         try:
             ts = dateparse(inmsg).replace(tzinfo=timezone.get_current_timezone())
-            messages = _as_sms(sessions.filter(start_time__lte=ts, end_time__gte=ts))
+            if ts.hour is 0 and ts.minute is 0:
+                messages = ["A lot of stuff can happen in a whole day! Try specifying a time.\n"]
+            else:
+                messages = _as_sms(sessions.filter(start_time__lte=ts, end_time__gte=ts))
         except:
-            messages = ['Unable to parse that time. Try something like "4:30", or "next"']
+            messages = ['Unable to parse that time. Try something like "4:30", or "next"\n']
 
     l = len(messages)
     for i, message in enumerate(messages):
@@ -42,7 +45,7 @@ def coming_up(request):
 
 
 def _as_sms(qset):
-    msgs = ['No events.']
+    msgs = ['No events.\n']
     now = timezone.now()
     if not qset.count():
         return msgs
