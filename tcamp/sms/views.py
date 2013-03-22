@@ -22,7 +22,8 @@ def coming_up(request, message=None, to=None, sender=None, action=None, method=N
         except:
             message = 'Unable to parse that time. Try something like "4:30", or "next"'
 
-    return sms(request, message, to, sender, action, method, status_callback)
+    return sms(request, message=message, to=to, sender=sender, action=action,
+               method=method, status_callback=status_callback)
 
 
 def _as_sms(qset):
