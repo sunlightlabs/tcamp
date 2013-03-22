@@ -1,4 +1,4 @@
-from django_twilio.views import sms
+from twilio.twiml import Response
 from django_twilio.decorators import twilio_view
 from django.utils import timezone
 from dateutil.parser import parse as dateparse
@@ -7,9 +7,9 @@ from sked.models import Event, Session
 
 
 @twilio_view
-def coming_up(request, message=None, to=None, sender=None, action=None, method=None,
-              status_callback=None):
+def coming_up(request):
     sessions = Session.objects.filter(event=Event.objects.current(), is_public=True)
+    r = Response()
     inmsg = request.REQUEST.get('Body').strip() or 'next'
     if inmsg.lower() == 'next':
         message = _as_sms(Session.objects.next())
@@ -18,12 +18,12 @@ def coming_up(request, message=None, to=None, sender=None, action=None, method=N
     else:
         try:
             ts = dateparse('%s').replace(tzinfo=timezone.get_current_timezone())
-            message = _as_sms(sessions.filter(start_time=ts))
+            message = _as_sms(sessions.filter(start_time__lte=ts, end_time__gte=ts))
         except:
             message = 'Unable to parse that time. Try something like "4:30", or "next"'
 
-    return sms(request, message=message, to=to, sender=sender, action=action,
-               method=method, status_callback=status_callback)
+    r.sms(message)
+    return r
 
 
 def _as_sms(qset):
