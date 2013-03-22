@@ -48,6 +48,7 @@ class SessionAdmin(admin.ModelAdmin):
     list_display = ('title', 'url', 'speaker_names', 'contact_email', 'start_time',
                     'location', 'is_public', 'published_by', )
     list_editable = ('start_time', 'location', )
+    list_select_related = True
     readonly_fields = ('is_public', 'published_by', )
     list_filter = (SessionTagsListFilter, 'published_by', )
     prepopulated_fields = {'slug': ('title', )}

@@ -19,11 +19,11 @@ class EventManager(models.Manager):
     def current(qset, is_public=True):
         cid = getattr(settings, 'CURRENT_EVENT_ID', 0)
         try:
-            conf = qset.get(pk=int(cid))
+            conf = qset.select_related().get(pk=int(cid))
         except Event.DoesNotExist:
             conf = qset.filter()
             if is_public:
-                conf = conf.filter(is_public=True)
+                conf = conf.filter(is_public=True).select_related()
             return conf[0]
         return conf
 
@@ -104,27 +104,27 @@ class Location(models.Model):
 class SessionManager(models.Manager):
     def today(qset):
         today = datetime.date.today()
-        return qset.filter(start_time__year=today.year,
-                           start_time__month=today.month,
-                           start_time__day=today.day,
-                           is_public=True)
+        return qset.select_related().filter(start_time__year=today.year,
+                                            start_time__month=today.month,
+                                            start_time__day=today.day,
+                                            is_public=True)
 
     def published(qset):
-        return qset.filter(is_public=True)
+        return qset.select_related().filter(is_public=True)
 
     def current(qset):
         now = datetime.datetime.now()
         current_time_slot = qset.filter(start_time__lte=now).aggregate(
             timeslot=models.Max('start_time')).get('timeslot')
-        return qset.filter(start_time=current_time_slot,
-                           is_public=True)
+        return qset.select_related().filter(start_time=current_time_slot,
+                                            is_public=True)
 
     def next(qset):
         now = datetime.datetime.now()
         next_time_slot = qset.filter(start_time__gt=now).aggregate(
             timeslot=models.Min('start_time')).get('timeslot')
-        return qset.filter(start_time=next_time_slot,
-                           is_public=True)
+        return qset.select_related().filter(start_time=next_time_slot,
+                                            is_public=True)
 
 
 class Session(models.Model):
