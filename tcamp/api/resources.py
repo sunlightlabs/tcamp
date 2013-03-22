@@ -6,6 +6,8 @@ from sked.models import Event, Session, Location
 
 
 class EventResource(ModelResource):
+    url = fields.CharField(attribute='url')
+
     class Meta:
         queryset = Event.objects.select_related().filter(is_public=True)
         filtering = {
@@ -17,6 +19,11 @@ class EventResource(ModelResource):
 
 
 class SessionResource(ModelResource):
+    event = fields.ToOneField(EventResource, 'event', null=True)
+    location = fields.ToOneField('api.resources.LocationResource', 'location', null=True, full=True)
+    speaker_names = fields.CharField(attribute='speaker_names')
+    url = fields.CharField(attribute='url')
+
     class Meta:
         queryset = Session.objects.published().select_related().prefetch_related('location')
         filtering = {
@@ -32,6 +39,9 @@ class SessionResource(ModelResource):
 
 
 class LocationResource(ModelResource):
+    events = fields.ToManyField(EventResource, 'events', null=True)
+    sessions = fields.ToManyField(SessionResource, 'sessions', null=True)
+
     class Meta:
         queryset = Location.objects.prefetch_related('events', 'sessions')
         filtering = {
