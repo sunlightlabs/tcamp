@@ -24,8 +24,9 @@ def coming_up(request):
         except:
             messages = ['Unable to parse that time. Try something like "4:30", or "next"']
 
-    for message in messages:
-        r.sms(message)
+    l = len(messages)
+    for i, message in enumerate(messages):
+        r.sms(message + '\n\n(%d/%d)' % (i+1, l))
     return r
 
 
@@ -43,7 +44,7 @@ def _as_sms(qset):
 
     for s in qset:
         line = u'\n%s (%s)\n' % (s.title, s.location.name)
-        if len(msgs[-1] + line) <= 160:
+        if len(msgs[-1] + line) <= 150:
             msgs[-1] += line
         else:
             msgs.append(line)
