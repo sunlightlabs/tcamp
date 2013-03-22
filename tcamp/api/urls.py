@@ -9,5 +9,5 @@ v1.register(SessionResource())
 v1.register(LocationResource())
 
 urlpatterns = patterns('',
-    url(r'^api/1\.0/', include(v1.urls)),
+    url(r'^', include(v1.urls)),
 )
