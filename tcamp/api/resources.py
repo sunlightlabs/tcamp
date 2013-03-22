@@ -40,11 +40,11 @@ class SessionResource(ModelResource):
 
 
 class LocationResource(ModelResource):
-    events = fields.ToManyField(EventResource, 'events', null=True)
+    event = fields.ToOneField(EventResource, 'event', null=True)
     sessions = fields.ToManyField(SessionResource, 'sessions', null=True)
 
     class Meta:
-        queryset = Location.objects.prefetch_related('events', 'sessions')
+        queryset = Location.objects.prefetch_related('event', 'sessions')
         filtering = {
             'name': ALL,
             'is_official': ALL,
