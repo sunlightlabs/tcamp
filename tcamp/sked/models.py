@@ -137,7 +137,7 @@ class Session(models.Model):
     is_public = models.BooleanField(default=False)
 
     event = models.ForeignKey(Event, related_name='sessions')
-    location = models.ForeignKey(Location, blank=True, null=True)
+    location = models.ForeignKey(Location, blank=True, null=True, related_name='sessions')
     start_time = models.DateTimeField(blank=True, null=True)
     end_time = models.DateTimeField(blank=True, null=True)
 
