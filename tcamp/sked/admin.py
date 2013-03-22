@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from taggit.models import Tag, TaggedItem
 from sked.models import Event, Location, Session
@@ -60,7 +61,8 @@ class SessionAdmin(admin.ModelAdmin):
 
     def make_public(modeladmin, request, queryset):
         for obj in queryset.filter(is_public=False):
-            obj.__dict__.update(is_public=True, published_by=request.user)
+            publisher = User.objects.get(pk=request.user.id)
+            obj.__dict__.update(is_public=True, published_by=publisher)
             obj.save()
             if obj.speakers:
                 SessionApprovedEmailThread(obj).run()

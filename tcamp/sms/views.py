@@ -36,7 +36,7 @@ def _as_sms(qset):
         return msg
 
     tm = qset[0].start_time.astimezone(timezone.get_current_timezone())
-    if qset.start_time.date() == now.date():
+    if tm.date() == now.date():
         msg = u'At %s:\n' % tm.strftime('%-I:%M')
     else:
         msg = u'%s at %s:\n' % (tm.strftime('%A'), tm.strftime('%-I:%M'))
