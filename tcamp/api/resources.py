@@ -4,6 +4,8 @@ from tastypie.constants import ALL, ALL_WITH_RELATIONS
 
 from taggit.models import Tag
 from sked.models import Event, Session, Location
+from brainstorm.models import Subsite, Idea
+from camp.models import SponsorshipLevel, Sponsor
 
 
 class TagResource(ModelResource):
@@ -62,4 +64,57 @@ class LocationResource(ModelResource):
             'is_official': ALL,
             'event': ALL_WITH_RELATIONS,
             'sessions': ALL_WITH_RELATIONS,
+        }
+
+
+class SubsiteResource(ModelResource):
+    url = fields.CharField(attribute='get_absolute_url')
+
+    class Meta:
+        queryset = Subsite.objects.all().select_related()
+        excludes = ['scoring_algorithm', 'theme', 'idea_label',
+                    'ideas_per_page', 'upvote_label', 'upvotes_label',
+                    'allow_downvote', 'downvote_label', 'downvotes_label',
+                    'voted_label']
+        filtering = {
+            'name': ALL,
+            'slug': ALL,
+            'post_status': ALL,
+        }
+
+
+class IdeaResource(ModelResource):
+    class Meta:
+        queryset = Idea.objects.public().select_related()
+        excludes = ['email', 'is_public', 'user', '']
+        filtering = {
+            'title': ALL,
+            'name': ALL,
+            'score': ALL,
+        }
+
+
+class SponsorshipLevelResource(ModelResource):
+    event = fields.ToOneField(EventResource, 'event', null=True, full=True)
+
+    class Meta:
+        queryset = SponsorshipLevel.objects.all().select_related()
+        excludes = ['created_at', 'updated_at']
+        filtering = {
+            'name': ALL,
+            'slug': ALL,
+            'price': ALL,
+            'event': ALL_WITH_RELATIONS,
+        }
+
+
+class SponsorResource(ModelResource):
+    sponsorship = fields.ToOneField(SponsorshipLevelResource, 'sponsorship', null=True, full=True)
+
+    class Meta:
+        queryset = Sponsor.objects.all().select_related()
+        excludes = ['created_at', 'updated_at', 'order']
+        filtering = {
+            'name': ALL,
+            'sponsorship': ALL_WITH_RELATIONS,
         }
