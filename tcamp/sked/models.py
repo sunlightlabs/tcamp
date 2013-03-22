@@ -131,7 +131,7 @@ class Session(models.Model):
     title = models.CharField(max_length=128)
     slug = models.SlugField()
     description = models.TextField(blank=True, help_text="Markdown is supported.")
-    speakers = JSONField(help_text='An array of objects. Each must contain a "name" attribute', default='[]')
+    speakers = JSONField(help_text='An array of objects. Each must contain a "name" attribute', blank=True, default='[]')
     extra_data = JSONField(blank=True, default='{}')
     tags = TaggableManager(blank=True)
     is_public = models.BooleanField(default=False)
