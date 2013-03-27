@@ -71,6 +71,7 @@ class CreateIdea(CreateView):
         kwargs = self.get_form_kwargs()
         kwargs['data'] = kwargs['data'].copy()
         kwargs['data']['subsite'] = subsite.slug
+        kwargs['request'] = self.request
         if not self.request.user.is_anonymous():
             kwargs['data']['user'] = self.request.user.id
         form = form_class(**kwargs)

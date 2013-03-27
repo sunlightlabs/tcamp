@@ -26,6 +26,7 @@ jsonfield
 south
 -e git://github.com/jamesturk/django-markupfield.git#egg=markupfield
 
+akismet
 python-social-auth
 python-flickr
 python-twitter
