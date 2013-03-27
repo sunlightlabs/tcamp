@@ -27,6 +27,7 @@ south
 -e git://github.com/jamesturk/django-markupfield.git#egg=markupfield
 
 akismet
+Markdown
 python-social-auth
 python-flickr
 python-twitter
