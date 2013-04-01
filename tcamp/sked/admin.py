@@ -47,7 +47,7 @@ class LocationAdmin(admin.ModelAdmin):
 class SessionAdmin(admin.ModelAdmin):
     list_display = ('title', 'url', 'speaker_names', 'contact_email', 'start_time',
                     'location', 'is_public', 'published_by', )
-    list_editable = ('start_time', 'location', )
+    # list_editable = ('start_time', 'location', )
     list_select_related = True
     readonly_fields = ('is_public', 'published_by', )
     list_filter = (SessionTagsListFilter, 'published_by', )
@@ -55,13 +55,13 @@ class SessionAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description', 'speakers')
     date_hierarchy = 'start_time'
     actions = ['make_public', 'unpublish', ]
-    # raw_id_fields = ('location', )
-    # related_lookup_fields = {
-    #     'fk': ['location', ],
-    # }
-    # autocomplete_lookup_fields = {
-    #     'fk': ['location', ],
-    # }
+    raw_id_fields = ('location', )
+    related_lookup_fields = {
+        'fk': ['location', ],
+    }
+    autocomplete_lookup_fields = {
+        'fk': ['location', ],
+    }
 
     def queryset(self, request):
         qs = super(SessionAdmin, self).queryset(request)
