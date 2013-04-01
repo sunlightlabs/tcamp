@@ -56,13 +56,16 @@ class SessionAdmin(admin.ModelAdmin):
     date_hierarchy = 'start_time'
     actions = ['make_public', 'unpublish', ]
     raw_id_fields = ('location', )
+    related_lookup_fields = {
+        'fk': ['location', ],
+    }
     autocomplete_lookup_fields = {
-        'fk': ['location', ]
+        'fk': ['location', ],
     }
 
     def queryset(self, request):
         qs = super(SessionAdmin, self).queryset(request)
-        return qs.prefetch_related('location')
+        return qs.select_related().prefetch_related('location', 'published_by')
 
     def make_public(modeladmin, request, queryset):
         for obj in queryset.filter(is_public=False):

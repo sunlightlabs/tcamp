@@ -33,7 +33,7 @@ class EventManager(models.Manager):
 
 class Event(models.Model):
     name = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, db_index=True)
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
     is_public = models.BooleanField(default=False)
@@ -79,7 +79,7 @@ def get_current_event():
 
 
 class Location(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, db_index=True)
     event = models.ForeignKey(Event, related_name='locations', default=get_current_event)
     is_official = models.BooleanField(default=False)
 
@@ -129,9 +129,9 @@ class SessionManager(models.Manager):
 
 class Session(models.Model):
     title = models.CharField(max_length=128)
-    slug = models.SlugField()
+    slug = models.SlugField(db_index=True)
     description = models.TextField(blank=True, help_text="Markdown is supported.")
-    speakers = JSONField(help_text='An array of objects. Each must contain a "name" attribute', blank=True, default='[]')
+    speakers = JSONField(help_text='An array of objects. Each must contain a "name" attribute', blank=True, default='[]', db_index=True)
     extra_data = JSONField(blank=True, default='{}')
     tags = TaggableManager(blank=True)
     is_public = models.BooleanField(default=False)
