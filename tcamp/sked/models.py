@@ -90,7 +90,7 @@ class Location(models.Model):
         ordering = ('-event__start_date', 'name')
 
     def __unicode__(self):
-        return self.name
+        return self.related_label()
 
     def related_label(self):
         return "{0} at {1} ({2})".format(self.name, self.event.name,
