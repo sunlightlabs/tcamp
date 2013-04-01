@@ -55,13 +55,13 @@ class SessionAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description', 'speakers')
     date_hierarchy = 'start_time'
     actions = ['make_public', 'unpublish', ]
-    raw_id_fields = ('location', )
-    related_lookup_fields = {
-        'fk': ['location', ],
-    }
-    autocomplete_lookup_fields = {
-        'fk': ['location', ],
-    }
+    # raw_id_fields = ('location', )
+    # related_lookup_fields = {
+    #     'fk': ['location', ],
+    # }
+    # autocomplete_lookup_fields = {
+    #     'fk': ['location', ],
+    # }
 
     def queryset(self, request):
         qs = super(SessionAdmin, self).queryset(request)
