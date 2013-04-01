@@ -73,6 +73,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "social.apps.django_app.context_processors.login_redirect",
     "sked.context_processors.current_event",
     "brainstorm.context_processors.brainstorm",
+    "camp.context_processors.sponsors",
 )
 
 MIDDLEWARE_CLASSES = (

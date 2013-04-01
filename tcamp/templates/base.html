@@ -28,6 +28,8 @@
     {% endcompress %}
     {% block css %}
     {% endblock css %}
+    <script type="text/javascript" src="//use.typekit.net/jat1nrs.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 <body {% block bodyattrs %}{% endblock %}>
     {% block container %}
@@ -40,16 +42,16 @@
             <div class="container">
                 <div class="row">
                     <div class="span12">
-                        <p class="pull-right">An unconference by <strong class="replace sunlight-brand">The Sunlight Foundation</strong></p>
+                        <p class="pull-right"><a class="hide-text sunlight-brand" href="http://sunlightfoundation.com">An unconference by <strong>The Sunlight Foundation</strong></a></p>
                     </div>
                 </div>
             </div>
         </div>
         {% endblock brandingbar %}
         <div class="masthead">
-            <div class="container">
+            <div class="container stripe">
                 {% block header %}
-                <div class="row">
+                <div class="row-fluid">
                     {% chunk "siteheader" %}
                 </div>
                 <div class="navbar">
@@ -63,7 +65,7 @@
                             {% show_treenav "transparencycamp" full_tree="True" %}
                             {% if CURRENT_EVENT.registration_is_open %}
                             <form action="{{ CURRENT_EVENT.registration_url }}" class="navbar-form pull-right" method="get">
-                                <button class="btn btn-inverse" type="submit">Register Now</button>
+                                <button class="btn btn-primary" type="submit">Register! <span class="hide-text icon icon-forward">&raquo;</span></button>
                             </form>
                             {% endif %}
                         </div>
@@ -77,26 +79,35 @@
     </header>
 
     <div id="content">
-        <div class="container">
-            <div class="row">
+        {% block outercontent %}
+        <div class="container stripe">
+        {% if messages %}
+            <div class="row-fluid">
                 <div class="span12">
-                    {% if messages %}
-                        {% for message in messages %}
-                        <p class="alert alert-{{ message.tags }}">{{ message }}</p>
-                        {% endfor %}
-                    {% endif %}
+                {% for message in messages %}
+                    <p class="alert alert-{{ message.tags }}">{{ message }}</p>
+                {% endfor %}
                 </div>
             </div>
+        {% endif %}
         {% block content %}
         {% endblock content %}
         </div>
+        {% endblock outercontent %}
     </div>
+
+    {% block sponsors %}
+    <div id="sponsors" class="sponsors-inline">
+        {% include "pages:sponsors" %}
+    </div>
+    {% endblock %}
 
     <footer>
     {% block outerfooter %}
-        <div class="sf-footer container">
+    <div class="footer">
+        <div class="sf-footer container module stripe">
             {% block footer %}
-            <div class="row">
+            <div class="row-fluid">
                 <div class="span6 signup span-divider">
                     <h4>Like this Project and Want to Discover Others Like It?</h4>
                     <span class="tip">Join the Sunlight Foundation's open government community to learn more</span>
@@ -115,6 +126,7 @@
             </div>
             {% endblock footer %}
         </div>
+    </div>
     {% endblock outerfooter %}
     </footer>
 
@@ -123,9 +135,11 @@
     {% compress js %}
     <script src="{% static "scripts/underscore.js" %}"></script>
     <script src="{% static "scripts/jquery.js" %}"></script>
+    <script src="{% static "scripts/jquery.fitvids.js" %}"></script>
     <script src="{% static "scripts/bootstrap.js" %}"></script>
     <script src="http://assets.sunlightfoundation.com/sfapp/static/js/sfapp.js"></script>
     <script src="http://assets.sunlightfoundation.com.s3.amazonaws.com/social/scripts/simple-socialite-pack.min.js"></script>
+    <script src="{% static "scripts/app.js" %}"></script>
     {% endcompress %}
     {% block js %}
     {% endblock js %}
