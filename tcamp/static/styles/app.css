@@ -559,7 +559,8 @@ table.table-striped {
     padding-top: 20px; }
   .timeslot .time h3 {
     color: #fff;
-    text-align: center; }
+    text-align: center;
+    margin-top: 0; }
   .timeslot .time-wrap {
     border-right: 2px solid rgba(211, 209, 187, 0.75);
     background: #438381; }
@@ -586,15 +587,18 @@ table.table-striped {
     font-size: 16px; }
   .timeslot .multi .session {
     float: left;
-    width: 48%;
-    padding: 10px 1%; }
-  .timeslot .multi .detail .meta {
+    width: 46%;
+    padding: 10px 2%; }
+    .timeslot .multi .session:nth-child(odd) {
+      clear: left; }
+  .timeslot .multi .meta {
     display: block;
     padding-left: 0; }
-    .timeslot .multi .detail .meta .speaker {
+    .timeslot .multi .meta .speaker {
       float: left; }
-    .timeslot .multi .detail .meta .location {
-      float: right; }
+    .timeslot .multi .meta .location {
+      float: right;
+      font-weight: bold; }
   .timeslot .detail-wrap {
     background: #eaf3f0; }
   .timeslot:nth-child(even) .detail-wrap {
