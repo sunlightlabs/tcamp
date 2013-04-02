@@ -9,6 +9,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from jsonfield import JSONField
+from markupfield.fields import MarkupField
 from timedelta.fields import TimedeltaField
 from taggit.managers import TaggableManager
 
@@ -34,6 +35,8 @@ class EventManager(models.Manager):
 class Event(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, db_index=True)
+    description = MarkupField(blank=True)
+    overview = MarkupField(blank=True)
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
     is_public = models.BooleanField(default=False)
@@ -74,13 +77,9 @@ class Event(models.Model):
         return self.get_absolute_url()
 
 
-def get_current_event():
-    return Event.objects.current()
-
-
 class Location(models.Model):
     name = models.CharField(max_length=255, db_index=True)
-    event = models.ForeignKey(Event, related_name='locations', default=get_current_event)
+    event = models.ForeignKey(Event, related_name='locations')
     is_official = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -91,6 +90,11 @@ class Location(models.Model):
 
     def __unicode__(self):
         return self.related_label()
+
+    def save(self, *args, **kwargs):
+        if not self.event:
+            self.event = Event.objects.current()
+        super(Location, self).save(*args, **kwargs)
 
     def related_label(self):
         return "{0} at {1} ({2})".format(self.name, self.event.name,
@@ -130,7 +134,7 @@ class SessionManager(models.Manager):
 class Session(models.Model):
     title = models.CharField(max_length=128)
     slug = models.SlugField(db_index=True)
-    description = models.TextField(blank=True, help_text="Markdown is supported.")
+    description = MarkupField(blank=True, markup_type='markdown', help_text="Markdown is supported.")
     speakers = JSONField(help_text='An array of objects. Each must contain a "name" attribute', blank=True, default='[]', db_index=True)
     extra_data = JSONField(blank=True, default='{}')
     tags = TaggableManager(blank=True)
@@ -201,12 +205,12 @@ class Session(models.Model):
         return hashlib.sha1(u'%s:%s' % (settings.SECRET_KEY, self.created_at)).hexdigest()
 
 
-@receiver(post_save, sender=Session)
-def send_confirmation_email(sender, **kwargs):
-    instance = kwargs['instance']
-    created = kwargs['created']
-    if (not created or
-            not (len(instance.speakers) and instance.speakers[0].get('email')) or
-            instance.is_public):
-        return
-    SessionConfirmationEmailThread(instance).run()
+# @receiver(post_save, sender=Session)
+# def send_confirmation_email(sender, **kwargs):
+#     instance = kwargs['instance']
+#     created = kwargs['created']
+#     if (not created or
+#             not (len(instance.speakers) and instance.speakers[0].get('email')) or
+#             instance.is_public):
+#         return
+#     SessionConfirmationEmailThread(instance).run()

@@ -22,8 +22,10 @@ class SessionList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(SessionList, self).get_context_data(**kwargs)
+        days = self.get_queryset().dates('start_time', 'day', order="ASC")
         event = get_object_or_404(Event, slug=self.kwargs.get('event_slug'))
         context['event'] = event
+        context['days'] = days
         return context
 
 

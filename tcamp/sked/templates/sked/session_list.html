@@ -1,44 +1,76 @@
 {% extends "base.html" %}
+{% load sked_tags %}
 
 {% block content %}
-<div class="row">
-    <div class="span9"><h2>{{ event.name }} Schedule</h2></div>
-    <div class="span3"><a href="{% url "sked:new_session" event.slug %}" class="btn btn-large">Submit a Session</a></div>
-</div>
-{% regroup session_list by start_time as grouped_sessions %}
-{% for sessions in grouped_sessions %}
-<div class="row">
-    <div class="span12">
-        <h4>{{ sessions.grouper|date:"H:i a" }}</h4>
-        {% if sessions.list|length == 1 %}
-        <h3>{{ sessions.list.0.title }}</h3>
-        <p class="meta">{{ sessions.list.0.location.name }}</p>
-        {% else %}
-        <div class="row">
-            <ul class="unstyled clearfix">
-                {% for session in sessions.list %}
-                <li class="span6">
-                    <h4><a href="{% url "sked:session_detail" event.slug session.slug %}">{{ session.title }}</a></h4>
-                    <p class="meta">
-                        {% for speaker in session.speakers %}
-                        {% spaceless %}
-                        <span class="speaker">{{ speaker.name }}
-                        {% if speaker.twitter %} <a class="muted" href="http://twitter.com/{{ speaker.twitter }}">@{{ speaker.twitter }}</a>{% endif %}
-                        </span>
-                        {% if not forloop.last %}, {% endif %}
-                        {% endspaceless %}
-                        {% endfor %}
-                        <span class="location">{{ session.location.name }}</span>
-                    </p>
-                </li>
-                {% empty %}
-                <li class="span12">There are no sessions in this time slot.</li>
-                {% endfor %}
-            </ul>
+<div class="row-fluid module">
+    <div class="span8">
+        <h1>{{ event.start_date|date:"Y" }} Schedule</h1>
+        {{ event.description }}
+    </div>
+    <div class="span4">
+        <div class="well right-edge">
+            <h4>Want to contribute your ideas?</h4>
+            <p><a href="/ideas/{# {% url "sked:new_session" event.slug %} #}">Join the Brainstorm</a> to submit a session or give feedback on proposals.</p>
         </div>
-        {% endif %}
     </div>
 </div>
-{% endfor %}
-
+<div class="row-fluid module schedule-overview">
+    <div class="span12">
+        {{ event.overview }}
+    </div>
+</div>
+<div class="row-fluid">
+    <ul class="span12  nav nav-tabs">
+        {% for day in days %}
+        <li{% if forloop.first %} class="active"{% endif %}><a href="#day{{ day|date:"m-d" }}" data-toggle="tab" >{{ day|date:"l" }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% regroup session_list by start_time as grouped_sessions %}
+<div class="row-fluid tab-content">
+    {% for day in days %}
+    <div class="span12 tab-pane session-group {% if forloop.first %}active{% endif %}" id="day{{ day|date:"m-d" }}">
+        {% for sessions in grouped_sessions %}
+        {% if sessions.grouper.day == day.day and sessions.grouper.month == day.month and sessions.grouper.year == day.year %}
+        <div class="row-fluid timeslot">
+            <div class="span2 time-wrap">
+                <div class="time">
+                    <h3>{{ sessions.grouper|date:"H:i a" }}</h3>
+                </div>
+            </div>
+            <div class="span10 detail-wrap">
+                <div class="detail">
+                    {% if sessions.list|length == 1 %}
+                        <h3>{{ sessions.list.0.title }}</h3>
+                        <p class="meta"><strong>{{ sessions.list.0.location.name }}</strong></p>
+                    {% else %}
+                    <div class="row-fluid multi-header">
+                        <div class="span12">
+                            <h3>Session {% safe_cycle "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" %}</h3>
+                        </div>
+                    </div>
+                    <div class="row-fluid multi">
+                        <ul class="unstyled clearfix span12">
+                            {% for session in sessions.list %}
+                            <li class="session">
+                                <h4><a href="{% url "sked:session_detail" event.slug session.slug %}">{{ session.title }}</a></h4>
+                                <p class="meta">
+                                    <span class="speaker">{{ session.speaker_names }}</span>
+                                    <span class="location">{{ session.location.name }}</span>
+                                </p>
+                            </li>
+                            {% empty %}
+                            <li class="span12">There are no sessions in this time slot.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

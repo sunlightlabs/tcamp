@@ -30,11 +30,12 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ('name', 'url', 'start_date',
                     'end_date', 'is_public', )
     list_filter = ('is_public', )
+    list_select_related = True
     date_hierarchy = 'start_date'
     prepopulated_fields = {'slug': ('name', )}
     readonly_fields = ('created_by', )
     search_fields = ('name', )
-    inlines = (SessionInline, )
+    # inlines = (SessionInline, )
 
 
 class LocationAdmin(admin.ModelAdmin):
@@ -48,6 +49,7 @@ class SessionAdmin(admin.ModelAdmin):
     list_display = ('title', 'url', 'speaker_names', 'contact_email', 'start_time',
                     'location', 'is_public', 'published_by', )
     # list_editable = ('start_time', 'location', )
+    list_display_links = ('title', 'start_time', 'location')
     list_select_related = True
     readonly_fields = ('is_public', 'published_by', )
     list_filter = (SessionTagsListFilter, 'published_by', )
@@ -65,14 +67,14 @@ class SessionAdmin(admin.ModelAdmin):
 
     def queryset(self, request):
         qs = super(SessionAdmin, self).queryset(request)
-        return qs.select_related().prefetch_related('location', 'published_by')
+        return qs.prefetch_related('location', 'published_by', 'event')
 
     def make_public(modeladmin, request, queryset):
         for obj in queryset.filter(is_public=False):
             obj.__dict__.update(is_public=True, published_by_id=request.user.id)
             obj.save()
-            if obj.speakers:
-                SessionApprovedEmailThread(obj).run()
+            # if obj.speakers:
+            #     SessionApprovedEmailThread(obj).run()
     make_public.short_description = 'Make selected sessions public'
 
     def unpublish(modeladmin, request, queryset):
