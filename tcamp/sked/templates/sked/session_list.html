@@ -28,8 +28,9 @@
 </div>
 {% regroup session_list by start_time as grouped_sessions %}
 <div class="row-fluid tab-content">
+    <div class="span12">
     {% for day in days %}
-    <div class="span12 tab-pane session-group {% if forloop.first %}active{% endif %}" id="day{{ day|date:"m-d" }}">
+    <div class="tab-pane session-group {% if forloop.first %}active{% endif %}" id="day{{ day|date:"m-d" }}">
         {% for sessions in grouped_sessions %}
         {% if sessions.grouper.day == day.day and sessions.grouper.month == day.month and sessions.grouper.year == day.year %}
         <div class="row-fluid timeslot">
@@ -60,7 +61,7 @@
                                 </p>
                             </li>
                             {% empty %}
-                            <li class="span12">There are no sessions in this time slot.</li>
+                            <li class="span12"><h4>There are no sessions in this time slot.</h4></li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -72,5 +73,6 @@
         {% endfor %}
     </div>
     {% endfor %}
+    </div>
 </div>
 {% endblock %}

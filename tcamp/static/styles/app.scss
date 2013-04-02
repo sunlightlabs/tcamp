@@ -605,11 +605,7 @@ table.table-striped {
 .timeslot {
     display: table-row;
     h3 { font-size: 22px; }
-    & > [class*="span"] { float: none; display: table-cell; border-bottom: 2px solid rgba(211, 209, 187, 0.75); }
-    .multi {
-        h4 { font-size: 16px; }
-        .session { float: left; width: 48%; padding: 10px 1% }
-    }
+    & > [class*="span"] { float: none; vertical-align: top; display: table-cell; border-bottom: 2px solid rgba(211, 209, 187, 0.75); padding-top: 20px; }
     .time {
         h3 { color: #fff; text-align: center; }
     }
@@ -622,9 +618,21 @@ table.table-striped {
     }
     .detail {
         @include hpad;
-        .multi-header { border-bottom: 2px solid $bg_tan;}
         h3 { color: $teal; display:inline; }
         .meta { display: inline; padding-left: $hbuffer; }
+    }
+    .multi-header { border-bottom: 2px solid $bg_tan; margin-left: -$hbuffer; margin-right: -$hbuffer; padding: 0 20px 10px; }
+    .multi {
+        h4 { font-size: 16px; }
+        .session { float: left; width: 48%; padding: 10px 1% }
+        .detail {
+            .meta {
+                display: block;
+                padding-left: 0;
+                .speaker { float: left; }
+                .location { float: right; }
+            }
+        }
     }
     .detail-wrap {
         background: #eaf3f0;
