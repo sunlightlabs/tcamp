@@ -22,7 +22,7 @@ python-dateutil==1.5
 python-postmark
 validictory
 djutils
-jsonfield
+jsonfield==0.9.5
 south
 -e git://github.com/jamesturk/django-markupfield.git#egg=markupfield
 
@@ -33,6 +33,7 @@ python-flickr
 python-twitter
 python-openid
 -e git://github.com/jcarbaugh/django-googleauth.git#egg=googleauth
+-e git://github.com/sunlightlabs/sfapp.git#egg=sfapp
 
 gunicorn
 gaffer

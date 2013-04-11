@@ -43,6 +43,7 @@ window.maxVote = {{ idea.subsite.max_vote_count }}
             <a href="{{ service.1 }}?{{ REDIRECT_FIELD_NAME }}={{ request.path|urlencode }}" class="{{ service.0|lower }}">{{ service.0 }}</a>
             {% endfor %}
         </div>
+        <p>Please log in with one of the services above to ensure votes are counted fairly.</p>
         {% else %}
         <a href={% url "login" %}{{ redirect_querystring }} class="btn btn-mini disabled">Log in to vote</a>
         {% endif %}

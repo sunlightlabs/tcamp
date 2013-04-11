@@ -10,6 +10,13 @@ SUBSITE_POST_STATUS = (
     (DISALLOW_ALL, 'Allow No Posts'),
 )
 
+UPCOMING, OPEN, CLOSED = range(3)
+SUBSITE_VOTING_STATUS = (
+    (UPCOMING, 'Not Yet Open'),
+    (OPEN, 'Open'),
+    (CLOSED, 'Closed'),
+)
+
 TOTAL, FRECENCY = range(2)
 SCORING_CHOICES = (
     (TOTAL, 'Total Score'),
@@ -27,6 +34,7 @@ class Subsite(models.Model):
 
     scoring_algorithm = models.IntegerField(default=TOTAL, choices=SCORING_CHOICES)
     post_status = models.IntegerField(default=ALLOW_ALL, choices=SUBSITE_POST_STATUS)
+    voting_status = models.IntegerField(default=UPCOMING, choices=SUBSITE_VOTING_STATUS)
 
     theme = models.CharField(help_text='name of base theme template', max_length=100)
 

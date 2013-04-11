@@ -1,26 +1,71 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
-{% block content %}
-<div id="featureArea">
-    <h3 style="font-size:180%;margin:1em 0;"><a href="{{ subsite.get_absolute_url }}">{{ subsite.name }}</a></h3>
-    {{ subsite.description|linebreaks }}
-    {% include "brainstorm/partials/idea_form.html" %}
-    <div class="clear"></div>
-</div>
-{% if request.user.is_anonymous %}
-<div class="alert brainstorm-alert">
-    <h4>Voting is open!</h4>
-    <p>Browse the submissions below, vote and provide your feedback.
-       To ensure votes are counted fairly, you'll need to
-       log in with one of the services below:
-    </p>
-    <ul class="login-blocks clearfix">
-    {% for service in BRAINSTORM_LOGIN_OPTIONS %}
-        <li>
-            <a class="{{ service.0|lower }}" href="{{ service.1 }}?{{ REDIRECT_FIELD_NAME }}={{ request.path|urlencode }}">Log in with {{ service.0 }}</a>
-        </li>
-    {% endfor %}
-    </ul>
-</div>
+{% block outercontent %}
+<div class="container stripe">
+{% if messages %}
+    <div class="row-fluid module">
+        <div class="span12">
+        {% for message in messages %}
+            <p class="alert alert-{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+        </div>
+    </div>
 {% endif %}
+<div class="row-fluid module">
+    <div class="span8">
+        {% block content %}
+        <h1>{{ subsite.name }}</h1>
+        {{ subsite.description|linebreaks }}
+
+        {% if subsite.voting_status == 1 %}
+        <div class="alert brainstorm-alert">
+            <h2>Voting is open!</h2>
+            <p>Voting is open until Wednesday, May 1st, 2013. Presenters
+               will be notified via email if their session is chosen for
+               the first timeslot at TCamp.</p>
+            {% comment %}
+            <ul class="login-blocks unstyled clearfix">
+            {% for service in BRAINSTORM_LOGIN_OPTIONS %}
+                <li>
+                    <a class="{{ service.0|lower }}" href="{{ service.1 }}?{{ REDIRECT_FIELD_NAME }}={{ request.path|urlencode }}">Log in with {{ service.0 }}</a>
+                </li>
+            {% endfor %}
+            </ul>
+            {% endcomment %}
+        </div>
+        {% endif %}
+
+        {% endblock %}
+    </div>
+    <div class="span4">
+        {% block sidebar %}
+        <div class="well right-edge">
+            {% include "brainstorm/partials/idea_form.html" %}
+        </div>
+        {% endblock %}
+    </div>
+</div>
+
+</div>
+{% endblock outercontent %}
+
+{% block js %}
+{{ block.super }}
+<script src="{% static "scripts/jquery.throttle-debounce.js" %}"></script>
+<script>
+(function($){
+    $(function(){
+        $(window).resize($.throttle(150, function(){
+            console.log('resize');
+            $('.brainstorm-item').each(function(){
+                var h = $(this).find('h3').height();
+                h += $(this).find('.brainstorm-timestamp').height();
+                $(this).find('.brainstorm-vote').css('top', h + 40);
+            })
+        }));
+        $(window).resize();
+    });
+})(jQuery);
+</script>
 {% endblock %}

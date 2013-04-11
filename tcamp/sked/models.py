@@ -8,6 +8,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.utils import timezone
 from jsonfield import JSONField
 from markupfield.fields import MarkupField
 from timedelta.fields import TimedeltaField
@@ -76,6 +77,13 @@ class Event(models.Model):
     def url(self):
         return self.get_absolute_url()
 
+    @property
+    def is_current(self):
+        now = timezone.now()
+        if self.start_date <= now and self.end_date >= now:
+            return True
+        return False
+
 
 class Location(models.Model):
     name = models.CharField(max_length=255, db_index=True)
@@ -139,6 +147,7 @@ class Session(models.Model):
     extra_data = JSONField(blank=True, default='{}')
     tags = TaggableManager(blank=True)
     is_public = models.BooleanField(default=False)
+    has_notes = models.BooleanField(default=True)
 
     event = models.ForeignKey(Event, related_name='sessions')
     location = models.ForeignKey(Location, blank=True, null=True, related_name='sessions')

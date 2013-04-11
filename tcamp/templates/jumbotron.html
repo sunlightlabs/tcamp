@@ -4,18 +4,16 @@
 
 {% block outercontent %}
 <div id="featured">
-    <div class="container stripe">
-        {% if messages %}
-        <div class="row">
-            <div class="span12">
-            {% for message in messages %}
-                <p class="alert alert-{{ message.tags }}">{{ message }}</p>
-            {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-    </div>
     <div class="jumbotron container stripe">
+        {% if messages %}
+            <div class="row-fluid module">
+                <div class="span12">
+                {% for message in messages %}
+                    <p class="alert alert-{{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+                </div>
+            </div>
+        {% endif %}
         {% block jumbotron %}{% endblock %}
     </div>
 </div>

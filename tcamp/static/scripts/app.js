@@ -46,6 +46,10 @@
           </style>');
       });
     });
+
+    // silly hamburger menu
+    jPM = $.jPanelMenu();
+    jPM.on();
   });
 
 

@@ -2,20 +2,31 @@
 {% load markdown_deux_tags %}
 
 {% block content %}
-<h2>{{ session.title }}</h2>
-{% if session.is_public %}
-<h5>{{ session.start_time|date:"N j, H:i a"}}, {{ session.location }}</h5>
+<div class="row-fluid module">
+    <div class="span10">
+        <h2>{{ session.title }}</h2>
+        {% if session.is_public %}
+        <h5>{{ session.start_time|date:"N j, H:i a"}}, {{ session.location.name }}</h5>
+        {% endif %}
+        <p class="meta">
+            {% for speaker in session.speakers %}
+            {% spaceless %}
+                <span class="speaker">{{ speaker.name }}
+                {% if speaker.twitter %} <a class="muted" href="http://twitter.com/{{ speaker.twitter }}">@{{ speaker.twitter }}</a>{% endif %}
+                </span>
+                {% if not forloop.last %}, {% endif %}
+            {% endspaceless %}
+            {% endfor %}
+        </p>
+        {{ session.description }}
+    </div>
+</div>
+{% if session.has_notes %}
+<div class="row-fluid module collapse-top">
+    <div class="span12">
+        <iframe src="http://pad.transparencycamp.org/p/{{ session.slug }}" frameborder="0" width="100%" height="600"></iframe>
+    </div>
+</div>
 {% endif %}
-<p class="meta">
-    {% for speaker in session.speakers %}
-    {% spaceless %}
-        <span class="speaker">{{ speaker.name }}
-        {% if speaker.twitter %} <a class="muted" href="http://twitter.com/{{ speaker.twitter }}">@{{ speaker.twitter }}</a>{% endif %}
-        </span>
-        {% if not forloop.last %}, {% endif %}
-    {% endspaceless %}
-    {% endfor %}
-</p>
-{{ session.description }}
 
 {% endblock %}

@@ -4,6 +4,7 @@
 <!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+{% spaceless %}
 <head>
     <meta charset="utf-8">
     <title>{% block title %}TransparencyCamp{% endblock %}</title>
@@ -23,7 +24,7 @@
     {% endblock opengraph %}
     {% compress css %}
     <link href="{% static "styles/bootstrap.css" %}" rel="stylesheet">
-    <link href="{% static "styles/bootstrap-responsive.css" %}" rel="stylesheet">
+    <link href="{% static "styles/bootstrap/responsive.css" %}" rel="stylesheet">
     <link href="{% static "styles/app.css" %}" rel="stylesheet">
     {% endcompress %}
     {% block css %}
@@ -40,8 +41,13 @@
         {% block brandingbar %}
         <div class="brandingbar">
             <div class="container">
-                <div class="row">
+                <div class="row-fluid">
                     <div class="span12">
+                        <a class="btn btn-navbar menu-trigger hidden-desktop">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
                         <p class="pull-right"><a class="hide-text sunlight-brand" href="http://sunlightfoundation.com">An unconference by <strong>The Sunlight Foundation</strong></a></p>
                     </div>
                 </div>
@@ -56,12 +62,14 @@
                 </div>
                 <div class="navbar">
                     <div class="navbar-inner">
+                        {% comment %}
                         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </a>
-                        <div class="nav-collapse collapse">
+                        {% endcomment %}
+                        <div class="nav-collapse collapse" id="menu">
                             {% show_treenav "transparencycamp" full_tree="True" %}
                             {% if CURRENT_EVENT.registration_is_open %}
                             <form action="{{ CURRENT_EVENT.registration_url }}" class="navbar-form pull-right" method="get">
@@ -82,7 +90,7 @@
         {% block outercontent %}
         <div class="container stripe">
         {% if messages %}
-            <div class="row-fluid">
+            <div class="row-fluid module">
                 <div class="span12">
                 {% for message in messages %}
                     <p class="alert alert-{{ message.tags }}">{{ message }}</p>
@@ -105,20 +113,15 @@
         <div class="sf-footer container module stripe">
             {% block footer %}
             <div class="row-fluid">
-                <div class="span6 signup span-divider">
-                    <h4>Like this Project and Want to Discover Others Like It?</h4>
-                    <span class="tip">Join the Sunlight Foundation's open government community to learn more</span>
-                    <form action="http://sunlightfoundation.com/subscribe/" method="post" id="sfapp-subscribe-form" class="form-inline">
+                <div class="span12">
+                    <h3>Sign up to learn more about TransparencyCamp!</h3>
+                    <form action="/subscribe/" class="form-inline" method="post" id="sfapp-subscribe-form">
                         {% csrf_token %}
                         <input type="hidden" name="response" value="json">
-                        <input type="text" name="email" placeholder="your email address">
-                        <input type="text" name="zipcode" placeholder="your zip code">
-                        <button type="submit" class="btn btn-sunlight">Sign Up</button>
+                        <input type="text" name="email" placeholder="email address">
+                        <input type="text" name="zipcode" placeholder="zip code">
+                        <button type="submit" class="btn btn-inverse">Sign up!</button>
                     </form>
-                </div>
-                <div class="span6 terms">
-                    <p>Our <a href="http://sunlightfoundation.com/legal/privacy/">privacy policy</a> details how personally identifiable information that is collected on our web sites is handled. Read our <a href="http://sunlightfoundation.com/legal/terms/">terms of service</a>.</p>
-                    <p>This work by <a href="http://sunlightfoundation.com">Sunlight Foundation</a>, unless <a href="http://sunlightfoundation.com/colophon/">otherwise noted</a>, is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution 3.0 United States License</a>.</p>
                 </div>
             </div>
             {% endblock footer %}
@@ -133,6 +136,7 @@
     <script src="{% static "scripts/underscore.js" %}"></script>
     <script src="{% static "scripts/jquery.js" %}"></script>
     <script src="{% static "scripts/jquery.fitvids.js" %}"></script>
+    <script src="{% static "scripts/jquery.jpanelmenu.js" %}"></script>
     <script src="{% static "scripts/bootstrap.js" %}"></script>
     <script src="http://assets.sunlightfoundation.com/sfapp/static/js/sfapp.js"></script>
     <script src="http://assets.sunlightfoundation.com.s3.amazonaws.com/social/scripts/simple-socialite-pack.min.js"></script>
@@ -153,4 +157,5 @@
     </script>
     {% endblock %}
 </body>
+{% endspaceless %}
 </html>

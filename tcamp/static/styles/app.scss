@@ -8,7 +8,6 @@
  * - all classes of page region
  *
  * General stuff comes from bootstrap.css
- * Site-specific layout comes from bootstrap-ext.css
  *
  */
 
@@ -31,12 +30,14 @@ $display_family: 'ostrich', impact, sans-serif;
 $heading_family: 'museo-slab', lucida, sans-serif;
 $body_family: georgia, serif;
 
-/* text colors */
+// text colors
+$lightyellow: #eec151;
 $yellow: #e4aa09;
 $red: #9b2c1d;
 $darkred: #802416;
 $orange: #ca6728;
 $darkorange: #bc521e;
+$lightteal: #70aaa7;
 $teal: #438381;
 $green: #829308;
 $brown: #44331f;
@@ -45,7 +46,7 @@ $headinggray: #574227;
 $lightgray: #ddd;
 $lightergray: #f1f2ec;
 
-/* background colors */
+// background colors
 $bg_tan: #d7d4c4;
 $bg_brandingbar: #f4f2e3;
 $bg_page: #eef5ef;
@@ -58,15 +59,61 @@ $thead_even: #d9a322;
 $tbody_odd: #fff;
 $tbody_even: #fef7dc;
 
-/* breakpoint definitions */
-$bigscreen: 1200px;
-$desktop: 980px;
-$tabletlandscape: 979px;
-$tabletprofile: 767px;
-$phone: 480px;
+// metrics
+$body_textsize: 15px;
+$body_lineheight: 1.6;
+$mobile_textsize: 17px;
+$mobile_lineheight: 1.6;
 
+// responsive
+$bigscreen: 1200;
+$desktop: 980;
+$tablet: 768;
+$phone: 480;
 
-/* background gradients */
+// Override tablets & small desktops only
+@media (min-width: "#{$desktop}px") and (max-width: "#{$bigscreen}px") {
+  // Show everything else
+  .hidden-desktop    { display: none !important; }
+  .visible-desktop   { display: inherit !important ; }
+  // Hide
+  .visible-tablet    { display: none !important; }
+  // Show
+  .hidden-tablet     { display: inherit !important; }
+}
+
+// Override small screen body padding
+  body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  // Negative indent the now static "fixed" navbar
+  .navbar-fixed-top,
+  .navbar-fixed-bottom,
+  .navbar-static-top {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+@mixin respond-to($media) {
+    @if $media == phones {
+        @media (max-width: "#{$tablet - 1}px") { @content; }
+    }
+    @else if $media == tablets {
+        @media (min-width: "#{$tablet}px") and (max-width: "#{$desktop - 1}px") { @content; }
+    }
+    @else if $media == mobile {
+        @media (max-width: "#{$desktop - 1}px") { @content; }
+    }
+    @else if $media == desktops {
+        @media (min-width: "#{$desktop}px") { @content; }
+    }
+    @else if $media == bigscreen {
+        @media (min-width: "#{$bigscreen}px") { @content;}
+    }
+}
+
+// background gradients
 @mixin horizontal_gradient($args, $url:"") {
   background-color: $color1;
   background-image: -webkit-linear-gradient(left, #{$args})#{$url}; /* Chrome 10-25, iOS 5+, Safari 5.1+ */
@@ -83,7 +130,7 @@ $phone: 480px;
   background-image:         linear-gradient(to bottom, #{$args})#{$url}; /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */
 }
 
-/* css3 junk */
+// css3 junk
 @mixin shadow($dims:"1px 1px 1px 1px", $color:"#111", $inset:"") {
   -webkit-box-shadow: #{$inset} #{$dims} #{$color};
           box-shadow: #{$inset} #{$dims} #{$color};
@@ -103,7 +150,7 @@ $phone: 480px;
             border-image: url(#{$url}) $offset fill #{$repeat};
 }
 
-/* horizontal space */
+// horizontal space
 $infinity: 9999px;
 $hbuffer: 20px;
 $hgutter: 20px;
@@ -115,7 +162,7 @@ $hgutter: 20px;
             box-sizing: border-box;
 }
 
-/* vertical space */
+//vertical space
 $vbuffer: 20px;
 $vgutter: 40px;
 @mixin vpad {
@@ -154,14 +201,51 @@ $vgutter: 40px;
     @include vpad;
     margin-bottom: $vgutter;
 }
+.collapse {
+    padding-top: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.collapse-top {
+    padding-top: 0;
+    margin-top: 0;
+}
+.collapse-bottom {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.affix-top, .affix-bottom {
+    position: absolute;
+}
+.affix-bottom {
+    top: auto;
+    bottom: 0;
+}
+.affix {
+    top: $vbuffer;
+}
 .right-edge {
     margin-right: -$hgutter;
+    @include respond-to(phones) { margin-right: 0;}
+}
+.container,
+#content .container,
+.container.jumbotron {
+    @include respond-to(mobile) { width: auto; }
 }
 .stripe {
     @include hpad;
 }
-.divider-right { border-right: 2px dashed $lightgray; padding-right: $hgutter; margin-right: -$hgutter;}
+.divider-right {
+    border-right: 2px dashed $lightgray;
+    padding-right: $hgutter;
+    margin-right: -$hgutter;
+    @include respond-to(phones) { border-right: none; padding-right: inherit; margin-right: inherit; }
+}
 .divider-left { border-left: 2px dashed $lightgray; padding-left: $hgutter; margin-left: -$hgutter;}
+
+.divider-bottom { &:after { @include dashed_line; position:relative; top: $vbuffer; } }
 
 .well {
     @include radius(0);
@@ -174,6 +258,11 @@ $vgutter: 40px;
     p { font-size: 16px; }
     padding-right: 5px;
     margin-bottom:0;
+    @include respond-to(phones) { padding-right: 19px; }
+}
+
+[class*="span"] > [class*="span"] {
+    &:before, &:after { display: none; }
 }
 
 /* general */
@@ -197,55 +286,116 @@ h1 {
     font-weight: normal;
     font-size: 58px;
     line-height: 1.1;
+    @include respond-to(phones) { font-size: 48px; }
 }
-
 h2, h3 {
     font-family: $heading_family;
     font-size: 32px;
     color: $teal;
+    @include respond-to(phones) { font-size: 28px; }
 }
 h3 { font-size: 24px; color: $green; font-weight: normal; }
+
+hr { height: 0; border-top: none; border-bottom: 1px dashed $lightgray;}
 
 a {
     color: $orange;
     &:hover { color: $red; }
 }
 
-.btn, .btn-large, .btn-small {
+p {
+    line-height: $body_lineheight;
+    font-size: $body_textsize;
+    @include respond-to(phones){ line-height: $mobile_lineheight; font-size: $mobile_textsize; }
+}
+
+.alert, div.brainstorm-alert { @include radius(0); border-width: 3px; border-left-width: 0; border-right-width: 0;}
+
+.form-search, .form-inline, form, .brainstorm {
+    input[type="text"],
+    .input input[type="text"],
+    .textarea textarea,
+    textarea, select {
+        @include radius(0);
+        border: 5px solid $yellow;
+        border-color: rgba(228, 170, 9, 0.6);
+        opacity: 0.65;
+        margin-right: 6px;
+        &:focus, &:active {
+            opacity: .8;
+            border-color: rgba(228, 170, 9, 0.8);
+        }
+    }
+    @include respond-to(phones) {
+        input[type="text"],
+        .input input[type="text"],
+        .textarea textarea,
+        textarea,
+        select,
+        .btn {
+            box-sizing: border-box;
+            float: none;
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        .input input[type="text"],
+        .textarea textarea,
+        textarea,
+        select { padding: 20px; }
+    }
+}
+
+.btn, .btn-large, .btn-small,
+.brainstorm .btn, form.brainstorm-form .btn {
     background: $yellow;
+    @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
     font-family: $heading_family;
+    color: #fff;
+    text-shadow: none;
     border: 4px solid #fff;
     border-radius: 0.75em;
     text-transform: uppercase;
     line-height: 1.25em;
     padding: 0.6em;
     @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.2));
-    &:hover { background: $orange; }
+    &:hover, &:focus, &:active { background: $teal; @include vertical_gradient("#{$lightteal} 0%, #{$teal} 100%"); color: white; outline: none; }
     &.btn-primary {
         .icon { display: inline-block; }
         .icon-forward {
             width: 28px;
             height: 18px;
-            background: transparent url(../images/btn-icon-chevrons.png) no-repeat 50% 50%;
+            background: transparent url(../images/btn-icon-chevrons-b.png) no-repeat 50% 50%;
             background-size: contain;
             position: relative;
             top: -3px;
             margin-bottom: -10px;
         }
+        &:hover .icon-forward,
+        &:focus .icon-forward,
+        &:active .icon-forward { background-image: url(../images/btn-icon-chevrons-y.png); }
     }
     &.btn-inverse {
-        background: $red;
-        &:hover{ background: $darkred; }
+        @include vertical_gradient("#{$lightteal} 0%, #{$teal} 100%");
+        &:hover, &:focus, &:active { @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%"); }
     }
 }
 
 .btn-large {
-    &.btn-primary .icon-forward{ width: 38px; height: 24px; top: -7px; }
+    &.btn-primary .icon-forward { width: 38px; height: 24px; top: -7px; }
+    @include respond-to(phones) {
+        display:block; margin-bottom: $vbuffer;
+        padding: $vbuffer;
+        font-size: 24px;
+        &.btn-primary .icon-forward { top: -3px; padding-bottom: 0 }
+    }
 }
 
 .btn-small {
     &.btn-primary .icon-forward { width: 25px; height: 16px; top: -2px; }
 }
+
 
 .img-polaroid {
     padding: 4px;
@@ -254,28 +404,31 @@ a {
     @include shadow(0 0 6px 0, rgba(0, 0, 0, 0.25));
 }
 
-table { @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.1)); }
+table.table { @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.1)); }
 table.table-striped {
     width: 100%;
+    th {
+        @include hpad;
+        @include vpad;
+        background-color: $tbody_odd;
+        font-family: $heading_family;
+        font-size: 22px;
+    }
     thead{
         tr {
             background-color: $thead_odd;
         }
         th {
-            padding: 10px 0;
-            font-family: $heading_family;
-            font-size: 22px;
-            @include shadow(0 0 6px 0, rgba(0, 0, 0, 0.2));
+            background-color: transparent;
         }
-        th:nth-child(even){ background-color: $thead_even; }
     }
     tbody{
         td { background-color: $tbody_odd; @include hpad; @include vpad; color: $headinggray; }
-        td:nth-child(even) { background-color: $tbody_even; }
     }
 }
 .nav-tabs {
     border-bottom: 3px solid $bg_tan;
+    margin-bottom: 0;
     & > li {
         font-family: $display_family;
         font-size: 42px;
@@ -343,6 +496,28 @@ table.table-striped {
         border-right:1px solid #fff;
         content: '';
     }
+    .btn-navbar {
+        width: 20px;
+        height: 16px;
+        margin: 6px;
+        border-width: 1px;
+        border-radius: 5px;
+        background: $bg_tan;
+        @include vertical_gradient($bg_tan 0%, #dfdccd 100%);
+        @include shadow(0 0 2px 0, rgba(0, 0, 0, 0.2));
+        float: left;
+        [class^="icon-"], [class*="icon-"] {
+            background-image: none;
+            width: 100%;
+            height: 2px;
+            background-color: #fff;
+            margin: 5px 0;
+            padding: 0;
+            line-height: 1;
+            display: block;
+            &:first-child { margin-top: 0; }
+        }
+    }
 
     p { margin-bottom: 0; }
 
@@ -358,24 +533,47 @@ table.table-striped {
 .masthead {
     background: $bg_feature;
     .row, .row-fluid { @include vpad; }
-    .pull-right { text-align: right; }
+    .pull-right {
+        text-align: right;
+        @include respond-to(phones) { text-align: left; }
+    }
     h4 { font-family: $heading_family; font-weight: 300; margin-bottom: 0; }
     a {
         color: $bodygray;
         &:hover{ text-decoration:none; color: $orange; }
     }
     p { margin-bottom: 0; }
-    .share-buttons { float: right; }
-    .container{ background: $teal url(../images/teal-arrow-bg.png) repeat 50% 50%; }
+    .share-buttons {
+        float: right;
+        @include respond-to(phones) {
+            td { padding-left: 10px;}
+        }
+        @include respond-to(phones) { margin-top: -22px;}
+    }
+    .container{ background: $bg_feature url(../images/teal-arrow-bg.png) repeat 50% 50%; }
     .navbar { margin-left: -$hbuffer; margin-right: -$hbuffer; margin-bottom: 0;}
+    @include respond-to(phones) {
+        &:after{
+            @include dashed_line;
+        }
+    }
+}
 
+.jPanelMenu-panel {
+    @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.125));
+}
+#jPanelMenu-menu {
+    background: $lightergray url(../images/canvas-bg.png) repeat;
+    @include shadow(0 0 300px 0, rgba(0, 0, 0, 0.2), inset);
 }
 
 .logo {
     display:block;
     background: transparent url(../images/logo.png) no-repeat 50% 50%;
-    width: 240px;
-    height: 80px;
+    background-size: contain;
+    width: 235px;
+    max-width: 235px;
+    height: 68px;
 }
 
 /* bootstrap nav */
@@ -391,10 +589,11 @@ table.table-striped {
         color: $red;
         outline: none;
         @include shadow(0 0 0 0);
+        text-shadow: none;
     }
     &.dropdown > a.dropdown-toggle .caret { border-top-color: $red; border-bottom-color: $red; }
     & > a:hover, & > a:active, & > a:focus,
-    &.active > a,
+    &.active > a, &.active > a:hover, &.active > a:active, &.active > a:focus,
     &.dropdown > a.dropdown-toggle:hover,
     &.dropdown > a.dropdown-toggle:active,
     &.dropdown > a.dropdown-toggle:focus,
@@ -406,6 +605,10 @@ table.table-striped {
         color: #fff;
         background: $hoverbg;
         .caret { border-top-color: #fff; border-bottom-color: #fff; }
+    }
+    @include respond-to(tablets) {
+        font-size: 16px;
+        a, &.active a { padding: 10px; }
     }
 }
 
@@ -430,42 +633,44 @@ table.table-striped {
             li {
                 @include navtext;
                 font-size: 16px;
+                @include respond-to(tablets) {
+                    font-size: 16px;
+                    a, &.active a {
+                        padding: 10px;
+                    }
+                }
                 border-bottom: 1px solid $lightgray;
                 &:last-child { border-bottom: none; }
             }
         }
     }
-    .btn { margin: -8px 0; position:relative; z-index: 2; }
+    .btn {
+        margin: -8px 0;
+        position:relative;
+        z-index: 2;
+        @include respond-to(tablets) { font-size: 15px; margin: -3px -5px; padding: 8px 6px; }
+    }
+}
+.navbar .nav .dropdown-toggle .caret {
+    @include respond-to(tablets) { margin-top: 6px;}
 }
 
 /* feature area */
-#featured {
-    .jumbotron {
-        @include vpad;
-        padding-bottom: 5em;
-        background: $bg_feature;
-        position:relative;
-        h3 {
-            font-size: 24px;
-            color: $teal;
-        }
-    }
-}
-
-.homepage #content #featured {
+.jumbotron,
+#content .container.jumbotron {
+    @include vpad;
+    padding-bottom: $vbuffer;
     background: $bg_feature;
-    .container, .jumbotron {
-        background: $teal url(../images/teal-arrow-bg.png) repeat 50% 50%;
-        &:before, &:after{
-            height: 0;
-            background: none;
-            display: table;
-        }
+    position:relative;
+    h3 {
+        font-size: 24px;
+        color: $teal;
     }
-    .jumbotron {
-        @include ribbon;
-        padding-bottom: 7em;
-    }
+    &:after{ height: 0; background: none; display: table; }
+}
+#featured + .container, .jumbotron + .container {
+    padding-top: $vbuffer;
+    &:before { @include dashed_line; top: -$vbuffer; position: relative; }
 }
 
 /* content area */
@@ -507,7 +712,6 @@ table.table-striped {
     }
 }
 
-
 /* footer */
 
 .footer {
@@ -537,12 +741,29 @@ table.table-striped {
 /******************
  * Homepage Styles
  *****************/
- .homepage {
+.homepage #content #featured {
+    background: $bg_feature;
+    .container, .jumbotron {
+        background: $lightteal url(../images/teal-arrow-bg.png) repeat 50% 50%;
+        &:before, &:after{
+            height: 0;
+            background: none;
+            display: table;
+        }
+    }
+    .jumbotron {
+        @include ribbon;
+        padding-bottom: 7em;
+    }
+}
+.homepage {
     .callouts {
         &:before { @include dashed_line; margin: 0 -$hbuffer; }
         & > div { @include vpad; padding-top: $vgutter; }
         h3 {
             font-style: italic;
+            @include respond-to(tablets) { font-size: 18px; }
+            @include respond-to(desktops) { font-size: 22px; }
             a{
                 text-decoration: underline;
                 &:before {
@@ -555,20 +776,20 @@ table.table-striped {
                     right: 4px;
                     background: transparent url(../images/callout-hand.png) no-repeat 50% 50%;
                     background-size: contain;
-                }
-                &:after {
-                    content: '';
-                    display: inline-block;
-                    width: 24px;
-                    height: 22px;
-                    position: relative;
-                    top: -0.25em;
-                    left: 4px;
+                    @include respond-to(tablets) { width: 20px; height: 26px;}
                 }
                 &:after {
                     content: '»';
                     font: 300 50px/1 $heading_family;
                     color: $red;
+                    display: inline-block;
+                    // width: 24px;
+                    // height: 22px;
+                    position: relative;
+                    top: 0.125em;
+                    left: 4px;
+                    @include respond-to(tablets) { font-size: 30px; }
+                    @include respond-to(desktops) { font-size: 34px; }
                 }
             }
             &.sponsor a:before {
@@ -586,6 +807,17 @@ table.table-striped {
             }
         }
         p { font-size: 16px; }
+        @include respond-to(phones) {
+            [class*="span"] {
+                margin-bottom: $vbuffer;
+                width: 50%;
+                float: left;
+                box-sizing: border-box;
+                padding-right: 30px;
+                &:nth-child(odd) { clear: left; }
+            }
+            h3 { font-size: 24px; }
+        }
     }
  }
 
@@ -593,47 +825,133 @@ table.table-striped {
 /***********************
  * Schedule Page Styles
  **********************/
-.schedule-overview {
-    tbody td {
-        font-size: 17px;
-        font-family: $heading_family;
-        font-weight: 100;
-        vertical-align: top;
+ .schedule-highlights {
+    display: table;
+    width: 100%;
+    @include respond-to(phones) { display: block; }
+    & > .row, & > .row-fluid {
+        margin: 0;
+        display: table-row;
+        @include respond-to(phones) { display: block; }
+        & > [class*="span"] {
+            display: table-cell;
+            float: none;
+            padding: 0;
+            margin: 0;
+            background: $tbody_odd;
+            @include shadow(0 0 12px 0, rgba(0, 0, 0, 0.05));
+            h3 {
+                background: $thead_odd;
+                text-align: center;
+                color: $headinggray;
+                margin: 0 0 $vbuffer;
+                padding: 5px;
+                @include shadow(0 0 6px 0, rgba(0, 0, 0, 0.125));
+            }
+            .detail {
+                padding: 0 $hbuffer;
+                font: 300 18px $heading_family;
+            }
+            &:nth-child(even){
+                background: $tbody_even;
+                h3 { background: $thead_even; }
+            }
+            @include respond-to(phones) { display: block; }
+        }
+        & > .span3 {
+            width: 25%;
+            @include respond-to(phones) { width: auto; }
+        }
+    }
+ }
+
+.session-group {
+    width: 100%;
+    display: table;
+    overflow: hidden;
+    & > .row-fluid {
+        display: table-row;
     }
 }
-.session-group { display: table; }
+.hide-sessions .timeslot {
+    display: none;
+}
+.session-group .show-sessions {
+    @include vertical_gradient("#f6f6f6 10%, #fff 50%, #f6f6f6 100%");
+    display: block;
+    text-align: center;
+    border-bottom: 2px solid $bg_tan;
+    &:first-child { display: none; }
+}
 .timeslot {
-    display: table-row;
     h3 { font-size: 22px; }
-    & > [class*="span"] { float: none; vertical-align: top; display: table-cell; border-bottom: 2px solid rgba(211, 209, 187, 0.75); padding-top: 20px; }
+    .time-wrap, .detail-wrap {
+        float: none;
+        vertical-align: top;
+        display: table-cell;
+        border-bottom: 2px solid rgba(211, 209, 187, 0.75);
+        padding-top: 20px;
+    }
+    .time, .detail {
+        margin-bottom: 0;
+    }
     .time {
         h3 { color: #fff; text-align: center; margin-top: 0; }
     }
     .time-wrap {
         border-right: 2px solid rgba(211, 209, 187, 0.75);
         background: $teal;
+        width: 17%;
     }
     &:nth-child(even) .time-wrap {
         background: #709e97;
     }
+    .detail-wrap {
+        width: 83%;
+    }
     .detail {
         @include hpad;
-        h3 { color: $teal; display:inline; }
+        h3 {
+            color: $teal; display:inline;
+            @include respond-to(phones) { display: block; }
+            a {
+                color: $teal;
+                &:hover { color: $teal; }
+            }
+        }
         .meta { display: inline; padding-left: $hbuffer; }
     }
-    .multi-header { border-bottom: 2px solid $bg_tan; margin-left: -$hbuffer; margin-right: -$hbuffer; padding: 0 20px 10px; }
+    .multi-header { margin-left: -$hbuffer; margin-right: -$hbuffer; padding: 0 20px 10px; }
     .multi {
-        h4 { font-size: 16px; }
+        h4 { font-size: 14px; font-style: italic; }
+        ul { margin-bottom: 0; }
         .session {
             float: left;
-            width: 46%;
-            padding: 10px 2%;
-            &:nth-child(odd) { clear: left; }
+            width: 52.342%;
+            box-sizing: border-box;
+            padding: 10px $hbuffer;
+            border-top: 2px solid $bg_tan;
+            margin-right: -$hbuffer;
+            border-left: 2px solid $bg_tan;
+            position: relative;
+            &:nth-child(odd) {
+                clear: left;
+                border-left: 0;
+                border-right: 2px solid $bg_tan;
+                margin-right: -2px;
+                margin-left: -$hbuffer;
+            }
+            @include respond-to(phones) {
+                float: none; width: auto; border-left: none; margin-right: -$hbuffer; margin-left: -$hbuffer; box-sizing: initial;
+                &:nth-child(odd) { border-right: none; margin-right: -$hbuffer; }
+                h4 { font-size: 17px; }
+                p { font-size: 14px; position: static; &:after{ content: ''; display: table; height: 0; clear: both;} }
+            }
         }
         .meta {
             display: block;
             padding-left: 0;
-            .speaker { float: left; }
+            .speaker { float: left; font-style: italic; }
             .location { float: right; font-weight: bold; }
         }
 
@@ -647,8 +965,115 @@ table.table-striped {
 }
 
 
-/********************
- * Responsive Styles
- *******************/
+/******************
+ * Brainstorm Page
+ *****************/
+.brainstorm-alert {
+    background: rgba(180, 110, 60, 0.2);
+    border: 1px solid #b46e3c;
+    padding: 1.5em 1.5em 0.5em;
+    margin: 2em 0 3em;
+    color: $bodygray;
+    h2 { margin-top: 0; }
+}
+.brainstorm-ideas ul { margin-left: 0; }
+.brainstorm-idea {
+    position: relative;
+    margin-bottom: $vbuffer;
+    padding-bottom: $vbuffer;
+    border-bottom: 1px dashed $lightgray;
+    .brainstorm-description {
+        .brainstorm-timestamp { margin-bottom: 100px; }
+    }
+    .login-blocks{
+        li {
+            display: block;
+            width: 47%;
+            float: left;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            a {
+                display: block;
+                background: rgba(255,255,255,0.5) url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/twitter.png) no-repeat 10px 13px;
+                border: 1px dotted rgba(0,0,0,0.1);
+                padding:10px;
+                text-decoration: none;
+                font-weight: bold;
+                text-indent: 23px;
+                &.facebook { background: rgba(255,255,255,0.5) url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/facebook.png) no-repeat 10px 13px; }
+                &.google { background: rgba(255,255,255,0.5) url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/googleplus.png) no-repeat 10px 13px; }
+                &.github { background: rgba(255,255,255,0.5) url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/github.png) no-repeat 10px 13px; }
+                &:hover { background-color: #ddd; }
+            }
+        }
+    }
+}
+.brainstorm-vote {
+    position: absolute; top: 120px; width: 100%;
+    .btn {width: 100%;}
+}
+.brainstorm-vote .btn {width: 100%;}
+.brainstorm-votes-counted { float:left; width: 50%;}
+.brainstorm-votable {float: right; width: 50%; box-sizing: border-box; @include hpad }
+.brainstorm .brainstorm-votable form { margin-bottom: 0; padding-bottom: 0; width: 56%; float: right; }
+.brainstorm-upvotes,
+.brainstorm-downvotes {
+    background: rgba(249,249,249,0.5);
+    margin-bottom: 0.5em;
+}
+.brainstorm-upvotes:after,
+.brainstorm-downvotes:after {
+    content:" ";
+    clear:both;
+    display:block;
+    visibility:hidden;
+}
+.brainstorm-login-options {
+    // margin-top: 5px;
+    display: inline-block;
+    margin-left: 10px;
+}
+.brainstorm-login-options a {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+.brainstorm-login-options a.twitter { background: url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/twitter.png) no-repeat;}
+.brainstorm-login-options a.facebook { background: url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/facebook.png) no-repeat;}
+.brainstorm-login-options a.google { background: url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/googleplus.png) no-repeat;}
+.brainstorm-login-options a.github { background: url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/github.png) no-repeat;}
+
+.upvotes,
+.downvotes {
+    display:block;
+    float:left;
+    clear: left;
+    text-indent: -9999px;
+    background: #5db16e;
+    padding-left: 1px;
+    max-width: 95%;
+}
+.downvotes { background: #a95751; }
+#disqus_thread { margin-top: 3em; }
+.brainstorm.brainstorm-form {
+    input, textarea, .uneditable-input {
+        width: 90%;
+        @include respond-to(phones) { width: 100%; }
+    }
+    .errorlist { list-style: none outside none; padding-left:0; margin-left:0; color: $red; }
+    .btn {
+        float: right; margin-right: 1em;
+        @include respond-to(phones) { float: none; margin: 0;}
+    }
+}
+
+/**************
+ * How-To Page
+ *************/
+
+
 
 

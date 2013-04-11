@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     'tastypie',
     'djutils',
     'django_twilio',
+    'sfapp',
 
     'django_extensions',
     'debug_toolbar',

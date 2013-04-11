@@ -1,9 +1,11 @@
 import re
+import datetime
 
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
+from django.utils import timezone
 from django.views.generic import (ListView, DetailView, CreateView,
                                   UpdateView)
 from django.views.generic.edit import DeletionMixin
@@ -22,10 +24,12 @@ class SessionList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(SessionList, self).get_context_data(**kwargs)
-        days = self.get_queryset().dates('start_time', 'day', order="ASC")
+        days = [d.replace(tzinfo=timezone.get_current_timezone()) for
+                d in self.get_queryset().dates('start_time', 'day', order="ASC")]
         event = get_object_or_404(Event, slug=self.kwargs.get('event_slug'))
         context['event'] = event
         context['days'] = days
+        context['now'] = timezone.now()
         return context
 
 

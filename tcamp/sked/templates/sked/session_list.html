@@ -1,78 +1,131 @@
 {% extends "base.html" %}
-{% load sked_tags %}
+{% load sked_tags repl %}
 
 {% block content %}
-<div class="row-fluid module">
-    <div class="span8">
+<div class="row-fluid module collapse-bottom">
+    <div class="span12">
         <h1>{{ event.start_date|date:"Y" }} Schedule</h1>
+    </div>
+</div>
+<div class="row-fluid module collapse-top">
+    {% if event.is_current %}
+    <div class="span8">
         {{ event.description }}
     </div>
     <div class="span4">
-        <div class="well right-edge">
-            <h4>Want to contribute your ideas?</h4>
-            <p><a href="/ideas/{# {% url "sked:new_session" event.slug %} #}">Join the Brainstorm</a> to submit a session or give feedback on proposals.</p>
+        <div class="well right-edge schedule-callout">
+            <h4>Help make TCamp awesome(r)!</h4>
+            {% if now < days.0 %}
+            <p><a href="/ideas/">Join the Brainstorm</a> to submit a session or give feedback on proposals.</p>
+            {% else %}
+            <p><a href="{% url "sked:new_session" event.slug %}">Sign up to lead a session now &raquo;</a></p>
+            {% endif %}
         </div>
     </div>
+    {% else %}
+    <div class="span9">
+        {{ event.description }}
+    </div>
+    {% endif %}
 </div>
 <div class="row-fluid module schedule-overview">
     <div class="span12">
         {{ event.overview }}
     </div>
 </div>
-<div class="row-fluid">
+<div class="row-fluid collapse-bottom">
     <ul class="span12  nav nav-tabs">
         {% for day in days %}
-        <li{% if forloop.first %} class="active"{% endif %}><a href="#day{{ day|date:"m-d" }}" data-toggle="tab" >{{ day|date:"l" }}</a></li>
+        <li class="{% spaceless %}
+        {# if we are outside the bounds of the conference, the first tab is active. #}
+        {# otherwise, we should highlight the tab for whatever today is. #}
+        {% if forloop.first %}{% if now.date < event.start_date or now.date > event.end_date %}active{% endif %}
+        {% elif now.year == day.year and now.month == day.month and now.day = day.day %}active
+        {% endif %}
+        {% endspaceless %}"><a href="#day{{ day|date:"m-d" }}" data-toggle="tab" >{{ day|date:"l" }}</a></li>
         {% endfor %}
     </ul>
 </div>
+{# group all of the sessions into lists of lists by start time #}
 {% regroup session_list by start_time as grouped_sessions %}
-<div class="row-fluid tab-content">
-    <div class="span12">
+<div class="row-fluid module collapse-top tab-content">
+    {# iterate over each day of the session, and print sessions into the correct tab pane #}
     {% for day in days %}
-    <div class="tab-pane session-group {% if forloop.first %}active{% endif %}" id="day{{ day|date:"m-d" }}">
-        {% for sessions in grouped_sessions %}
-        {% if sessions.grouper.day == day.day and sessions.grouper.month == day.month and sessions.grouper.year == day.year %}
-        <div class="row-fluid timeslot">
-            <div class="span2 time-wrap">
-                <div class="time">
-                    <h3>{{ sessions.grouper|date:"H:i a" }}</h3>
-                </div>
-            </div>
-            <div class="span10 detail-wrap">
-                <div class="detail">
-                    {% if sessions.list|length == 1 %}
-                        <h3>{{ sessions.list.0.title }}</h3>
-                        <p class="meta"><strong>{{ sessions.list.0.location.name }}</strong></p>
-                    {% else %}
-                    <div class="row-fluid multi-header">
-                        <div class="span12">
-                            <h3>Session {% safe_cycle "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" %}</h3>
-                        </div>
-                    </div>
-                    <div class="row-fluid multi">
-                        <ul class="unstyled clearfix span12">
-                            {% for session in sessions.list %}
-                            <li class="session">
-                                <h4><a href="{% url "sked:session_detail" event.slug session.slug %}">{{ session.title }}</a></h4>
-                                <p class="meta">
-                                    <span class="speaker">{{ session.speaker_names }}</span>
-                                    <span class="location">{{ session.location.name }}</span>
-                                </p>
-                            </li>
-                            {% empty %}
-                            <li class="span12"><h4>There are no sessions in this time slot.</h4></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+    <div class="tab-pane {% spaceless %}
+        {# if we are outside the bounds of the conference, the first tab is active. #}
+        {# otherwise, we should highlight the tab for whatever today is. #}
+        {% if forloop.first %}{% if now.date < event.start_date or now.date > event.end_date %}active{% endif %}
+        {% elif now.year == day.year and now.month == day.month and now.day = day.day %}active
+        {% endif %}
+        {% endspaceless %}" id="day{{ day|date:"m-d" }}">
+        {% spaceless %}
+        {# hidden sessions go here. sessions should be hidden if they occur today and their end time is less than now. #}
+        <div class="session-group hide-sessions">
+            {% for sessions in grouped_sessions %}
+                {# only if this session block's date month and year match up with the tab's should we print #}
+                {% if sessions.grouper.day == day.day and sessions.grouper.month == day.month and sessions.grouper.year == day.year %}
+                    {% if sessions.list|length != 1 %}
+                        {% captureas sessionnum %}{% safe_cycle "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" %}{% endcaptureas %}
                     {% endif %}
+                    {# put past sessions in a collapsed panel if this is today #}
+                    {% if day.day == now.day and day.month == now.month and day.year == now.year %}
+                        {# did the session block end before now? #}
+                        {% if sessions.grouper|add:event.session_length < now %}
+                            {% include "sked/partials/session-block.html" %}
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            <div class="show-sessions row-fluid module collapse-top collapse-bottom">
+                <div class="span12">
+                    <h3><a href="#">Show past {{ event.session_label|lower }}s</a></h3>
                 </div>
             </div>
         </div>
-        {% endif %}
-        {% endfor %}
+        {# the rest of the sessions go here. #}
+        <div class="session-group">
+            {% for sessions in grouped_sessions %}
+                {# only if this session block's date month and year match up with the tab's should we print #}
+                {% if sessions.grouper.day == day.day and sessions.grouper.month == day.month and sessions.grouper.year == day.year %}
+                    {% if sessions.list|length != 1 %}
+                        {% captureas sessionnum %}{% safe_cycle "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" %}{% endcaptureas %}
+                    {% endif %}
+                    {# if this is today, we need to check to make sure this session is in the future #}
+                    {% if day.day == now.day and day.month == now.month and day.year == now.year %}
+                        {# did the session block end before now? #}
+                        {% if sessions.grouper|add:event.session_length >= now %}
+                            {% include "sked/partials/session-block.html" %}
+                        {% endif %}
+                    {# all other sessions go here too #}
+                    {% else %}
+                        {% include "sked/partials/session-block.html" %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endspaceless %}
     </div>
     {% endfor %}
-    </div>
 </div>
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script>
+    (function($){
+        $(function(){
+            $('.show-sessions').click(function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                var source = $(this).parents('.session-group'),
+                    dest = source.next('.session-group'),
+                    elems = source.find('.timeslot').get().reverse();
+                $.each(elems, function(i, el){
+                    dest.prepend(el);
+                });
+                source.remove();
+            });
+        });
+    })(jQuery);
+</script>
 {% endblock %}
