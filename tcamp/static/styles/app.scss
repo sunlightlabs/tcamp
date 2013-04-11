@@ -549,6 +549,7 @@ table.table-striped {
     background-size: contain;
     width: 160px;
     height: 28px;
+    @include respond-to(phones) { margin-top: 10px; }
 }
 .ie7 .sunlight-brand,
 .ie8 .sunlight-brand,

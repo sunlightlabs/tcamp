@@ -654,6 +654,11 @@ table.table-striped tbody td {
   width: 160px;
   height: 28px;
 }
+@media (max-width: 767px) {
+  .sunlight-brand {
+    margin-top: 10px;
+  }
+}
 
 .ie7 .sunlight-brand,
 .ie8 .sunlight-brand,
