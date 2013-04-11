@@ -70,11 +70,19 @@
                         </a>
                         {% endcomment %}
                         <div class="nav-collapse collapse" id="menu">
+                            <ul class="nav">
+                                <li{% if request.path == '/' %} class="active"{% endif %}><a class="hidden-desktop" href="/">Home</a></li>
+                            </ul>
                             {% show_treenav "transparencycamp" full_tree="True" %}
                             {% if CURRENT_EVENT.registration_is_open %}
-                            <form action="{{ CURRENT_EVENT.registration_url }}" class="navbar-form pull-right" method="get">
+                            <form action="{{ CURRENT_EVENT.registration_url }}" class="navbar-form pull-right visible-desktop" method="get">
                                 <button class="btn btn-primary" type="submit">Register! <span class="hide-text icon icon-forward">&raquo;</span></button>
                             </form>
+                            <ul class="nav">
+                                <li>
+                                    <a class="hidden-desktop" href="{{ CURRENT_EVENT.registration_url }}">Register Now!</a>
+                                </li>
+                            </ul>
                             {% endif %}
                         </div>
                     </div>

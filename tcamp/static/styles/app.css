@@ -231,6 +231,21 @@ h3 {
   color: #829308;
   font-weight: normal;
 }
+@media (max-width: 767px) {
+  h3 {
+    font-size: 20px;
+    margin-top: 1em;
+  }
+  h3:first-child {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  h1 + h3 {
+    margin-top: 0;
+  }
+}
 
 hr {
   height: 0;
@@ -456,7 +471,7 @@ form textarea:active, form select:focus, form select:active, .brainstorm input[t
     display: block;
     margin-bottom: 20px;
     padding: 20px;
-    font-size: 24px;
+    font-size: 22px;
   }
   .btn-large.btn-primary .icon-forward {
     top: -3px;
@@ -531,6 +546,12 @@ table.table-striped tbody td {
   border: none;
   position: relative;
   margin-bottom: 0;
+}
+@media (max-width: 767px) {
+  .nav-tabs > li {
+    font-size: 22px;
+    font-family: "museo-slab", lucida, sans-serif;
+  }
 }
 .nav-tabs > li > a {
   -webkit-box-shadow:  4px -4px 10px 0 rgba(0, 0, 0, 0.025);
@@ -692,17 +713,6 @@ table.table-striped tbody td {
   }
 }
 
-.jPanelMenu-panel {
-  -webkit-box-shadow:  0 0 10px 0 rgba(0, 0, 0, 0.125);
-  box-shadow:  0 0 10px 0 rgba(0, 0, 0, 0.125);
-}
-
-#jPanelMenu-menu {
-  background: #f1f2ec url(../images/canvas-bg.png) repeat;
-  -webkit-box-shadow: inset 0 0 300px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 0 300px 0 rgba(0, 0, 0, 0.2);
-}
-
 .logo {
   display: block;
   background: transparent url(../images/logo.png) no-repeat 50% 50%;
@@ -841,6 +851,96 @@ table.table-striped tbody td {
   }
 }
 
+.jPanelMenu-panel {
+  -webkit-box-shadow:  0 0 10px 0 rgba(0, 0, 0, 0.125);
+  box-shadow:  0 0 10px 0 rgba(0, 0, 0, 0.125);
+}
+
+#jPanelMenu-menu {
+  background: #f1f2ec url(../images/canvas-bg.png) repeat;
+  -webkit-box-shadow: inset 0 0 300px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 300px 0 rgba(0, 0, 0, 0.2);
+}
+#jPanelMenu-menu .nav, #jPanelMenu-menu .nav-collapse {
+  margin-bottom: 0;
+}
+#jPanelMenu-menu .nav li, #jPanelMenu-menu .nav-collapse li {
+  font-family: "museo-slab", lucida, sans-serif;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  font-size: 18px;
+  color: #574227;
+  margin-bottom: 0;
+}
+#jPanelMenu-menu .nav li a, #jPanelMenu-menu .nav li.active a, #jPanelMenu-menu .nav-collapse li a, #jPanelMenu-menu .nav-collapse li.active a {
+  line-height: 1;
+  padding: 5px 15px;
+  color: #9b2c1d;
+  outline: none;
+  -webkit-box-shadow:  0 0 0 0 #111;
+  box-shadow:  0 0 0 0 #111;
+  text-shadow: none;
+}
+#jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle .caret, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle .caret {
+  border-top-color: #9b2c1d;
+  border-bottom-color: #9b2c1d;
+}
+#jPanelMenu-menu .nav li > a:hover, #jPanelMenu-menu .nav li > a:active, #jPanelMenu-menu .nav li > a:focus, #jPanelMenu-menu .nav li.active > a, #jPanelMenu-menu .nav li.active > a:hover, #jPanelMenu-menu .nav li.active > a:active, #jPanelMenu-menu .nav li.active > a:focus, #jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle:hover, #jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle:active, #jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle:focus, #jPanelMenu-menu .nav li.dropdown.open > a.dropdown-toggle, #jPanelMenu-menu .nav li.dropdown.active > a.dropdown-toggle, #jPanelMenu-menu .nav li.dropdown.open.active > a.dropdown-toggle, #jPanelMenu-menu .nav li.dropdown.open > a.dropdown-toggle:hover, #jPanelMenu-menu .nav li.dropdown.active > a.dropdown-toggle:hover, #jPanelMenu-menu .nav-collapse li > a:hover, #jPanelMenu-menu .nav-collapse li > a:active, #jPanelMenu-menu .nav-collapse li > a:focus, #jPanelMenu-menu .nav-collapse li.active > a, #jPanelMenu-menu .nav-collapse li.active > a:hover, #jPanelMenu-menu .nav-collapse li.active > a:active, #jPanelMenu-menu .nav-collapse li.active > a:focus, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle:hover, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle:active, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle:focus, #jPanelMenu-menu .nav-collapse li.dropdown.open > a.dropdown-toggle, #jPanelMenu-menu .nav-collapse li.dropdown.active > a.dropdown-toggle, #jPanelMenu-menu .nav-collapse li.dropdown.open.active > a.dropdown-toggle, #jPanelMenu-menu .nav-collapse li.dropdown.open > a.dropdown-toggle:hover, #jPanelMenu-menu .nav-collapse li.dropdown.active > a.dropdown-toggle:hover {
+  color: #fff;
+  background: #44331f;
+}
+#jPanelMenu-menu .nav li > a:hover .caret, #jPanelMenu-menu .nav li > a:active .caret, #jPanelMenu-menu .nav li > a:focus .caret, #jPanelMenu-menu .nav li.active > a .caret, #jPanelMenu-menu .nav li.active > a:hover .caret, #jPanelMenu-menu .nav li.active > a:active .caret, #jPanelMenu-menu .nav li.active > a:focus .caret, #jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle:hover .caret, #jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle:active .caret, #jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle:focus .caret, #jPanelMenu-menu .nav li.dropdown.open > a.dropdown-toggle .caret, #jPanelMenu-menu .nav li.dropdown.active > a.dropdown-toggle .caret, #jPanelMenu-menu .nav li.dropdown.open.active > a.dropdown-toggle .caret, #jPanelMenu-menu .nav li.dropdown.open > a.dropdown-toggle:hover .caret, #jPanelMenu-menu .nav li.dropdown.active > a.dropdown-toggle:hover .caret, #jPanelMenu-menu .nav-collapse li > a:hover .caret, #jPanelMenu-menu .nav-collapse li > a:active .caret, #jPanelMenu-menu .nav-collapse li > a:focus .caret, #jPanelMenu-menu .nav-collapse li.active > a .caret, #jPanelMenu-menu .nav-collapse li.active > a:hover .caret, #jPanelMenu-menu .nav-collapse li.active > a:active .caret, #jPanelMenu-menu .nav-collapse li.active > a:focus .caret, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle:hover .caret, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle:active .caret, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle:focus .caret, #jPanelMenu-menu .nav-collapse li.dropdown.open > a.dropdown-toggle .caret, #jPanelMenu-menu .nav-collapse li.dropdown.active > a.dropdown-toggle .caret, #jPanelMenu-menu .nav-collapse li.dropdown.open.active > a.dropdown-toggle .caret, #jPanelMenu-menu .nav-collapse li.dropdown.open > a.dropdown-toggle:hover .caret, #jPanelMenu-menu .nav-collapse li.dropdown.active > a.dropdown-toggle:hover .caret {
+  border-top-color: #fff;
+  border-bottom-color: #fff;
+}
+@media (min-width: 768px) and (max-width: 979px) {
+  #jPanelMenu-menu .nav li, #jPanelMenu-menu .nav-collapse li {
+    font-size: 16px;
+  }
+  #jPanelMenu-menu .nav li a, #jPanelMenu-menu .nav li.active a, #jPanelMenu-menu .nav-collapse li a, #jPanelMenu-menu .nav-collapse li.active a {
+    padding: 10px;
+  }
+}
+#jPanelMenu-menu .nav li a, #jPanelMenu-menu .nav li.active a, #jPanelMenu-menu .nav-collapse li a, #jPanelMenu-menu .nav-collapse li.active a {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  color: #574227;
+  margin-bottom: 0;
+  padding: 10px 20px;
+}
+#jPanelMenu-menu .nav li.active > a, #jPanelMenu-menu .nav-collapse li.active > a {
+  color: #fff;
+}
+@media (max-width: 767px) {
+  #jPanelMenu-menu .nav li .dropdown-menu, #jPanelMenu-menu .nav-collapse li .dropdown-menu {
+    display: block;
+    margin-left: 0;
+    font-weight: normal;
+  }
+  #jPanelMenu-menu .nav li .dropdown-menu a:hover, #jPanelMenu-menu .nav-collapse li .dropdown-menu a:hover {
+    color: #fff;
+  }
+  #jPanelMenu-menu .nav li .dropdown-toggle .caret, #jPanelMenu-menu .nav-collapse li .dropdown-toggle .caret {
+    display: none;
+  }
+}
+#jPanelMenu-menu .nav li ul, #jPanelMenu-menu .nav-collapse li ul {
+  -webkit-box-shadow: inset 0 0 40px 0 rgba(87, 66, 39, 0.1);
+  box-shadow: inset 0 0 40px 0 rgba(87, 66, 39, 0.1);
+  border-top: 1px solid rgba(87, 66, 39, 0.1);
+  border-bottom: 1px solid rgba(87, 66, 39, 0.1);
+  margin-right: 0;
+  padding: 10px;
+}
+#jPanelMenu-menu .nav li ul li, #jPanelMenu-menu .nav-collapse li ul li {
+  font-size: 16px;
+}
+#jPanelMenu-menu .nav li ul li.active a, #jPanelMenu-menu .nav-collapse li ul li.active a {
+  background-color: rgba(87, 66, 39, 0.3);
+}
+
 /* feature area */
 .jumbotron,
 #content .container.jumbotron {
@@ -890,8 +990,19 @@ table.table-striped tbody td {
   border-top: none;
   background-color: rgba(230, 212, 184, 0.175);
 }
+@media (max-width: 767px) {
+  .tweets {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
 .tweets .twitter-timeline {
   width: 100%;
+}
+@media (max-width: 767px) {
+  .tweets {
+    display: none;
+  }
 }
 
 /* sponsors area */
@@ -1082,16 +1193,16 @@ table.table-striped tbody td {
 @media (max-width: 767px) {
   .homepage .callouts [class*="span"] {
     margin-bottom: 20px;
-    width: 50%;
-    float: left;
-    box-sizing: border-box;
-    padding-right: 30px;
-  }
-  .homepage .callouts [class*="span"]:nth-child(odd) {
-    clear: left;
   }
   .homepage .callouts h3 {
     font-size: 24px;
+  }
+}
+@media (max-width: 479 px) {
+  .homepage .callouts [class*="span"] {
+    width: auto;
+    float: none;
+    padding-right: inherit;
   }
 }
 
@@ -1163,8 +1274,18 @@ table.table-striped tbody td {
   display: table;
   overflow: hidden;
 }
+@media (max-width: 767px) {
+  .session-group {
+    display: block;
+  }
+}
 .session-group > .row-fluid {
   display: table-row;
+}
+@media (max-width: 767px) {
+  .session-group > .row-fluid {
+    display: block;
+  }
 }
 
 .hide-sessions .timeslot {
@@ -1198,6 +1319,11 @@ table.table-striped tbody td {
   border-bottom: 2px solid rgba(211, 209, 187, 0.75);
   padding-top: 20px;
 }
+@media (max-width: 767px) {
+  .timeslot .time-wrap, .timeslot .detail-wrap {
+    display: block;
+  }
+}
 .timeslot .time, .timeslot .detail {
   margin-bottom: 0;
 }
@@ -1211,11 +1337,22 @@ table.table-striped tbody td {
   background: #438381;
   width: 17%;
 }
+@media (max-width: 767px) {
+  .timeslot .time-wrap {
+    width: auto;
+    border-right: none;
+  }
+}
 .timeslot:nth-child(even) .time-wrap {
   background: #709e97;
 }
 .timeslot .detail-wrap {
   width: 83%;
+}
+@media (max-width: 767px) {
+  .timeslot .detail-wrap {
+    width: auto;
+  }
 }
 .timeslot .detail {
   padding-left: 20px;
@@ -1242,6 +1379,13 @@ table.table-striped tbody td {
 .timeslot .detail .meta {
   display: inline;
   padding-left: 20px;
+}
+@media (max-width: 767px) {
+  .timeslot .detail .meta {
+    padding-left: none;
+    display: block;
+    padding-left: 0;
+  }
 }
 .timeslot .multi-header {
   margin-left: -20px;
@@ -1401,6 +1545,10 @@ table.table-striped tbody td {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.brainstorm-votable p {
+  line-height: 1.25;
+  font-size: 13px;
 }
 
 .brainstorm .brainstorm-votable form {

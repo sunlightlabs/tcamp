@@ -50,6 +50,9 @@
     // silly hamburger menu
     jPM = $.jPanelMenu();
     jPM.on();
+    $('#jPanelMenu-menu a.dropdown-toggle').click(function(){
+      window.location.href = $(this).attr('href');
+    });
   });
 
 

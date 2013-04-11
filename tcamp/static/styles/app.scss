@@ -96,6 +96,9 @@ $phone: 480;
   }
 
 @mixin respond-to($media) {
+    @if $media == tiny {
+        @media(max-width: "#{$phone - 1 px}") { @content; }
+    }
     @if $media == phones {
         @media (max-width: "#{$tablet - 1}px") { @content; }
     }
@@ -294,7 +297,19 @@ h2, h3 {
     color: $teal;
     @include respond-to(phones) { font-size: 28px; }
 }
-h3 { font-size: 24px; color: $green; font-weight: normal; }
+h3 {
+    font-size: 24px;
+    color: $green;
+    font-weight: normal;
+    @include respond-to(phones) {
+        font-size: 20px;
+        margin-top: 1em;
+        &:first-child { margin-top: 0; }
+    }
+}
+h1 + h3 {
+    @include respond-to(phones) { margin-top: 0; }
+}
 
 hr { height: 0; border-top: none; border-bottom: 1px dashed $lightgray;}
 
@@ -387,7 +402,7 @@ p {
     @include respond-to(phones) {
         display:block; margin-bottom: $vbuffer;
         padding: $vbuffer;
-        font-size: 24px;
+        font-size: 22px;
         &.btn-primary .icon-forward { top: -3px; padding-bottom: 0 }
     }
 }
@@ -440,6 +455,10 @@ table.table-striped {
         border: none;
         position: relative;
         margin-bottom: 0;
+        @include respond-to(phones) {
+            font-size: 22px;
+            font-family: $heading_family;
+        }
         & > a {
             @include shadow(4px -4px 10px 0, rgba(0, 0, 0, 0.025));
             @include radius(0);
@@ -559,14 +578,6 @@ table.table-striped {
     }
 }
 
-.jPanelMenu-panel {
-    @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.125));
-}
-#jPanelMenu-menu {
-    background: $lightergray url(../images/canvas-bg.png) repeat;
-    @include shadow(0 0 300px 0, rgba(0, 0, 0, 0.2), inset);
-}
-
 .logo {
     display:block;
     background: transparent url(../images/logo.png) no-repeat 50% 50%;
@@ -655,6 +666,52 @@ table.table-striped {
     @include respond-to(tablets) { margin-top: 6px;}
 }
 
+.jPanelMenu-panel {
+    @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.125));
+}
+#jPanelMenu-menu {
+    background: $lightergray url(../images/canvas-bg.png) repeat;
+    @include shadow(0 0 300px 0, rgba(0, 0, 0, 0.2), inset);
+    .nav, .nav-collapse {
+        li {
+            @include navtext;
+            a, &.active a{
+                @include radius(0);
+                color: $headinggray;
+                margin-bottom: 0;
+                padding: 10px $hbuffer;
+            }
+            &.active > a { color: #fff; }
+            color: $headinggray;
+            @include respond-to(phones) {
+                .dropdown-menu {
+                    display: block;
+                    margin-left: 0;
+                    font-weight: normal;
+                    a {
+                        // @include radius(0);
+                        &:hover { color: #fff; }
+                    }
+                }
+                .dropdown-toggle .caret { display: none; }
+            }
+            ul {
+                @include shadow(0 0 40px 0, rgba(87, 66, 39, 0.1), inset);
+                border-top: 1px solid rgba(87, 66, 39, 0.1);
+                border-bottom: 1px solid rgba(87, 66, 39, 0.1);
+                margin-right: 0;
+                padding: 10px;
+                li {
+                    font-size: 16px;
+                    &.active a { background-color: rgba(87, 66, 39, 0.3);}
+                }
+            }
+            margin-bottom: 0;
+        }
+        margin-bottom: 0;
+    }
+}
+
 /* feature area */
 .jumbotron,
 #content .container.jumbotron {
@@ -685,13 +742,14 @@ table.table-striped {
     border: 2px dashed $lightgray;
     border-top: none;
     background-color: rgba(230, 212, 184, 0.175);
-
+    @include respond-to(phones) { margin-left: -$hbuffer; margin-right: -$hbuffer;}
     .timeline-wrap {
         // padding: 0 $hbuffer;
         // overflow: auto;
         // height: 400px;
     }
     .twitter-timeline { width: 100%; }
+    @include respond-to(phones) { display: none; }
 }
 
 /* sponsors area */
@@ -810,13 +868,20 @@ table.table-striped {
         @include respond-to(phones) {
             [class*="span"] {
                 margin-bottom: $vbuffer;
-                width: 50%;
-                float: left;
-                box-sizing: border-box;
-                padding-right: 30px;
-                &:nth-child(odd) { clear: left; }
+                // width: 50%;
+                // float: left;
+                // box-sizing: border-box;
+                // padding-right: 30px;
+                // &:nth-child(odd) { clear: left; }
             }
             h3 { font-size: 24px; }
+        }
+        @include respond-to(tiny) {
+            [class*="span"] {
+                width: auto;
+                float: none;
+                padding-right: inherit;
+            }
         }
     }
  }
@@ -869,8 +934,14 @@ table.table-striped {
     width: 100%;
     display: table;
     overflow: hidden;
+    @include respond-to(phones) {
+        display: block;
+    }
     & > .row-fluid {
         display: table-row;
+        @include respond-to(phones) {
+            display: block;
+        }
     }
 }
 .hide-sessions .timeslot {
@@ -891,6 +962,9 @@ table.table-striped {
         display: table-cell;
         border-bottom: 2px solid rgba(211, 209, 187, 0.75);
         padding-top: 20px;
+        @include respond-to(phones) {
+            display: block;
+        }
     }
     .time, .detail {
         margin-bottom: 0;
@@ -902,12 +976,19 @@ table.table-striped {
         border-right: 2px solid rgba(211, 209, 187, 0.75);
         background: $teal;
         width: 17%;
+        @include respond-to(phones) {
+            width: auto;
+            border-right: none;
+        }
     }
     &:nth-child(even) .time-wrap {
         background: #709e97;
     }
     .detail-wrap {
         width: 83%;
+        @include respond-to(phones) {
+            width: auto;
+        }
     }
     .detail {
         @include hpad;
@@ -919,7 +1000,15 @@ table.table-striped {
                 &:hover { color: $teal; }
             }
         }
-        .meta { display: inline; padding-left: $hbuffer; }
+        .meta {
+            display: inline;
+            padding-left: $hbuffer;
+            @include respond-to(phones) {
+                padding-left: none;
+                display: block;
+                padding-left: 0;
+            }
+        }
     }
     .multi-header { margin-left: -$hbuffer; margin-right: -$hbuffer; padding: 0 20px 10px; }
     .multi {
@@ -1014,7 +1103,9 @@ table.table-striped {
 }
 .brainstorm-vote .btn {width: 100%;}
 .brainstorm-votes-counted { float:left; width: 50%;}
-.brainstorm-votable {float: right; width: 50%; box-sizing: border-box; @include hpad }
+.brainstorm-votable {float: right; width: 50%; box-sizing: border-box; @include hpad;
+    p { line-height: 1.25; font-size: 13px;}
+}
 .brainstorm .brainstorm-votable form { margin-bottom: 0; padding-bottom: 0; width: 56%; float: right; }
 .brainstorm-upvotes,
 .brainstorm-downvotes {
