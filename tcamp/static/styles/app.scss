@@ -684,7 +684,7 @@ table.table-striped {
     .nav, .nav-collapse {
         li {
             @include navtext($headinggray, $headinggray, inherit);
-            &.active > a { color: #fff; }
+            &.active > a,
             & > a:active,
             &.active > a:active
             a:active,

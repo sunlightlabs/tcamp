@@ -923,11 +923,8 @@ table.table-striped tbody td {
     padding: 10px;
   }
 }
-#jPanelMenu-menu .nav li.active > a, #jPanelMenu-menu .nav-collapse li.active > a {
-  color: #fff;
-}
-#jPanelMenu-menu .nav li > a:active, #jPanelMenu-menu .nav li.active > a:active
-a:active, #jPanelMenu-menu .nav li.active a:active, #jPanelMenu-menu .nav-collapse li > a:active, #jPanelMenu-menu .nav-collapse li.active > a:active
+#jPanelMenu-menu .nav li.active > a, #jPanelMenu-menu .nav li > a:active, #jPanelMenu-menu .nav li.active > a:active
+a:active, #jPanelMenu-menu .nav li.active a:active, #jPanelMenu-menu .nav-collapse li.active > a, #jPanelMenu-menu .nav-collapse li > a:active, #jPanelMenu-menu .nav-collapse li.active > a:active
 a:active, #jPanelMenu-menu .nav-collapse li.active a:active {
   background-color: #44331f;
   color: #fff;
