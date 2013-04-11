@@ -54,10 +54,12 @@
       window.location.href = $(this).attr('href');
     });
     $('.jPanelMenu-panel').on('swiperight', function(e){
+      e.preventDefault();
       if($(window).width() < 767){
         jPM.open();
       }
     }).on('swipeleft', function(e){
+      e.preventDefault();
       if($(window).width() < 767){
         jPM.close();
       }
