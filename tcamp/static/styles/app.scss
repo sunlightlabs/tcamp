@@ -543,11 +543,12 @@ table.table-striped {
 }
 
 .sunlight-brand {
-    padding: 20px;
+    margin: 4px $hbuffer;
     display:block;
     background: transparent url(../images/sunlight-logo.svg) no-repeat 50% 50%;
     background-size: contain;
     width: 160px;
+    height: 28px;
 }
 .ie7 .sunlight-brand,
 .ie8 .sunlight-brand,
@@ -586,7 +587,7 @@ table.table-striped {
 .logo {
     display:block;
     background: transparent url(../images/transparency-logo.svg) no-repeat 50% 50%;
-    background-size: cover;
+    background-size: contain;
     width: 235px;
     max-width: 235px;
     height: 68px;
