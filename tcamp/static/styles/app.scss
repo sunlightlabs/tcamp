@@ -597,7 +597,7 @@ table.table-striped {
 .ie9 .logo { background: transparent url(../images/logo.png) no-repeat 50% 50%; }
 
 /* bootstrap nav */
-@mixin navtext($hoverbg:$brown) {
+@mixin navtext($color:$red, $hovercolor:#fff, $hoverbg:$brown) {
     font-family: $heading_family;
     font-weight: 700;
     -webkit-font-smoothing: antialiased;
@@ -606,12 +606,12 @@ table.table-striped {
     a, &.active a {
         line-height: 1;
         padding: 5px 15px;
-        color: $red;
+        color: $color;
         outline: none;
         @include shadow(0 0 0 0);
         text-shadow: none;
     }
-    &.dropdown > a.dropdown-toggle .caret { border-top-color: $red; border-bottom-color: $red; }
+    &.dropdown > a.dropdown-toggle .caret { border-top-color: $color; border-bottom-color: $color; }
     & > a:hover, & > a:active, & > a:focus,
     &.active > a, &.active > a:hover, &.active > a:active, &.active > a:focus,
     &.dropdown > a.dropdown-toggle:hover,
@@ -622,9 +622,9 @@ table.table-striped {
     &.dropdown.open.active > a.dropdown-toggle,
     &.dropdown.open > a.dropdown-toggle:hover,
     &.dropdown.active > a.dropdown-toggle:hover {
-        color: #fff;
+        color: $hovercolor;
         background: $hoverbg;
-        .caret { border-top-color: #fff; border-bottom-color: #fff; }
+        .caret { border-top-color: $hovercolor; border-bottom-color: $hovercolor; }
     }
     @include respond-to(tablets) {
         font-size: 16px;
@@ -683,15 +683,12 @@ table.table-striped {
     @include shadow(0 0 300px 0, rgba(0, 0, 0, 0.2), inset);
     .nav, .nav-collapse {
         li {
-            @include navtext;
-            a, &.active a{
-                @include radius(0);
-                color: $headinggray;
-                margin-bottom: 0;
-                padding: 10px $hbuffer;
-            }
+            @include navtext($headinggray, $headinggray, inherit);
             &.active > a { color: #fff; }
-            color: $headinggray;
+            & > a:active,
+            &.active > a:active
+            a:active,
+            &.active a:active { background-color: $brown; color: #fff; }
             @include respond-to(phones) {
                 .dropdown-menu {
                     display: block;
@@ -699,7 +696,7 @@ table.table-striped {
                     font-weight: normal;
                     a {
                         // @include radius(0);
-                        &:hover { color: #fff; }
+                        // &:hover { color: #fff; }
                     }
                 }
                 .dropdown-toggle .caret { display: none; }
@@ -712,7 +709,8 @@ table.table-striped {
                 padding: 10px;
                 li {
                     font-size: 16px;
-                    &.active a { background-color: rgba(87, 66, 39, 0.3);}
+                    &.active > a,
+                    &.active > a:hover { background-color: rgba(87, 66, 39, 0.3); color: #fff;}
                 }
             }
             margin-bottom: 0;

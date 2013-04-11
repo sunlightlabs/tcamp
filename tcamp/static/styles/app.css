@@ -771,12 +771,12 @@ table.table-striped tbody td {
   border-bottom-color: #9b2c1d;
 }
 .navbar .nav > li > a:hover, .navbar .nav > li > a:active, .navbar .nav > li > a:focus, .navbar .nav > li.active > a, .navbar .nav > li.active > a:hover, .navbar .nav > li.active > a:active, .navbar .nav > li.active > a:focus, .navbar .nav > li.dropdown > a.dropdown-toggle:hover, .navbar .nav > li.dropdown > a.dropdown-toggle:active, .navbar .nav > li.dropdown > a.dropdown-toggle:focus, .navbar .nav > li.dropdown.open > a.dropdown-toggle, .navbar .nav > li.dropdown.active > a.dropdown-toggle, .navbar .nav > li.dropdown.open.active > a.dropdown-toggle, .navbar .nav > li.dropdown.open > a.dropdown-toggle:hover, .navbar .nav > li.dropdown.active > a.dropdown-toggle:hover {
-  color: #fff;
+  color: white;
   background: #44331f;
 }
 .navbar .nav > li > a:hover .caret, .navbar .nav > li > a:active .caret, .navbar .nav > li > a:focus .caret, .navbar .nav > li.active > a .caret, .navbar .nav > li.active > a:hover .caret, .navbar .nav > li.active > a:active .caret, .navbar .nav > li.active > a:focus .caret, .navbar .nav > li.dropdown > a.dropdown-toggle:hover .caret, .navbar .nav > li.dropdown > a.dropdown-toggle:active .caret, .navbar .nav > li.dropdown > a.dropdown-toggle:focus .caret, .navbar .nav > li.dropdown.open > a.dropdown-toggle .caret, .navbar .nav > li.dropdown.active > a.dropdown-toggle .caret, .navbar .nav > li.dropdown.open.active > a.dropdown-toggle .caret, .navbar .nav > li.dropdown.open > a.dropdown-toggle:hover .caret, .navbar .nav > li.dropdown.active > a.dropdown-toggle:hover .caret {
-  border-top-color: #fff;
-  border-bottom-color: #fff;
+  border-top-color: white;
+  border-bottom-color: white;
 }
 @media (min-width: 768px) and (max-width: 979px) {
   .navbar .nav > li {
@@ -823,12 +823,12 @@ table.table-striped tbody td {
   border-bottom-color: #9b2c1d;
 }
 .navbar .nav > li > .dropdown-menu li > a:hover, .navbar .nav > li > .dropdown-menu li > a:active, .navbar .nav > li > .dropdown-menu li > a:focus, .navbar .nav > li > .dropdown-menu li.active > a, .navbar .nav > li > .dropdown-menu li.active > a:hover, .navbar .nav > li > .dropdown-menu li.active > a:active, .navbar .nav > li > .dropdown-menu li.active > a:focus, .navbar .nav > li > .dropdown-menu li.dropdown > a.dropdown-toggle:hover, .navbar .nav > li > .dropdown-menu li.dropdown > a.dropdown-toggle:active, .navbar .nav > li > .dropdown-menu li.dropdown > a.dropdown-toggle:focus, .navbar .nav > li > .dropdown-menu li.dropdown.open > a.dropdown-toggle, .navbar .nav > li > .dropdown-menu li.dropdown.active > a.dropdown-toggle, .navbar .nav > li > .dropdown-menu li.dropdown.open.active > a.dropdown-toggle, .navbar .nav > li > .dropdown-menu li.dropdown.open > a.dropdown-toggle:hover, .navbar .nav > li > .dropdown-menu li.dropdown.active > a.dropdown-toggle:hover {
-  color: #fff;
+  color: white;
   background: #44331f;
 }
 .navbar .nav > li > .dropdown-menu li > a:hover .caret, .navbar .nav > li > .dropdown-menu li > a:active .caret, .navbar .nav > li > .dropdown-menu li > a:focus .caret, .navbar .nav > li > .dropdown-menu li.active > a .caret, .navbar .nav > li > .dropdown-menu li.active > a:hover .caret, .navbar .nav > li > .dropdown-menu li.active > a:active .caret, .navbar .nav > li > .dropdown-menu li.active > a:focus .caret, .navbar .nav > li > .dropdown-menu li.dropdown > a.dropdown-toggle:hover .caret, .navbar .nav > li > .dropdown-menu li.dropdown > a.dropdown-toggle:active .caret, .navbar .nav > li > .dropdown-menu li.dropdown > a.dropdown-toggle:focus .caret, .navbar .nav > li > .dropdown-menu li.dropdown.open > a.dropdown-toggle .caret, .navbar .nav > li > .dropdown-menu li.dropdown.active > a.dropdown-toggle .caret, .navbar .nav > li > .dropdown-menu li.dropdown.open.active > a.dropdown-toggle .caret, .navbar .nav > li > .dropdown-menu li.dropdown.open > a.dropdown-toggle:hover .caret, .navbar .nav > li > .dropdown-menu li.dropdown.active > a.dropdown-toggle:hover .caret {
-  border-top-color: #fff;
-  border-bottom-color: #fff;
+  border-top-color: white;
+  border-bottom-color: white;
 }
 @media (min-width: 768px) and (max-width: 979px) {
   .navbar .nav > li > .dropdown-menu li {
@@ -887,29 +887,28 @@ table.table-striped tbody td {
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
   font-size: 18px;
-  color: #574227;
   margin-bottom: 0;
 }
 #jPanelMenu-menu .nav li a, #jPanelMenu-menu .nav li.active a, #jPanelMenu-menu .nav-collapse li a, #jPanelMenu-menu .nav-collapse li.active a {
   line-height: 1;
   padding: 5px 15px;
-  color: #9b2c1d;
+  color: #574227;
   outline: none;
   -webkit-box-shadow:  0 0 0 0 #111;
   box-shadow:  0 0 0 0 #111;
   text-shadow: none;
 }
 #jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle .caret, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle .caret {
-  border-top-color: #9b2c1d;
-  border-bottom-color: #9b2c1d;
+  border-top-color: #574227;
+  border-bottom-color: #574227;
 }
 #jPanelMenu-menu .nav li > a:hover, #jPanelMenu-menu .nav li > a:active, #jPanelMenu-menu .nav li > a:focus, #jPanelMenu-menu .nav li.active > a, #jPanelMenu-menu .nav li.active > a:hover, #jPanelMenu-menu .nav li.active > a:active, #jPanelMenu-menu .nav li.active > a:focus, #jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle:hover, #jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle:active, #jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle:focus, #jPanelMenu-menu .nav li.dropdown.open > a.dropdown-toggle, #jPanelMenu-menu .nav li.dropdown.active > a.dropdown-toggle, #jPanelMenu-menu .nav li.dropdown.open.active > a.dropdown-toggle, #jPanelMenu-menu .nav li.dropdown.open > a.dropdown-toggle:hover, #jPanelMenu-menu .nav li.dropdown.active > a.dropdown-toggle:hover, #jPanelMenu-menu .nav-collapse li > a:hover, #jPanelMenu-menu .nav-collapse li > a:active, #jPanelMenu-menu .nav-collapse li > a:focus, #jPanelMenu-menu .nav-collapse li.active > a, #jPanelMenu-menu .nav-collapse li.active > a:hover, #jPanelMenu-menu .nav-collapse li.active > a:active, #jPanelMenu-menu .nav-collapse li.active > a:focus, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle:hover, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle:active, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle:focus, #jPanelMenu-menu .nav-collapse li.dropdown.open > a.dropdown-toggle, #jPanelMenu-menu .nav-collapse li.dropdown.active > a.dropdown-toggle, #jPanelMenu-menu .nav-collapse li.dropdown.open.active > a.dropdown-toggle, #jPanelMenu-menu .nav-collapse li.dropdown.open > a.dropdown-toggle:hover, #jPanelMenu-menu .nav-collapse li.dropdown.active > a.dropdown-toggle:hover {
-  color: #fff;
-  background: #44331f;
+  color: #574227;
+  background: inherit;
 }
 #jPanelMenu-menu .nav li > a:hover .caret, #jPanelMenu-menu .nav li > a:active .caret, #jPanelMenu-menu .nav li > a:focus .caret, #jPanelMenu-menu .nav li.active > a .caret, #jPanelMenu-menu .nav li.active > a:hover .caret, #jPanelMenu-menu .nav li.active > a:active .caret, #jPanelMenu-menu .nav li.active > a:focus .caret, #jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle:hover .caret, #jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle:active .caret, #jPanelMenu-menu .nav li.dropdown > a.dropdown-toggle:focus .caret, #jPanelMenu-menu .nav li.dropdown.open > a.dropdown-toggle .caret, #jPanelMenu-menu .nav li.dropdown.active > a.dropdown-toggle .caret, #jPanelMenu-menu .nav li.dropdown.open.active > a.dropdown-toggle .caret, #jPanelMenu-menu .nav li.dropdown.open > a.dropdown-toggle:hover .caret, #jPanelMenu-menu .nav li.dropdown.active > a.dropdown-toggle:hover .caret, #jPanelMenu-menu .nav-collapse li > a:hover .caret, #jPanelMenu-menu .nav-collapse li > a:active .caret, #jPanelMenu-menu .nav-collapse li > a:focus .caret, #jPanelMenu-menu .nav-collapse li.active > a .caret, #jPanelMenu-menu .nav-collapse li.active > a:hover .caret, #jPanelMenu-menu .nav-collapse li.active > a:active .caret, #jPanelMenu-menu .nav-collapse li.active > a:focus .caret, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle:hover .caret, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle:active .caret, #jPanelMenu-menu .nav-collapse li.dropdown > a.dropdown-toggle:focus .caret, #jPanelMenu-menu .nav-collapse li.dropdown.open > a.dropdown-toggle .caret, #jPanelMenu-menu .nav-collapse li.dropdown.active > a.dropdown-toggle .caret, #jPanelMenu-menu .nav-collapse li.dropdown.open.active > a.dropdown-toggle .caret, #jPanelMenu-menu .nav-collapse li.dropdown.open > a.dropdown-toggle:hover .caret, #jPanelMenu-menu .nav-collapse li.dropdown.active > a.dropdown-toggle:hover .caret {
-  border-top-color: #fff;
-  border-bottom-color: #fff;
+  border-top-color: #574227;
+  border-bottom-color: #574227;
 }
 @media (min-width: 768px) and (max-width: 979px) {
   #jPanelMenu-menu .nav li, #jPanelMenu-menu .nav-collapse li {
@@ -919,15 +918,13 @@ table.table-striped tbody td {
     padding: 10px;
   }
 }
-#jPanelMenu-menu .nav li a, #jPanelMenu-menu .nav li.active a, #jPanelMenu-menu .nav-collapse li a, #jPanelMenu-menu .nav-collapse li.active a {
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  color: #574227;
-  margin-bottom: 0;
-  padding: 10px 20px;
-}
 #jPanelMenu-menu .nav li.active > a, #jPanelMenu-menu .nav-collapse li.active > a {
+  color: #fff;
+}
+#jPanelMenu-menu .nav li > a:active, #jPanelMenu-menu .nav li.active > a:active
+a:active, #jPanelMenu-menu .nav li.active a:active, #jPanelMenu-menu .nav-collapse li > a:active, #jPanelMenu-menu .nav-collapse li.active > a:active
+a:active, #jPanelMenu-menu .nav-collapse li.active a:active {
+  background-color: #44331f;
   color: #fff;
 }
 @media (max-width: 767px) {
@@ -935,9 +932,6 @@ table.table-striped tbody td {
     display: block;
     margin-left: 0;
     font-weight: normal;
-  }
-  #jPanelMenu-menu .nav li .dropdown-menu a:hover, #jPanelMenu-menu .nav-collapse li .dropdown-menu a:hover {
-    color: #fff;
   }
   #jPanelMenu-menu .nav li .dropdown-toggle .caret, #jPanelMenu-menu .nav-collapse li .dropdown-toggle .caret {
     display: none;
@@ -954,8 +948,9 @@ table.table-striped tbody td {
 #jPanelMenu-menu .nav li ul li, #jPanelMenu-menu .nav-collapse li ul li {
   font-size: 16px;
 }
-#jPanelMenu-menu .nav li ul li.active a, #jPanelMenu-menu .nav-collapse li ul li.active a {
+#jPanelMenu-menu .nav li ul li.active > a, #jPanelMenu-menu .nav li ul li.active > a:hover, #jPanelMenu-menu .nav-collapse li ul li.active > a, #jPanelMenu-menu .nav-collapse li ul li.active > a:hover {
   background-color: rgba(87, 66, 39, 0.3);
+  color: #fff;
 }
 
 /* feature area */
