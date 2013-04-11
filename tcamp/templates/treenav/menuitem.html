@@ -8,7 +8,11 @@
 <ul id="menu{% if menuitem.node.slug %}-{{ menuitem.node.slug }}{% endif %}" class="{% if menuitem.node.level == 0 %}nav{% else %}dropdown-menu{% endif %}">
     {% for item in menuitem.enabled_children %}
     <li id="menu-item-{{ item.node.slug }}"
-        class="{% if item.active %}active{% endif %}{% if item.enabled_children %} dropdown{% endif %}">
+        class="{% spaceless %}
+        {% if item.active %}active {% endif %}
+        {% if item.enabled_children %}dropdown {% endif %}
+        {% if item.parent.slug == 'schedule' or item.slug == 'how-to' %}visible-desktop {% endif %}
+        {% endspaceless %}">
         <a {% if item.enabled_children %}class="dropdown-toggle" data-toggle="dropdown" {% endif %}href="{% if item.node.href %}{{ item.node.href }}{% else %}{% url 'treenav_undefined_url' item_slug=item.node.slug %}{% endif %}" title="{{ item.node.label }}">{% trans item.node.label %}
         {% if item.enabled_children %}<b class="caret"></b>{% endif %}
         </a>

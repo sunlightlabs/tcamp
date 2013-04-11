@@ -53,15 +53,21 @@
     $('#jPanelMenu-menu a.dropdown-toggle').click(function(){
       window.location.href = $(this).attr('href');
     });
-    $('.jPanelMenu-panel').on('swiperight', function(e){
-      e.preventDefault();
+    $('.jPanelMenu-panel')
+    .on('swiperight', function(e){
       if($(window).width() < 767){
         jPM.open();
       }
-    }).on('swipeleft', function(e){
-      e.preventDefault();
+    })
+    .on('swipeleft', function(e){
       if($(window).width() < 767){
         jPM.close();
+      }
+    })
+    .on('movestart', function(e){
+      if ((e.distX > e.distY && e.distX < -e.distY) ||
+          (e.distX < e.distY && e.distX > -e.distY)) {
+        e.preventDefault();
       }
     });
   });
