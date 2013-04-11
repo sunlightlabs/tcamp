@@ -546,6 +546,7 @@ table.table-striped {
     padding: 20px;
     display:block;
     background: transparent url(../images/sunlight-logo.svg) no-repeat 50% 50%;
+    background-size: contain;
     width: 160px;
 }
 .ie7 .sunlight-brand,
@@ -567,6 +568,7 @@ table.table-striped {
     p { margin-bottom: 0; }
     .share-buttons {
         float: right;
+        td { padding-left: 5px; }
         @include respond-to(phones) {
             td { padding-left: 10px;}
         }
@@ -584,7 +586,7 @@ table.table-striped {
 .logo {
     display:block;
     background: transparent url(../images/transparency-logo.svg) no-repeat 50% 50%;
-    background-size: contain;
+    background-size: cover;
     width: 235px;
     max-width: 235px;
     height: 68px;

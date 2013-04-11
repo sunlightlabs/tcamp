@@ -650,6 +650,7 @@ table.table-striped tbody td {
   padding: 20px;
   display: block;
   background: transparent url(../images/sunlight-logo.svg) no-repeat 50% 50%;
+  background-size: contain;
   width: 160px;
 }
 
@@ -692,6 +693,9 @@ table.table-striped tbody td {
 .masthead .share-buttons {
   float: right;
 }
+.masthead .share-buttons td {
+  padding-left: 5px;
+}
 @media (max-width: 767px) {
   .masthead .share-buttons td {
     padding-left: 10px;
@@ -722,7 +726,7 @@ table.table-striped tbody td {
 .logo {
   display: block;
   background: transparent url(../images/transparency-logo.svg) no-repeat 50% 50%;
-  background-size: contain;
+  background-size: cover;
   width: 235px;
   max-width: 235px;
   height: 68px;

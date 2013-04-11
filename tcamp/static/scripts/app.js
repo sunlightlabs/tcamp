@@ -46,7 +46,6 @@
           </style>');
       });
     });
-
     // silly hamburger menu
     jPM = $.jPanelMenu();
     jPM.on();
@@ -55,12 +54,12 @@
     });
     $('.jPanelMenu-panel')
     .on('swiperight', function(e){
-      if($(window).width() < 767){
+      if($(window).width() < 768){
         jPM.open();
       }
     })
     .on('swipeleft', function(e){
-      if($(window).width() < 767){
+      if($(window).width() < 768){
         jPM.close();
       }
     })
@@ -70,6 +69,27 @@
         e.preventDefault();
       }
     });
+    // redraw social buttons bigger when window is resized
+    $(window).resize($.throttle(150, function(){
+      var social = $('.share-buttons'),
+          opts = social.attr('data-options'),
+          width = $(window).width(),
+          rexp = /\bsize=([\d]+)\b/,
+          size;
+      try{
+        size = social.attr('data-options').match(rexp)[1] || '16';
+      }catch(e){
+        size = '16';
+      }
+      if(width < 768 && size == '16'){
+        social.attr('data-options', opts.replace(rexp, 'size=24'));
+        social.trigger('auto');
+      }else if(width >= 768 && size == '24'){
+        social.attr('data-options', opts.replace(rexp, 'size=16'));
+        social.trigger('auto');
+      }
+    }));
+    $(window).resize();
   });
 
 

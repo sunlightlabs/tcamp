@@ -52,19 +52,16 @@
 
 {% block js %}
 {{ block.super }}
-<script src="{% static "scripts/jquery.throttle-debounce.js" %}"></script>
 <script>
 (function($){
     $(function(){
         $(window).resize($.throttle(150, function(){
-            console.log('resize');
             $('.brainstorm-item').each(function(){
                 var h = $(this).find('h3').height();
                 h += $(this).find('.brainstorm-timestamp').height();
                 $(this).find('.brainstorm-vote').css('top', h + 40);
             })
         }));
-        $(window).resize();
     });
 })(jQuery);
 </script>
