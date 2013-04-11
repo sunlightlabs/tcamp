@@ -53,6 +53,15 @@
     $('#jPanelMenu-menu a.dropdown-toggle').click(function(){
       window.location.href = $(this).attr('href');
     });
+    $('.jPanelMenu-panel').on('swiperight', function(e){
+      if($(window).width() < 767){
+        jPM.open();
+      }
+    }).on('swipeleft', function(e){
+      if($(window).width() < 767){
+        jPM.close();
+      }
+    });
   });
 
 
