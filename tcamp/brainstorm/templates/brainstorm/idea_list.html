@@ -25,7 +25,7 @@ var disqus_shortname = '{{ DISQUS_SHORTNAME }}';
 {% block content %}
 {{ block.super }}
 <div class="brainstorm-ideas">
-    <ul>
+    <ul class="unstyled">
     {% for idea in idea_list %}
         <li class="brainstorm-idea clearfix">{% include "brainstorm/partials/idea_vote.html" %}</li>
     {% endfor %}
