@@ -649,8 +649,14 @@ table.table-striped tbody td {
 .sunlight-brand {
   padding: 20px;
   display: block;
-  background: transparent url(../images/sunlight-brand.png) no-repeat 50% 50%;
+  background: transparent url(../images/sunlight-logo.svg) no-repeat 50% 50%;
   width: 160px;
+}
+
+.ie7 .sunlight-brand,
+.ie8 .sunlight-brand,
+.ie9 .sunlight-brand {
+  background: transparent url(../images/sunlight-brand.png) no-repeat 50% 50%;
 }
 
 .masthead {
@@ -715,11 +721,17 @@ table.table-striped tbody td {
 
 .logo {
   display: block;
-  background: transparent url(../images/logo.png) no-repeat 50% 50%;
+  background: transparent url(../images/transparency-logo.svg) no-repeat 50% 50%;
   background-size: contain;
   width: 235px;
   max-width: 235px;
   height: 68px;
+}
+
+.ie7 .logo,
+.ie8 .logo,
+.ie9 .logo {
+  background: transparent url(../images/logo.png) no-repeat 50% 50%;
 }
 
 /* bootstrap nav */
