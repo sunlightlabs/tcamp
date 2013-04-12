@@ -47,7 +47,10 @@
       });
     });
     // silly hamburger menu
-    jPM = $.jPanelMenu();
+    jPM = $.jPanelMenu({
+      duration: 50,
+      closeOnContentClick: false
+    });
     jPM.on();
     $('#jPanelMenu-menu a.dropdown-toggle').click(function(){
       window.location.href = $(this).attr('href');
@@ -90,6 +93,8 @@
       }
     }));
     $(window).resize();
+    // hack hack hack
+    setTimeout(function(){$(window).resize()}, 250);
   });
 
 

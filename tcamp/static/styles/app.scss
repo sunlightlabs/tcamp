@@ -161,6 +161,7 @@ $hgutter: 20px;
     padding-right: $hbuffer;
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
             box-sizing: border-box;
 }
 
@@ -229,12 +230,13 @@ $vgutter: 40px;
 }
 .right-edge {
     margin-right: -$hgutter;
-    @include respond-to(phones) { margin-right: 0;}
+    @include respond-to(mobile) { margin-right: 0;}
 }
 .container,
 #content .container,
 .container.jumbotron {
     @include respond-to(mobile) { width: auto; }
+    max-width: 1200px;
 }
 .stripe {
     @include hpad;
@@ -347,7 +349,10 @@ p {
         textarea,
         select,
         .btn {
-            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+               -moz-box-sizing: border-box;
+                -ms-box-sizing: border-box;
+                    box-sizing: border-box;
             float: none;
             display: block;
             width: 100%;
@@ -416,6 +421,10 @@ p {
     background :#fff;
     border:none;
     @include shadow(0 0 6px 0, rgba(0, 0, 0, 0.25));
+}
+
+.map-embed {
+    @include respond-to(phones) { height: 300px; }
 }
 
 table.table { @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.1)); }
@@ -515,21 +524,27 @@ table.table-striped {
         content: '';
     }
     .btn-navbar {
-        width: 20px;
+        width: 26px;
         height: 16px;
-        margin: 6px;
-        border-width: 1px;
-        border-radius: 5px;
-        background: $bg_tan;
-        @include vertical_gradient($bg_tan 0%, #dfdccd 100%);
-        @include shadow(0 0 2px 0, rgba(0, 0, 0, 0.2));
+        margin: 5px 0 0 -7px;
+        // border-width: 1px;
+        // border-radius: 5px;
+        // background: $bg_tan;
+        border: none;
+        background: transparent;
+        @include radius(0);
+        // @include vertical_gradient($bg_tan 0%, #dfdccd 100%);
+        // @include shadow(0 0 2px 0, rgba(0, 0, 0, 0.2));
+        @include shadow(0 0 0 0, transparent);
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
         float: left;
         [class^="icon-"], [class*="icon-"] {
             background-image: none;
             width: 100%;
             height: 2px;
-            background-color: #fff;
-            margin: 5px 0;
+            background-color: #bdb9ad;
+            margin: 3px 0;
             padding: 0;
             line-height: 1;
             display: block;
@@ -587,6 +602,7 @@ table.table-striped {
 .logo {
     display:block;
     background: transparent url(../images/transparency-logo.svg) no-repeat 50% 50%;
+    background-size: 235px 68px;
     background-size: contain;
     width: 235px;
     max-width: 235px;
@@ -695,7 +711,7 @@ table.table-striped {
                     margin-left: 0;
                     font-weight: normal;
                     a {
-                        // @include radius(0);
+                        @include radius(0);
                         // &:hover { color: #fff; }
                     }
                 }
@@ -875,11 +891,6 @@ table.table-striped {
         @include respond-to(phones) {
             [class*="span"] {
                 margin-bottom: $vbuffer;
-                // width: 50%;
-                // float: left;
-                // box-sizing: border-box;
-                // padding-right: 30px;
-                // &:nth-child(odd) { clear: left; }
             }
             h3 { font-size: 24px; }
         }
@@ -1019,12 +1030,19 @@ table.table-striped {
     }
     .multi-header { margin-left: -$hbuffer; margin-right: -$hbuffer; padding: 0 20px 10px; }
     .multi {
-        h4 { font-size: 14px; font-style: italic; }
+        h4 {
+            font-size: 16px;
+            font-style: italic;
+            @include respond-to(phones) { font-size: 14px; }
+        }
         ul { margin-bottom: 0; }
         .session {
             float: left;
-            width: 52.342%;
-            box-sizing: border-box;
+            width: 52.325%;
+            -webkit-box-sizing: border-box;
+               -moz-box-sizing: border-box;
+                -ms-box-sizing: border-box;
+                    box-sizing: border-box;
             padding: 10px $hbuffer;
             border-top: 2px solid $bg_tan;
             margin-right: -$hbuffer;
@@ -1110,7 +1128,7 @@ table.table-striped {
 }
 .brainstorm-vote .btn {width: 100%;}
 .brainstorm-votes-counted { float:left; width: 50%;}
-.brainstorm-votable {float: right; width: 50%; box-sizing: border-box; @include hpad;
+.brainstorm-votable {float: right; width: 50%; @include hpad;
     p { line-height: 1.25; font-size: 13px;}
 }
 .brainstorm .brainstorm-votable form { margin-bottom: 0; padding-bottom: 0; width: 56%; float: right; }
