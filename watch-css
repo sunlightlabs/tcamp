@@ -1,0 +1,1 @@
+cd tcamp/static/styles; sass --watch .
