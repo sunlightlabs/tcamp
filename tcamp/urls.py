@@ -16,6 +16,7 @@ urlpatterns = patterns(
     url(r'^login/$', 'camp.views.login', name='login'),
     url(r'^logged-in/$', 'camp.views.logged_in', name='logged_in'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/', 'redirect_field_name': 'next'}, name='logout'),
+    url(r'^sponsor-contact/$', 'camp.views.sponsor_contact', name='sponsor_contact'),
     url(r'^', include('sfapp.urls')),
     url(r'^', include('social.apps.django_app.urls', namespace='social')),
     url(r'^', include('brainstorm.urls', namespace='brainstorm')),

@@ -2,7 +2,7 @@ import urlparse
 
 from django.core.urlresolvers import resolve
 from django.shortcuts import render, redirect
-
+from django.views.decorators.http import require_POST
 
 def index(request):
     pass
@@ -42,3 +42,8 @@ def logged_in(request):
         except:
             pass
         return redirect(request.session.get('next', '/'))
+
+
+@require_POST
+def sponsor_contact(request):
+    pass

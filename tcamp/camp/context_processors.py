@@ -6,5 +6,6 @@ def sponsors(request):
     event = Event.objects.current()
     levels = SponsorshipLevel.objects.for_event(event)
     return {
-        'sponsors': [Sponsor.objects.select_related().filter(sponsorship=level) for level in levels]
+        'sponsors': [Sponsor.objects.select_related().filter(sponsorship=level) for level in levels],
+        'levels': levels,
     }
