@@ -59,9 +59,9 @@ $tbody_odd: #fff;
 $tbody_even: #fef7dc;
 
 // metrics
-$body_textsize: 15px;
+$body_textsize: 14px;
 $body_lineheight: 1.6;
-$mobile_textsize: 17px;
+$mobile_textsize: 16px;
 $mobile_lineheight: 1.6;
 
 // responsive
@@ -322,6 +322,7 @@ a {
 p {
     line-height: $body_lineheight;
     font-size: $body_textsize;
+    color: $brown;
     @include respond-to(phones){ line-height: $mobile_lineheight; font-size: $mobile_textsize; }
 }
 
@@ -1084,11 +1085,14 @@ table.table-striped {
  *****************/
 .brainstorm-alert {
     background: rgba(180, 110, 60, 0.2);
-    border: 1px solid #b46e3c;
+    border: 1px solid $red;
     padding: 1.5em 1.5em 0.5em;
     margin: 2em 0 3em;
     color: $bodygray;
-    h2 { margin-top: 0; }
+    h2 { margin-top: 0;
+		color:$red;
+		text-shadow: none;
+    	}
 }
 .brainstorm-ideas ul { margin-left: 0; }
 .brainstorm-idea {
@@ -1184,6 +1188,45 @@ table.table-striped {
         float: right; margin-right: 1em;
         @include respond-to(phones) { float: none; margin: 0;}
     }
+}
+
+form.brainstorm-form legend {
+	color: $green;
+	font-family: $heading_family;
+	font-size: 22px;
+}
+
+form.brainstorm-form label {
+	color: $brown;
+	font-family: $heading_family;
+	font-weight:bold;
+	font-size: 14px;
+	padding-top:20px;
+}
+
+.brainstorm input[type="text"], .brainstorm .input input[type="text"], .brainstorm .textarea textarea, .brainstorm textarea, .brainstorm select{
+	border: 3px solid $green;
+}
+
+.brainstorm input[type="text"]:active, .brainstorm input[type="text"]:focus, .brainstorm .input input[type="text"]:active, .brainstorm .input input[type="text"]:focus, .brainstorm .textarea textarea:active, .brainstorm .textarea textarea:focus, .brainstorm textarea:active, .brainstorm textarea:focus, .brainstorm select:focus, .brainstorm select:active{
+	border: 3px solid $green;
+	box-shadow:none;
+}
+
+.brainstorm-votable p {
+	font-style: italic;
+	line-height: 1;
+	color: #666666;
+	font-size: 12px;
+}
+
+.brainstorm-votable strong {
+	font-style: italic;
+	color: $brown;
+}
+
+.brainstorm-timestamp {
+	font-family: $heading_family;
 }
 
 /**************
