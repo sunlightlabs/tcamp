@@ -248,7 +248,7 @@ $vgutter: 40px;
     @include respond-to(phones) { border-right: none; padding-right: inherit; margin-right: inherit; }
 }
 .divider-left { border-left: 2px dashed $lightgray; padding-left: $hgutter; margin-left: -$hgutter;}
-
+.divider-top { &:before { @include dashed_line; position:relative; top: -$vbuffer; } }
 .divider-bottom { &:after { @include dashed_line; position:relative; top: $vbuffer; } }
 
 .well {
@@ -776,6 +776,45 @@ table.table-striped {
     @include respond-to(phones) { display: none; }
 }
 
+/* callout buckets */
+.callouts {
+    h3, h4 {
+        font-family: $heading_family;
+        @include respond-to(tablets) { font-size: 18px; }
+        @include respond-to(desktops) { font-size: 22px; }
+        a{
+            text-decoration: underline;
+            &:after {
+                content: '»';
+                font: 300 50px/1 $heading_family;
+                color: $red;
+                display: inline-block;
+                // width: 24px;
+                // height: 22px;
+                position: relative;
+                top: 0.125em;
+                left: 4px;
+                @include respond-to(tablets) { font-size: 30px; }
+                @include respond-to(desktops) { font-size: 34px; }
+            }
+        }
+    }
+    p { font-size: 16px; }
+    @include respond-to(phones) {
+        [class*="span"] {
+            margin-bottom: $vbuffer;
+        }
+        h3 { font-size: 24px; }
+    }
+    @include respond-to(tiny) {
+        [class*="span"] {
+            width: auto;
+            float: none;
+            padding-right: inherit;
+        }
+    }
+}
+
 /* sponsors area */
 .sponsors-inline {
     @include vertical_gradient("#{$bg_contentfooter} 0%, #fff 100%");
@@ -840,39 +879,25 @@ table.table-striped {
 }
 .homepage {
     .callouts {
-        &:before { @include dashed_line; margin: 0 -$hbuffer; }
         & > div { @include vpad; padding-top: $vgutter; }
+        &:before { @include dashed_line; margin: 0 -$hbuffer; }
         h3 {
             font-style: italic;
-            @include respond-to(tablets) { font-size: 18px; }
-            @include respond-to(desktops) { font-size: 22px; }
-            a{
-                text-decoration: underline;
-                &:before {
-                    content: '';
-                    display: inline-block;
-                    width: 31px;
-                    height: 40px;
-                    position: relative;
-                    top: 6px;
-                    right: 4px;
-                    background: transparent url(../images/callout-hand.png) no-repeat 50% 50%;
-                    background-size: contain;
-                    @include respond-to(tablets) { width: 20px; height: 26px;}
-                }
-                &:after {
-                    content: '»';
-                    font: 300 50px/1 $heading_family;
-                    color: $red;
-                    display: inline-block;
-                    // width: 24px;
-                    // height: 22px;
-                    position: relative;
-                    top: 0.125em;
-                    left: 4px;
-                    @include respond-to(tablets) { font-size: 30px; }
-                    @include respond-to(desktops) { font-size: 34px; }
-                }
+            &.volunteer a:before,
+            &.sponsor a:before,
+            &.scholarships a:before,
+            &.idea a:before
+             {
+                content: '';
+                display: inline-block;
+                width: 31px;
+                height: 40px;
+                position: relative;
+                top: 6px;
+                right: 4px;
+                background: transparent url(../images/callout-hand.png) no-repeat 50% 50%;
+                background-size: contain;
+                @include respond-to(tablets) { width: 20px; height: 26px;}
             }
             &.sponsor a:before {
                 width: 37px;
@@ -888,22 +913,9 @@ table.table-striped {
                 background-image: url(../images/callout-lightbulb.png);
             }
         }
-        p { font-size: 16px; }
-        @include respond-to(phones) {
-            [class*="span"] {
-                margin-bottom: $vbuffer;
-            }
-            h3 { font-size: 24px; }
-        }
-        @include respond-to(tiny) {
-            [class*="span"] {
-                width: auto;
-                float: none;
-                padding-right: inherit;
-            }
-        }
     }
- }
+
+}
 
 
 /***********************
