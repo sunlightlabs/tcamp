@@ -42,4 +42,5 @@ psycopg2
 PIL
 pytz
 dj-database-url
-python-varnish-e git://github.com/drinks/django-varnish.git#egg=varnishapp
+python-varnish
+-e git://github.com/drinks/django-varnish.git#egg=varnishapp
