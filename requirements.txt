@@ -43,4 +43,3 @@ PIL
 pytz
 dj-database-url
 python-varnish
-
