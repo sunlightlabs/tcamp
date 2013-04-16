@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'django_pdb',
     'template_repl',
     'gunicorn',
+    'varnishapp',
 
     # 'api',
     'brainstorm',
@@ -149,6 +150,14 @@ INSTALLED_APPS = (
     'camp',
     'sms',
     'twit',
+)
+
+VARNISH_WATCHED_MODELS = (
+    'sked.event',
+    'sked.session',
+    'pages.page',
+    'brainstorm.subsite',
+    'brainstorm.idea',
 )
 
 LOGGING = {

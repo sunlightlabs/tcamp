@@ -8,6 +8,7 @@ urlpatterns = patterns(
     url(r'^treenav/', include('treenav.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/varnish/', include('varnishapp.urls')),
     url(r'^staff/$', RedirectView.as_view(url="/staff/login")),
     url(r'^staff/', include('googleauth.urls')),
     url(r'^schedule/', include('sked.urls', namespace='sked')),
