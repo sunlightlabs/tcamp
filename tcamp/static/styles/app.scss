@@ -265,6 +265,16 @@ $vgutter: 40px;
     @include respond-to(phones) { padding-right: 19px; }
 }
 
+.tealwell {
+    background: rgba(84, 149, 147, 0.4);
+    border-top: 3px solid $teal;
+    border-bottom: 3px solid $teal;
+}
+
+.well h4, .well h5 {
+	padding-top:0;
+}
+
 [class*="span"] > [class*="span"] {
     &:before, &:after { display: none; }
 }
@@ -301,6 +311,7 @@ h2, h3 {
 h3 {
     font-size: 24px;
     color: $green;
+    padding-top: 20px;
     font-weight: normal;
     @include respond-to(phones) {
         font-size: 20px;
@@ -308,6 +319,24 @@ h3 {
         &:first-child { margin-top: 0; }
     }
 }
+
+h4 {
+   font-family: $heading_family;
+    font-size: 18px;
+    color: $teal;
+    font-weight:300;
+    padding-top: 20px;
+}
+
+h5 {
+   font-family: $body_family;
+    font-size: 16px;
+    color: $brown;
+    font-weight:bold;
+    padding-top: 20px;
+    font-style: italic;
+}
+
 h1 + h3 {
     @include respond-to(phones) { margin-top: 0; }
 }
@@ -317,6 +346,15 @@ hr { height: 0; border-top: none; border-bottom: 1px dashed $lightgray;}
 a {
     color: $orange;
     &:hover { color: $red; }
+}
+
+.intro {
+	font-family: $heading_family;
+	font-weight:300;
+	font-size: 17px;
+	line-height: 1.7;
+	color:$teal;
+	padding-bottom:20px;
 }
 
 p {
@@ -369,8 +407,8 @@ p {
 
 .btn, .btn-large, .btn-small,
 .brainstorm .btn, form.brainstorm-form .btn {
-    background: $yellow;
-    @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
+    background: $teal;
+    @include vertical_gradient("#{$lightteal} 0%, #{$teal} 100%");
     font-family: $heading_family;
     color: #fff;
     text-shadow: none;
@@ -380,7 +418,7 @@ p {
     line-height: 1.25em;
     padding: 0.6em;
     @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.2));
-    &:hover, &:focus, &:active { background: $teal; @include vertical_gradient("#{$lightteal} 0%, #{$teal} 100%"); color: white; outline: none; }
+    &:hover, &:focus, &:active { background: $orange; @include vertical_gradient("#{$orange} 0%, #{$red} 100%"); color: white; outline: none; }
     &.btn-primary {
         .icon { display: inline-block; }
         .icon-forward {
@@ -416,6 +454,11 @@ p {
     &.btn-primary .icon-forward { width: 25px; height: 16px; top: -2px; }
 }
 
+.btn-primary {
+	    background: $yellow;
+	        @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
+&:hover, &:focus, &:active { background: $teal; @include vertical_gradient("#{$lightteal} 0%, #{$teal} 100%"); color: white; outline: none; }
+}
 
 .img-polaroid {
     padding: 4px;
@@ -1153,6 +1196,35 @@ table.table-striped {
     background: rgba(249,249,249,0.5);
     margin-bottom: 0.5em;
 }
+
+.brainstorm-vote-down {
+	background-color: $yellow;
+	@include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
+	color: #FFF;
+	text-shadow: none;
+    border: 4px solid #fff;
+    border-radius: 0.75em;
+    text-transform: uppercase;
+    line-height: 1.25em;
+    padding: 0.6em;
+    &:hover, &:focus, &:active { background: $red; color: white; outline: none; }
+	float:left;
+}
+
+.brainstorm-vote-up {
+	background-color: $yellow;
+	@include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
+	color: #FFF;
+	text-shadow: none;
+    border: 4px solid #fff;
+    border-radius: 0.75em;
+    text-transform: uppercase;
+    line-height: 1.25em;
+    padding: 0.6em;
+    &:hover, &:focus, &:active { background: $green; color: white; outline: none; }
+   	float:left;
+}
+
 .brainstorm-upvotes:after,
 .brainstorm-downvotes:after {
     content:" ";
@@ -1184,11 +1256,11 @@ table.table-striped {
     float:left;
     clear: left;
     text-indent: -9999px;
-    background: #5db16e;
+    background: $green;
     padding-left: 1px;
     max-width: 95%;
 }
-.downvotes { background: #a95751; }
+.downvotes { background: $red; }
 #disqus_thread { margin-top: 3em; }
 .brainstorm.brainstorm-form {
     input, textarea, .uneditable-input {
@@ -1245,6 +1317,32 @@ form.brainstorm-form label {
  * How-To Page
  *************/
 
+#howto_sidenav_target a{
+	font-family: $heading_family;
+	font-weight: normal;
+	color:#FFF;
+	text-shadow: 0;
+	font-size: 13px;
+}
 
+#howto_sidenav_target a:hover, #howto_sidenav_target a:focus{
+	color:$teal;
+}
 
+#howto_sidenav_target li a:hover, #howto_sidenav_target li a:focus{
+	background-color: #EEE;
+	text-decoration: none;
+} 
+#howto_sidenav_target li a,{
+	padding: 3px 15px;
+	margin-right: -15;
+	margin-left: -15;
+}
 
+#howto_sidenav_target ul{
+	list-style: none;
+}
+
+.nav-list > li > a, .nav-list .nav-header {
+	text-shadow: none;
+}
