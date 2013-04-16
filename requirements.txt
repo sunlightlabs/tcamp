@@ -42,5 +42,4 @@ psycopg2
 PIL
 pytz
 dj-database-url
-python-varnish
--e git://github.com/sunlightlabs/django-secretballot.git#egg=django_varnish-dev
+python-varnish-e git://github.com/drinks/django-varnish.git#egg=varnishapp

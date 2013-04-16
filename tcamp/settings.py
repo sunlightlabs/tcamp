@@ -141,7 +141,7 @@ INSTALLED_APPS = (
     'django_pdb',
     'template_repl',
     'gunicorn',
-    # 'varnishapp',  ## NOT compatible with 1.5
+    'varnishapp',
 
     # 'api',
     'brainstorm',
