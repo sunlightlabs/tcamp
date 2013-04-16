@@ -43,4 +43,4 @@ PIL
 pytz
 dj-database-url
 python-varnish
--e git://github.com/justquick/django-varnish.git#egg=varnishapp
+#-e git://github.com/justquick/django-varnish.git#egg=varnishapp
