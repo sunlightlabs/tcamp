@@ -34,18 +34,24 @@
     $('#content').fitVids();
 
     // hack twitter widgets
-    twttr.ready(function(T){
-      $('iframe.twitter-timeline').each(function(){
-        $(this.contentDocument.head).append('<style>\
-          .timeline .stream { padding: 0 20px 0 10px; width: auto; }\
-          .stream p.e-entry-title, .stream .profile, .var-chromeless .stream button.load-more { font-family: georgia, serif; font-weight: 300; }\
-          .var-chromeless .stream button.load-more { font-size: 14px; }\
-          .stream p.e-entry-title { color: #574227; }\
-          .profile .p-name { color: #574227; }\
-          .profile span.p-nickname { color: #736a5e; }\
-          </style>');
-      });
-    });
+    function checktwttr(){
+      if(window.twttr){
+        twttr.ready(function(T){
+          $('iframe.twitter-timeline').each(function(){
+            $(this.contentDocument.head).append('<style>\
+              .timeline .stream { padding: 0 20px 0 10px; width: auto; }\
+              .stream p.e-entry-title, .stream .profile, .var-chromeless .stream button.load-more { font-family: georgia, serif; font-weight: 300; }\
+              .var-chromeless .stream button.load-more { font-size: 14px; }\
+              .stream p.e-entry-title { color: #574227; }\
+              .profile .p-name { color: #574227; }\
+              .profile span.p-nickname { color: #736a5e; }\
+              </style>');
+          });
+        });
+      }else{
+        setTimeout(checktwttr, 200);
+      }
+    }
     // silly hamburger menu
     jPM = $.jPanelMenu({
       duration: 50,

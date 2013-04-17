@@ -1182,7 +1182,7 @@ table.table-striped {
     padding-bottom: $vbuffer;
     border-bottom: 1px dashed $lightgray;
     .brainstorm-description {
-        .brainstorm-timestamp { margin-bottom: 100px; }
+        .brainstorm-timestamp { margin-bottom: 120px; }
     }
     .login-blocks{
         li {
@@ -1211,8 +1211,9 @@ table.table-striped {
     position: absolute; top: 120px; width: 100%;
     .btn {width: 100%;}
 }
-.brainstorm-vote .btn {width: 100%;
-
+.brainstorm-vote .btn {
+    width: 100%;
+    margin-bottom: 6px;
 }
 .brainstorm-votes-counted { float:left; width: 50%;}
 .brainstorm-votable {float: right; width: 50%; @include hpad;
@@ -1287,6 +1288,7 @@ table.table-striped {
     background: $green;
     padding-left: 1px;
     max-width: 95%;
+    height: 32px;
 }
 .downvotes { background: $red; }
 #disqus_thread { margin-top: 3em; }
@@ -1363,7 +1365,7 @@ form.brainstorm-form li {
 #howto_sidenav_target li a:hover, #howto_sidenav_target li a:focus{
 	background-color: #EEE;
 	text-decoration: none;
-} 
+}
 #howto_sidenav_target li a,{
 	padding: 3px 15px;
 	margin-right: -15;
