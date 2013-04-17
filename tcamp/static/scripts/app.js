@@ -52,6 +52,7 @@
         setTimeout(checktwttr, 200);
       }
     }
+    checktwttr();
     // silly hamburger menu
     jPM = $.jPanelMenu({
       duration: 50,
