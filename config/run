@@ -5,7 +5,7 @@ SOCKET=unix:$HOME/data/socket
 WORKERS=4
 CODEROOT=$HOME/src/current
 
-if [-f $PIDFILE]; then
+if [ -f $PIDFILE ]; then
     PID=`cat $PIDFILE`
     echo "killing process $PID"
     kill $PID
