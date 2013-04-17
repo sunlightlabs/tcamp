@@ -71,7 +71,7 @@ def symlink_current():
 def sync_remote_assets():
     with prefix("source %s/bin/activate" % VENV_PATH):
         with cd("%s/%s" % (WORKING_PATH, CURRENT_DIR)):
-            sudo("./manage.py collectstatic", user=FS_USER)
+            sudo("./manage.py collectstatic --noinput", user=FS_USER)
 
 
 def install_dependencies():
@@ -110,6 +110,7 @@ def deploy():
     install_dependencies()
     sync_remote_assets()
     restart()
+    cleanup()
 
 
 def rollback():
