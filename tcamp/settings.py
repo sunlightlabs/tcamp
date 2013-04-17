@@ -41,6 +41,13 @@ GOOGLEAUTH_IS_STAFF = True
 GOOGLEAUTH_GROUPS = ('staff', )
 GOOGLEAUTH_REALM = 'transparencycamp.org'
 
+COMPRESS_CSS_FILTERS = (
+    'compressor.filters.cssmin.CSSMinFilter'
+)
+COMPRESS_JS_FILTERS = (
+    'compressor.filters.jsmin.JSMinFilter'
+)
+
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False
 }
@@ -86,8 +93,8 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
     'pages.middleware.PagesMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'django_pdb.middleware.PdbMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'django_pdb.middleware.PdbMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -143,6 +150,7 @@ INSTALLED_APPS = (
     'template_repl',
     'gunicorn',
     'varnishapp',
+    'raven.contrib.django.raven_compat',
 
     # 'api',
     'brainstorm',
