@@ -6,9 +6,9 @@ WORKERS=4
 CODEROOT=$HOME/src/current
 
 if [ -f $PIDFILE ]; then
-    PID=`cat $PIDFILE`
+    PID=$(cat $PIDFILE)
     echo "killing process $PID"
     kill $PID
 fi
 
-/usr/bin/env python $CODEROOT/manage.py run_gunicorn -b $SOCKET -p $PIDFILE -w $WORKERS --daemon --log-file=$HOME/log/gunicorn.log --preload
+$HOME/virt/bin/python $CODEROOT/manage.py run_gunicorn -b $SOCKET -p $PIDFILE -w $WORKERS --daemon --log-file=$HOME/log/gunicorn.log --preload

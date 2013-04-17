@@ -92,6 +92,10 @@ def install_dependencies():
 def run_migrations():
     with prefix("source %s/bin/activate" % VENV_PATH):
         with cd("%s/%s" % (WORKING_PATH, CURRENT_DIR)):
+            try:
+                sudo("./manage.py createcachetable %s" % CACHE_TABLE_NAME)
+            except:
+                pass
             sudo("./manage.py syncdb --noinput")
             sudo("./manage.py migrate --noinput")
 
