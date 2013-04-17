@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+HOME=/projects/tcamp
+PIDFILE=$HOME/data/pidfile
+
+if [ -f $PIDFILE ]; then
+    PID=`cat $PIDFILE`
+    echo "killing process $PID"
+    kill $PID
+fi

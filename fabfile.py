@@ -86,6 +86,11 @@ def install_dependencies():
             sudo("pip install -r requirements.txt")
 
 
+def stop():
+    with cd(HOME_PATH):
+        sudo("./bin/stop")
+
+
 def restart():
     with prefix("source %s/bin/activate" % VENV_PATH):
         with cd(HOME_PATH):
