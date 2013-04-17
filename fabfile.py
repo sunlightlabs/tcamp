@@ -89,6 +89,13 @@ def install_dependencies():
             sudo("pip install -r requirements.txt")
 
 
+def run_migrations():
+    with prefix("source %s/bin/activate" % VENV_PATH):
+        with cd("%s/%s" % (WORKING_PATH, CURRENT_DIR)):
+            sudo("./manage.py syncdb --noinput")
+            sudo("./manage.py migrate --noinput")
+
+
 def stop():
     with cd(HOME_PATH):
         sudo("./bin/stop")
@@ -123,6 +130,7 @@ def deploy():
     create_release()
     symlink_current()
     install_dependencies()
+    run_migrations()
     sync_remote_assets()
     cleanup()
     restart()
