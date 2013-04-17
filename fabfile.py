@@ -102,7 +102,7 @@ def restart():
 
 def cleanup():
     with cd(WORKING_PATH):
-        dirs = glob.glob('%s/*' % RELEASES_DIR)
+        dirs = run("ls -d %s/*/" % RELEASES_DIR).split()
         dirs.sort()
         dirs.reverse()
         try:
@@ -124,8 +124,8 @@ def deploy():
     symlink_current()
     install_dependencies()
     sync_remote_assets()
-    restart()
     cleanup()
+    restart()
 
 
 def rollback():
