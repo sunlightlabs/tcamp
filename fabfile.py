@@ -87,8 +87,9 @@ def install_dependencies():
 
 
 def restart():
-    with cd(HOME_PATH):
-        sudo("./bin/run")
+    with prefix("source %s/bin/activate" % VENV_PATH):
+        with cd(HOME_PATH):
+            sudo("./bin/run")
 
 
 def cleanup():
