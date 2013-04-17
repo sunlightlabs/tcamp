@@ -31,6 +31,7 @@ def setup_clean():
     create_release()
     symlink_current()
 
+
 def use_branch():
     with cd("%s/%s" % (WORKING_PATH, CHECKOUT_DIR)):
         sudo("git checkout %s" % GIT_BRANCH)
@@ -69,9 +70,11 @@ def symlink_current():
     with cd("%s/bin" % HOME_PATH):
         try:
             sudo("unlink ./run")
+            sudo("unlink ./stop")
         except:
             pass
         sudo("ln -nfs %s/%s/config/run" % (WORKING_PATH, CURRENT_DIR))
+        sudo("ln -nfs %s/%s/config/stop" % (WORKING_PATH, CURRENT_DIR))
 
 
 def sync_remote_assets():
