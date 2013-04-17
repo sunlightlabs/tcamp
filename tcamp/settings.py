@@ -43,6 +43,7 @@ GOOGLEAUTH_REALM = 'transparencycamp.org'
 
 COMPRESS_CSS_FILTERS = (
     'compressor.filters.cssmin.CSSMinFilter',
+    'compressor.filters.css_default.CssAbsoluteFilter',
 )
 COMPRESS_JS_FILTERS = (
     'compressor.filters.jsmin.JSMinFilter',
