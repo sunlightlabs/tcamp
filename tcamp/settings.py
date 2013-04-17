@@ -45,6 +45,7 @@ COMPRESS_CSS_FILTERS = (
     'compressor.filters.cssmin.CSSMinFilter',
     'compressor.filters.css_default.CssAbsoluteFilter',
 )
+COMPRESS_CSS_HASHING_METHOD = 'content'
 COMPRESS_JS_FILTERS = (
     'compressor.filters.jsmin.JSMinFilter',
 )
