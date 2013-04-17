@@ -9,6 +9,8 @@ VENV_PATH = '%s/virt' % HOME_PATH
 CURRENT_DIR = 'current'
 RELEASES_DIR = 'releases'
 CHECKOUT_DIR = 'cached_copy'
+SHARED_DIR = 'shared'
+SHARED_FILES = []  # location in src dir, expects to find just the file in SHARED_DIR
 
 USER = ''  # Login shell user
 FS_USER = ''  # Owner of files

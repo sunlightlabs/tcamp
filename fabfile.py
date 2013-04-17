@@ -25,15 +25,10 @@ def setup_clean():
                 sudo("rm -rf %s" % CHECKOUT_DIR, user=FS_USER)
             except:
                 pass
-            sudo("mkdir %s" % RELEASES_DIR, user=FS_USER)
+            sudo("mkdir -p %s %s" % (RELEASES_DIR, SHARED_DIR), user=FS_USER)
             sudo("git clone %s %s" % (GIT_URL, CHECKOUT_DIR), user=FS_USER)
     create_release()
     symlink_current()
-
-
-def prepare_deploy():
-    local("git commit -am")
-    local("git push origin master")
 
 
 def use_branch():
@@ -65,7 +60,12 @@ def symlink_current():
             sudo("unlink %s" % CURRENT_DIR, user=FS_USER)
         except:
             pass
-        sudo("ln -s %s %s" % (dir, CURRENT_DIR), user=FS_USER)
+        sudo("ln -nfs %s %s" % (dir, CURRENT_DIR), user=FS_USER)
+        with cd(dir):
+            for path in SHARED_FILES:
+                sudo("ln -nfs %s/%s/%s %s" % (WORKING_PATH, SHARED_DIR,
+                                              path.split('/')[-1],
+                                              path), user=FS_USER)
 
 
 def sync_remote_assets():
@@ -104,7 +104,6 @@ def stage():
 
 
 def deploy():
-    # prepare_deploy()
     update_remote_code()
     create_release()
     symlink_current()
