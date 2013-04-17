@@ -140,6 +140,21 @@ body {
   position: relative;
   top: 20px; }
 
+.singles > * {
+  float: none;
+  width: auto; }
+
+.pairs > * {
+  float: left;
+  width: 50%; }
+
+.pairs > *:nth-child(odd) {
+  clear: left; }
+
+.triples > * {
+  float: left;
+  width: 33.3%; }
+
 .well {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;

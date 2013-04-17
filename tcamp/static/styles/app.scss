@@ -251,6 +251,11 @@ $vgutter: 40px;
 .divider-top { &:before { @include dashed_line; position:relative; top: -$vbuffer; } }
 .divider-bottom { &:after { @include dashed_line; position:relative; top: $vbuffer; } }
 
+.singles > * { float: none; width: auto; }
+.pairs > * { float: left; width: 50%; }
+.pairs > *:nth-child(odd) { clear:left; }
+.triples > * { float: left; width: 33.3%; }
+
 .well {
     @include radius(0);
     background: rgba(219, 219, 196, 0.6);
