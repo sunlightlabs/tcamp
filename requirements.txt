@@ -41,6 +41,7 @@ gevent
 psycopg2
 PIL
 pytz
+fabric
 dj-database-url
 python-varnish
 -e git://github.com/drinks/django-varnish.git#egg=varnishapp

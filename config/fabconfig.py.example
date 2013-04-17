@@ -1,0 +1,20 @@
+#$ cp fabconfig.py.example fabconfig.py
+REMOTE_HOSTS = []
+REMOTE_URL = ''
+
+HOME_PATH = ''
+WORKING_PATH = '%s/src' % HOME_PATH
+VENV_PATH = '%s/virt' % HOME_PATH
+
+CURRENT_DIR = 'current'
+RELEASES_DIR = 'releases'
+CHECKOUT_DIR = 'cached_copy'
+
+USER = ''  # Login shell user
+FS_USER = ''  # Owner of files
+KEY_FILENAME = '~/.ssh/id_rsa.pub'
+
+GIT_URL = ""
+GIT_BRANCH = "master"
+
+PAST_RELEASES = 5
