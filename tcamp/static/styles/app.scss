@@ -337,6 +337,13 @@ h5 {
     font-style: italic;
 }
 
+h6 {
+   font-family: $heading_family;
+    font-size: 16px;
+    color: $brown;
+    font-weight:300;
+}
+
 h1 + h3 {
     @include respond-to(phones) { margin-top: 0; }
 }
@@ -355,6 +362,19 @@ a {
 	line-height: 1.7;
 	color:$teal;
 	padding-bottom:20px;
+}
+
+.subhead {
+	color: #574227;
+	font-family: $heading_family;
+    font-size: 22px;
+    font-weight: 300;
+}
+
+.endlinks {
+	font-family: $heading_family;
+	font-weight: 300;
+	font-size: 18px;
 }
 
 p {
@@ -979,21 +999,27 @@ table.table-striped {
             margin: 0;
             background: $tbody_odd;
             @include shadow(0 0 12px 0, rgba(0, 0, 0, 0.05));
-            h3 {
+            .header {
                 background: $thead_odd;
-                text-align: center;
-                color: $headinggray;
-                margin: 0 0 $vbuffer;
-                padding: 5px;
                 @include shadow(0 0 6px 0, rgba(0, 0, 0, 0.125));
             }
+            h3, h4 {
+             text-align: center;
+             color: $headinggray;
+             margin: 0;
+             padding: 5px;
+            }
+            .header h4 {
+            	padding: 0 0 5px 0;
+            	margin: 0;
+            }
             .detail {
-                padding: 0 $hbuffer;
+                padding: 10px $hbuffer;
                 font: 300 18px $heading_family;
             }
             &:nth-child(even){
                 background: $tbody_even;
-                h3 { background: $thead_even; }
+                h3, h4 { background: $thead_even; }
             }
             @include respond-to(phones) { display: block; }
         }
@@ -1139,13 +1165,13 @@ table.table-striped {
  * Brainstorm Page
  *****************/
 .brainstorm-alert {
-    background: rgba(180, 110, 60, 0.2);
-    border: 1px solid $red;
+    background: rgba(77, 140, 138, 0.2);
+    border: 1px solid $teal;
     padding: 1.5em 1.5em 0.5em;
     margin: 2em 0 3em;
     color: $bodygray;
     h2 { margin-top: 0;
-		color:$red;
+		color:$teal;
 		text-shadow: none;
     	}
 }
@@ -1185,7 +1211,9 @@ table.table-striped {
     position: absolute; top: 120px; width: 100%;
     .btn {width: 100%;}
 }
-.brainstorm-vote .btn {width: 100%;}
+.brainstorm-vote .btn {width: 100%;
+
+}
 .brainstorm-votes-counted { float:left; width: 50%;}
 .brainstorm-votable {float: right; width: 50%; @include hpad;
     p { line-height: 1.25; font-size: 13px;}
@@ -1285,7 +1313,10 @@ form.brainstorm-form label {
 	font-family: $heading_family;
 	font-weight:bold;
 	font-size: 14px;
-	padding-top:20px;
+}
+
+form.brainstorm-form li {
+	padding-bottom: 20px;
 }
 
 .brainstorm input[type="text"], .brainstorm .input input[type="text"], .brainstorm .textarea textarea, .brainstorm textarea, .brainstorm select{

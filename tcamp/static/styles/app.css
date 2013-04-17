@@ -231,6 +231,12 @@ h5 {
   padding-top: 20px;
   font-style: italic; }
 
+h6 {
+  font-family: "museo-slab", lucida, sans-serif;
+  font-size: 16px;
+  color: #44331f;
+  font-weight: 300; }
+
 @media (max-width: 767px) {
   h1 + h3 {
     margin-top: 0; } }
@@ -252,6 +258,17 @@ a {
   line-height: 1.7;
   color: #438381;
   padding-bottom: 20px; }
+
+.subhead {
+  color: #574227;
+  font-family: "museo-slab", lucida, sans-serif;
+  font-size: 22px;
+  font-weight: 300; }
+
+.endlinks {
+  font-family: "museo-slab", lucida, sans-serif;
+  font-weight: 300;
+  font-size: 18px; }
 
 p {
   line-height: 1.6;
@@ -1104,20 +1121,24 @@ table.table-striped {
       background: white;
       -webkit-box-shadow:  0 0 12px 0 rgba(0, 0, 0, 0.05);
       box-shadow:  0 0 12px 0 rgba(0, 0, 0, 0.05); }
-      .schedule-highlights > .row > [class*="span"] h3, .schedule-highlights > .row-fluid > [class*="span"] h3 {
+      .schedule-highlights > .row > [class*="span"] .header, .schedule-highlights > .row-fluid > [class*="span"] .header {
         background: #e8c755;
-        text-align: center;
-        color: #574227;
-        margin: 0 0 20px;
-        padding: 5px;
         -webkit-box-shadow:  0 0 6px 0 rgba(0, 0, 0, 0.125);
         box-shadow:  0 0 6px 0 rgba(0, 0, 0, 0.125); }
+      .schedule-highlights > .row > [class*="span"] h3, .schedule-highlights > .row > [class*="span"] h4, .schedule-highlights > .row-fluid > [class*="span"] h3, .schedule-highlights > .row-fluid > [class*="span"] h4 {
+        text-align: center;
+        color: #574227;
+        margin: 0;
+        padding: 5px; }
+      .schedule-highlights > .row > [class*="span"] .header h4, .schedule-highlights > .row-fluid > [class*="span"] .header h4 {
+        padding: 0 0 5px 0;
+        margin: 0; }
       .schedule-highlights > .row > [class*="span"] .detail, .schedule-highlights > .row-fluid > [class*="span"] .detail {
-        padding: 0 20px;
+        padding: 10px 20px;
         font: 300 18px "museo-slab", lucida, sans-serif; }
       .schedule-highlights > .row > [class*="span"]:nth-child(even), .schedule-highlights > .row-fluid > [class*="span"]:nth-child(even) {
         background: #fef7dc; }
-        .schedule-highlights > .row > [class*="span"]:nth-child(even) h3, .schedule-highlights > .row-fluid > [class*="span"]:nth-child(even) h3 {
+        .schedule-highlights > .row > [class*="span"]:nth-child(even) h3, .schedule-highlights > .row > [class*="span"]:nth-child(even) h4, .schedule-highlights > .row-fluid > [class*="span"]:nth-child(even) h3, .schedule-highlights > .row-fluid > [class*="span"]:nth-child(even) h4 {
           background: #d9a322; }
       @media (max-width: 767px) {
         .schedule-highlights > .row > [class*="span"], .schedule-highlights > .row-fluid > [class*="span"] {
@@ -1285,14 +1306,14 @@ table.table-striped {
  * Brainstorm Page
  *****************/
 .brainstorm-alert {
-  background: rgba(180, 110, 60, 0.2);
-  border: 1px solid #9b2c1d;
+  background: rgba(77, 140, 138, 0.2);
+  border: 1px solid #438381;
   padding: 1.5em 1.5em 0.5em;
   margin: 2em 0 3em;
   color: #222222; }
   .brainstorm-alert h2 {
     margin-top: 0;
-    color: #9b2c1d;
+    color: #438381;
     text-shadow: none; }
 
 .brainstorm-ideas ul {
@@ -1486,8 +1507,10 @@ form.brainstorm-form label {
   color: #44331f;
   font-family: "museo-slab", lucida, sans-serif;
   font-weight: bold;
-  font-size: 14px;
-  padding-top: 20px; }
+  font-size: 14px; }
+
+form.brainstorm-form li {
+  padding-bottom: 20px; }
 
 .brainstorm input[type="text"], .brainstorm .input input[type="text"], .brainstorm .textarea textarea, .brainstorm textarea, .brainstorm select {
   border: 3px solid #829308; }
