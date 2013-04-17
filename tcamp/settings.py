@@ -42,14 +42,14 @@ GOOGLEAUTH_GROUPS = ('staff', )
 GOOGLEAUTH_REALM = 'transparencycamp.org'
 
 COMPRESS_CSS_FILTERS = (
-    'compressor.filters.cssmin.CSSMinFilter'
+    'compressor.filters.cssmin.CSSMinFilter',
 )
 COMPRESS_JS_FILTERS = (
-    'compressor.filters.jsmin.JSMinFilter'
+    'compressor.filters.jsmin.JSMinFilter',
 )
 
 DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False
+    'INTERCEPT_REDIRECTS': False,
 }
 
 STATICFILES_DIRS = (
