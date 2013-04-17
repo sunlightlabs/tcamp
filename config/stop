@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-HOME=/projects/tcamp
-PIDFILE=$HOME/data/pidfile
+ROOT=/projects/tcamp
+PIDFILE=$ROOT/data/pidfile
 
 if [ -f $PIDFILE ]; then
     PID=`cat $PIDFILE`

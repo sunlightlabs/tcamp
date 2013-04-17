@@ -134,8 +134,8 @@ def deploy():
     create_release()
     symlink_current()
     install_dependencies()
-    run_migrations()
     sync_remote_assets()
+    run_migrations()
     cleanup()
     restart()
 

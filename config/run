@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-HOME=/projects/tcamp
-PIDFILE=$HOME/data/pidfile
-SOCKET=unix:$HOME/data/socket
+ROOT=/projects/tcamp
+PIDFILE=$ROOT/data/pidfile
+SOCKET=unix:$ROOT/data/socket
 WORKERS=4
-CODEROOT=$HOME/src/current
+CODEROOT=$ROOT/src/current
 
 if [ -f $PIDFILE ]; then
     PID=$(cat $PIDFILE)
@@ -11,4 +11,4 @@ if [ -f $PIDFILE ]; then
     kill $PID
 fi
 
-$HOME/virt/bin/python $CODEROOT/manage.py run_gunicorn -b $SOCKET -p $PIDFILE -w $WORKERS --daemon --log-file=$HOME/log/gunicorn.log --preload
+$ROOT/virt/bin/python $CODEROOT/manage.py run_gunicorn -b $SOCKET -p $PIDFILE -w $WORKERS --daemon --log-file=$ROOT/log/gunicorn.log --preload
