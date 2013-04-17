@@ -106,9 +106,8 @@ def stop():
 
 
 def restart():
-    with prefix("source %s/bin/activate" % VENV_PATH):
-        with cd(HOME_PATH):
-            sudo("./bin/run")
+    with cd(HOME_PATH):
+        sudo("./bin/run")
 
 
 def cleanup():
