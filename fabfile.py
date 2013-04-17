@@ -70,7 +70,7 @@ def symlink_current():
             sudo("unlink ./run")
         except:
             pass
-        sudo("ln -nfs %s/%s/run" % (WORKING_PATH, CURRENT_DIR), user=FS_USER)
+        sudo("ln -nfs %s/%s/config/run" % (WORKING_PATH, CURRENT_DIR), user=FS_USER)
 
 
 def sync_remote_assets():
