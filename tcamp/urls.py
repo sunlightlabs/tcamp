@@ -7,7 +7,6 @@ urlpatterns = patterns(
     '',
     url(r'^logistics/$', RedirectView.as_view(url="/about/logistics/")),
     url(r'^sessions/$', RedirectView.as_view(url="/schedule/")),
-    url(r'^sponsors/$', RedirectView.as_view(url="/sponsorship/")),
 
     url(r'^treenav/', include('treenav.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
