@@ -24,12 +24,24 @@ AWS_QUERYSTRING_AUTH = False
 AWS_S3_SECURE_URLS = False
 AWS_STORAGE_BUCKET_NAME = "assets.transparencycamp.org"
 S3_URL = 'http://assets.transparencycamp.org.s3.amazonaws.com/%s/' % ASSET_SITE_VERSION
-COMPRESS_URL = S3_URL + 'static/'
-DEFAULT_FILE_STORAGE = 's3utils.MediaRootS3BotoStorage'
+
 COMPRESS_STORAGE = 's3utils.StaticRootS3BotoStorage'
+COMPRESS_ROOT = os.path.join(PROJECT_ROOT, '.static')
+COMPRESS_URL = S3_URL + 'static/'
+COMPRESS_CSS_FILTERS = (
+    'compressor.filters.cssmin.CSSMinFilter',
+    'compressor.filters.css_default.CssAbsoluteFilter',
+)
+COMPRESS_CSS_HASHING_METHOD = 'content'
+COMPRESS_JS_FILTERS = (
+    'compressor.filters.jsmin.JSMinFilter',
+)
+
 STATICFILES_STORAGE = COMPRESS_STORAGE
-STATIC_ROOT = os.path.join(PROJECT_ROOT, '.static')
+STATIC_ROOT = COMPRESS_ROOT
 STATIC_URL = COMPRESS_URL
+
+DEFAULT_FILE_STORAGE = 's3utils.MediaRootS3BotoStorage'
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, '.media')
 MEDIA_URL = S3_URL + 'media/'
 
@@ -40,15 +52,6 @@ GOOGLEAUTH_DOMAIN = 'sunlightfoundation.com'
 GOOGLEAUTH_IS_STAFF = True
 GOOGLEAUTH_GROUPS = ('staff', )
 GOOGLEAUTH_REALM = 'transparencycamp.org'
-
-COMPRESS_CSS_FILTERS = (
-    'compressor.filters.cssmin.CSSMinFilter',
-    'compressor.filters.css_default.CssAbsoluteFilter',
-)
-COMPRESS_CSS_HASHING_METHOD = 'content'
-COMPRESS_JS_FILTERS = (
-    'compressor.filters.jsmin.JSMinFilter',
-)
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
