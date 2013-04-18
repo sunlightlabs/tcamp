@@ -19,9 +19,9 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ SHARING_IMAGE }}">
     {% block opengraph %}
-    <meta property="og:title" content="{% chunk og_title %}">
-    <meta property="og:description" content="{% chunk og_description %}">
-    <meta property="og:url" content="{% chunk og_url %}">
+    <meta property="og:title" content="{% chunk "og_title" %}">
+    <meta property="og:description" content="{% chunk "og_description" %}">
+    <meta property="og:url" content="{% chunk "og_url" %}">
     {% endblock opengraph %}
     {% compress css %}
     <link href="{% static "styles/bootstrap.css" %}" rel="stylesheet" type="text/css">
