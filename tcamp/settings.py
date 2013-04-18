@@ -22,6 +22,7 @@ AUTOCOMPLETE_LIMIT = 5
 ASSET_SITE_VERSION = '3.0'
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_SECURE_URLS = False
+AWS_PRELOAD_METDATA = True
 AWS_STORAGE_BUCKET_NAME = "assets.transparencycamp.org"
 S3_URL = 'http://assets.transparencycamp.org.s3.amazonaws.com/%s/' % ASSET_SITE_VERSION
 
