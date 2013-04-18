@@ -266,6 +266,13 @@ a {
   a:hover {
     color: #9b2c1d; }
 
+.module ul {
+  color: #438381; }
+
+.module li {
+  padding-bottom: 10px;
+  color: #44331f; }
+
 .intro {
   font-family: "museo-slab", lucida, sans-serif;
   font-weight: 300;
@@ -1222,7 +1229,8 @@ table.table-striped {
 .timeslot .time h3 {
   color: #fff;
   text-align: center;
-  margin-top: 0; }
+  margin-top: 0;
+  padding-top: 0px; }
 .timeslot .time-wrap {
   border-right: 2px solid rgba(211, 209, 187, 0.75);
   background: #438381;
@@ -1328,6 +1336,9 @@ table.table-striped {
 .timeslot:nth-child(even) .detail-wrap {
   background: #fff; }
 
+.detail p em {
+  line-height: 1; }
+
 /******************
  * Brainstorm Page
  *****************/
@@ -1414,16 +1425,8 @@ table.table-striped {
   background: rgba(249, 249, 249, 0.5);
   margin-bottom: 0.5em; }
 
-.brainstorm-vote-down {
-  background-color: #e4aa09;
-  background-image: -webkit-linear-gradient(top, #eec151 0%, #e4aa09 100%);
-  /* Chrome 10-25, iOS 5+, Safari 5.1+ */
-  background-image: -moz-linear-gradient(top, #eec151 0%, #e4aa09 100%);
-  /* Firefox 3.6-15 */
-  background-image: -o-linear-gradient(top, #eec151 0%, #e4aa09 100%);
-  /* Opera 11.10-12.00 */
-  background-image: linear-gradient(to bottom, #eec151 0%, #e4aa09 100%);
-  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */
+.brainstorm button.btn.btn-mini, .brainstorm input.btn.btn-mini[type="submit"] {
+  background-image: none;
   color: #FFF;
   text-shadow: none;
   border: 4px solid #fff;
@@ -1432,33 +1435,24 @@ table.table-striped {
   line-height: 1.25em;
   padding: 0.6em;
   float: left; }
-  .brainstorm-vote-down:hover, .brainstorm-vote-down:focus, .brainstorm-vote-down:active {
-    background: #9b2c1d;
+  .brainstorm button.btn.btn-mini:hover, .brainstorm button.btn.btn-mini:focus, .brainstorm button.btn.btn-mini:active, .brainstorm input.btn.btn-mini[type="submit"]:hover, .brainstorm input.btn.btn-mini[type="submit"]:focus, .brainstorm input.btn.btn-mini[type="submit"]:active {
+    background: #e4aa09;
     color: white;
-    outline: none; }
+    outline: none;
+    background-image: -webkit-linear-gradient(top, #eec151 0%, #e4aa09 100%);
+    /* Chrome 10-25, iOS 5+, Safari 5.1+ */
+    background-image: -moz-linear-gradient(top, #eec151 0%, #e4aa09 100%);
+    /* Firefox 3.6-15 */
+    background-image: -o-linear-gradient(top, #eec151 0%, #e4aa09 100%);
+    /* Opera 11.10-12.00 */
+    background-image: linear-gradient(to bottom, #eec151 0%, #e4aa09 100%);
+    /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */ }
+
+.brainstorm-vote-down {
+  background-color: #9b2c1d !important; }
 
 .brainstorm-vote-up {
-  background-color: #e4aa09;
-  background-image: -webkit-linear-gradient(top, #eec151 0%, #e4aa09 100%);
-  /* Chrome 10-25, iOS 5+, Safari 5.1+ */
-  background-image: -moz-linear-gradient(top, #eec151 0%, #e4aa09 100%);
-  /* Firefox 3.6-15 */
-  background-image: -o-linear-gradient(top, #eec151 0%, #e4aa09 100%);
-  /* Opera 11.10-12.00 */
-  background-image: linear-gradient(to bottom, #eec151 0%, #e4aa09 100%);
-  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */
-  color: #FFF;
-  text-shadow: none;
-  border: 4px solid #fff;
-  border-radius: 0.75em;
-  text-transform: uppercase;
-  line-height: 1.25em;
-  padding: 0.6em;
-  float: left; }
-  .brainstorm-vote-up:hover, .brainstorm-vote-up:focus, .brainstorm-vote-up:active {
-    background: #829308;
-    color: white;
-    outline: none; }
+  background-color: #829308 !important; }
 
 .brainstorm-upvotes:after,
 .brainstorm-downvotes:after {

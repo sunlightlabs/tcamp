@@ -361,6 +361,15 @@ a {
     &:hover { color: $red; }
 }
 
+.module ul {
+	color: $teal;
+}
+
+.module li { 
+	padding-bottom:10px;
+	color: $brown;
+	}
+
 .intro {
 	font-family: $heading_family;
 	font-weight:300;
@@ -1084,7 +1093,8 @@ table.table-striped {
         margin-bottom: 0;
     }
     .time {
-        h3 { color: #fff; text-align: center; margin-top: 0; }
+        h3 { color: #fff; text-align: center; margin-top: 0;
+        padding-top: 0px; }
     }
     .time-wrap {
         border-right: 2px solid rgba(211, 209, 187, 0.75);
@@ -1175,6 +1185,10 @@ table.table-striped {
 }
 
 
+.detail p em{
+	line-height: 1;
+    }
+
 /******************
  * Brainstorm Page
  *****************/
@@ -1240,9 +1254,8 @@ table.table-striped {
     margin-bottom: 0.5em;
 }
 
-.brainstorm-vote-down {
-	background-color: $yellow;
-	@include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
+.brainstorm button.btn.btn-mini, .brainstorm input.btn.btn-mini[type="submit"] {
+	background-image: none;
 	color: #FFF;
 	text-shadow: none;
     border: 4px solid #fff;
@@ -1250,22 +1263,20 @@ table.table-striped {
     text-transform: uppercase;
     line-height: 1.25em;
     padding: 0.6em;
-    &:hover, &:focus, &:active { background: $red; color: white; outline: none; }
-	float:left;
+    float:left;
+    &:hover, &:focus, &:active { background: $yellow; color: white; outline: none; 
+    @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
+	}
+
+}
+
+.brainstorm-vote-down {
+	background-color: $red !important;
+	
 }
 
 .brainstorm-vote-up {
-	background-color: $yellow;
-	@include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
-	color: #FFF;
-	text-shadow: none;
-    border: 4px solid #fff;
-    border-radius: 0.75em;
-    text-transform: uppercase;
-    line-height: 1.25em;
-    padding: 0.6em;
-    &:hover, &:focus, &:active { background: $green; color: white; outline: none; }
-   	float:left;
+	background-color: $green !important;
 }
 
 .brainstorm-upvotes:after,
