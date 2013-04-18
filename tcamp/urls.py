@@ -21,4 +21,9 @@ urlpatterns = patterns(
     url(r'^', include('sfapp.urls')),
     url(r'^', include('social.apps.django_app.urls', namespace='social')),
     url(r'^', include('brainstorm.urls', namespace='brainstorm')),
+) + patterns(
+    '',
+    url(r'^logistics/$', RedirectView.as_view(url="/about/logistics/")),
+    url(r'^sessions/$', RedirectView.as_view(url="/schedule/")),
+    url(r'^sponsors/$', RedirectView.as_view(url="/sponsorship/")),
 )
