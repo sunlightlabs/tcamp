@@ -36,8 +36,8 @@
     </form>
 {% else %}
     {% if request.user.is_anonymous %}
-        <a href={% url "login" %}>Log in to post new {{ subsite.idea_label|pluralize }}.</a>
+        <a href={% url "login" %}>Log in to post new {{ subsite.idea_label }}s.</a>
     {% else %}
-        <p>Posting new {{ subsite.idea_label|pluralize }} has been disabled for this site.</p>
+        <p>Posting new {{ subsite.idea_label }}s has been disabled for this site.</p>
     {% endif %}
 {% endif %}
