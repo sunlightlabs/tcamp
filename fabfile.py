@@ -86,7 +86,10 @@ def sync_remote_assets():
         #         pass
         with cd("%s/%s" % (WORKING_PATH, CURRENT_DIR)):
             sudo("./manage.py collectstatic --noinput")
-            sudo("./manage.py compress")
+            try:
+                sudo("./manage.py compress")
+            except:
+                pass
 
 
 def install_dependencies():
