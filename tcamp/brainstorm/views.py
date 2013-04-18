@@ -97,7 +97,7 @@ def vote(request, slug, id, format='html'):
     if vote not in (-1, 0, 1):
         vote = 0
     idea = get_object_or_404(Idea, pk=idea_id, subsite__slug=slug)
-    if idea.voting_status is not OPEN:
+    if idea.subsite.voting_status is not OPEN:
         return HttpResponse('Unauthorized', status=401)
 
     vobj, new = Vote.objects.get_or_create(user=request.user, idea=idea,
