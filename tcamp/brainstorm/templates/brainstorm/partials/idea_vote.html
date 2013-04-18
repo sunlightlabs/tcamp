@@ -11,6 +11,7 @@ window.maxVote = {{ idea.subsite.max_vote_count }}
         <div class="brainstorm-downvotes">{{idea.subsite.downvotes_label|simpleformat:idea.downvotes|safe }}</div>
         {% endif %}
     </div>
+{% if idea.subsite.voting_status == 1 %}
 {% if not idea.user_vote and not request.user.is_anonymous %}
     <div class="brainstorm-votable">
         <form action="{% url "brainstorm:idea_vote" slug=idea.subsite.slug id=idea.id %}" method="post">
@@ -48,6 +49,7 @@ window.maxVote = {{ idea.subsite.max_vote_count }}
         <a href={% url "login" %}{{ redirect_querystring }} class="btn btn-mini disabled">Log in to vote</a>
         {% endif %}
     </div>
+{% endif %}
 {% endif %}
 </div>
 <div class="brainstorm-description">

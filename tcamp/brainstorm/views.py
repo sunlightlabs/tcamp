@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from brainstorm.models import Subsite, Idea, Vote
+from brainstorm.models import Subsite, Idea, Vote, OPEN
 from brainstorm.forms import IdeaForm
 
 
@@ -97,6 +97,9 @@ def vote(request, slug, id, format='html'):
     if vote not in (-1, 0, 1):
         vote = 0
     idea = get_object_or_404(Idea, pk=idea_id, subsite__slug=slug)
+    if idea.voting_status is not OPEN:
+        return HttpResponse('Unauthorized', status=401)
+
     vobj, new = Vote.objects.get_or_create(user=request.user, idea=idea,
                                            defaults={'value': vote})
 
