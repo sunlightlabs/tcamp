@@ -227,6 +227,7 @@ $vgutter: 40px;
 }
 .affix {
     top: $vbuffer;
+    z-index: 999;
 }
 .right-edge {
     margin-right: -$hgutter;

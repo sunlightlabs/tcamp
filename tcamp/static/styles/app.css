@@ -83,7 +83,8 @@ body {
   bottom: 0; }
 
 .affix {
-  top: 20px; }
+  top: 20px;
+  z-index: 999; }
 
 .right-edge {
   margin-right: -20px; }
