@@ -279,6 +279,9 @@ a {
   font-family: "museo-slab", lucida, sans-serif;
   font-size: 22px;
   font-weight: 300; }
+  @media (max-width: 767px) {
+    .subhead {
+      display: block; } }
 
 .endlinks {
   font-family: "museo-slab", lucida, sans-serif;
@@ -698,11 +701,10 @@ table.table-striped {
     .masthead .share-buttons td {
       padding-left: 5px; }
     @media (max-width: 767px) {
-      .masthead .share-buttons td {
-        padding-left: 10px; } }
-    @media (max-width: 767px) {
       .masthead .share-buttons {
-        margin-top: -22px; } }
+        margin-top: 30px; }
+        .masthead .share-buttons td {
+          padding-left: 10px; } }
   .masthead .container {
     background: #cfdfd9 url(../images/teal-arrow-bg.png) repeat 50% 50%; }
   .masthead .navbar {
@@ -729,6 +731,15 @@ table.table-striped {
 .ie8 .logo,
 .ie9 .logo {
   background: transparent url(../images/logo.png) no-repeat 50% 50%; }
+
+@media (max-width: 767px) {
+  .siteheader .span8 {
+    width: 66%;
+    float: left; }
+  .siteheader .span4 {
+    width: 33%; }
+  .siteheader .logo {
+    width: 100%; } }
 
 /* bootstrap nav */
 .navbar .navbar-inner {

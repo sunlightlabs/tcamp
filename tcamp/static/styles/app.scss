@@ -371,10 +371,11 @@ a {
 }
 
 .subhead {
-	color: #574227;
+	color: $headinggray;
 	font-family: $heading_family;
     font-size: 22px;
     font-weight: 300;
+    @include respond-to(phones) { display: block; }
 }
 
 .endlinks {
@@ -656,9 +657,9 @@ table.table-striped {
         float: right;
         td { padding-left: 5px; }
         @include respond-to(phones) {
+            margin-top: 30px;
             td { padding-left: 10px;}
         }
-        @include respond-to(phones) { margin-top: -22px;}
     }
     .container{ background: $bg_feature url(../images/teal-arrow-bg.png) repeat 50% 50%; }
     .navbar { margin-left: -$hbuffer; margin-right: -$hbuffer; margin-bottom: 0;}
@@ -681,6 +682,13 @@ table.table-striped {
 .ie7 .logo,
 .ie8 .logo,
 .ie9 .logo { background: transparent url(../images/logo.png) no-repeat 50% 50%; }
+.siteheader {
+    @include respond-to(phones) {
+        .span8 { width: 66%; float: left; }
+        .span4 { width: 33%;}
+        .logo { width: 100%;}
+    }
+}
 
 /* bootstrap nav */
 @mixin navtext($color:$red, $hovercolor:#fff, $hoverbg:$brown) {
