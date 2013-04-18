@@ -44,6 +44,7 @@ pytz
 fabric
 pexpect
 raven
+pylibmc
 dj-database-url
 python-varnish
 -e git://github.com/drinks/django-varnish.git#egg=varnishapp
