@@ -34,7 +34,7 @@ COMPRESS_CSS_FILTERS = (
     'compressor.filters.cssmin.CSSMinFilter',
     'compressor.filters.css_default.CssAbsoluteFilter',
 )
-COMPRESS_CSS_HASHING_METHOD = 'content'
+# COMPRESS_CSS_HASHING_METHOD = 'content'
 COMPRESS_JS_FILTERS = (
     'compressor.filters.jsmin.JSMinFilter',
 )
@@ -89,6 +89,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "sked.context_processors.current_event",
     "brainstorm.context_processors.brainstorm",
     "camp.context_processors.sponsors",
+    "context_processors.basic_settings"
 )
 
 MIDDLEWARE_CLASSES = (
