@@ -20,6 +20,7 @@ AUTOCOMPLETE_LIMIT = 5
 
 # This determines which folder static assets and media will be written to on S3.
 ASSET_SITE_VERSION = '3.0'
+
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_SECURE_URLS = False
 AWS_PRELOAD_METDATA = True
@@ -27,7 +28,7 @@ AWS_STORAGE_BUCKET_NAME = "assets.transparencycamp.org"
 S3_URL = 'http://assets.transparencycamp.org.s3.amazonaws.com/%s/' % ASSET_SITE_VERSION
 
 COMPRESS_STORAGE = 's3utils.StaticRootS3BotoStorage'
-COMPRESS_ROOT = os.path.join(PROJECT_ROOT, '.static')
+COMPRESS_ROOT = os.path.join(PROJECT_ROOT, 'static-cache')
 COMPRESS_URL = S3_URL + 'static/'
 COMPRESS_CSS_FILTERS = (
     'compressor.filters.cssmin.CSSMinFilter',
@@ -43,7 +44,7 @@ STATIC_ROOT = COMPRESS_ROOT
 STATIC_URL = COMPRESS_URL
 
 DEFAULT_FILE_STORAGE = 's3utils.MediaRootS3BotoStorage'
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, '.media')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media-cache')
 MEDIA_URL = S3_URL + 'media/'
 
 LOGIN_URL = '/login/'

@@ -6,6 +6,8 @@
 .sass-cache/
 .env
 ;fixtures/
+static-cache/
+media-cache/
 fixtures/auth.json
 local_settings.py
 config/fabconfig.py
