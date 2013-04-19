@@ -214,12 +214,12 @@ class Session(models.Model):
         return hashlib.sha1(u'%s:%s' % (settings.SECRET_KEY, self.created_at)).hexdigest()
 
 
-# @receiver(post_save, sender=Session)
-# def send_confirmation_email(sender, **kwargs):
-#     instance = kwargs['instance']
-#     created = kwargs['created']
-#     if (not created or
-#             not (len(instance.speakers) and instance.speakers[0].get('email')) or
-#             instance.is_public):
-#         return
-#     SessionConfirmationEmailThread(instance).run()
+@receiver(post_save, sender=Session)
+def send_confirmation_email(sender, **kwargs):
+    instance = kwargs['instance']
+    created = kwargs['created']
+    if (not created or
+            not (len(instance.speakers) and instance.speakers[0].get('email')) or
+            instance.is_public):
+        return
+    SessionConfirmationEmailThread(instance).run()
