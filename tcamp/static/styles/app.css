@@ -695,7 +695,8 @@ table.table-striped {
   .masthead h4 {
     font-family: "museo-slab", lucida, sans-serif;
     font-weight: 300;
-    margin-bottom: 0; }
+    margin-bottom: 0;
+    padding-top: 0; }
   .masthead a {
     color: #222222; }
     .masthead a:hover {

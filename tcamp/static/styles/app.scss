@@ -656,7 +656,7 @@ table.table-striped {
         text-align: right;
         @include respond-to(phones) { text-align: left; }
     }
-    h4 { font-family: $heading_family; font-weight: 300; margin-bottom: 0; }
+    h4 { font-family: $heading_family; font-weight: 300; margin-bottom: 0; padding-top: 0; }
     a {
         color: $bodygray;
         &:hover{ text-decoration:none; color: $orange; }
