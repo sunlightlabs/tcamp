@@ -1,12 +1,14 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic.base import RedirectView
 from django.contrib import admin
+from sked.views import RedirectFromPk
 admin.autodiscover()
 
 urlpatterns = patterns(
     '',
     url(r'^logistics/$', RedirectView.as_view(url="/about/logistics/")),
     url(r'^sessions/$', RedirectView.as_view(url="/schedule/")),
+    url(r'^sessions/(?P<pk>[\d]+)/$', RedirectFromPk.as_view()),
 
     url(r'^treenav/', include('treenav.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
