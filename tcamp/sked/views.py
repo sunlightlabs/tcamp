@@ -159,8 +159,6 @@ class UpdateSession(SessionCrudMixin, UpdateView, DeletionMixin):
 
 
 class RedirectFromPk(RedirectView):
-    pk = None
-
     def get_redirect_url(self, **kwargs):
-        obj = get_object_or_404(Session, pk=self.pk)
+        obj = get_object_or_404(Session, pk=kwargs['pk'])
         return obj.get_absolute_url()
