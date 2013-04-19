@@ -54,9 +54,11 @@
     }
     checktwttr();
     // silly hamburger menu
-    jPM = $.jPanelMenu({
+    var jPM = $.jPanelMenu({
       duration: 50,
-      closeOnContentClick: false
+      closeOnContentClick: false,
+      keyboardShortcuts: false,
+
     });
     jPM.on();
     $('#jPanelMenu-menu a.dropdown-toggle').click(function(){
@@ -74,12 +76,14 @@
       }
     })
     .on('movestart', function(e){
-      if ((e.distX > e.distY && e.distX < -e.distY) ||
+      if ($(window).width() > 768 ||
+          (e.distX > e.distY && e.distX < -e.distY) ||
           (e.distX < e.distY && e.distX > -e.distY)) {
         e.preventDefault();
       }
     });
     // redraw social buttons bigger when window is resized
+    // also, enable/disable panel menu
     $(window).resize($.throttle(150, function(){
       var social = $('.share-buttons'),
           opts = social.attr('data-options'),
@@ -91,17 +95,23 @@
       }catch(e){
         size = '16';
       }
-      if(width < 768 && size == '16'){
-        social.attr('data-options', opts.replace(rexp, 'size=24'));
-        social.trigger('auto');
-      }else if(width >= 768 && size == '24'){
-        social.attr('data-options', opts.replace(rexp, 'size=16'));
-        social.trigger('auto');
+      if(width < 768){
+        if($('#jPanelMenu-menu').length === 0) jPM.on();
+        if(size == '16'){
+          social.attr('data-options', opts.replace(rexp, 'size=24'));
+          social.trigger('auto');
+        }
+      }else if(width >= 768){
+        if($('#jPanelMenu-menu').length === 1) jPM.off();
+        if(size == '24'){
+          social.attr('data-options', opts.replace(rexp, 'size=16'));
+          social.trigger('auto');
+        }
       }
     }));
     $(window).resize();
     // hack hack hack
-    setTimeout(function(){$(window).resize()}, 250);
+    setTimeout(function(){ $(window).resize(); }, 250);
   });
 
 
