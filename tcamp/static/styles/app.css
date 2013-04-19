@@ -964,9 +964,6 @@ table.table-striped {
       margin-right: -20px; } }
   .tweets .twitter-timeline {
     width: 100%; }
-  @media (max-width: 767px) {
-    .tweets {
-      display: none; } }
 
 /* callout buckets */
 .callouts h3, .callouts h4 {

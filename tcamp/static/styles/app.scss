@@ -365,7 +365,7 @@ a {
 	color: $teal;
 }
 
-.module li { 
+.module li {
 	padding-bottom:10px;
 	color: $brown;
 	}
@@ -859,7 +859,6 @@ table.table-striped {
         // height: 400px;
     }
     .twitter-timeline { width: 100%; }
-    @include respond-to(phones) { display: none; }
 }
 
 /* callout buckets */
@@ -1264,7 +1263,7 @@ table.table-striped {
     line-height: 1.25em;
     padding: 0.6em;
     float:left;
-    &:hover, &:focus, &:active { background: $yellow; color: white; outline: none; 
+    &:hover, &:focus, &:active { background: $yellow; color: white; outline: none;
     @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
 	}
 
@@ -1272,7 +1271,7 @@ table.table-striped {
 
 .brainstorm-vote-down {
 	background-color: $red !important;
-	
+
 }
 
 .brainstorm-vote-up {
