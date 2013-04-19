@@ -14,6 +14,7 @@
     // bind voting events
     $(window).bind('repaint.brainstorm', function(e, opts){
       drawVoteChart($(opts.elem));
+      $(window).resize();
     });
     $('.brainstorm-vote').each(function(){
       drawVoteChart(this);
