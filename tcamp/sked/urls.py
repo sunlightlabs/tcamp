@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
 from sked.views import (SessionList, SessionDetail, CreateSession,
-                        UpdateSession)
+                        UpdateSession, RedirectFromPk)
 from sked.models import Event
 
 CURRENT_EVENT = Event.objects.current()
@@ -16,4 +16,6 @@ urlpatterns = patterns(
     url(r'^(?P<event_slug>[\w-]+)/(?P<slug>[\w-]+)/edit/$', UpdateSession.as_view(), name="edit_session"),
     url(r'^(?P<event_slug>[\w-]+)/(?P<slug>[\w-]+)/preview/$', SessionDetail.as_view(preview=True), name="session_preview"),
     url(r'^(?P<event_slug>[\w-]+)/(?P<slug>[\w-]+)/$', SessionDetail.as_view(), name="session_detail"),
+
+    url(r'^sessions/(?P<pk>[\d]+)/$', RedirectFromPk.as_view()),
 )

@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.utils import timezone
 from django.views.generic import (ListView, DetailView, CreateView,
-                                  UpdateView)
+                                  UpdateView, RedirectView)
 from django.views.generic.edit import DeletionMixin
 from camp.forms import BootstrapErrorList
 from sked.models import Event, Session
@@ -156,3 +156,11 @@ class UpdateSession(SessionCrudMixin, UpdateView, DeletionMixin):
             messages.success(self.request, 'Your session was deleted.')
             return self.delete(request, *args, **kwargs)
         return super(UpdateSession, self).post(request, *args, **kwargs)
+
+
+class RedirectFromPk(RedirectView):
+    pk = None
+
+    def get_redirect_url(self, **kwargs):
+        obj = get_object_or_404(Session, pk=self.pk)
+        return obj.get_absolute_url()
