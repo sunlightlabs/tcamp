@@ -1,5 +1,7 @@
 from django.conf import settings
+import time
 
+TIMESTAMP = int(time.mktime(time.gmtime()))
 
 def basic_settings(request):
     return {
@@ -8,4 +10,5 @@ def basic_settings(request):
         'SHARING_IMAGE': settings.SHARING_IMAGE,
         'FB_APP_ID': settings.FB_APP_ID,
         'GOOGLE_ANALYTICS_ID': settings.GOOGLE_ANALYTICS_ID,
+        'CACHEBUSTER': TIMESTAMP,
     }
