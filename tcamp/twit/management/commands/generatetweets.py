@@ -73,4 +73,4 @@ class Command(BaseCommand):
                     tweet.add_session(session)
                 except TweetTooLongError:
                     continue
-                tweet.save()
+            tweet.save()
