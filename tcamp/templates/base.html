@@ -8,12 +8,14 @@
 <head>
     <meta charset="utf-8">
     <title>{% block title %}TransparencyCamp{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+
+    <link rel="apple-touch-startup-image" href="{% static "images/Default-568h@2x.png" %}" sizes="640x1096">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-icon" href="{{ APPLE_TOUCH_ICON }}">
 
     <link rel="shortcut icon" href="{{ FAVICON }}">
-    <link rel="apple-touch-icon" href="{{ APPLE_TOUCH_ICON }}">
     <meta name="description" content="">
     <meta property="fb:app_id" content="{{ FB_APP_ID }}">
     <meta name="author" content="{% block meta_author %}The Sunlight Foundation{% endblock %}">
