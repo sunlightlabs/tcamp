@@ -24,6 +24,11 @@ ASSET_SITE_VERSION = '3.0'
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_SECURE_URLS = False
 AWS_PRELOAD_METDATA = True
+AWS_HEADERS = {
+    "Vary": "Accept-Encoding",
+    "Cache-Control": "max-age=86400",
+    "Expires": "Sat, 3 May 2014 00:00:00 GMT"
+}
 AWS_STORAGE_BUCKET_NAME = "assets.transparencycamp.org"
 S3_URL = 'http://assets.transparencycamp.org.s3.amazonaws.com/%s/' % ASSET_SITE_VERSION
 
