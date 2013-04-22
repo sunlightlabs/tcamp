@@ -57,7 +57,6 @@
     $(function(){
         $(window).resize($.throttle(150, function(){
             $('.brainstorm-item').each(function(){
-                console.log('this happen');
                 var h = $(this).find('h3').height();
                 h += $(this).find('.brainstorm-timestamp').height();
                 $(this).find('.brainstorm-vote').css('top', h + 60);
