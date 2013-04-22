@@ -1,8 +1,6 @@
-{% load treenav_tags i18n cache %}
+{% load treenav_tags i18n %}
 {% load url from future %}
 
-{# Cache this thing bc it generates a billionty queries #}
-{% cache 500 nav menuitem request.path %}
 {# a bootstrap-compatible treenav menuitem #}
 {% if menuitem.enabled_children %}
 <ul id="menu{% if menuitem.node.slug %}-{{ menuitem.node.slug }}{% endif %}" class="{% spaceless %}
@@ -28,4 +26,3 @@
     {% endfor %}
 </ul>
 {% endif %}
-{% endcache %}
