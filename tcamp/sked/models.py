@@ -125,15 +125,16 @@ class SessionManager(models.Manager):
         return qset.select_related().filter(is_public=True).prefetch_related('location')
 
     def current(qset):
-        now = datetime.datetime.now()
-        current_time_slot = qset.filter(start_time__lte=now).aggregate(
+        now = timezone.now()
+        current_time_slot = qset.filter(start_time__lte=now, end_time__gt=now).aggregate(
             timeslot=models.Max('start_time')).get('timeslot')
         return qset.select_related().filter(start_time=current_time_slot,
                                             is_public=True).prefetch_related('location')
 
     def next(qset):
-        now = datetime.datetime.now()
-        next_time_slot = qset.filter(start_time__gt=now).aggregate(
+        now = timezone.now()
+        event = Event.objects.current()
+        next_time_slot = qset.filter(start_time__gt=now, event=event).aggregate(
             timeslot=models.Min('start_time')).get('timeslot')
         return qset.select_related().filter(start_time=next_time_slot,
                                             is_public=True).prefetch_related('location')
