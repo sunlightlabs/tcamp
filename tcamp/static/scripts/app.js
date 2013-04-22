@@ -113,6 +113,16 @@
     $(window).resize();
     // hack hack hack
     setTimeout(function(){ $(window).resize(); }, 250);
+    // keep links clicked in web-app mode on the same page.
+    $('body').on('click', 'a', function(e){
+      if($(window).width() < 768){
+        var el = $(e.target);
+        if(! el.attr('href').match(/^http/)){
+          e.preventDefault();
+          location.href = el.attr('href');
+        }
+      }
+    });
   });
 
 
