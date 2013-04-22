@@ -44,7 +44,7 @@ COMPRESS_JS_FILTERS = (
     'compressor.filters.jsmin.JSMinFilter',
 )
 
-STATICFILES_STORAGE = COMPRESS_STORAGE
+
 STATIC_ROOT = COMPRESS_ROOT
 STATIC_URL = COMPRESS_URL
 
@@ -237,8 +237,6 @@ LOGGING = {
 }
 
 if 'DEBUG' in os.environ.keys():
-    print """Debug flag found in local environment. Booting with
-             Heroku-style .env settings"""
     # Load .env file and
     # Parse database configuration from $DATABASE_URL
     import dj_database_url
