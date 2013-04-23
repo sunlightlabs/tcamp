@@ -6,7 +6,7 @@
     <div class="span10">
         <h2>{{ session.title }}</h2>
         {% if session.is_public %}
-        <h5>{{ session.start_time|date:"N j, H:i a"}}, {{ session.location.name }}</h5>
+        <h5>{{ session.start_time|date:"N j, g:i a"}}, {{ session.location.name }}</h5>
         {% endif %}
         <p class="meta">
             {% for speaker in session.speakers %}
