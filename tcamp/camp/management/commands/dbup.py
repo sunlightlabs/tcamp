@@ -18,6 +18,10 @@ class Command(BaseCommand):
             sys.exit('Usage: ./manage.py dbup [sourcedb] [destdb]')
         sourcedb = settings.DATABASES[args[0]]
         destdb = settings.DATABASES[args[1]]
+        proceed = raw_input('This will copy %s to %s. Proceed? [Yn]:' % (
+            args[0], args[1]))
+        if proceed.startswith('n'):
+            return
         dbauth = '-h %s -p %s -U %s -W %s'
         sourceauth = dbauth % (sourcedb['HOST'] or '127.0.0.1',
                                sourcedb['PORT'] or 5432,
