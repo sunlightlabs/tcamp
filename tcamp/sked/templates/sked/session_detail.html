@@ -1,7 +1,14 @@
 {% extends "base.html" %}
-{% load markdown_deux_tags %}
+{% load treenav_tags %}
 
 {% block content %}
+<div class="row-fluid breadcrumb-row">
+    <div class="span12">
+        <div class="breadcrumb divider-bottom">
+            <a href="../#schedule">&laquo; Back to schedule</a>
+        </div>
+    </div>
+</div>
 <div class="row-fluid module">
     <div class="span10">
         <h2>{{ session.title }}</h2>

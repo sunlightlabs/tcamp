@@ -152,6 +152,13 @@ $phone: 480;
             border-image: url(#{$url}) $offset fill #{$repeat};
 }
 
+@mixin border_box {
+-webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+        box-sizing: border-box;
+}
+
 // horizontal space
 $infinity: 9999px;
 $hbuffer: 20px;
@@ -159,10 +166,7 @@ $hgutter: 20px;
 @mixin hpad {
     padding-left: $hbuffer;
     padding-right: $hbuffer;
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-        -ms-box-sizing: border-box;
-            box-sizing: border-box;
+    @include border_box;
 }
 
 //vertical space
@@ -242,6 +246,7 @@ $vgutter: 40px;
 .stripe {
     @include hpad;
 }
+
 .divider-right {
     border-right: 2px dashed $lightgray;
     padding-right: $hgutter;
@@ -256,6 +261,22 @@ $vgutter: 40px;
 .pairs > * { float: left; width: 50%; }
 .pairs > *:nth-child(odd) { clear:left; }
 .triples > * { float: left; width: 33.3%; }
+
+.breadcrumb {
+    margin-left: (-$hbuffer*2);
+    margin-right: (-$hbuffer*2);
+    margin-bottom: 0;
+    padding: 10px ($hbuffer*2) 0;
+    background: transparent;
+    @include border_box;
+    &:after{ margin: 10px (-$hbuffer) 0; top: 0; }
+    a { font-family: $heading_family; color: $green; font-size: 16px;}
+}
+
+.breadcrumb-row {
+    display:none;
+    @include respond-to(phones) { display: block; }
+}
 
 .well {
     @include radius(0);
@@ -424,10 +445,7 @@ p {
         textarea,
         select,
         .btn {
-            -webkit-box-sizing: border-box;
-               -moz-box-sizing: border-box;
-                -ms-box-sizing: border-box;
-                    box-sizing: border-box;
+            @include border_box;
             float: none;
             display: block;
             width: 100%;
@@ -1144,10 +1162,7 @@ table.table-striped {
         .session {
             float: left;
             width: 52.325%;
-            -webkit-box-sizing: border-box;
-               -moz-box-sizing: border-box;
-                -ms-box-sizing: border-box;
-                    box-sizing: border-box;
+            @include border_box;
             padding: 10px $hbuffer;
             border-top: 2px solid $bg_tan;
             margin-right: -$hbuffer;

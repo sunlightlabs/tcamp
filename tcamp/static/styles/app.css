@@ -156,6 +156,30 @@ body {
   float: left;
   width: 33.3%; }
 
+.breadcrumb {
+  margin-left: -40px;
+  margin-right: -40px;
+  margin-bottom: 0;
+  padding: 10px 40px 0;
+  background: transparent;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box; }
+  .breadcrumb:after {
+    margin: 10px -20px 0;
+    top: 0; }
+  .breadcrumb a {
+    font-family: "museo-slab", lucida, sans-serif;
+    color: #829308;
+    font-size: 16px; }
+
+.breadcrumb-row {
+  display: none; }
+  @media (max-width: 767px) {
+    .breadcrumb-row {
+      display: block; } }
+
 .well {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
