@@ -8,7 +8,7 @@ bpython
 
 boto>=2.8
 django-compressor
-django-storages
+django-storages==1.1.8
 django-tastypie
 django-disqus
 django-taggit
