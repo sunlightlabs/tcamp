@@ -84,6 +84,13 @@ class Event(models.Model):
             return True
         return False
 
+    @property
+    def is_upcoming(self):
+        now = timezone.now()
+        if self.start_date > now:
+            return True
+        return False
+
 
 class Location(models.Model):
     name = models.CharField(max_length=255, db_index=True)

@@ -8,7 +8,7 @@
     </div>
 </div>
 <div class="row-fluid module collapse-top">
-    {% if event.is_current %}
+    {% if event.is_current or event.is_upcoming %}
     <div class="span8">
         {{ event.description }}
     </div>
@@ -28,11 +28,13 @@
     </div>
     {% endif %}
 </div>
+{% if event.overview %}
 <div class="row-fluid module schedule-overview">
     <div class="span12">
         {{ event.overview }}
     </div>
 </div>
+{% endif %}
 <div class="row-fluid collapse-bottom">
     <ul class="span12  nav nav-tabs">
         {% for day in days %}
