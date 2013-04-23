@@ -92,13 +92,24 @@ class Event(models.Model):
         return False
 
 
+class LocationManager(models.Manager):
+    def official(qset):
+        return qset.filter(is_official=True)
+
+    def with_sessions(qset):
+        return qset.filter(has_sessions=True)
+
+
 class Location(models.Model):
     name = models.CharField(max_length=255, db_index=True)
     event = models.ForeignKey(Event, related_name='locations')
     is_official = models.BooleanField(default=False)
+    has_sessions = models.BooleanField(default=True, db_index=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = LocationManager()
 
     class Meta:
         ordering = ('-event__start_date', 'name')
@@ -122,11 +133,26 @@ class Location(models.Model):
 
 class SessionManager(models.Manager):
     def today(qset):
-        today = datetime.date.today()
+        today = timezone.now().date()
         return qset.select_related().filter(start_time__year=today.year,
                                             start_time__month=today.month,
                                             start_time__day=today.day,
                                             is_public=True).prefetch_related('location')
+
+    def today_or_first(qset):
+        qset = Session.objects.today()
+        if qset.count() is 0:
+            event = Event.objects.current()
+            try:
+                date = Session.objects.filter(event=event).dates('start_time', 'day')[0]
+            except IndexError:
+                return []
+            qset = Session.objects.select_related().filter(event=event,
+                                                           start_time__year=date.year,
+                                                           start_time__month=date.month,
+                                                           start_time__day=date.day,
+                                                           is_public=True).prefetch_related('location')
+        return qset
 
     def published(qset):
         return qset.select_related().filter(is_public=True).prefetch_related('location')
