@@ -1347,6 +1347,9 @@ table.table-striped {
   .timeslot .multi .meta .location {
     float: right;
     font-weight: bold; }
+    .timeslot .multi .meta .location.unofficial {
+      font-weight: normal;
+      font-style: italic; }
 .timeslot .detail-wrap {
   background: #eaf3f0; }
 .timeslot:nth-child(even) .detail-wrap {

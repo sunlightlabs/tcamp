@@ -10,7 +10,13 @@
             {% if sessions.list|length == 1 %}
             {# This is a standalone session #}
                 <h3><a href="{% url "sked:session_detail" event.slug sessions.list.0.slug %}">{{ sessions.list.0.title }}</a></h3>
-                <p class="meta"><strong>{{ sessions.list.0.location.name }}</strong></p>
+                <p class="meta">
+                    {% if sessions.list.0.location.is_official %}
+                        <strong>{{ sessions.list.0.location.name }}</strong>
+                    {% else %}
+                        {{ sessions.list.0.location.name }}
+                    {% endif %}
+                </p>
             {% else %}
             {# This is a session block. Print a header and then a grid of sessions #}
             <div class="row-fluid multi-header">
@@ -25,7 +31,7 @@
                         <h4><a href="{% url "sked:session_detail" event.slug session.slug %}">{{ session.title }}</a></h4>
                         <p class="meta">
                             <span class="speaker">{{ session.speaker_names }}</span>
-                            <span class="location">{{ session.location.name }}</span>
+                            <span class="location{% if not session.location.is_official %} unofficial{% endif %}">{{ session.location.name }}</span>
                         </p>
                     </li>
                     {% empty %}

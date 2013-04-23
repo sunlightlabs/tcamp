@@ -1186,7 +1186,14 @@ table.table-striped {
             display: block;
             padding-left: 0;
             .speaker { float: left; font-style: italic; }
-            .location { float: right; font-weight: bold; }
+            .location {
+                float: right;
+                font-weight: bold;
+                &.unofficial {
+                    font-weight: normal;
+                    font-style: italic;
+                }
+            }
         }
 
     }
