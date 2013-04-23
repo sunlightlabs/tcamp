@@ -20,3 +20,5 @@ GIT_URL = ""
 GIT_BRANCH = "master"
 
 PAST_RELEASES = 5
+
+CACHE_TABLE_NAME = '' # If you're using database cache; In a try/except in the fabfile
