@@ -38,9 +38,9 @@ class EventAdmin(admin.ModelAdmin):
 
 
 class LocationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'event', 'is_official', )
-    list_editable = ('event', 'is_official', )
-    list_filter = ('event', )
+    list_display = ('name', 'event', 'has_sessions', 'is_official', )
+    list_editable = ('event', 'has_sessions', 'is_official', )
+    list_filter = ('event', 'has_sessions', 'is_official', )
     search_fields = ('name', )
 
 
