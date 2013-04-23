@@ -1,6 +1,6 @@
 import re
-import datetime
 
+from dateutil.parser import parse as dateparse
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
@@ -10,7 +10,7 @@ from django.views.generic import (ListView, DetailView, CreateView,
                                   UpdateView, RedirectView)
 from django.views.generic.edit import DeletionMixin
 from camp.forms import BootstrapErrorList
-from sked.models import Event, Session
+from sked.models import Event, Session, Location
 from sked.forms import SessionForm
 
 
@@ -162,3 +162,21 @@ class RedirectFromPk(RedirectView):
     def get_redirect_url(self, **kwargs):
         obj = get_object_or_404(Session, pk=kwargs['pk'])
         return obj.get_absolute_url()
+
+
+class SingleDayView(ListView):
+    model = Session
+    context_object_name = 'session_list'
+    queryset = Session.objects.today_or_first()
+
+    def get_context_data(self, **kwargs):
+        context = super(SingleDayView, self).get_context_data(**kwargs)
+        event = get_object_or_404(Event, slug=self.kwargs.get('event_slug'))
+        locations = Location.objects.official().filter(event=event)
+        timeslots = self.request.GET.get('timeslots', '').split(',')
+        timeslots = [dateparse(time).time() for time in timeslots]
+        context['event'] = event
+        context['locations'] = locations
+        context['timeslots'] = timeslots
+        context['now'] = timezone.now()
+        return context
