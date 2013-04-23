@@ -274,8 +274,8 @@ $vgutter: 40px;
 }
 
 .breadcrumb-row {
-    display:none;
-    @include respond-to(phones) { display: block; }
+    // display:none;
+    // @include respond-to(phones) { display: block; }
 }
 
 .well {

@@ -174,12 +174,6 @@ body {
     color: #829308;
     font-size: 16px; }
 
-.breadcrumb-row {
-  display: none; }
-  @media (max-width: 767px) {
-    .breadcrumb-row {
-      display: block; } }
-
 .well {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
