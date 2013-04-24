@@ -1502,7 +1502,7 @@ table.wall-table {
         tr.lunch {
             background: url(../images/red-lines-bg.png) repeat;
             td { text-align: center; vertical-align: middle; }
-            h4 { font-family: $heading_family; font-weight: bold; font-size: 28px; margin: 0; line-height: 1; }
+            h4 { font-family: $heading_family; font-weight: bold; font-size: 28px; margin: 0; line-height: 1; position: relative; top: 3px; }
             &.present { background: $orange; h4 { color: #fff; } }
         }
         tr.present {

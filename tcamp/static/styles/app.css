@@ -1709,7 +1709,9 @@ table.wall-table {
         font-weight: bold;
         font-size: 28px;
         margin: 0;
-        line-height: 1; }
+        line-height: 1;
+        position: relative;
+        top: 3px; }
       table.wall-table tbody tr.lunch.present {
         background: #ca6728; }
         table.wall-table tbody tr.lunch.present h4 {
