@@ -329,6 +329,8 @@ h1 {
     font-weight: normal;
     font-size: 58px;
     line-height: 1.1;
+    -webkit-font-smoothing: antialiased;
+            font-smoothing: antialiased;
     @include respond-to(phones) { font-size: 48px; }
 }
 h2, h3 {
@@ -570,7 +572,8 @@ table.table-striped {
         & > a {
             @include shadow(4px -4px 10px 0, rgba(0, 0, 0, 0.025));
             @include radius(0);
-            padding: 10px $hbuffer;
+            padding: 16px $hbuffer 4px;
+            @include respond-to(phones) { padding: 10px $hbuffer; }
             line-height: 1;
             background: #fff;
             border: none;

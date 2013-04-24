@@ -224,7 +224,9 @@ h1 {
   font-family: "ostrich", impact, sans-serif;
   font-weight: normal;
   font-size: 58px;
-  line-height: 1.1; }
+  line-height: 1.1;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased; }
   @media (max-width: 767px) {
     h1 {
       font-size: 48px; } }
@@ -613,10 +615,13 @@ table.table-striped {
       -webkit-border-radius: 0;
       -moz-border-radius: 0;
       border-radius: 0;
-      padding: 10px 20px;
+      padding: 16px 20px 4px;
       line-height: 1;
       background: #fff;
       border: none; }
+      @media (max-width: 767px) {
+        .nav-tabs > li > a {
+          padding: 10px 20px; } }
       .nav-tabs > li > a:hover, .nav-tabs > li > a:active, .nav-tabs > li > a:focus {
         background: #fff;
         color: #ca6728;
