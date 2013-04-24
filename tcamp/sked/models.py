@@ -176,7 +176,7 @@ class SessionManager(models.Manager):
 
 
 class Session(models.Model):
-    title = models.CharField(max_length=128)
+    title = models.CharField(max_length=102)
     slug = models.SlugField(db_index=True)
     description = MarkupField(blank=True, markup_type='markdown', help_text="Markdown is supported.")
     speakers = JSONField(help_text='An array of objects. Each must contain a "name" attribute', blank=True, default='[]', db_index=True)
