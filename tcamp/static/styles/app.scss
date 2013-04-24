@@ -613,7 +613,7 @@ table.table-striped {
 /* header */
 .brandingbar {
     background: $bg_brandingbar;
-    // @include horizontal_gradient(#fff 0%, #{$bg_tan} 20%, #{$bg_tan} 80%, $fff 100%);
+    // @include horizontal_gradient("#fff 0%, #{$bg_tan} 20%, #{$bg_tan} 80%, $fff 100%"");
     // @include shadow(0 0 2px 0, rgba(0, 0, 0, 0.025));
     &:after {
         display:block;
@@ -633,7 +633,7 @@ table.table-striped {
         border: none;
         background: transparent;
         @include radius(0);
-        // @include vertical_gradient($bg_tan 0%, #dfdccd 100%);
+        // @include vertical_gradient("$bg_tan 0%, #dfdccd 100%");
         // @include shadow(0 0 2px 0, rgba(0, 0, 0, 0.2));
         @include shadow(0 0 0 0, transparent);
         -webkit-transform: rotate(90deg);
@@ -1473,8 +1473,21 @@ table.wall-table {
         font-family: $projector_family;
         color: $bodygray;
         td {
-            max-height: 130px;
-            overflow:hidden;
+            position: relative;
+            .constrained {
+                max-height: 126px;
+                overflow:hidden;
+                &:after {
+                    content: ' ';
+                    display: block;
+                    position: absolute;
+                    bottom: 0;
+                    height: 15px;
+                    width: 100%;
+                    margin: 0 (-$hbuffer);
+                    @include vertical_gradient("rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%");
+                }
+            }
             padding: 0px 20px 5px;
             h4 {
                 font-family: $projector_family;
@@ -1497,6 +1510,7 @@ table.wall-table {
             th h3 { color: #fff; }
             h4 { color: #fff; }
             p.meta, p.meta strong, p.meta a { color: #000; }
+            td .constrained:after { @include vertical_gradient("rgba(202, 103, 40, 0) 0%, rgba(202, 103, 40, 1) 100%"); }
         }
     }
 }

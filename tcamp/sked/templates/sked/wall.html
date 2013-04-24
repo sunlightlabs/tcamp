@@ -56,7 +56,9 @@
                 {% else %}
                     {% for location in locations %}
                     <td>
-                        {% include "sked/partials/cell.html" %}
+                        <div class="constrained">
+                            {% include "sked/partials/cell.html" %}
+                        </div>
                     </td>
                     {% endfor %}
                 {% endif %}
@@ -89,7 +91,7 @@
             return params;
         };
         // Ajax table loader
-        var refreshInterval = $.deparam(location.search).refresh
+        var refreshInterval = $.deparam(location.search).refresh || 300000 // default to 5 minutes
         function ajaxRefresh(interval){
             setTimeout(function(){
                 $('#table_wrap').load(location.href + ' #wall_table', function(text, status, xhr){
