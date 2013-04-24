@@ -167,16 +167,36 @@ class RedirectFromPk(RedirectView):
 class SingleDayView(ListView):
     model = Session
     context_object_name = 'session_list'
-    queryset = Session.objects.today_or_first()
+    event = Event.objects.current()
+
+    def get_queryset(self):
+        self.event = get_object_or_404(Event, slug=self.kwargs.get('event_slug'))
+        return Session.objects.today_or_first_for_event(self.event)
 
     def get_context_data(self, **kwargs):
         context = super(SingleDayView, self).get_context_data(**kwargs)
-        event = get_object_or_404(Event, slug=self.kwargs.get('event_slug'))
-        locations = Location.objects.official().filter(event=event)
+
+        session_list = self.get_queryset()
+        for sess in list(session_list):
+            sess.start_time = sess.start_time.astimezone(timezone.get_current_timezone())
+
+        locations = Location.objects.with_sessions().filter(event=self.event,
+                                                            sessions__in=context['session_list']
+                                                            ).distinct()
+        try:
+            lunchtime = self.get_queryset().filter(
+                title__istartswith='lunch')[0].start_time.astimezone(timezone.get_current_timezone())
+        except IndexError:
+            lunchtime = None
+
         timeslots = self.request.GET.get('timeslots', '').split(',')
         timeslots = [dateparse(time).time() for time in timeslots]
-        context['event'] = event
+
+        context['session_list'] = session_list
+        context['event'] = self.event
         context['locations'] = locations
         context['timeslots'] = timeslots
-        context['now'] = timezone.now()
+        context['lunchtime'] = lunchtime
+        context['now'] = timezone.now().astimezone(timezone.get_current_timezone())
+        context['now_minus_session_length'] = context['now'] - context['event'].session_length
         return context

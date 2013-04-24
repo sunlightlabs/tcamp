@@ -1,4 +1,3 @@
-import datetime
 import hashlib
 
 from django.conf import settings
@@ -139,10 +138,9 @@ class SessionManager(models.Manager):
                                             start_time__day=today.day,
                                             is_public=True).prefetch_related('location')
 
-    def today_or_first(qset):
-        qset = Session.objects.today()
+    def today_or_first_for_event(qset, event):
+        qset = Session.objects.today().filter(event=event)
         if qset.count() is 0:
-            event = Event.objects.current()
             try:
                 date = Session.objects.filter(event=event).dates('start_time', 'day')[0]
             except IndexError:
@@ -153,6 +151,10 @@ class SessionManager(models.Manager):
                                                            start_time__day=date.day,
                                                            is_public=True).prefetch_related('location')
         return qset
+
+    def today_or_first(qset):
+        event = Event.objects.current()
+        return Session.objects.today_or_first_for_event(event)
 
     def published(qset):
         return qset.select_related().filter(is_public=True).prefetch_related('location')

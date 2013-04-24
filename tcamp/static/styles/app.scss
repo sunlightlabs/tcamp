@@ -27,6 +27,7 @@
 }
 $display_family: 'ostrich', impact, sans-serif;
 $heading_family: 'museo-slab', lucida, sans-serif;
+$projector_family: 'Helvetica Neue', helvetica, arial, 'liberation sans', sans-serif;
 $body_family: georgia, serif;
 
 // text colors
@@ -42,6 +43,7 @@ $green: #829308;
 $brown: #44331f;
 $bodygray: #222;
 $headinggray: #574227;
+$mediumgray: #aaa;
 $lightgray: #ddd;
 $lightergray: #f1f2ec;
 
@@ -299,7 +301,7 @@ $vgutter: 40px;
 }
 
 .well h4, .well h5 {
-	padding-top:0;
+    padding-top:0;
 }
 
 [class*="span"] > [class*="span"] {
@@ -383,35 +385,35 @@ a {
 }
 
 .module ul {
-	color: $teal;
+    color: $teal;
 }
 
 .module li {
-	padding-bottom:10px;
-	color: $brown;
-	}
+    padding-bottom:10px;
+    color: $brown;
+    }
 
 .intro {
-	font-family: $heading_family;
-	font-weight:300;
-	font-size: 17px;
-	line-height: 1.7;
-	color:$teal;
-	padding-bottom:20px;
+    font-family: $heading_family;
+    font-weight:300;
+    font-size: 17px;
+    line-height: 1.7;
+    color:$teal;
+    padding-bottom:20px;
 }
 
 .subhead {
-	color: $headinggray;
-	font-family: $heading_family;
+    color: $headinggray;
+    font-family: $heading_family;
     font-size: 22px;
     font-weight: 300;
     @include respond-to(phones) { display: block; }
 }
 
 .endlinks {
-	font-family: $heading_family;
-	font-weight: 300;
-	font-size: 18px;
+    font-family: $heading_family;
+    font-weight: 300;
+    font-size: 18px;
 }
 
 p {
@@ -509,8 +511,8 @@ p {
 }
 
 .btn-primary {
-	    background: $yellow;
-	        @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
+        background: $yellow;
+            @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
 &:hover, &:focus, &:active { background: $teal; @include vertical_gradient("#{$lightteal} 0%, #{$teal} 100%"); color: white; outline: none; }
 }
 
@@ -1050,8 +1052,8 @@ table.table-striped {
              padding: 5px;
             }
             .header h4 {
-            	padding: 0 0 5px 0;
-            	margin: 0;
+                padding: 0 0 5px 0;
+                margin: 0;
             }
             .detail {
                 padding: 10px $hbuffer;
@@ -1207,7 +1209,7 @@ table.table-striped {
 
 
 .detail p em{
-	line-height: 1;
+    line-height: 1;
     }
 
 /******************
@@ -1220,9 +1222,9 @@ table.table-striped {
     margin: 2em 0 3em;
     color: $bodygray;
     h2 { margin-top: 0;
-		color:$teal;
-		text-shadow: none;
-    	}
+        color:$teal;
+        text-shadow: none;
+        }
 }
 .brainstorm-ideas ul { margin-left: 0; }
 .brainstorm-idea {
@@ -1276,9 +1278,9 @@ table.table-striped {
 }
 
 .brainstorm button.btn.btn-mini, .brainstorm input.btn.btn-mini[type="submit"] {
-	background-image: none;
-	color: #FFF;
-	text-shadow: none;
+    background-image: none;
+    color: #FFF;
+    text-shadow: none;
     border: 4px solid #fff;
     border-radius: 0.75em;
     text-transform: uppercase;
@@ -1287,17 +1289,17 @@ table.table-striped {
     float:left;
     &:hover, &:focus, &:active { background: $yellow; color: white; outline: none;
     @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
-	}
+    }
 
 }
 
 .brainstorm-vote-down {
-	background-color: $red !important;
+    background-color: $red !important;
 
 }
 
 .brainstorm-vote-up {
-	background-color: $green !important;
+    background-color: $green !important;
 }
 
 .brainstorm-upvotes:after,
@@ -1351,45 +1353,45 @@ table.table-striped {
 }
 
 form.brainstorm-form legend {
-	color: $green;
-	font-family: $heading_family;
-	font-size: 22px;
+    color: $green;
+    font-family: $heading_family;
+    font-size: 22px;
 }
 
 form.brainstorm-form label {
-	color: $brown;
-	font-family: $heading_family;
-	font-weight:bold;
-	font-size: 14px;
+    color: $brown;
+    font-family: $heading_family;
+    font-weight:bold;
+    font-size: 14px;
 }
 
 form.brainstorm-form li {
-	padding-bottom: 20px;
+    padding-bottom: 20px;
 }
 
 .brainstorm input[type="text"], .brainstorm .input input[type="text"], .brainstorm .textarea textarea, .brainstorm textarea, .brainstorm select{
-	border: 3px solid $green;
+    border: 3px solid $green;
 }
 
 .brainstorm input[type="text"]:active, .brainstorm input[type="text"]:focus, .brainstorm .input input[type="text"]:active, .brainstorm .input input[type="text"]:focus, .brainstorm .textarea textarea:active, .brainstorm .textarea textarea:focus, .brainstorm textarea:active, .brainstorm textarea:focus, .brainstorm select:focus, .brainstorm select:active{
-	border: 3px solid $green;
-	box-shadow:none;
+    border: 3px solid $green;
+    box-shadow:none;
 }
 
 .brainstorm-votable p {
-	font-style: italic;
-	line-height: 1;
-	color: #666666;
-	font-size: 12px;
+    font-style: italic;
+    line-height: 1;
+    color: #666666;
+    font-size: 12px;
 }
 
 .brainstorm-votable strong {
-	font-style: italic;
-	color: $brown;
+    font-style: italic;
+    color: $brown;
 }
 
 .brainstorm-timestamp {
-	font-family: $heading_family;
+    font-family: $heading_family;
 }
 
 /**************
@@ -1397,31 +1399,104 @@ form.brainstorm-form li {
  *************/
 
 #howto_sidenav_target a{
-	font-family: $heading_family;
-	font-weight: normal;
-	color:#FFF;
-	text-shadow: 0;
-	font-size: 13px;
+    font-family: $heading_family;
+    font-weight: normal;
+    color:#FFF;
+    text-shadow: 0;
+    font-size: 13px;
 }
 
 #howto_sidenav_target a:hover, #howto_sidenav_target a:focus{
-	color:$teal;
+    color:$teal;
 }
 
 #howto_sidenav_target li a:hover, #howto_sidenav_target li a:focus{
-	background-color: #EEE;
-	text-decoration: none;
+    background-color: #EEE;
+    text-decoration: none;
 }
 #howto_sidenav_target li a,{
-	padding: 3px 15px;
-	margin-right: -15;
-	margin-left: -15;
+    padding: 3px 15px;
+    margin-right: -15;
+    margin-left: -15;
 }
 
 #howto_sidenav_target ul{
-	list-style: none;
+    list-style: none;
 }
 
 .nav-list > li > a, .nav-list .nav-header {
-	text-shadow: none;
+    text-shadow: none;
+}
+
+/***************
+ * Wall Display
+ **************/
+
+html.display, html.display body { background: #fff; }
+body.reconnecting:before {
+    content: 'Connection lost!';
+    font-family: $heading_family;
+    font-size: 36px;
+    background: $bodygray;
+    color: #fff;
+    border: 3px solid #fff;
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    margin-left: -170px;
+    opacity: 0.5;
+    @include vpad;
+    @include hpad;
+    @include radius(10px);
+    @include shadow('0, 0, 40px 0', rgba(0, 0, 0, 0.4));
+
+}
+table.wall-table {
+    margin-bottom: 0;
+    h1 { font-size: 38px; color: $orange; padding: 0; line-height: 38px; position: relative; top: 5px; }
+    th, td { border-right: 1px solid #ddd; border-left: 1px solid #ddd; border-collapse: collapse; }
+    th {
+        text-align: center;
+        h4 { padding: 0; font-weight: bold; }
+        h3 { padding: 0; line-height: 38px; color: $bodygray; }
+    }
+    thead th {
+        background: $teal;
+        color: #fff;
+        vertical-align: baseline;
+        border-right: none;
+        border-left: none;
+        &.day { background: #fff; }
+        h3 { color: #fff; }
+    }
+    tbody {
+        font-family: $projector_family;
+        color: $bodygray;
+        td {
+            max-height: 130px;
+            overflow:hidden;
+            padding: 0px 20px 5px;
+            h4 {
+                font-family: $projector_family;
+                padding-top: 0;
+                color: $bodygray;
+            }
+            p.meta {
+                margin-bottom: 0;
+                strong{ font-weight: 500; color: #000;}
+            }
+        }
+        tr.lunch {
+            background: url(../images/red-lines-bg.png) repeat;
+            td { text-align: center; vertical-align: middle; }
+            h4 { font-family: $heading_family; font-weight: bold; font-size: 28px; margin: 0; line-height: 1; }
+            &.present { background: $orange; h4 { color: #fff; } }
+        }
+        tr.present {
+            background: $orange;
+            th h3 { color: #fff; }
+            h4 { color: #fff; }
+            p.meta, p.meta strong, p.meta a { color: #000; }
+        }
+    }
 }

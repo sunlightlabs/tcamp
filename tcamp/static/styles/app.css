@@ -1600,3 +1600,107 @@ form.brainstorm-form li {
 
 .nav-list > li > a, .nav-list .nav-header {
   text-shadow: none; }
+
+/***************
+ * Wall Display
+ **************/
+html.display, html.display body {
+  background: #fff; }
+
+body.reconnecting:before {
+  content: 'Connection lost!';
+  font-family: "museo-slab", lucida, sans-serif;
+  font-size: 36px;
+  background: #222222;
+  color: #fff;
+  border: 3px solid #fff;
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  margin-left: -170px;
+  opacity: 0.5;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow:  0, 0, 40px 0 rgba(0, 0, 0, 0.4);
+  box-shadow:  0, 0, 40px 0 rgba(0, 0, 0, 0.4); }
+
+table.wall-table {
+  margin-bottom: 0; }
+  table.wall-table h1 {
+    font-size: 38px;
+    color: #ca6728;
+    padding: 0;
+    line-height: 38px;
+    position: relative;
+    top: 5px; }
+  table.wall-table th, table.wall-table td {
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-collapse: collapse; }
+  table.wall-table th {
+    text-align: center; }
+    table.wall-table th h4 {
+      padding: 0;
+      font-weight: bold; }
+    table.wall-table th h3 {
+      padding: 0;
+      line-height: 38px;
+      color: #222222; }
+  table.wall-table thead th {
+    background: #438381;
+    color: #fff;
+    vertical-align: baseline;
+    border-right: none;
+    border-left: none; }
+    table.wall-table thead th.day {
+      background: #fff; }
+    table.wall-table thead th h3 {
+      color: #fff; }
+  table.wall-table tbody {
+    font-family: "Helvetica Neue", helvetica, arial, "liberation sans", sans-serif;
+    color: #222222; }
+    table.wall-table tbody td {
+      max-height: 130px;
+      overflow: hidden;
+      padding: 0px 20px 5px; }
+      table.wall-table tbody td h4 {
+        font-family: "Helvetica Neue", helvetica, arial, "liberation sans", sans-serif;
+        padding-top: 0;
+        color: #222222; }
+      table.wall-table tbody td p.meta {
+        margin-bottom: 0; }
+        table.wall-table tbody td p.meta strong {
+          font-weight: 500;
+          color: #000; }
+    table.wall-table tbody tr.lunch {
+      background: url(../images/red-lines-bg.png) repeat; }
+      table.wall-table tbody tr.lunch td {
+        text-align: center;
+        vertical-align: middle; }
+      table.wall-table tbody tr.lunch h4 {
+        font-family: "museo-slab", lucida, sans-serif;
+        font-weight: bold;
+        font-size: 28px;
+        margin: 0;
+        line-height: 1; }
+      table.wall-table tbody tr.lunch.present {
+        background: #ca6728; }
+        table.wall-table tbody tr.lunch.present h4 {
+          color: #fff; }
+    table.wall-table tbody tr.present {
+      background: #ca6728; }
+      table.wall-table tbody tr.present th h3 {
+        color: #fff; }
+      table.wall-table tbody tr.present h4 {
+        color: #fff; }
+      table.wall-table tbody tr.present p.meta, table.wall-table tbody tr.present p.meta strong, table.wall-table tbody tr.present p.meta a {
+        color: #000; }

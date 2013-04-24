@@ -1,0 +1,113 @@
+<!doctype html>
+{% load compress staticfiles sked_tags %}
+<html lang="en" class="display">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ CURRENT_EVENT.title }} Wall</title>
+    {% compress css %}
+    <link href="{% static "styles/bootstrap.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "styles/bootstrap/responsive.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "styles/app.css" %}" rel="stylesheet" type="text/css">
+    {% endcompress %}
+    <script type="text/javascript" src="//use.typekit.net/jat1nrs.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body>
+    {% regroup session_list by start_time as grouped_sessions %}
+    <div id="table_wrap">
+    <table class="table wall-table" id="wall_table">
+        <thead>
+            <tr>
+                {# Top left cell is blank #}
+                <th class="day" width="{% widthratio 1 locations|length|add:1 50 %}%"><h1>{{ session_list.0.start_time|date:"l" }}</h1></th>
+                {% for location in locations %}
+                <th width="{% widthratio 1 locations|length|add:1 100 %}%"><h3>{{ location.name }}</h3></th>
+                {% endfor %}
+                <th class="day" width="{% widthratio 1 locations|length|add:1 50 %}%"><h1>{{ session_list.0.start_time|date:"l" }}</h1></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for timeslot in timeslots %}
+            <tr {%spaceless %}
+            {% if timeslot == lunchtime.time %}
+                class="lunch {% if now_minus_session_length.time <= timeslot and now.time >= timeslot %} present{% endif %}"
+            {% elif now_minus_session_length.time > timeslot %}
+                class="past"
+            {% elif now.time < timeslot %}
+                class="future"
+            {% else %}
+                class="present"
+            {% endif %}
+            {% endspaceless %}>
+                <th scope="row">
+                    {% captureas rowheader %}
+                    {% if timeslot != lunchtime.time %}
+                        {% captureas sessionnum %}{% safe_cycle "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" %}{% endcaptureas %}
+                        <h4>Session {{ sessionnum }}</h4>
+                    {% endif %}
+                    <h3>{{ timeslot|date:"g:i" }}</h3>
+                    {% endcaptureas %}
+                    {{ rowheader }}
+                </th>
+                {% if timeslot == lunchtime.time %}
+                    <td colspan="{{ locations|length }}">
+                        {% include "sked/partials/cell.html" %}
+                    </td>
+                {% else %}
+                    {% for location in locations %}
+                    <td>
+                        {% include "sked/partials/cell.html" %}
+                    </td>
+                    {% endfor %}
+                {% endif %}
+                <th scope="row">{{ rowheader }}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    {% compress js %}
+    <script src="{% static "scripts/jquery.js" %}"></script>
+    <script>
+    (function($){
+        /**
+        * jQuery.deparam
+        * reverses jQuery's param() method, converting a querystring back to an object
+        */
+        $.deparam = function(qs) {
+            var params, pieces;
+            params = {};
+            if (!qs) {
+                return params;
+            }
+            pieces = qs.split(/[&=]/);
+            $.each(pieces, function(idx, val) {
+                if (idx % 2) {
+                    return params[pieces[idx - 1]] = val;
+                }
+            });
+            return params;
+        };
+        // Ajax table loader
+        var refreshInterval = $.deparam(location.search).refresh
+        function ajaxRefresh(interval){
+            setTimeout(function(){
+                $('#table_wrap').load(location.href + ' #wall_table', function(text, status, xhr){
+                    if(status == 'success' || status == 'notmodified'){
+                        $('body').removeClass('reconnecting');
+                    }else{
+                        $('body').addClass('reconnecting');
+                    }
+                    ajaxRefresh(interval);
+                });
+            }, interval);
+        };
+        // Domready bootstrap
+        $(function(){
+            ajaxRefresh(refreshInterval);
+        });
+    })(jQuery);
+    </script>
+    {% endcompress %}
+</body>
+</html>
