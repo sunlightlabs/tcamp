@@ -31,15 +31,15 @@
     {% endblock opengraph %}
 
     <script>
-    (function(){
-        // fetch previous page in webapp mode and return the user there.
-        window.addEventListener && window.addEventListener('pageshow', function(){
-            var prevloc;
-            if(window.navigator.standalone && (prevloc=localStorage.getItem('webloc')) && prevloc.match(/^http/)){
-                (prevloc != location.href) && location.href=prevloc;
-            }
-        });
-    })();
+    // (function(){
+    //     // fetch previous page in webapp mode and return the user there.
+    //     window.addEventListener && window.addEventListener('pageshow', function(){
+    //         var prevloc;
+    //         if(window.navigator.standalone && (prevloc=localStorage.getItem('webloc')) && prevloc.match(/^http/)){
+    //             (prevloc != location.href) && location.href=prevloc;
+    //         }
+    //     });
+    // })();
     </script>
 
     {% compress css %}
