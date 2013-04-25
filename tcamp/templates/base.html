@@ -30,17 +30,16 @@
     <meta property="og:url" content="{% chunk "og_url" %}">
     {% endblock opengraph %}
 
-    <script src="{% static "scripts/jquery.js" %}" type="text/javascript"></script>
     <script>
-    (function($){
+    (function(){
         // fetch previous page in webapp mode and return the user there.
-        $(window).on('pageshow', function(){
+        window.addEventListener && window.addEventListener('pageshow', function(){
             var prevloc;
             if(window.navigator.standalone && (prevloc=localStorage.getItem('webloc')) && prevloc.match(/^http/)){
-                location.href=prevloc;
+                (prevloc != location.href) && location.href=prevloc;
             }
         });
-    })(jQuery);
+    })();
     </script>
 
     {% compress css %}
@@ -162,6 +161,7 @@
 
     {% compress js %}
     <script src="{% static "scripts/underscore.js" %}" type="text/javascript"></script>
+    <script src="{% static "scripts/jquery.js" %}" type="text/javascript"></script>
     <script src="{% static "scripts/jquery.throttle-debounce.js" %}" type="text/javascript"></script>
     <script src="{% static "scripts/jquery.fitvids.js" %}" type="text/javascript"></script>
     <script src="{% static "scripts/jquery.event.move.js" %}" type="text/javascript"></script>
