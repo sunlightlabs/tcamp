@@ -7,13 +7,13 @@
 {% spaceless %}
 <head>
     <script>
-    (function(){
-        // fetch previous page in webapp mode and return the user there.
-        var prevloc;
-        if(window.navigator.standalone && (prevloc=localStorage.getItem('webloc'))){
-            location.href=prevloc;
-        }
-    })();
+    // (function(){
+    //     // fetch previous page in webapp mode and return the user there.
+    //     var prevloc;
+    //     if(window.navigator.standalone && (prevloc=localStorage.getItem('webloc'))){
+    //         location.href=prevloc;
+    //     }
+    // })();
     </script>
     <meta charset="utf-8">
     <title>{% block title %}TransparencyCamp{% endblock %}</title>
