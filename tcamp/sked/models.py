@@ -122,8 +122,8 @@ class Location(models.Model):
         super(Location, self).save(*args, **kwargs)
 
     def related_label(self):
-        return "{0} at {1} ({2})".format(self.name, self.event.name,
-                                         'official' if self.is_official else 'unofficial')
+        return u"{0} at {1} ({2})".format(self.name, self.event.name,
+                                          'official' if self.is_official else 'unofficial')
 
     @staticmethod
     def autocomplete_search_fields():

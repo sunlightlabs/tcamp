@@ -9,8 +9,8 @@ class SubsiteAdmin(admin.ModelAdmin):
 
 
 class IdeaAdmin(admin.ModelAdmin):
-    list_display = ('title', 'user', 'subsite', 'is_public')
-    list_filter = ('subsite',)
+    list_display = ('title', 'user', 'subsite', 'is_public', 'score')
+    list_filter = ('subsite', 'is_public', )
     date_hierarchy = 'timestamp'
 
 

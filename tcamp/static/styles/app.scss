@@ -1463,14 +1463,16 @@ table.wall-table {
         h4 { padding: 0; font-weight: bold; }
         h3 { padding: 0; line-height: 38px; color: $bodygray; }
     }
-    thead th {
-        background: $teal;
-        color: #fff;
-        vertical-align: baseline;
-        border-right: none;
-        border-left: none;
-        &.day { background: #fff; }
-        h3 { color: #fff; }
+    thead{
+        th {
+            background: $teal;
+            color: #fff;
+            vertical-align: baseline;
+            border-right: none;
+            border-left: none;
+            &.day { background: #fff; }
+            h3 { color: #fff; }
+        }
     }
     tbody {
         font-family: $projector_family;
