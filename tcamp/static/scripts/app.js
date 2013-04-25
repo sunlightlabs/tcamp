@@ -123,6 +123,13 @@
         }
       }
     });
+    // and write location to localstorage for persistence when reopening
+    // backgrounded web app
+    $(window).unload(function(){
+      if(window.navigator.standalone){
+        localStorage.setItem('webloc', location.href);
+      }
+    });
   });
 
 
