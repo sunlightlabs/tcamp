@@ -58,8 +58,7 @@
     var jPM = $.jPanelMenu({
       duration: 50,
       closeOnContentClick: false,
-      keyboardShortcuts: false,
-
+      keyboardShortcuts: false
     });
     jPM.on();
     $('#jPanelMenu-menu a.dropdown-toggle').click(function(){
@@ -125,11 +124,9 @@
     });
     // and write location to localstorage for persistence when reopening
     // backgrounded web app
-    $(window).unload(function(){
-      if(window.navigator.standalone){
-        localStorage.setItem('webloc', location.href);
-      }
-    });
+    if(window.navigator.standalone){
+      localStorage.setItem('webloc', location.href);
+    }
   });
 
 
