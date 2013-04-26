@@ -109,7 +109,7 @@
         e.preventDefault();
         e.stopPropagation();
         $(opts.panel).css('left',
-          $(opts.panel).offset().left === 0 ? '80%' : '0');
+          $(opts.panel).offset().left === 0 ? opts.bound + '%' : '0');
       });
     })({  // immediately execute this closure, and pass in some options:
       phoneWidth: 768,
