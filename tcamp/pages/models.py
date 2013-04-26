@@ -82,6 +82,9 @@ class Page(models.Model):
         return "\n".join([block.as_template_string() for block in self.blocks.all()])
 
     def as_template_string(self):
+        cached = cache.get(self.cache_key)
+        if cached:
+            return cached
         base_template = getattr(settings, 'PAGES_BASE_TEMPLATE', DEFAULT_BASE_TEMPLATE)
         ctx = {
             "template": self.template.loadable_name,
@@ -89,12 +92,11 @@ class Page(models.Model):
             "blocks": self.blocks_as_template_string(),
             "content": self.content.rendered,
         }
-        return base_template.lstrip("\r\n\t").format(**ctx).replace("%%", '%')
+        template_string = base_template.lstrip("\r\n\t").format(**ctx).replace("%%", '%')
+        cache.set(self.cache_key, template_string)
+        return template_string
 
     def as_renderable(self):
-        # cached = cache.get(self.cache_key)
-        # if cached:
-        #     return cached
         renderable = None
         tries = 0
         template_string = self.as_template_string()
@@ -117,7 +119,6 @@ class Page(models.Model):
             raise TemplateSyntaxError('''The Pages app tried and failed to
                 remove duplicate blocks from your template. Take a look
                 at settings.PAGES_BASE_TEMPLATE''')
-        # cache.set(self.cache_key, renderable)
         return renderable
 
     def save(self, **kwargs):

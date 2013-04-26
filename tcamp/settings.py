@@ -166,7 +166,7 @@ INSTALLED_APPS = (
     'varnishapp',
     'raven.contrib.django.raven_compat',
 
-    # 'api',
+    'api',
     'brainstorm',
     'pages',
     'sked',
