@@ -56,7 +56,7 @@ class Template(models.Model):
 
 class Page(models.Model):
 
-    path = models.CharField(max_length=255)
+    path = models.CharField(max_length=255, db_index=True)
     template = models.ForeignKey(Template, related_name='pages')
     is_published = models.BooleanField(default=False)
 
@@ -128,7 +128,7 @@ class Page(models.Model):
 
 class Block(models.Model):
 
-    name = models.SlugField(max_length=255)
+    name = models.SlugField(max_length=255, db_index=True)
     page = models.ForeignKey(Page, related_name="blocks")
     content = MarkupField()
 
@@ -150,7 +150,7 @@ class Block(models.Model):
 
 class Chunk(models.Model):
 
-    slug = models.SlugField()
+    slug = models.SlugField(db_index=True)
     content = MarkupField()
 
     class Meta:
