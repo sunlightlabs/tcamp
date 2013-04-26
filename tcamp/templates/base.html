@@ -30,17 +30,19 @@
     <meta property="og:url" content="{% chunk "og_url" %}">
     {% endblock opengraph %}
 
+    {% comment %}
     <script>
-    // (function(){
-    //     // fetch previous page in webapp mode and return the user there.
-    //     window.addEventListener && window.addEventListener('pageshow', function(){
-    //         var prevloc;
-    //         if(window.navigator.standalone && (prevloc=localStorage.getItem('webloc')) && prevloc.match(/^http/)){
-    //             (prevloc != location.href) && location.href=prevloc;
-    //         }
-    //     });
-    // })();
+    (function(window){
+        if(window.navigator.standalone){
+            // fetch previous page in webapp mode and return the user there.
+            var prevloc = localStorage.getItem('webloc');
+            if(prevloc && !prevloc.match(location.href)){
+                location.href = prevloc;
+            }
+        }
+    })(this);
     </script>
+    {% endcomment %}
 
     {% compress css %}
     <link href="{% static "styles/bootstrap.css" %}" rel="stylesheet" type="text/css">
@@ -165,8 +167,6 @@
     <script src="{% static "scripts/jquery.throttle-debounce.js" %}" type="text/javascript"></script>
     <script src="{% static "scripts/jquery.fitvids.js" %}" type="text/javascript"></script>
     <script src="{% static "scripts/jquery.event.move.js" %}" type="text/javascript"></script>
-    <script src="{% static "scripts/jquery.event.swipe.js" %}" type="text/javascript"></script>
-    <script src="{% static "scripts/jquery.jpanelmenu.js" %}" type="text/javascript"></script>
     <script src="{% static "scripts/bootstrap.js" %}" type="text/javascript"></script>
     <script src="{% static "sfapp/js/sfapp.js" %}" type="text/javascript"></script>
     <script src="{% static "scripts/app.js" %}" type="text/javascript"></script>

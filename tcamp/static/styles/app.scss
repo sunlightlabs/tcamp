@@ -801,32 +801,71 @@ table.table-striped {
     @include respond-to(tablets) { margin-top: 6px;}
 }
 
-.jPanelMenu-panel {
-    @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.125));
+/***************************
+ * Panel/Drawer menu styles
+ **************************/
+ body {
+    .menu-drawer, .menu-panel { display: none; }
+ }
+.with-drawer-menu {
+    body {
+        width: 100%;
+        overflow-x: hidden;
+        .menu-drawer {
+            position: fixed;
+            display: block;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 0;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+        }
+        .menu-panel {
+            position: relative;
+            overflow: hidden;
+            display: block;
+            left: 0;
+            top: 0;
+            z-index: 2;
+            width: 100%;
+            min-height: 100%;
+            background: $bg_footer;
+            box-sizing: border-box;
+        }
+    }
 }
-#jPanelMenu-menu {
-    background: $lightergray url(../images/canvas-bg.png) repeat;
+.menu-panel {
+    @include shadow(0 0 20px 0, rgba(0, 0, 0, 0.35));
+}
+
+.menu-drawer {
+    background: #b0dbdd;
+    border-top: 6px solid $teal;
+    padding-top: 8px;
     @include shadow(0 0 300px 0, rgba(0, 0, 0, 0.2), inset);
     .nav, .nav-collapse {
+        height: auto;
         li {
-            @include navtext($headinggray, $headinggray, inherit);
+            @include navtext(#fff, #fff, inherit);
             &.active > a,
             & > a:active,
             &.active > a:active
             a:active,
-            &.active a:active { background-color: $brown; color: #fff; }
-            @include respond-to(phones) {
-                .dropdown-menu {
-                    display: block;
-                    margin-left: 0;
-                    font-weight: normal;
-                    a {
-                        @include radius(0);
-                        // &:hover { color: #fff; }
-                    }
+            &.active a:active { background-color: $lightteal; color: #fff; }
+            .dropdown-menu {
+                display: block;
+                margin-left: 0;
+                font-weight: normal;
+                a {
+                    @include radius(0);
+                    // &:hover { color: #fff; }
                 }
-                .dropdown-toggle .caret { display: none; }
             }
+            .dropdown-toggle .caret { display: none; }
             ul {
                 @include shadow(0 0 40px 0, rgba(87, 66, 39, 0.1), inset);
                 border-top: 1px solid rgba(87, 66, 39, 0.1);
@@ -836,7 +875,7 @@ table.table-striped {
                 li {
                     font-size: 16px;
                     &.active > a,
-                    &.active > a:hover { background-color: rgba(87, 66, 39, 0.3); color: #fff;}
+                    &.active > a:hover { background: $lightteal; color: #fff;}
                 }
             }
             margin-bottom: 0;

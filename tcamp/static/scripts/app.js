@@ -31,10 +31,12 @@
         form.find('input#title').focus();
       }
     });
-    // responsivize vidsnsuch
+
+    // responsivize videos
     $('#content').fitVids();
 
-    // hack twitter widgets
+    // hack twitter widgets with some custom css when the twttr global
+    // becomes available
     function checktwttr(){
       if(window.twttr){
         twttr.ready(function(T){
@@ -54,34 +56,70 @@
       }
     }
     checktwttr();
-    // silly hamburger menu
-    var jPM = $.jPanelMenu({
-      duration: 50,
-      closeOnContentClick: false,
-      keyboardShortcuts: false
-    });
-    jPM.on();
-    $('#jPanelMenu-menu a.dropdown-toggle').click(function(){
-      window.location.href = $(this).attr('href');
-    });
-    $('.jPanelMenu-panel')
-    .on('swiperight', function(e){
-      if($(window).width() < 768){
-        jPM.open();
-      }
-    })
-    .on('swipeleft', function(e){
-      if($(window).width() < 768){
-        jPM.close();
-      }
-    })
-    .on('movestart', function(e){
-      if ($(window).width() > 768 ||
+
+    // silly hamburger menu!
+    // first, create a couple of containers for the content panel and drawer
+    var menuPanel = $('<div class="menu-panel"></div>'),
+        menuDrawer = $('<div class="menu-drawer"></div>'),
+        // define an event handler to make sure we can't scroll sideways
+        verticalScrollOnly = function(e){
+          if($(window).width() > 768 ||
           (e.distX > e.distY && e.distX < -e.distY) ||
           (e.distX < e.distY && e.distX > -e.distY)) {
-        e.preventDefault();
+            e.preventDefault();
+          }
+        };
+    // fill the drawer with the normal nav
+    menuDrawer.append($('#menu').clone());
+    // class the body to show the panel
+    $('html').addClass('with-drawer-menu');
+    // wrap the page with the panel
+    $('body').children().wrapAll(menuPanel);
+    // hide the drawer so it doesn't show while the page is continuing to load
+    // show it a hacky 500 msecs later.
+    menuDrawer.css('height', 0);
+    setTimeout(function(){ menuDrawer.css('height', '100%'); }, 500);
+    // add the drawer to the body
+    $('body').append(menuDrawer);
+    // override the bootstrap click behavior for parent nav items
+    $('.menu-drawer a.dropdown-toggle').click(function(){
+      window.location.href = $(this).attr('href');
+    });
+    // enforce scrolling to vertical-only
+    $('.menu-drawer, .menu-panel').on('movestart', verticalScrollOnly);
+    // bind some swipe handlers
+    $('.menu-panel')
+    // as we swipe, calculate the position and distance and move
+    // the panel to the corresponding left coordinate on the screen
+    .on('move', function(e){
+      var el = $('.menu-panel'),
+          menu = $('.menu-drawer'),
+          bound = 80, // as a percent
+          width = $(window).width();
+      if(e.distX < 0){ // swipe left
+        left = 50 * (e.pageX + e.distX) / width;
+        el.css('left', Math.max(left, 0) + '%');
+      }
+      if(e.distX > 0){ // swipe right
+        left = 100 * (e.distX) / width;
+        el.css('left', Math.min(left, bound) + '%');
+      }
+    })
+    // at the end of the swipe, check to see if we've moved far enough to snap open.
+    // if not snap closed.
+    .on('moveend', function(e){
+      var el = $('.menu-panel'),
+          menu = $('.menu-drawer'),
+          width = $(window).width();
+      if(el.offset().left + e.distX > width / 2){
+        el.css('left', '80%');
+        menu.css('z-index', 1);
+      }else{
+        el.css('left', '0');
+        menu.css('z-index', 0);
       }
     });
+
     // redraw social buttons bigger when window is resized
     // also, enable/disable panel menu
     $(window).resize($.throttle(150, function(){
@@ -96,13 +134,11 @@
         size = '16';
       }
       if(width < 768){
-        if($('#jPanelMenu-menu').length === 0) jPM.on();
         if(size == '16'){
           social.attr('data-options', opts.replace(rexp, 'size=24'));
           social.trigger('auto');
         }
       }else if(width >= 768){
-        if($('#jPanelMenu-menu').length === 1) jPM.off();
         if(size == '24'){
           social.attr('data-options', opts.replace(rexp, 'size=16'));
           social.trigger('auto');
@@ -112,22 +148,17 @@
     $(window).resize();
     // hack hack hack
     setTimeout(function(){ $(window).resize(); }, 250);
-    // keep links clicked in web-app mode on the same page.
-    $('body').on('click', 'a', function(e){
-      if($(window).width() < 768){
+    // keep links clicked in web-app mode on the same page,
+    // and write location to localstorage on background for persistence when reopening
+    if(window.navigator.standalone){
+      $('body').on('click', 'a', function(e){
         var el = $(e.target);
-        if(! el.attr('href').match(/^http/)){
+        if(el.attr('href') && !el.attr('href').match(/^http/)){
           e.preventDefault();
+          // localStorage.setItem('webloc', el.attr('href'));
           location.href = el.attr('href');
         }
-      }
-    });
-    // and write location to localstorage for persistence when reopening
-    // backgrounded web app
-    if(window.navigator.standalone){
-      localStorage.setItem('webloc', location.href);
+      });
     }
   });
-
-
 })(this, jQuery);
