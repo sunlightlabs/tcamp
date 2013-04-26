@@ -10,6 +10,11 @@ urlpatterns = patterns(
     url(r'^sessions/$', RedirectView.as_view(url="/schedule/")),
     url(r'^sessions/(?P<pk>[\d]+)/$', RedirectFromPk.as_view()),
 
+    # FIXME: These will need to be updated next year.
+    url(r'^submit/$', RedirectView.as_view(url='/schedule/2013/new/')),
+    url(r'^wall/$', RedirectView.as_view(url='/schedule/2013/wall/?timeslots=11:30am,12:30pm,1:30pm,2:30pm,3:30pm,4:30pm&refresh=300000')),
+    url(r'^tv/$', RedirectView.as_view(url='/schedule/2013/tv/?timeslots=11:30am,12:30pm,1:30pm,2:30pm,3:30pm,4:30pm&refresh=300000')),
+
     url(r'^treenav/', include('treenav.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
