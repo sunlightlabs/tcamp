@@ -897,6 +897,9 @@ body .menu-drawer, body .menu-panel {
     z-index: 0;
     overflow-x: hidden;
     overflow-y: scroll;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch; }
   .with-drawer-menu body .menu-panel {
@@ -909,7 +912,26 @@ body .menu-drawer, body .menu-panel {
     width: 100%;
     min-height: 100%;
     background: #d5e5e3;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
     box-sizing: border-box; }
+    @media (max-width: 767px) {
+      .with-drawer-menu body .menu-panel {
+        -webkit-transform: translatez(0);
+        -moz-transform: translatez(0);
+        -ms-transform: translatez(0);
+        -o-transform: translatez(0);
+        transform: translatez(0);
+        -webkit-transition: left 0.05s ease-out;
+        -moz-transition: left 0.05s ease-out;
+        -o-transition: left 0.05s ease-out;
+        transition: left 0.05s ease-out; }
+        .with-drawer-menu body .menu-panel.moving {
+          -webkit-transition: none "1s" "linear";
+          -moz-transition: none "1s" "linear";
+          -o-transition: none "1s" "linear";
+          transition: none "1s" "linear"; } }
 
 .menu-panel {
   -webkit-box-shadow:  0 0 20px 0 rgba(0, 0, 0, 0.35);

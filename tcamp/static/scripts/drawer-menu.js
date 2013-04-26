@@ -73,6 +73,7 @@
           var el = $(opts.panel),
               menu = $(opts.drawer),
               width = $(window).width();
+          el.addClass('moving');
           if(e.distX < 0){ // swiping left
             left = 50 * (e.pageX + e.distX) / width;
             el.css('left', Math.max(left, 0) + '%');
@@ -92,6 +93,7 @@
           var el = $(opts.panel),
               menu = $(opts.drawer),
               width = $(window).width();
+          el.removeClass('moving');
           if(el.offset().left + e.distX > width / 2){
             el.css('left', opts.bound + '%');
             menu.css('z-index', 1);

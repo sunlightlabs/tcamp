@@ -161,6 +161,21 @@ $phone: 480;
         box-sizing: border-box;
 }
 
+@mixin transition($property:"all", $duration:"1s", $easing:"linear") {
+-webkit-transition: $property $duration $easing;
+   -moz-transition: $property $duration $easing;
+     -o-transition: $property $duration $easing;
+        transition: $property $duration $easing;
+}
+
+@mixin gpu {
+-webkit-transform: translatez(0);
+   -moz-transform: translatez(0);
+    -ms-transform: translatez(0);
+     -o-transform: translatez(0);
+        transform: translatez(0);
+}
+
 // horizontal space
 $infinity: 9999px;
 $hbuffer: 20px;
@@ -831,7 +846,7 @@ table.table-striped {
             z-index: 0;
             overflow-x: hidden;
             overflow-y: scroll;
-            box-sizing: border-box;
+            @include border_box;
             -webkit-overflow-scrolling: touch;
         }
         .menu-panel {
@@ -844,7 +859,14 @@ table.table-striped {
             width: 100%;
             min-height: 100%;
             background: $bg_footer;
-            box-sizing: border-box;
+            @include border_box;
+            @include respond-to(phones) {
+                @include gpu;
+                @include transition(left, 0.05s, ease-out);
+                &.moving {
+                    @include transition(none);
+                }
+            }
         }
     }
 }
