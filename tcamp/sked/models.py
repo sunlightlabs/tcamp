@@ -37,9 +37,9 @@ class Event(models.Model):
     slug = models.SlugField(unique=True, db_index=True)
     description = MarkupField(blank=True)
     overview = MarkupField(blank=True)
-    start_date = models.DateField()
-    end_date = models.DateField(blank=True, null=True)
-    is_public = models.BooleanField(default=False)
+    start_date = models.DateField(db_index=True)
+    end_date = models.DateField(blank=True, null=True, db_index=True)
+    is_public = models.BooleanField(default=False, db_index=True)
     registration_is_open = models.BooleanField(default=False)
     registration_url = models.URLField(blank=True, default='')
 
@@ -102,7 +102,7 @@ class LocationManager(models.Manager):
 class Location(models.Model):
     name = models.CharField(max_length=255, db_index=True)
     event = models.ForeignKey(Event, related_name='locations')
-    is_official = models.BooleanField(default=False)
+    is_official = models.BooleanField(default=False, db_index=True)
     has_sessions = models.BooleanField(default=True, db_index=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -182,13 +182,13 @@ class Session(models.Model):
     speakers = JSONField(help_text='An array of objects. Each must contain a "name" attribute', blank=True, default='[]', db_index=True)
     extra_data = JSONField(blank=True, default='{}')
     tags = TaggableManager(blank=True)
-    is_public = models.BooleanField(default=False)
+    is_public = models.BooleanField(default=False, db_index=True)
     has_notes = models.BooleanField(default=True)
 
     event = models.ForeignKey(Event, related_name='sessions')
     location = models.ForeignKey(Location, blank=True, null=True, related_name='sessions')
-    start_time = models.DateTimeField(blank=True, null=True)
-    end_time = models.DateTimeField(blank=True, null=True)
+    start_time = models.DateTimeField(blank=True, null=True, db_index=True)
+    end_time = models.DateTimeField(blank=True, null=True, db_index=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
