@@ -26,8 +26,6 @@ def coming_up(request):
                                                       title__icontains='lunch')[0])
         except IndexError:
             messages = ["No lunch on the schedule for today, sorry.\n"]
-    elif inmsg == '?' or inmsg.lower() == 'help':
-        messages = ["Welcome to TCamp!\n\nOptions:\nnow: Current sessions\nnext: Next timeslot\nlunch: When's lunch?\n<time>, eg. 4:30pm: What's happening at 4:30?\n"]
     else:
         try:
             ts = dateparse(inmsg).replace(tzinfo=timezone.get_current_timezone())
@@ -36,7 +34,7 @@ def coming_up(request):
             else:
                 messages = _as_sms(sessions.filter(start_time__lte=ts, end_time__gte=ts))
         except:
-            messages = ['Unable to parse that time. Try something like "4:30", or "next"\n']
+            messages = ["Welcome to TCamp!\n\nOptions:\nnow: Current sessions\nnext: Next timeslot\nlunch: When's lunch?\n<time>, eg. 4:30pm: What's happening at 4:30?\n"]
 
     l = len(messages)
     for i, message in enumerate(messages):
