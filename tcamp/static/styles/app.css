@@ -1430,6 +1430,24 @@ body .menu-drawer, body .menu-panel {
 .detail p em {
   line-height: 1; }
 
+.session-detail h3 {
+  color: #574227;
+  font-weight: 300; }
+  .session-detail h3 .day {
+    font-family: "ostrich", impact, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 38px; }
+  .session-detail h3 a {
+    color: #829308; }
+.session-detail p.meta {
+  font-family: "museo-slab", lucida, sans-serif;
+  font-weight: 300;
+  font-size: 18px; }
+  .session-detail p.meta .speaker {
+    display: block; }
+  .session-detail p.meta a, .session-detail p.meta a.muted {
+    color: #ca6728; }
+
 /******************
  * Brainstorm Page
  *****************/

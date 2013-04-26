@@ -1288,10 +1288,27 @@ table.table-striped {
     }
 }
 
-
-.detail p em{
+.detail p em {
     line-height: 1;
+}
+
+.session-detail {
+    h3 {
+        color: $headinggray;
+        font-weight: 300;
+        .day { font-family: $display_family; -webkit-font-smoothing: antialiased; font-size: 38px; }
+        a { color: $green; }
     }
+    p.meta {
+        font-family: $heading_family;
+        font-weight: 300;
+        font-size: 18px;
+        .speaker {
+            display: block;
+        }
+        a, a.muted { color: $orange; }
+    }
+}
 
 /******************
  * Brainstorm Page
