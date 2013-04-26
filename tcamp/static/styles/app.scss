@@ -855,9 +855,16 @@ table.table-striped {
 .menu-drawer {
     background: #b0dbdd;
     border-top: 6px solid $teal;
-    padding-top: 8px;
+    padding-top: 0px;
     @include shadow(0 0 300px 0, rgba(0, 0, 0, 0.2), inset);
     .nav, .nav-collapse {
+        li h4 {
+            padding: 0;
+            & > a {
+                color: $teal;
+                font-weight: bold;
+            }
+        }
         height: auto;
         li {
             @include navtext(#fff, #fff, inherit);

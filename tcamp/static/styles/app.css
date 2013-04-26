@@ -918,12 +918,17 @@ body .menu-drawer, body .menu-panel {
 .menu-drawer {
   background: #b0dbdd;
   border-top: 6px solid #438381;
-  padding-top: 8px;
+  padding-top: 0px;
   -webkit-box-shadow: inset 0 0 300px 0 rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 300px 0 rgba(0, 0, 0, 0.2); }
   .menu-drawer .nav, .menu-drawer .nav-collapse {
     height: auto;
     margin-bottom: 0; }
+    .menu-drawer .nav li h4, .menu-drawer .nav-collapse li h4 {
+      padding: 0; }
+      .menu-drawer .nav li h4 > a, .menu-drawer .nav-collapse li h4 > a {
+        color: #438381;
+        font-weight: bold; }
     .menu-drawer .nav li, .menu-drawer .nav-collapse li {
       font-family: "museo-slab", lucida, sans-serif;
       font-weight: 700;
