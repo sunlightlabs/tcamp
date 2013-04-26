@@ -25,9 +25,9 @@ class IdeaForm(ModelForm):
         site = Site.objects.get_current().domain
         ak = Akismet(settings.AKISMET_KEY, site)
         ak.verify_key()
-        if ak.comment_check(self.cleaned_data.get('description').encode('ascii', 'ignore'), {
-                'comment_author': self.cleaned_data.get('name').encode('ascii', 'ignore'),
-                'comment_author_email': self.cleaned_data.get('email').encode('ascii', 'ignore'),
+        if ak.comment_check(self.cleaned_data.get('description', '').encode('ascii', 'ignore'), {
+                'comment_author': self.cleaned_data.get('name', '').encode('ascii', 'ignore'),
+                'comment_author_email': self.cleaned_data.get('email', '').encode('ascii', 'ignore'),
                 'user_ip': request.META.get('HTTP_X_FOWARDED_FOR', request.META['REMOTE_ADDR']),
                 'user_agent': request.META.get('HTTP_USER_AGENT'), }):
             raise ValidationError("Your submission contained known spam.")
