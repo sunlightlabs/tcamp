@@ -12,8 +12,10 @@ from jsonfield import JSONField
 from markupfield.fields import MarkupField
 from timedelta.fields import TimedeltaField
 from taggit.managers import TaggableManager
+from taggit.models import TaggedItemBase
 
 from sked.email import SessionConfirmationEmailThread
+from tagger import extract_tags as tgr
 
 
 class EventManager(models.Manager):
@@ -175,6 +177,10 @@ class SessionManager(models.Manager):
                                             is_public=True).prefetch_related('location')
 
 
+class AutoTags(TaggedItemBase):
+    content_object = models.ForeignKey('Session')
+
+
 class Session(models.Model):
     title = models.CharField(max_length=102)
     slug = models.SlugField(db_index=True)
@@ -182,6 +188,8 @@ class Session(models.Model):
     speakers = JSONField(help_text='An array of objects. Each must contain a "name" attribute', blank=True, default='[]', db_index=True)
     extra_data = JSONField(blank=True, default='{}')
     tags = TaggableManager(blank=True)
+    auto_tags = TaggableManager(blank=True, through=AutoTags)
+    auto_tags.rel.related_name = '+'
     is_public = models.BooleanField(default=False, db_index=True)
     has_notes = models.BooleanField(default=True)
 
@@ -190,6 +198,7 @@ class Session(models.Model):
     start_time = models.DateTimeField(blank=True, null=True, db_index=True)
     end_time = models.DateTimeField(blank=True, null=True, db_index=True)
 
+    admin_notes = models.TextField(blank=True, default='')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     published_by = models.ForeignKey(User, blank=True, null=True, related_name="approved_sked_sessions")
@@ -224,6 +233,11 @@ class Session(models.Model):
             self.slug = slugify(self.title)[:50].rstrip('-')
         if not self.end_time and self.start_time:
             self.end_time = self.start_time + self.event.session_length
+        self.auto_tags.clear()
+        tags = tgr('%s: %s' % (self.title, self.description.raw))
+        for tag in tags:
+            self.auto_tags.add(tag.string)
+
         return super(Session, self).save(*args, **kwargs)
 
     @property
@@ -242,12 +256,40 @@ class Session(models.Model):
             return None
 
     @property
+    def tag_string(self):
+        tags = self.tags.all() or self.auto_tags.all()
+        return u', '.join(t.name for t in tags)
+
+    @property
     def url(self):
         return self.get_absolute_url()
 
     @property
     def edit_key(self):
         return hashlib.sha1(u'%s:%s' % (settings.SECRET_KEY, self.created_at)).hexdigest()
+
+
+class SentEmail(models.Model):
+    recipients = models.CharField(max_length=255)
+    sender = models.EmailField(max_length=127)
+    subject = models.CharField(max_length=255)
+    body = models.TextField()
+    session = models.ForeignKey(Session)
+    sent_at = models.DateTimeField()
+
+    def __init__(self, *args, **kwargs):
+        email = kwargs.get('email_thread')
+        if email:
+            self.recipients = ', '.join(email.recipients)
+            self.sender = email.sender
+            self.subject = email.subject
+            self.body = email.body
+            self.session = email.session
+            self.sent_at = timezone.now()
+        return super(SentEmail, self).__init__(*args, **kwargs)
+
+    def __unicode__(self):
+        u"Email to %s for %s sent %s" % (self.to_addrs, self.session, self.sent_at.isoformat())
 
 
 @receiver(post_save, sender=Session)
@@ -258,4 +300,7 @@ def send_confirmation_email(sender, **kwargs):
             not (len(instance.speakers) and instance.speakers[0].get('email')) or
             instance.is_public):
         return
-    SessionConfirmationEmailThread(instance).run()
+    thread = SessionConfirmationEmailThread(instance)
+    if thread.should_send:
+        SentEmail(email_thread=thread).save()
+        thread.run()

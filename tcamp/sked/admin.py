@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from taggit.models import Tag, TaggedItem
-from sked.models import Event, Location, Session
+from sked.models import Event, Location, Session, SentEmail
 from sked.email import SessionApprovedEmailThread
 
 
@@ -46,7 +46,7 @@ class LocationAdmin(admin.ModelAdmin):
 
 class SessionAdmin(admin.ModelAdmin):
     list_display = ('title', 'url', 'speaker_names', 'contact_email', 'start_time',
-                    'location', 'is_public', 'published_by', )
+                    'location', 'tag_string', 'is_public', 'published_by', 'admin_notes', )
     list_editable = ('start_time', 'location', )
     # list_display_links = ('title', 'start_time', 'location')
     list_select_related = True
@@ -74,7 +74,10 @@ class SessionAdmin(admin.ModelAdmin):
             obj.__dict__.update(is_public=True, published_by_id=request.user.id)
             obj.save()
             if obj.speakers:
-                SessionApprovedEmailThread(obj).run()
+                thread = SessionApprovedEmailThread(obj)
+                if thread.should_send:
+                    SentEmail(email_thread=thread).save()
+                    thread.run()
     make_public.short_description = 'Make selected sessions public'
 
     def unpublish(modeladmin, request, queryset):
@@ -84,6 +87,11 @@ class SessionAdmin(admin.ModelAdmin):
     unpublish.short_description = 'Make selected sessions private'
 
 
+class SentEmailAdmin(admin.ModelAdmin):
+    list_display = ('recipients', 'subject', 'sent_at')
+
+
 admin.site.register(Event, EventAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Session, SessionAdmin)
+admin.site.register(SentEmail, SentEmailAdmin)
