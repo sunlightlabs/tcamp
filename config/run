@@ -2,7 +2,7 @@
 ROOT=/projects/tcamp
 PIDFILE=$ROOT/data/pidfile
 SOCKET=unix:$ROOT/data/socket
-WORKERS=8
+WORKERS=70
 CODEROOT=$ROOT/src/current
 
 if [ -f $PIDFILE ]; then
