@@ -94,10 +94,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "sked.context_processors.current_event",
     "brainstorm.context_processors.brainstorm",
     "camp.context_processors.sponsors",
-    "context_processors.basic_settings"
+    "context_processors.basic_settings",
 )
 
 MIDDLEWARE_CLASSES = (
+    "middleware.ProfileMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
