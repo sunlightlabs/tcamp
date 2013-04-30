@@ -275,7 +275,7 @@ class SentEmail(models.Model):
     sender = models.EmailField(max_length=127)
     subject = models.CharField(max_length=255)
     body = models.TextField()
-    session = models.ForeignKey(Session)
+    session = models.ForeignKey(Session, blank=True, null=True, on_delete=models.SET_NULL)
     sent_at = models.DateTimeField()
 
     def __init__(self, *args, **kwargs):
