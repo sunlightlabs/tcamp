@@ -33,7 +33,7 @@ class Tweet(models.Model):
         #     '''
         if self.previous:
             raise NotImplementedError('Serial tweets can only be sent from the beginning.')
-        SendTweetThread(self).run()
+        SendTweetThread(self).start()
 
     @property
     def is_sent(self):

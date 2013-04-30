@@ -1,5 +1,7 @@
 import threading
 
+from collections import Counter
+
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail
 from django.conf import settings
@@ -7,15 +9,17 @@ from django.conf import settings
 
 class BasePostmarkSessionEmailThread(threading.Thread):
     def __init__(self, session, **kwargs):
+        super(BasePostmarkSessionEmailThread, self).__init__(**kwargs)
         self.session = session
         self.sender = settings.POSTMARK_SENDER
         self.recipients = [session.speakers[0]['email']]
-        return super(BasePostmarkSessionEmailThread, self).__init__(self, **kwargs)
 
     @property
     def should_send(self):
         # feel free to spam admins whenever, but nobody else.
-        return not (settings.DEBUG is True and self.recipient not in dict(settings.ADMINS).values())
+        admins = Counter(dict(settings.ADMINS).values())
+        recipients = Counter(self.recipients)
+        return not (settings.DEBUG is True and len(list(recipients - admins)) is not 0)
 
     def run(self):
         if self.should_send:
@@ -24,7 +28,7 @@ class BasePostmarkSessionEmailThread(threading.Thread):
 
 class SessionConfirmationEmailThread(BasePostmarkSessionEmailThread):
     def __init__(self, session, **kwargs):
-        self = super(SessionConfirmationEmailThread, self).__init__(self, session, **kwargs)
+        super(SessionConfirmationEmailThread, self).__init__(session, **kwargs)
         self.subject = '[TCamp] Session confirmation & edit link'
         self.body = '''Thanks for submitting a session at TCamp! We'll \
                      be reviewing all of the proposals, and you'll get \
@@ -36,12 +40,11 @@ class SessionConfirmationEmailThread(BasePostmarkSessionEmailThread):
                      '''.format(site=Site.objects.get_current().domain,
                                 path=self.session.get_edit_url(),
                                 key=self.session.edit_key)
-        return self
 
 
 class SessionApprovedEmailThread(BasePostmarkSessionEmailThread):
     def __init__(self, session, **kwargs):
-        self = super(SessionConfirmationEmailThread, self).__init__(self, session, **kwargs)
+        super(SessionConfirmationEmailThread, self).__init__(session, **kwargs)
         self.subject = '[TCamp] Your Session is on the wall!'
         self.body = '''Your session has been approved and scheduled for:
 
@@ -58,4 +61,3 @@ class SessionApprovedEmailThread(BasePostmarkSessionEmailThread):
                      questions.
                      '''.format(start_time=self.session.strftime('%h:%m'),
                                 location=self.session.location)
-        return self

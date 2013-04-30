@@ -77,7 +77,7 @@ class SessionAdmin(admin.ModelAdmin):
                 thread = SessionApprovedEmailThread(obj)
                 if thread.should_send:
                     SentEmail(email_thread=thread).save()
-                    thread.run()
+                    thread.start()
     make_public.short_description = 'Make selected sessions public'
 
     def unpublish(modeladmin, request, queryset):

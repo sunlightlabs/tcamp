@@ -83,6 +83,17 @@
       }
     }));
 
+    // character counting on submit form
+    $('.form-paper').find('input[type=text], textarea').keyup(function(e){
+      var charlimit = parseInt($(this).attr('data-limit'), 10),
+          value = $(this).val();
+          if(! isNaN(charlimit)){
+            if(value.length < charlimit) $(this).removeClass('full');
+            else if(value.length == charlimit) $(this).addClass('full');
+            else $(this).val(value.slice(0, charlimit)) && $(this).addClass('full');
+          }
+    });
+
     // hack hack hack
     $(window).resize();
     setTimeout(function(){ $(window).resize(); }, 250);

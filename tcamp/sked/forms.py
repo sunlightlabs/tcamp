@@ -1,6 +1,4 @@
-import json
-
-from django.forms import ModelForm, ValidationError
+from django.forms import ModelForm, ValidationError, widgets
 from sked.models import Session
 
 
@@ -8,7 +6,12 @@ class SessionForm(ModelForm):
     class Meta:
         model = Session
         fields = ('title', 'description', 'tags', 'speakers',
-                  'extra_data', 'event', )
+                  'extra_data', 'user_notes', 'event', )
+        widgets = {
+            'title': widgets.TextInput(attrs={'data-limit': '60'}),
+            'description': widgets.Textarea(attrs={'data-limit': '1000', 'resizable': 'false'}),
+            'user_notes': widgets.Textarea(attrs={'data-limit': '140', 'rows': '4'}),
+        }
 
     def clean_speakers(self):
         speakers = self.cleaned_data.get('speakers')

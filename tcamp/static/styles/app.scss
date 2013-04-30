@@ -437,10 +437,18 @@ p {
     line-height: $body_lineheight;
     font-size: $body_textsize;
     color: $brown;
-    @include respond-to(phones){ line-height: $mobile_lineheight; font-size: $mobile_textsize; }
+    @include respond-to(phones) { line-height: $mobile_lineheight; font-size: $mobile_textsize; }
 }
 
 .alert, div.brainstorm-alert { @include radius(0); border-width: 3px; border-left-width: 0; border-right-width: 0;}
+.alert-info {
+    border-top-color: $teal;
+    border-bottom-color: $teal;
+    background: rgba(84, 149, 147, 0.4);
+    color: $bodygray;
+    text-shadow: none;
+}
+
 
 .form-search, .form-inline, form, .brainstorm {
     input[type="text"],
@@ -1310,6 +1318,144 @@ table.table-striped {
     }
 }
 
+/************************
+ * Submit a Session Form
+ ***********************/
+.form-paper {
+    font-family: $heading_family;
+    h2 { margin-bottom: 1em; }
+    .control-group { margin-bottom: 3em; }
+    label {
+        float: left;
+        font-family: $heading_family;
+        color: $bodygray;
+        font-size: 18px;
+    }
+    .add-on { border: none; margin-left: -25px;
+        @include respond-to(phones) {
+            position: absolute;
+            margin-left: -4px;
+            margin-top: 5px;
+        }
+    }
+    input, input[type="text"], select, textarea {
+        font-family: $body_family;
+        &:focus {
+            outline: none;
+            @include shadow(0 0 0 0);
+        }
+        background: none;
+        border: none;
+        width: 100%;
+        // display: inline-block;
+        @include shadow(0 0 0 0);
+        @include transition(none);
+        border-bottom: 2px solid $yellow;
+        font:normal 15px/2 georgia;
+        font-style: italic;
+        color: $bodygray;
+        &.full { border-bottom-color: $red; }
+    }
+    label.inline {
+        float: none;
+        display: inline-block;
+        margin-left: 20px;
+        input { display: inline-block; float: none; width: auto; margin: 0 10px; }
+    }
+    input[type="radio"] {
+        opacity: 0;
+        position: absolute;
+    }
+    input[type="radio"] + label:before {
+        content: '';
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin: 0 5px 5px 0;
+        line-height: 24px;
+        content: "";
+        vertical-align: middle;
+        background: transparent url(../images/radio.png) no-repeat 0 0;
+    }
+    input[type="radio"]:checked + label:before {
+        background-image: url(../images/radio-checked.png);
+    }
+    textarea {
+        background: transparent url(../images/textarea-line-bg.png) repeat 0 0;
+        background-attachment: scroll;
+        border-bottom: none;
+        &.full { background: transparent url(../images/textarea-line-full-bg.png) repeat 0 0;}
+        @include respond-to(mobile) {
+            background-image: none;
+            border: 2px solid $yellow;
+            &.full { border-color: $red; }
+        }
+    }
+    .speakers{
+        position: relative;
+        padding-bottom: 10px;
+        margin-bottom: 1em;
+        input[type="text"] {
+            width: 50%;
+            display: block;
+            @include respond-to(phones) { width: 100%; }
+        }
+        .input-prepend { width: 100%; }
+        .input-prepend input[type="text"] { display: inline-block; }
+        label {
+            font-family: $heading_family;
+            font-size: 24px;
+            color: $green;
+        }
+        .close {
+            font-size: 16px;
+            font-weight: normal;
+            margin-top: 1em;
+            float: none;
+            display: inline-block;
+            color: $orange;
+            text-indent: 0;
+            text-shadow: none;
+            opacity: 1;
+            &:hover { text-decoration: underline; }
+        }
+        #add_speaker {
+            height: 0;
+            margin-bottom: 0;
+            @include respond-to(phones) {
+                height: auto;
+            }
+            .btn-link {
+                margin-bottom: 0;
+                position: absolute;
+                left: 350px;
+                bottom: 44px;
+                font-size: 16px;
+                background: none;
+                border: none;
+                color: $orange;
+                text-transform: none;
+                @include radius(0);
+                @include shadow(0 0 0 0);
+                span { display: none; }
+                @include respond-to(phones) {
+                    position: relative;
+                    text-align: left;
+                    left: -10px;
+                    top: -2em;
+                }
+            }
+        }
+        #speaker_0 + #add_speaker .btn-link {
+            bottom: 0;
+            left: 170px;
+            @include respond-to(phones) { left: 0; bottom: auto; }
+        }
+    }
+    .btn[type="submit"] { float: right; }
+}
+
+
 /******************
  * Brainstorm Page
  *****************/
@@ -1546,7 +1692,7 @@ body.reconnecting:before {
     @include vpad;
     @include hpad;
     @include radius(10px);
-    @include shadow('0, 0, 40px 0', rgba(0, 0, 0, 0.4));
+    @include shadow(0 0 40px 0, rgba(0, 0, 0, 0.4));
 
 }
 table.wall-table {

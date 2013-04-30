@@ -180,6 +180,9 @@ class SessionManager(models.Manager):
 class AutoTags(TaggedItemBase):
     content_object = models.ForeignKey('Session')
 
+    def __unicode__(self):
+        return u"tag"
+
 
 class Session(models.Model):
     title = models.CharField(max_length=102)
@@ -187,9 +190,11 @@ class Session(models.Model):
     description = MarkupField(blank=True, markup_type='markdown', help_text="Markdown is supported.")
     speakers = JSONField(help_text='An array of objects. Each must contain a "name" attribute', blank=True, default='[]', db_index=True)
     extra_data = JSONField(blank=True, default='{}')
-    tags = TaggableManager(blank=True)
+    tags = TaggableManager(blank=True, help_text="Help us schedule your session so that it doesn't conflict with other sessions around the same topics. Some example tags: Open data, International, Federal, State, Parliamentary Monitoring, Social Media, Design, Lobbying.")
     auto_tags = TaggableManager(blank=True, through=AutoTags)
     auto_tags.rel.related_name = '+'
+    user_notes = models.TextField(blank=True, default='', help_text='Note in this space if you need to request a specific timeslot, or make sure you have a projector, etc. We can\'t make guarantees about anything, but we\'ll do our best.')
+
     is_public = models.BooleanField(default=False, db_index=True)
     has_notes = models.BooleanField(default=True)
 
@@ -233,20 +238,16 @@ class Session(models.Model):
             self.slug = slugify(self.title)[:50].rstrip('-')
         if not self.end_time and self.start_time:
             self.end_time = self.start_time + self.event.session_length
-        self.auto_tags.clear()
-        tags = tgr('%s: %s' % (self.title, self.description.raw))
-        for tag in tags:
-            self.auto_tags.add(tag.string)
 
-        return super(Session, self).save(*args, **kwargs)
+        super(Session, self).save(*args, **kwargs)
 
     @property
     def speaker_names(self):
         try:
             names = [spkr['name'] for spkr in self.speakers]
-            return ', '.join(names)
+            return u', '.join(names)
         except:
-            return ''
+            return u''
 
     @property
     def contact_email(self):
@@ -279,6 +280,11 @@ class SentEmail(models.Model):
 
     def __init__(self, *args, **kwargs):
         email = kwargs.get('email_thread')
+        try:
+            del(kwargs['email_thread'])
+        except:
+            pass
+        super(SentEmail, self).__init__(*args, **kwargs)
         if email:
             self.recipients = ', '.join(email.recipients)
             self.sender = email.sender
@@ -286,10 +292,17 @@ class SentEmail(models.Model):
             self.body = email.body
             self.session = email.session
             self.sent_at = timezone.now()
-        return super(SentEmail, self).__init__(*args, **kwargs)
 
     def __unicode__(self):
-        u"Email to %s for %s sent %s" % (self.to_addrs, self.session, self.sent_at.isoformat())
+        u"Email to %s for %s sent %s" % (self.recipients, self.session.title, self.sent_at.isoformat())
+
+
+@receiver(post_save, sender=Session)
+def autogenerate_tags(sender, **kwargs):
+    instance = kwargs['instance']
+    tags = tgr('%s %s' % (instance.title, instance.description.raw))
+    instance.auto_tags.set(*[tag.string for tag in tags])
+    # instance.save_m2m()
 
 
 @receiver(post_save, sender=Session)
@@ -303,4 +316,4 @@ def send_confirmation_email(sender, **kwargs):
     thread = SessionConfirmationEmailThread(instance)
     if thread.should_send:
         SentEmail(email_thread=thread).save()
-        thread.run()
+        thread.start()
