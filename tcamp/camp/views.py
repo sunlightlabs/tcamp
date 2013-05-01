@@ -4,6 +4,7 @@ from django.core.urlresolvers import resolve
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 
+
 def index(request):
     pass
 
@@ -30,7 +31,7 @@ def login(request):
             request.session['next'] = '/'
         return render(request, 'public_login.html')
     else:
-        return redirect('/logged_in/')
+        return redirect('/logged-in/')
 
 
 def logged_in(request):
