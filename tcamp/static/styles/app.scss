@@ -519,6 +519,9 @@ p {
         @include vertical_gradient("#{$lightteal} 0%, #{$teal} 100%");
         &:hover, &:focus, &:active { @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%"); }
     }
+    &.btn-danger {
+        @include vertical_gradient("#{$red} 0%, #{$darkred} 100%");
+    }
 }
 
 .btn-large {

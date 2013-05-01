@@ -510,6 +510,16 @@ form textarea, form select, .brainstorm input[type="text"],
       /* Opera 11.10-12.00 */
       background-image: linear-gradient(to bottom, #eec151 0%, #e4aa09 100%);
       /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */ }
+  .btn.btn-danger, .btn-large.btn-danger, .btn-small.btn-danger,
+  .brainstorm .btn.btn-danger, form.brainstorm-form .btn.btn-danger {
+    background-image: -webkit-linear-gradient(top, #9b2c1d 0%, #802416 100%);
+    /* Chrome 10-25, iOS 5+, Safari 5.1+ */
+    background-image: -moz-linear-gradient(top, #9b2c1d 0%, #802416 100%);
+    /* Firefox 3.6-15 */
+    background-image: -o-linear-gradient(top, #9b2c1d 0%, #802416 100%);
+    /* Opera 11.10-12.00 */
+    background-image: linear-gradient(to bottom, #9b2c1d 0%, #802416 100%);
+    /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */ }
 
 .btn-large.btn-primary .icon-forward {
   width: 38px;
