@@ -50,7 +50,7 @@ class SessionAdmin(admin.ModelAdmin):
     list_editable = ('start_time', 'location', )
     # list_display_links = ('title', 'start_time', 'location')
     list_select_related = True
-    # list_per_page = 60
+    list_per_page = 50
     readonly_fields = ('is_public', 'published_by', )
     list_filter = (SessionTagsListFilter, 'event', 'location', 'is_public', 'published_by', )
     prepopulated_fields = {'slug': ('title', )}
