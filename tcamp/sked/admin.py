@@ -45,8 +45,8 @@ class LocationAdmin(admin.ModelAdmin):
 
 
 class SessionAdmin(admin.ModelAdmin):
-    list_display = ('title', 'url', 'speaker_names', 'contact_email', 'start_time',
-                    'location', 'tag_string', 'is_public', 'published_by', 'admin_notes', )
+    list_display = ('title', 'url', 'speaker_names', 'start_time', 'location',
+                    'tag_string', 'user_notes', 'admin_notes', 'contact_email', 'is_public', 'published_by', )
     list_editable = ('start_time', 'location', )
     # list_display_links = ('title', 'start_time', 'location')
     list_select_related = True
