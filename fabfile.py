@@ -105,13 +105,15 @@ def run_migrations():
 
 
 def stop():
-    with cd(HOME_PATH):
-        sudo("./bin/stop")
+    sudo("stop tcamp")
+    # with cd(HOME_PATH):
+    #     sudo("./bin/stop")
 
 
 def restart():
-    with cd(HOME_PATH):
-        sudo("./bin/run")
+    sudo("restart tcamp")
+    # with cd(HOME_PATH):
+    #     sudo("./bin/run")
 
 
 def cleanup():

@@ -11,5 +11,5 @@ if [ -f $PIDFILE ]; then
     kill $PID
 fi
 
-$ROOT/virt/bin/python $CODEROOT/manage.py run_gunicorn -b $SOCKET -p $PIDFILE -w $WORKERS --daemon --log-file=$ROOT/log/gunicorn.log --preload
+$ROOT/virt/bin/python $CODEROOT/manage.py run_gunicorn -b $SOCKET -p $PIDFILE -w $WORKERS --log-file=$ROOT/log/gunicorn.log --preload
 echo "Running with PID $(cat $PIDFILE)"
