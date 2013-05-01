@@ -1095,7 +1095,7 @@ body .menu-drawer, body .menu-panel {
     margin-bottom: 20px; }
   .callouts h3 {
     font-size: 24px; } }
-@media (max-width: 479 px) {
+@media (max-width: 479px) {
   .callouts [class*="span"] {
     width: auto;
     float: none;

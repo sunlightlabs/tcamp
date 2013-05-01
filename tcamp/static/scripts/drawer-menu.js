@@ -55,64 +55,75 @@
       // than horizontally.
       // resize() is triggered on domready in app.js, so there's no need to do it here.
       $(window).resize($.throttle(150, function(){
-        if($(window).width() < opts.phoneWidth){
+        if($(window).width() < opts.phoneWidth && (! $('body').attr('data-swipe-menu-enabled'))){
           $(opts.drawer + ', ' + opts.panel).on('movestart.drawer-menu', verticalScrollOnly);
-        }else{
-          $(opts.drawer + ', ' + opts.panel).off('movestart.drawer-menu', verticalScrollOnly);
+          bindSwipeHandlers();
+        }else if($(window).width() >= opts.phoneWidth && $('body').attr('data-swipe-menu-enabled')){
+          $(opts.drawer + ', ' + opts.panel).off('movestart.drawer-menu');
+          unbindSwipeHandlers();
         }
       }));
 
-      // now bind some swipe handlers on the panel using the move event.
-      $(opts.panel)
-      // as we swipe, calculate the position and distance and move
-      // the panel to the corresponding left coordinate on the screen
-      .on('move', function(e){
-        e.preventDefault();
-        if($(window).width() <= opts.phoneWidth){
+      function bindSwipeHandlers(){
+        $('body').attr('data-swipe-menu-enabled', true);
+        $(opts.panel)
+        // as we swipe, calculate the position and distance and move
+        // the panel to the corresponding left coordinate on the screen
+        .on('move.drawer-menu', function(e){
+          e.preventDefault();
+          if($(window).width() < opts.phoneWidth){
+            e.stopPropagation();
+            var el = $(opts.panel),
+                menu = $(opts.drawer),
+                width = $(window).width();
+            el.addClass('moving');
+            if(e.distX < 0){ // swiping left
+              left = 50 * (e.pageX + e.distX) / width;
+              el.css('left', Math.max(left, 0) + '%');
+            }
+            if(e.distX > 0){ // swiping right
+              left = 100 * (e.distX) / width;
+              el.css('left', Math.min(left, opts.bound) + '%');
+            }
+          }
+        })
+        // at the end of the swipe, check to see if we've moved far enough
+        // to snap open. if not, snap closed.
+        .on('moveend.drawer-menu', function(e){
+          e.preventDefault();
+          if($(window).width() < opts.phoneWidth){
+            e.stopPropagation();
+            var el = $(opts.panel),
+                menu = $(opts.drawer),
+                width = $(window).width();
+            el.removeClass('moving');
+            if(el.offset().left + e.distX > width / 2){
+              el.css('left', opts.bound + '%');
+              menu.css('z-index', 1);
+              unfreezeLinks(opts.drawer);
+            }else{
+              el.css('left', '0');
+              menu.css('z-index', 0);
+              freezeLinks(opts.drawer);
+            }
+          }
+        });
+        // also, toggle the menu on clicks of the menu-trigger element.
+        $(opts.trigger).on('click.drawer-menu', function(e){
+          e.preventDefault();
           e.stopPropagation();
-          var el = $(opts.panel),
-              menu = $(opts.drawer),
-              width = $(window).width();
-          el.addClass('moving');
-          if(e.distX < 0){ // swiping left
-            left = 50 * (e.pageX + e.distX) / width;
-            el.css('left', Math.max(left, 0) + '%');
-          }
-          if(e.distX > 0){ // swiping right
-            left = 100 * (e.distX) / width;
-            el.css('left', Math.min(left, opts.bound) + '%');
-          }
-        }
-      })
-      // at the end of the swipe, check to see if we've moved far enough to snap open.
-      // if not, snap closed.
-      .on('moveend', function(e){
-        e.preventDefault();
-        if($(window).width() <= opts.phoneWidth){
-          e.stopPropagation();
-          var el = $(opts.panel),
-              menu = $(opts.drawer),
-              width = $(window).width();
-          el.removeClass('moving');
-          if(el.offset().left + e.distX > width / 2){
-            el.css('left', opts.bound + '%');
-            menu.css('z-index', 1);
-            unfreezeLinks(opts.drawer);
-          }else{
-            el.css('left', '0');
-            menu.css('z-index', 0);
-            freezeLinks(opts.drawer);
-          }
-        }
-      });
-      // also, toggle the menu on clicks of the menu-trigger element.
-      $(opts.trigger)
-      .click(function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        $(opts.panel).css('left',
-          $(opts.panel).offset().left === 0 ? opts.bound + '%' : '0');
-      });
+          $(opts.panel).css('left',
+            $(opts.panel).offset().left === 0 ? opts.bound + '%' : '0');
+        });
+      }
+      function unbindSwipeHandlers(){
+        $('body').attr('data-swipe-menu-enabled', false);
+        $(opts.panel)
+        .off('move.drawermenu')
+        .off('moveend.drawer-menu')
+        .off('click.drawermenu');
+      }
+
     })({  // immediately execute this closure, and pass in some options:
       phoneWidth: 768,
       bound: 80, // as a percent

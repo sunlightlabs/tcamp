@@ -67,13 +67,13 @@ $mobile_textsize: 16px;
 $mobile_lineheight: 1.6;
 
 // responsive
-$bigscreen: 1200;
-$desktop: 980;
-$tablet: 768;
-$phone: 480;
+$bigscreen: 1200px;
+$desktop: 980px;
+$tablet: 768px;
+$phone: 480px;
 
 // Override tablets & small desktops only
-@media (min-width: "#{$desktop}px") and (max-width: "#{$bigscreen}px") {
+@media (min-width: "#{$desktop}") and (max-width: "#{$bigscreen}") {
   // Show everything else
   .hidden-desktop    { display: none !important; }
   .visible-desktop   { display: inherit !important ; }
@@ -98,22 +98,22 @@ $phone: 480;
 
 @mixin respond-to($media) {
     @if $media == tiny {
-        @media(max-width: "#{$phone - 1 px}") { @content; }
+        @media(max-width: "#{$phone - 1}") { @content; }
     }
     @if $media == phones {
-        @media (max-width: "#{$tablet - 1}px") { @content; }
+        @media (max-width: "#{$tablet - 1}") { @content; }
     }
     @else if $media == tablets {
-        @media (min-width: "#{$tablet}px") and (max-width: "#{$desktop - 1}px") { @content; }
+        @media (min-width: "#{$tablet}") and (max-width: "#{$desktop - 1}") { @content; }
     }
     @else if $media == mobile {
-        @media (max-width: "#{$desktop - 1}px") { @content; }
+        @media (max-width: "#{$desktop - 1}") { @content; }
     }
     @else if $media == desktops {
-        @media (min-width: "#{$desktop}px") { @content; }
+        @media (min-width: "#{$desktop}") { @content; }
     }
     @else if $media == bigscreen {
-        @media (min-width: "#{$bigscreen}px") { @content;}
+        @media (min-width: "#{$bigscreen}") { @content;}
     }
 }
 
