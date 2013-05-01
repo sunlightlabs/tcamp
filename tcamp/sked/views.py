@@ -99,13 +99,18 @@ class SessionCrudMixin(object):
         # use POST data or instance dict to prefill form depending on method.
         if kwargs.get('data'):
             data = kwargs['data'].copy()
+            try:
+                extra_data = self._mux_inputlist(kwargs['data'],
+                                                 ['extra_data[has_slides]', ])[0]
+            except IndexError:  # radio button not selected
+                extra_data = {}
+
             data.update(
                 speakers=self._mux_inputlist(kwargs['data'],
                                              ['speakers[name]',
                                               'speakers[twitter]',
                                               'speakers[position]', ]),
-                extra_data=self._mux_inputlist(kwargs['data'],
-                                               ['extra_data[has_slides]', ])[0],
+                extra_data=extra_data,
                 event=self._get_event().id
             )
             data['speakers'][0]['email'] = kwargs['data'].getlist('speakers[email]')[0]
