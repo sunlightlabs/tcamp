@@ -16,6 +16,7 @@ urlpatterns = patterns(
     url(r'^saturdaytv/$', RedirectView.as_view(url='/schedule/2013/tv/?timeslots=11:30am,12:30pm,1:30pm,2:30pm,3:30pm,4:30pm&refresh=300000')),
     url(r'^sundaywall/$', RedirectView.as_view(url='/schedule/2013/wall/?timeslots=11:00am,12:00pm,1:00pm,2:00pm,3:00pm,4:00pm&refresh=300000')),
     url(r'^sundaytv/$', RedirectView.as_view(url='/schedule/2013/tv/?timeslots=11:00am,12:00pm,1:00pm,2:00pm,3:00pm,4:00pm&refresh=300000')),
+    url(r'^wallfail/$', RedirectView.as_view(url='/schedule/2013/wallfail/')),
 
     url(r'^treenav/', include('treenav.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
