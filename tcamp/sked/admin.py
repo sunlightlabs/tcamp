@@ -52,7 +52,7 @@ class SessionAdmin(admin.ModelAdmin):
     list_select_related = True
     # list_per_page = 60
     readonly_fields = ('is_public', 'published_by', )
-    list_filter = (SessionTagsListFilter, 'event', 'location', 'published_by', )
+    list_filter = (SessionTagsListFilter, 'event', 'location', 'is_public', 'published_by', )
     prepopulated_fields = {'slug': ('title', )}
     search_fields = ('title', 'description', 'speakers')
     date_hierarchy = 'start_time'
