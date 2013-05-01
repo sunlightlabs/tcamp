@@ -14,7 +14,8 @@ from timedelta.fields import TimedeltaField
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
 
-from sked.email import SessionConfirmationEmailThread
+from brainstorm.models import Idea
+from sked.email import SessionConfirmationEmailThread, SessionConversionEmailThread
 from tagger import extract_tags as tgr
 
 
@@ -181,7 +182,7 @@ class AutoTags(TaggedItemBase):
     content_object = models.ForeignKey('Session')
 
     def __unicode__(self):
-        return u"tag"
+        return self.tag
 
 
 class Session(models.Model):
@@ -257,6 +258,13 @@ class Session(models.Model):
             return None
 
     @property
+    def leader(self):
+        try:
+            return self.speakers[0]['name']
+        except:
+            return None
+
+    @property
     def tag_string(self):
         tags = self.tags.all() or self.auto_tags.all()
         return u', '.join(t.name for t in tags)
@@ -302,7 +310,6 @@ def autogenerate_tags(sender, **kwargs):
     instance = kwargs['instance']
     tags = tgr('%s %s' % (instance.title, instance.description.raw))
     instance.auto_tags.set(*[tag.string for tag in tags])
-    # instance.save_m2m()
 
 
 @receiver(post_save, sender=Session)
@@ -313,7 +320,14 @@ def send_confirmation_email(sender, **kwargs):
             not (len(instance.speakers) and instance.speakers[0].get('email')) or
             instance.is_public):
         return
-    thread = SessionConfirmationEmailThread(instance)
+    # if this exists as a brainstorm idea, we want to send a different email
+    print (instance.title, instance.description.raw)
+    if Idea.objects.filter(title=instance.title,
+                           description=instance.description.raw).count() > 0:
+        thread = SessionConversionEmailThread(instance)
+    else:
+        thread = SessionConfirmationEmailThread(instance)
     if thread.should_send:
+        print u'%s SHOULD SEND' % thread.__class__.__name__
         SentEmail(email_thread=thread).save()
         thread.start()

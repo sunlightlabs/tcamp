@@ -3,7 +3,7 @@ import threading
 from collections import Counter
 
 from django.contrib.sites.models import Site
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.conf import settings
 
 
@@ -22,42 +22,78 @@ class BasePostmarkSessionEmailThread(threading.Thread):
         return not (settings.DEBUG is True and len(list(recipients - admins)) is not 0)
 
     def run(self):
+        headers = {}
+        try:
+            headers = self.headers
+        except AttributeError:
+            pass
         if self.should_send:
-            send_mail(self.subject, self.body, self.sender, self.recipients)
+            EmailMessage(self.subject, self.body, self.sender, self.recipients, headers=headers).send()
+
+
+class SessionConversionEmailThread(BasePostmarkSessionEmailThread):
+    def __init__(self, session, **kwargs):
+        super(SessionConversionEmailThread, self).__init__(session, **kwargs)
+        self.headers = {'Reply-To': 'wall@transparencycamp.org', }
+        self.subject = '[TCamp] Your Idea was Selected! Reply by May 2.'
+        self.body = ("Congratulations! We'd like to include your session "
+                     "proposal on the first day of TransparencyCamp. "
+                     "You'd be presenting in the first timeslot, on Saturday, "
+                     "from 11:30 a.m. to 12:20 a.m. If for any reason you can't "
+                     "be in attendence to give your talk, please let us know by emailing "
+                     "wall@transparencycamp.org (or replying to this email) by "
+                     "the end of the day,"
+                     "Thursday, May 2, 2013 so we can give your spot to someone else."
+                     "\n\n"
+                     "If you need to edit your proposal at all, you can use this link: "
+                     "{site}{path}?{key}"
+                     "\n\n"
+                     "Looking forward to seeing you at TCamp!"
+                     "\n\n"
+                     "Sincerely,\n"
+                     "The Transparencycamp Team"
+                     "").format(site=Site.objects.get_current().domain,
+                                path=self.session.get_edit_url(),
+                                key=self.session.edit_key)
 
 
 class SessionConfirmationEmailThread(BasePostmarkSessionEmailThread):
     def __init__(self, session, **kwargs):
         super(SessionConfirmationEmailThread, self).__init__(session, **kwargs)
-        self.subject = '[TCamp] Session confirmation & edit link'
-        self.body = '''Thanks for submitting a session at TCamp! We'll \
-                     be reviewing all of the proposals, and you'll get \
-                     another email with the pertinent details if your \
-                     session is chosen. In the meantime, if you need to \
-                     edit anything, visit this URL:
-
-                     {site}{path}?{key}
-                     '''.format(site=Site.objects.get_current().domain,
+        self.subject = '[TCamp] Submit confirmation & edit link'
+        self.body = ("Thanks for submitting a session at TCamp! We'll "
+                     "be reviewing all of the proposals as they come in, "
+                     "and you'll get "
+                     "another email with the pertinent details if your "
+                     "session is chosen. In the meantime, if you need to "
+                     "edit anything, visit this URL: "
+                     "\n\n"
+                     "{site}{path}?{key}"
+                     "").format(site=Site.objects.get_current().domain,
                                 path=self.session.get_edit_url(),
                                 key=self.session.edit_key)
 
 
 class SessionApprovedEmailThread(BasePostmarkSessionEmailThread):
     def __init__(self, session, **kwargs):
-        super(SessionConfirmationEmailThread, self).__init__(session, **kwargs)
+        super(SessionApprovedEmailThread, self).__init__(session, **kwargs)
         self.subject = '[TCamp] Your Session is on the wall!'
-        self.body = '''Your session has been approved and scheduled for:
-
-                     {start_time} in {location}.
-
-                     Please see the registration desk 10 minutes before \
-                     your scheduled time slot if you need an \
-                     adapter to connect your laptop to a VGA projector, \
-                     or ask the wall crew if you have logistical or timing \
-                     questions.
-
-                     Now that it's published, your proposal can no longer be \
-                     edited. Please see the wall crew with logistical or timing \
-                     questions.
-                     '''.format(start_time=self.session.strftime('%h:%m'),
-                                location=self.session.location)
+        self.body = ("Your session has been approved and scheduled for:"
+                     "\n\n"
+                     "{start_time} in {location}."
+                     "\n\n"
+                     "Please see the registration desk 10 minutes before "
+                     "your scheduled time slot if you need an "
+                     "adapter to connect your laptop to a VGA projector, "
+                     "or ask the wall crew if you have logistical or timing "
+                     "questions."
+                     "\n\n"
+                     "Your session's permalink page ({schedule_url}) has an "
+                     "etherpad on it for collaborative notetaking. To help keep "
+                     "a good record of the discussion that goes on during your talk, "
+                     "you may want to mention to the group that it's available."
+                     "\n\n"
+                     "Also, note that since it's published, your proposal can no longer be "
+                     "edited. Please see the wall crew with logistical or timing "
+                     "questions. ").format(start_time=self.session.strftime('%h:%m'),
+                                           location=self.session.location)
