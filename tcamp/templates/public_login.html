@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Log in</h1>
+<p>Choose one of these services:</p>
+<ul class="unstyled">
+{% for service in BRAINSTORM_LOGIN_OPTIONS %}
+    <li><a href="{{ service.1 }}?{{ REDIRECT_FIELD_NAME }}={{ request.path|urlencode }}" class="{{ service.0|lower }}">{{ service.0 }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
