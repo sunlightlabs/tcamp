@@ -42,7 +42,7 @@ class SessionConversionEmailThread(BasePostmarkSessionEmailThread):
                      "from 11:30 a.m. to 12:20 a.m. If for any reason you can't "
                      "be in attendence to give your talk, please let us know by emailing "
                      "wall@transparencycamp.org (or replying to this email) by "
-                     "the end of the day,"
+                     "the end of the day, "
                      "Thursday, May 2, 2013 so we can give your spot to someone else."
                      "\n\n"
                      "If you need to edit your proposal at all, you can use this link: "
