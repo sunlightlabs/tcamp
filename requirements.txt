@@ -29,6 +29,7 @@ south
 akismet
 stemming
 Markdown
+requests
 python-social-auth
 python-flickr
 python-twitter
