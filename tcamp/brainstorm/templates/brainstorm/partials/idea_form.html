@@ -35,7 +35,7 @@
         </fieldset>
     </form>
 {% else %}
-    {% if request.user.is_anonymous %}
+    {% if request.user.is_anonymous and subsite.post_status != 2 %}
         <a href={% url "login" %}>Log in to post new {{ subsite.idea_label }}s.</a>
     {% else %}
         <p>Posting new {{ subsite.idea_label }}s has been disabled for this site.</p>
