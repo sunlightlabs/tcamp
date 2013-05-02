@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.decorators.http import require_POST
+from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 from brainstorm.models import Subsite, Idea, Vote, OPEN
 from brainstorm.forms import IdeaForm
@@ -91,6 +92,7 @@ class CreateIdea(CreateView):
 
 @require_POST
 @login_required
+@never_cache
 def vote(request, slug, id, format='html'):
     idea_id = int(id)
     vote = int(request.POST.get('vote'))

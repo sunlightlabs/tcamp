@@ -98,16 +98,19 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.contrib.sessions.middleware.SessionMiddleware',
+    'middleware.ConditionalSessionMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'middleware.ConditionalCsrfViewMiddleware',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'middleware.ConditionalAuthenticationMiddleware',
+    # 'django.contrib.messages.middleware.MessageMiddleware',
+    'middleware.ConditionalMessageMiddleware',
     'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'pages.middleware.PagesMiddleware',
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
-    # 'django_pdb.middleware.PdbMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
