@@ -1,6 +1,7 @@
 from twilio.twiml import Response
 from django_twilio.decorators import twilio_view
 from django.views.decorators.http import require_http_methods
+from django.views.decorators.cache import never_cache
 from django.utils import timezone
 from dateutil.parser import parse as dateparse
 
@@ -9,6 +10,7 @@ from sked.models import Event, Session
 
 @twilio_view
 @require_http_methods(['POST', ])
+@never_cache
 def coming_up(request):
     sessions = Session.objects.filter(is_public=True, event=Event.objects.current())
     r = Response()
