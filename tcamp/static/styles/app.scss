@@ -1765,3 +1765,51 @@ table.wall-table {
         }
     }
 }
+
+/*************
+ * TV Display
+ ************/
+
+ .tvscreen {
+    background: $lightteal;
+    table { width: 100%;}
+    thead {
+        tr {
+            background: $orange;
+            color: #fff;
+            th { padding: 10px; @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.2));}
+            h1 { display: inline; font-size: 34px; color: #fff;}
+            h2 { display: inline; font-size: 28px; color: #fff; font-weight: 300; padding-left: 0.75em;
+                time { font-weight: bold; padding-left: 0.75em; }
+            }
+        }
+    }
+    tbody {
+        h3 { color: $headinggray; margin-top: 0; margin-bottom: 5px; font-size: 17px;
+             @include respond-to(mobile) { font-size: 14px;}
+        }
+        p { color: $bodygray; font-size: 15px; font-family: "helvetica neue", helvetica, arial, "ubuntu sans", sans-serif; font-weight: 300; margin-bottom: 4px;
+            @include respond-to(mobile) { font-size: 13px; }
+        }
+        tr:nth-child(odd) {
+            background: #eaf3f0;
+            th { background: $lightteal; }
+        }
+        th, td { padding: 0 $hbuffer; }
+        th {
+            font-family: $heading_family;
+            font-size: 24px;
+            color: #fff;
+            background: $teal;
+            @include respond-to(mobile) { font-size: 16px; }
+        }
+        tr.single {
+            th, td {
+                padding: $vbuffer $hbuffer;
+            }
+            th { font-size: 32px; line-height: 1.25;}
+            h3 { font-size: 32px; }
+            p { font-size: 20px; }
+        }
+    }
+ }

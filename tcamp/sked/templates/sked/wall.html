@@ -15,10 +15,10 @@
 <body>
     {% regroup session_list by start_time as grouped_sessions %}
     <div id="table_wrap">
-    <table class="table wall-table" id="wall_table">
+    <table class="table wall-table" id="table_display">
         <thead>
             <tr>
-                {# Top left cell is blank #}
+                {# Top left, right cells are day of the week #}
                 <th class="day" width="{% widthratio 1 locations|length|add:1 50 %}%"><h1>{{ session_list.0.start_time|date:"l" }}</h1></th>
                 {% for location in locations %}
                 <th width="{% widthratio 1 locations|length|add:1 100 %}%"><h3>{{ location.name }}</h3></th>
@@ -70,46 +70,7 @@
     </div>
     {% compress js %}
     <script src="{% static "scripts/jquery.js" %}"></script>
-    <script>
-    (function($){
-        /**
-        * jQuery.deparam
-        * reverses jQuery's param() method, converting a querystring back to an object
-        */
-        $.deparam = function(qs) {
-            var params, pieces;
-            params = {};
-            if (!qs) {
-                return params;
-            }
-            pieces = qs.split(/[&=]/);
-            $.each(pieces, function(idx, val) {
-                if (idx % 2) {
-                    return params[pieces[idx - 1]] = val;
-                }
-            });
-            return params;
-        };
-        // Ajax table loader
-        var refreshInterval = $.deparam(location.search).refresh || 300000 // default to 5 minutes
-        function ajaxRefresh(interval){
-            setTimeout(function(){
-                $('#table_wrap').load(location.href + ' #wall_table', function(text, status, xhr){
-                    if(status == 'success' || status == 'notmodified'){
-                        $('body').removeClass('reconnecting');
-                    }else{
-                        $('body').addClass('reconnecting');
-                    }
-                    ajaxRefresh(interval);
-                });
-            }, interval);
-        };
-        // Domready bootstrap
-        $(function(){
-            ajaxRefresh(refreshInterval);
-        });
-    })(jQuery);
-    </script>
+    <script src="{% static "scripts/table-load.js" %}"></script>
     {% endcompress %}
 </body>
 </html>

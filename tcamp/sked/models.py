@@ -8,6 +8,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.utils import timezone
+from dateutil.parser import parse as dateparse
 from jsonfield import JSONField
 from markupfield.fields import MarkupField
 from timedelta.fields import TimedeltaField
@@ -162,15 +163,21 @@ class SessionManager(models.Manager):
     def published(qset):
         return qset.select_related().filter(is_public=True).prefetch_related('location')
 
-    def current(qset):
-        now = timezone.now()
+    def current(qset, time="now"):
+        try:
+            now = dateparse(time)
+        except (ValueError, AttributeError):
+            now = timezone.now()
         current_time_slot = qset.filter(start_time__lte=now, end_time__gt=now).aggregate(
             timeslot=models.Max('start_time')).get('timeslot')
         return qset.select_related().filter(start_time=current_time_slot,
                                             is_public=True).prefetch_related('location')
 
-    def next(qset):
-        now = timezone.now()
+    def next(qset, time="now"):
+        try:
+            now = dateparse(time)
+        except (ValueError, AttributeError):
+            now = timezone.now()
         event = Event.objects.current()
         next_time_slot = qset.filter(start_time__gt=now, event=event).aggregate(
             timeslot=models.Min('start_time')).get('timeslot')

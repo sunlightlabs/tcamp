@@ -1,10 +1,12 @@
 import re
+import datetime
 
 from dateutil.parser import parse as dateparse
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
+from django.db.models import Count
 from django.utils import timezone
 from django.views.generic import (ListView, DetailView, CreateView,
                                   UpdateView, RedirectView)
@@ -204,4 +206,47 @@ class SingleDayView(ListView):
         context['lunchtime'] = lunchtime
         context['now'] = timezone.now().astimezone(timezone.get_current_timezone())
         context['now_minus_session_length'] = context['now'] - context['event'].session_length
+        return context
+
+
+class CurrentTimeslotView(ListView):
+    model = Session
+    context_object_name = 'session_list'
+    event = Event.objects.current()
+
+    def get_queryset(self):
+        self.event = get_object_or_404(Event, slug=self.kwargs.get('event_slug'))
+        time = self.request.GET.get('time')
+        qs = Session.objects.current(time)
+        if not qs.count():
+            qs = Session.objects.next(time)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super(CurrentTimeslotView, self).get_context_data(**kwargs)
+
+        try:
+            lunchtime = self.get_queryset().filter(
+                title__istartswith='lunch')[0].start_time.astimezone(timezone.get_current_timezone())
+        except IndexError:
+            lunchtime = None
+
+        timeslots = Session.objects.today_or_first_for_event(self.event
+            ).values('start_time'
+            ).annotate(sessions_in_timeslot=Count('start_time')
+            ).filter(sessions_in_timeslot__gt=1
+            )
+        timeslots = {
+            value['start_time'].astimezone(timezone.get_current_timezone()): key + 1
+            for (key, value) in enumerate(timeslots)
+        }
+        try:
+            context['session_num'] = timeslots.get(
+                context['session_list'][0].start_time.astimezone(timezone.get_current_timezone()))
+        except IndexError:
+            context['session_num'] = None
+        context['event'] = self.event
+        context['timeslots'] = timeslots
+        context['lunchtime'] = lunchtime
+        context['now'] = timezone.now().astimezone(timezone.get_current_timezone())
         return context

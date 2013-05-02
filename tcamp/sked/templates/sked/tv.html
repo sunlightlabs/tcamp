@@ -1,0 +1,57 @@
+<!doctype html>
+{% load compress staticfiles sked_tags tz %}
+<html lang="en" class="tvscreen">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ CURRENT_EVENT.name }} TV Display</title>
+    {% compress css %}
+    <link href="{% static "styles/bootstrap.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "styles/bootstrap/responsive.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "styles/app.css" %}" rel="stylesheet" type="text/css">
+    {% endcompress %}
+    <script type="text/javascript" src="//use.typekit.net/jat1nrs.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body>
+    <div id="table_wrap">
+    <table id="table_display">
+        <thead>
+            <th colspan="4">
+                <h1>{{ session_list.0.start_time|date:"l" }}</h1>
+                <h2>{% if session_num %}Session {{ session_num }}, {% endif %}<time>{{ session_list.0.start_time|date:"g:i" }}-{{ session_list.0.end_time|date:"g:i" }}</time></h2>
+            </th>
+        </thead>
+        <tbody>
+            {% if session_list|length == 1 %}
+            <tr class="single">
+                <th width="25%">{{ session_list.0.location.name }}</th>
+                <td>
+                    <h3>{{ session_list.0.title }}</h3>
+                    <p>{{ session_list.0.speaker_names }}</p>
+                    <p>{{ session_list.0.description }}</p>
+                </td>
+            </tr>
+            {% else %}
+                {% for session in session_list %}
+                    {% captureas modulo %}{% cycle "odd" "even" %}{% endcaptureas %}
+                    {% if modulo == "odd" %}<tr>{% endif %}
+
+                    <th width="7%">{{ session.location.name }}</th>
+                    <td width="43%"><h3>{{ session.title }}</h3><p>{{ session.speaker_names }}</p></td>
+                    {% if modulo == "odd" and forloop.last %}
+                    <th></th><td></td>
+                    </tr>
+                    {% endif %}
+
+                    {% if modulo == "even" %}</tr>{% endif %}
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+    </div>
+    {% compress js %}
+    <script src="{% static "scripts/jquery.js" %}"></script>
+    <script src="{% static "scripts/table-load.js" %}"></script>
+    {% endcompress %}
+</body>
+</html>
