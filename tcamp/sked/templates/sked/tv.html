@@ -44,6 +44,10 @@
                     {% endif %}
 
                     {% if modulo == "even" %}</tr>{% endif %}
+                {% empty %}
+                <tr><td colspan="4" align="center">
+                    <h2>Thanks for Coming to TransparencyCamp!</h2>
+                </td></tr>
                 {% endfor %}
             {% endif %}
         </tbody>
