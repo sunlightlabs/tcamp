@@ -1771,8 +1771,11 @@ table.wall-table {
  ************/
 
  .tvscreen {
-    background: $lightteal;
-    table { width: 100%;}
+    background: $lightteal url(../images/teal-arrow-bg.png) repeat 50% 50%;
+    #table_wrap:after {
+            @include dashed_line;
+        }
+    table { width: 100%; @include shadow(0 0 20px 0, rgba(0, 0, 0, 0.2));}
     thead {
         tr {
             background: $orange;

@@ -1995,9 +1995,16 @@ table.wall-table {
  * TV Display
  ************/
 .tvscreen {
-  background: #70aaa7; }
+  background: #70aaa7 url(../images/teal-arrow-bg.png) repeat 50% 50%; }
+  .tvscreen #table_wrap:after {
+    content: '';
+    display: block;
+    height: 4px;
+    background: white url(../images/dashed-border.png) repeat-x; }
   .tvscreen table {
-    width: 100%; }
+    width: 100%;
+    -webkit-box-shadow:  0 0 20px 0 rgba(0, 0, 0, 0.2);
+    box-shadow:  0 0 20px 0 rgba(0, 0, 0, 0.2); }
   .tvscreen thead tr {
     background: #ca6728;
     color: #fff; }
