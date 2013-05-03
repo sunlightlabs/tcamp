@@ -188,9 +188,6 @@ class SessionManager(models.Manager):
 class AutoTags(TaggedItemBase):
     content_object = models.ForeignKey('Session')
 
-    def __unicode__(self):
-        return self.tag
-
 
 class Session(models.Model):
     title = models.CharField(max_length=102)
