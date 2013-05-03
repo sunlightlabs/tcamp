@@ -1382,7 +1382,8 @@ body .menu-drawer, body .menu-panel {
   padding: 0 20px 10px; }
 .timeslot .multi h4 {
   font-size: 16px;
-  font-style: italic; }
+  font-style: italic;
+  padding-top: 0; }
   @media (max-width: 767px) {
     .timeslot .multi h4 {
       font-size: 14px; } }

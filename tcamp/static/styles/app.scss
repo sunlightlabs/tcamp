@@ -1250,6 +1250,7 @@ table.table-striped {
         h4 {
             font-size: 16px;
             font-style: italic;
+            padding-top: 0;
             @include respond-to(phones) { font-size: 14px; }
         }
         ul { margin-bottom: 0; }
