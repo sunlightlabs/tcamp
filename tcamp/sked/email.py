@@ -76,7 +76,13 @@ class SessionConfirmationEmailThread(BasePostmarkSessionEmailThread):
 class SessionApprovedEmailThread(BasePostmarkSessionEmailThread):
     def __init__(self, session, **kwargs):
         super(SessionApprovedEmailThread, self).__init__(session, **kwargs)
-        self.subject = '[TCamp] {start_time}@{location} -- Your Session is scheduled!'
+        details = dict(start_time=self.session.start_time.astimezone(
+                            timezone.get_current_timezone()
+                            ).strftime('%I:%M %p'),
+                       location=self.session.location.name,
+                       site=Site.objects.get_current().domain,
+                       schedule_url=self.session.get_absolute_url())
+        self.subject = '[TCamp] {start_time} @ {location} -- Your Session is scheduled!'.format(**details)
         self.body = ("Your session has been approved and scheduled for:"
                      "\n\n"
                      "{start_time} in {location}."
@@ -94,9 +100,4 @@ class SessionApprovedEmailThread(BasePostmarkSessionEmailThread):
                      "\n\n"
                      "Also, note that since it's published, your proposal can no longer be "
                      "edited. Please see the wall crew with logistical or timing "
-                     "questions. ").format(start_time=self.session.start_time.astimezone(
-                                                timezone.get_current_timezone()
-                                                ).strftime('%I:%M %p'),
-                                           location=self.session.location.name,
-                                           site=Site.objects.get_current().domain,
-                                           schedule_url=self.session.get_absolute_url())
+                     "questions. ").format(**details)
