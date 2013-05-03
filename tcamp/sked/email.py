@@ -76,7 +76,7 @@ class SessionConfirmationEmailThread(BasePostmarkSessionEmailThread):
 class SessionApprovedEmailThread(BasePostmarkSessionEmailThread):
     def __init__(self, session, **kwargs):
         super(SessionApprovedEmailThread, self).__init__(session, **kwargs)
-        self.subject = '[TCamp] Your Session is on the wall!'
+        self.subject = '[TCamp] {start_time}@{location} -- Your Session is scheduled!'
         self.body = ("Your session has been approved and scheduled for:"
                      "\n\n"
                      "{start_time} in {location}."
