@@ -10,7 +10,7 @@ from django.middleware.csrf import CsrfViewMiddleware
 
 class PathRestrictedProxy(object):
     """ a mixin for creating middleware that allows you to restrict
-        behavior to only those declared in settings """
+        behavior to only those url fragments declared in settings """
     path_rexp = r''
     proxy_class = object
     proxy = None
