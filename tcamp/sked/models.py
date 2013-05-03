@@ -1,4 +1,5 @@
 import hashlib
+import re
 
 from django.conf import settings
 from django.core.urlresolvers import reverse, Resolver404
@@ -241,6 +242,12 @@ class Session(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)[:50].rstrip('-')
+            normalized_slug = re.sub(r'[\d]+$', '', self.slug)
+            count = 0
+            while Session.objects.filter(slug=self.slug,
+                                         event=self.event).count():
+                count += 1
+                self.slug = '%s%s' % (normalized_slug, count)
         if not self.end_time and self.start_time:
             self.end_time = self.start_time + self.event.session_length
 
