@@ -35,15 +35,13 @@ class SessionConversionEmailThread(BasePostmarkSessionEmailThread):
     def __init__(self, session, **kwargs):
         super(SessionConversionEmailThread, self).__init__(session, **kwargs)
         self.headers = {'Reply-To': 'wall@transparencycamp.org', }
-        self.subject = '[TCamp] Your Idea was Selected! Reply by May 2.'
+        self.subject = '[TCamp] Your Idea was Selected!'
         self.body = ("Congratulations! We'd like to include your session "
                      "proposal on the first day of TransparencyCamp. "
                      "You'd be presenting in the first timeslot, on Saturday, "
                      "from 11:30 a.m. to 12:20 a.m. If for any reason you can't "
                      "be in attendence to give your talk, please let us know by emailing "
-                     "wall@transparencycamp.org (or replying to this email) by "
-                     "the end of the day, "
-                     "Thursday, May 2, 2013 so we can give your spot to someone else."
+                     "wall@transparencycamp.org (or replying to this email)."
                      "\n\n"
                      "If you need to edit your proposal at all, you can use this link: "
                      "{site}{path}?{key}"
