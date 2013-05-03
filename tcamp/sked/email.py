@@ -5,6 +5,7 @@ from collections import Counter
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMessage
 from django.conf import settings
+from django.utils import timezone
 
 
 class BasePostmarkSessionEmailThread(threading.Thread):
@@ -44,7 +45,7 @@ class SessionConversionEmailThread(BasePostmarkSessionEmailThread):
                      "wall@transparencycamp.org (or replying to this email)."
                      "\n\n"
                      "If you need to edit your proposal at all, you can use this link: "
-                     "{site}{path}?{key}"
+                     "http://{site}{path}?{key}"
                      "\n\n"
                      "Looking forward to seeing you at TCamp!"
                      "\n\n"
@@ -66,7 +67,7 @@ class SessionConfirmationEmailThread(BasePostmarkSessionEmailThread):
                      "session is chosen. In the meantime, if you need to "
                      "edit anything, visit this URL: "
                      "\n\n"
-                     "{site}{path}?{key}"
+                     "http://{site}{path}?{key}"
                      "").format(site=Site.objects.get_current().domain,
                                 path=self.session.get_edit_url(),
                                 key=self.session.edit_key)
@@ -86,12 +87,16 @@ class SessionApprovedEmailThread(BasePostmarkSessionEmailThread):
                      "or ask the wall crew if you have logistical or timing "
                      "questions."
                      "\n\n"
-                     "Your session's permalink page ({schedule_url}) has an "
+                     "Your session's permalink page (http://{site}{schedule_url}) has an "
                      "etherpad on it for collaborative notetaking. To help keep "
                      "a good record of the discussion that goes on during your talk, "
                      "you may want to mention to the group that it's available."
                      "\n\n"
                      "Also, note that since it's published, your proposal can no longer be "
                      "edited. Please see the wall crew with logistical or timing "
-                     "questions. ").format(start_time=self.session.strftime('%h:%m'),
-                                           location=self.session.location)
+                     "questions. ").format(start_time=self.session.start_time.astimezone(
+                                                timezone.get_current_timezone()
+                                                ).strftime('%I:%M %p'),
+                                           location=self.session.location.name,
+                                           site=Site.objects.get_current().domain,
+                                           schedule_url=self.session.get_absolute_url())
