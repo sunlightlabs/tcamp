@@ -8,9 +8,9 @@ from dateutil.parser import parse as dateparse
 from sked.models import Event, Session
 
 
+@never_cache
 @twilio_view
 @require_http_methods(['POST', ])
-@never_cache
 def coming_up(request):
     sessions = Session.objects.filter(is_public=True, event=Event.objects.current())
     r = Response()
