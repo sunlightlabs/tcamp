@@ -112,8 +112,13 @@
         $(opts.trigger).on('click.drawer-menu', function(e){
           e.preventDefault();
           e.stopPropagation();
-          $(opts.panel).css('left',
-            $(opts.panel).offset().left === 0 ? opts.bound + '%' : '0');
+          if($(opts.panel).offset().left === 0){
+            $(opts.panel).css('left', opts.bound + '%');
+            unfreezeLinks(opts.drawer);
+          }else{
+            $(opts.panel).css('left', '0');
+            freezeLinks(opts.drawer);
+          }
         });
       }
       function unbindSwipeHandlers(){
