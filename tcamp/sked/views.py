@@ -57,7 +57,7 @@ class SessionDetail(DetailView):
         context['is_permalink'] = True
         if self.preview:
             messages.warning(self.request,
-                             '''This is a
+                             '''Ok, you're all set! This is a
                                 preview url. We'll be adding sessions
                                 to the wall over the next few hours. If this
                                 is your session,
