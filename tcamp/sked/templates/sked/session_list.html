@@ -45,8 +45,8 @@
         <li class="{% spaceless %}
         {# if we are outside the bounds of the conference, the first tab is active. #}
         {# otherwise, we should highlight the tab for whatever today is. #}
-        {% if forloop.first %}{% if now.date < event.start_date or now.date > event.end_date %}active{% endif %}
-        {% elif now.year == day.year and now.month == day.month and now.day = day.day %}active
+        {% if forloop.first %}{% if today < event.start_date or today > event.end_date %}active{% endif %}
+        {% elif today.year == day.year and today.month == day.month and today.day = day.day %}active
         {% endif %}
         {% endspaceless %}"><a href="#day{{ day|date:"m-d" }}" data-toggle="tab" >{{ day|date:"l" }}</a></li>
         {% endfor %}
@@ -60,8 +60,8 @@
     <div class="tab-pane {% spaceless %}
         {# if we are outside the bounds of the conference, the first tab is active. #}
         {# otherwise, we should highlight the tab for whatever today is. #}
-        {% if forloop.first %}{% if now.date < event.start_date or now.date > event.end_date %}active{% endif %}
-        {% elif now.year == day.year and now.month == day.month and now.day = day.day %}active
+        {% if forloop.first %}{% if today < event.start_date or today > event.end_date %}active{% endif %}
+        {% elif today.year == day.year and today.month == day.month and today.day = day.day %}active
         {% endif %}
         {% endspaceless %}" id="day{{ day|date:"m-d" }}">
         {% spaceless %}
@@ -74,7 +74,7 @@
                         {% captureas sessionnum %}{% safe_cycle "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" %}{% endcaptureas %}
                     {% endif %}
                     {# put past sessions in a collapsed panel if this is today #}
-                    {% if day.day == now.day and day.month == now.month and day.year == now.year %}
+                    {% if day.day == today.day and day.month == today.month and day.year == today.year %}
                         {# did the session block end before now? #}
                         {% if sessions.grouper|add:event.session_length < now %}
                             {% include "sked/partials/session-block.html" %}
@@ -97,7 +97,7 @@
                         {% captureas sessionnum %}{% safe_cycle "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" %}{% endcaptureas %}
                     {% endif %}
                     {# if this is today, we need to check to make sure this session is in the future #}
-                    {% if day.day == now.day and day.month == now.month and day.year == now.year %}
+                    {% if day.day == today.day and day.month == today.month and day.year == today.year %}
                         {# did the session block end before now? #}
                         {% if sessions.grouper|add:event.session_length >= now %}
                             {% include "sked/partials/session-block.html" %}

@@ -31,6 +31,7 @@ class SessionList(ListView):
         event = get_object_or_404(Event, slug=self.kwargs.get('event_slug'))
         context['event'] = event
         context['days'] = days
+        context['today'] = timezone.now().astimezone(timezone.get_current_timezone()).date()
         context['now'] = timezone.now()
         return context
 
