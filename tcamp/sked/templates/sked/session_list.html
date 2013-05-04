@@ -45,8 +45,8 @@
         <li class="{% spaceless %}
         {# if we are outside the bounds of the conference, the first tab is active. #}
         {# otherwise, we should highlight the tab for whatever today is. #}
-        {% if forloop.first %}{% if today < event.start_date or today > event.end_date %}active{% endif %}
-        {% elif today.year == day.year and today.month == day.month and today.day = day.day %}active
+        {% if forloop.first and today < event.start_date or today > event.end_date %}active
+        {% elif today == day.date %}active
         {% endif %}
         {% endspaceless %}"><a href="#day{{ day|date:"m-d" }}" data-toggle="tab" >{{ day|date:"l" }}</a></li>
         {% endfor %}
@@ -60,8 +60,8 @@
     <div class="tab-pane {% spaceless %}
         {# if we are outside the bounds of the conference, the first tab is active. #}
         {# otherwise, we should highlight the tab for whatever today is. #}
-        {% if forloop.first %}{% if today < event.start_date or today > event.end_date %}active{% endif %}
-        {% elif today.year == day.year and today.month == day.month and today.day = day.day %}active
+        {% if forloop.first and today < event.start_date or today > event.end_date %}active
+        {% elif today == day.date %}active
         {% endif %}
         {% endspaceless %}" id="day{{ day|date:"m-d" }}">
         {% spaceless %}
@@ -69,12 +69,12 @@
         <div class="session-group hide-sessions">
             {% for sessions in grouped_sessions %}
                 {# only if this session block's date month and year match up with the tab's should we print #}
-                {% if sessions.grouper.day == day.day and sessions.grouper.month == day.month and sessions.grouper.year == day.year %}
+                {% if sessions.grouper.date == day.date %}
                     {% if sessions.list|length != 1 %}
                         {% captureas sessionnum %}{% safe_cycle "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" %}{% endcaptureas %}
                     {% endif %}
                     {# put past sessions in a collapsed panel if this is today #}
-                    {% if day.day == today.day and day.month == today.month and day.year == today.year %}
+                    {% if today == day.date %}
                         {# did the session block end before now? #}
                         {% if sessions.grouper|add:event.session_length < now %}
                             {% include "sked/partials/session-block.html" %}
@@ -92,12 +92,12 @@
         <div class="session-group">
             {% for sessions in grouped_sessions %}
                 {# only if this session block's date month and year match up with the tab's should we print #}
-                {% if sessions.grouper.day == day.day and sessions.grouper.month == day.month and sessions.grouper.year == day.year %}
+                {% if sessions.grouper.date == day.date %}
                     {% if sessions.list|length != 1 %}
                         {% captureas sessionnum %}{% safe_cycle "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" %}{% endcaptureas %}
                     {% endif %}
                     {# if this is today, we need to check to make sure this session is in the future #}
-                    {% if day.day == today.day and day.month == today.month and day.year == today.year %}
+                    {% if today == day.date %}
                         {# did the session block end before now? #}
                         {% if sessions.grouper|add:event.session_length >= now %}
                             {% include "sked/partials/session-block.html" %}
