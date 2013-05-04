@@ -90,9 +90,9 @@ class CreateIdea(CreateView):
         return context
 
 
+@never_cache
 @require_POST
 @login_required
-@never_cache
 def vote(request, slug, id, format='html'):
     idea_id = int(id)
     vote = int(request.POST.get('vote'))

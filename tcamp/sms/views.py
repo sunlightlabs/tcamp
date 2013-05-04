@@ -30,7 +30,7 @@ def coming_up(request):
             messages = ["No lunch on the schedule for today, sorry.\n"]
     else:
         try:
-            ts = dateparse(inmsg).replace(tzinfo=timezone.get_current_timezone())
+            ts = dateparse(inmsg)
             if ts.hour is 0 and ts.minute is 0:
                 messages = ["A lot of stuff can happen in a whole day! Try specifying a time.\n"]
             else:
