@@ -2,8 +2,11 @@
  * Drawer menu js
  * draggable panel for mobile that reveals a menu underneath
  */
-
 (function($){
+  // class android for different overflow-scrolling
+  if(navigator.userAgent.match(/Android/i)){
+    $('html').addClass('android');
+  }
   // define some utility functions to prevent click bleed-through on the menu trigger
   function freezeLinks(el){
     $(el).find('a').bind('click.drawer-menu', function(e){

@@ -880,6 +880,10 @@ table.table-striped {
             }
         }
     }
+    & .android {
+        body { overflow-x: inherit; }
+        overflow-x: hidden;
+    }
 }
 .menu-panel {
     @include shadow(0 0 20px 0, rgba(0, 0, 0, 0.35));
