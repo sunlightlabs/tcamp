@@ -3,9 +3,8 @@
  * draggable panel for mobile that reveals a menu underneath
  */
 (function($){
-  var isAndroid = navigator.userAgent.match(/Android/i);
   // class android for different overflow-scrolling
-  if(isAndroid){
+  if(navigator.userAgent.match(/Android/i)){
     $('html').addClass('android');
   }
   // define some utility functions to prevent click bleed-through on the menu trigger
@@ -60,17 +59,11 @@
       // resize() is triggered on domready in app.js, so there's no need to do it here.
       $(window).resize($.throttle(150, function(){
         if($(window).width() < opts.phoneWidth && (! $('body').attr('data-swipe-menu-enabled'))){
-          if(! isAndroid){
-            $(opts.drawer + ', ' + opts.panel).on('movestart.drawer-menu', verticalScrollOnly);
-            bindSwipeHandlers();
-          }
-          bindClickHandlers();
+          $(opts.drawer + ', ' + opts.panel).on('movestart.drawer-menu', verticalScrollOnly);
+          bindSwipeHandlers();
         }else if($(window).width() >= opts.phoneWidth && $('body').attr('data-swipe-menu-enabled')){
-          if(! isAndroid){
-            $(opts.drawer + ', ' + opts.panel).off('movestart.drawer-menu');
-            unbindSwipeHandlers();
-          }
-          unbindClickHandlers();
+          $(opts.drawer + ', ' + opts.panel).off('movestart.drawer-menu');
+          unbindSwipeHandlers();
         }
       }));
 
@@ -118,8 +111,6 @@
             }
           }
         });
-      }
-      function bindClickHandlers(){
         // also, toggle the menu on clicks of the menu-trigger element.
         $(opts.trigger).on('click.drawer-menu', function(e){
           e.preventDefault();
@@ -136,11 +127,9 @@
       function unbindSwipeHandlers(){
         $('body').attr('data-swipe-menu-enabled', false);
         $(opts.panel)
-        .off('move.drawer-menu')
-        .off('moveend.drawer-menu');
-      }
-      function unbindClickHandlers(){
-        $(opts.panel).off('click.drawermenu');
+        .off('move.drawermenu')
+        .off('moveend.drawer-menu')
+        .off('click.drawermenu');
       }
 
     })({  // immediately execute this closure, and pass in some options:
