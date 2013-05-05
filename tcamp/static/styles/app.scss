@@ -706,7 +706,8 @@ table.table-striped {
 }
 .ie7 .sunlight-brand,
 .ie8 .sunlight-brand,
-.ie9 .sunlight-brand { background: transparent url(../images/sunlight-brand.png) no-repeat 50% 50%; }
+.ie9 .sunlight-brand,
+.android .sunlight-brand { background: transparent url(../images/sunlight-brand.png) no-repeat 50% 50%; }
 
 .masthead {
     background: $bg_feature;
@@ -749,7 +750,8 @@ table.table-striped {
 }
 .ie7 .logo,
 .ie8 .logo,
-.ie9 .logo { background: transparent url(../images/logo.png) no-repeat 50% 50%; }
+.ie9 .logo,
+.android .logo { background: transparent url(../images/logo.png) no-repeat 50% 50%; }
 .siteheader {
     @include respond-to(phones) {
         .span8 { width: 66%; float: left; }
@@ -871,22 +873,28 @@ table.table-striped {
             min-height: 100%;
             background: $bg_footer;
             @include border_box;
+
+        }
+    }
+    &.gpu-enabled {
+        .menu-panel {
             @include respond-to(phones) {
                 @include gpu;
                 @include transition(left, 0.05s, ease-out);
+                @include shadow(0 0 20px 0, rgba(0, 0, 0, 0.35));
                 &.moving {
                     @include transition(none);
                 }
             }
         }
     }
-    & .android {
-        body { overflow-x: inherit; }
-        overflow-x: hidden;
+    &.android {
+        // body { overflow-x: inherit; }
+        // overflow-x: hidden;
+        .menu-panel {
+            @include shadow(0 0 0 0);
+        }
     }
-}
-.menu-panel {
-    @include shadow(0 0 20px 0, rgba(0, 0, 0, 0.35));
 }
 
 .menu-drawer {

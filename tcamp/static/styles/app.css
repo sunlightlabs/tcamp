@@ -724,7 +724,8 @@ table.table-striped {
 
 .ie7 .sunlight-brand,
 .ie8 .sunlight-brand,
-.ie9 .sunlight-brand {
+.ie9 .sunlight-brand,
+.android .sunlight-brand {
   background: transparent url(../images/sunlight-brand.png) no-repeat 50% 50%; }
 
 .masthead {
@@ -782,7 +783,8 @@ table.table-striped {
 
 .ie7 .logo,
 .ie8 .logo,
-.ie9 .logo {
+.ie9 .logo,
+.android .logo {
   background: transparent url(../images/logo.png) no-repeat 50% 50%; }
 
 @media (max-width: 767px) {
@@ -933,26 +935,27 @@ body .menu-drawer, body .menu-panel {
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box; }
-    @media (max-width: 767px) {
-      .with-drawer-menu body .menu-panel {
-        -webkit-transform: translatez(0);
-        -moz-transform: translatez(0);
-        -ms-transform: translatez(0);
-        -o-transform: translatez(0);
-        transform: translatez(0);
-        -webkit-transition: left 0.05s ease-out;
-        -moz-transition: left 0.05s ease-out;
-        -o-transition: left 0.05s ease-out;
-        transition: left 0.05s ease-out; }
-        .with-drawer-menu body .menu-panel.moving {
-          -webkit-transition: none "1s" "linear";
-          -moz-transition: none "1s" "linear";
-          -o-transition: none "1s" "linear";
-          transition: none "1s" "linear"; } }
-
-.menu-panel {
-  -webkit-box-shadow:  0 0 20px 0 rgba(0, 0, 0, 0.35);
-  box-shadow:  0 0 20px 0 rgba(0, 0, 0, 0.35); }
+@media (max-width: 767px) {
+  .with-drawer-menu.gpu-enabled .menu-panel {
+    -webkit-transform: translatez(0);
+    -moz-transform: translatez(0);
+    -ms-transform: translatez(0);
+    -o-transform: translatez(0);
+    transform: translatez(0);
+    -webkit-transition: left 0.05s ease-out;
+    -moz-transition: left 0.05s ease-out;
+    -o-transition: left 0.05s ease-out;
+    transition: left 0.05s ease-out;
+    -webkit-box-shadow:  0 0 20px 0 rgba(0, 0, 0, 0.35);
+    box-shadow:  0 0 20px 0 rgba(0, 0, 0, 0.35); }
+    .with-drawer-menu.gpu-enabled .menu-panel.moving {
+      -webkit-transition: none "1s" "linear";
+      -moz-transition: none "1s" "linear";
+      -o-transition: none "1s" "linear";
+      transition: none "1s" "linear"; } }
+.with-drawer-menu.android .menu-panel {
+  -webkit-box-shadow:  0 0 0 0 #111;
+  box-shadow:  0 0 0 0 #111; }
 
 .menu-drawer {
   background: #b0dbdd;
