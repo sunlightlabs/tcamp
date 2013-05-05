@@ -169,7 +169,7 @@ class SessionManager(models.Manager):
             now = dateparse(time)
         except (ValueError, AttributeError):
             now = timezone.now()
-        current_time_slot = qset.filter(start_time__lte=now, end_time__gt=now).aggregate(
+        current_time_slot = qset.filter(start_time__lte=now, end_time__gt=now, is_public=True).aggregate(
             timeslot=models.Max('start_time')).get('timeslot')
         return qset.select_related().filter(start_time=current_time_slot,
                                             is_public=True).prefetch_related('location')
@@ -180,7 +180,7 @@ class SessionManager(models.Manager):
         except (ValueError, AttributeError):
             now = timezone.now()
         event = Event.objects.current()
-        next_time_slot = qset.filter(start_time__gt=now, event=event).aggregate(
+        next_time_slot = qset.filter(start_time__gt=now, event=event, is_public=True).aggregate(
             timeslot=models.Min('start_time')).get('timeslot')
         return qset.select_related().filter(start_time=next_time_slot,
                                             is_public=True).prefetch_related('location')
