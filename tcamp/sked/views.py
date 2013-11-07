@@ -145,11 +145,11 @@ class SessionCrudMixin(object):
 
 
 class CreateSession(SessionCrudMixin, CreateView):
-    def dispatch(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         event = self._get_event()
         if not event.session_submission_is_open:
             raise PermissionDenied()
-        return super(CreateSession, self).dispatch(request, *args, **kwargs)
+        return super(CreateSession, self).post(request, *args, **kwargs)
 
 
 class UpdateSession(SessionCrudMixin, UpdateView, DeletionMixin):
