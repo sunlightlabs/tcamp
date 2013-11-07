@@ -47,6 +47,7 @@ class Event(models.Model):
     is_public = models.BooleanField(default=False, db_index=True)
     registration_is_open = models.BooleanField(default=False)
     registration_url = models.URLField(blank=True, default='')
+    session_submission_is_open = models.BooleanField(default=False)
 
     label = models.CharField(max_length=64, default='event')
     session_label = models.CharField(max_length=64, default='session')

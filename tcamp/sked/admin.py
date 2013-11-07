@@ -27,7 +27,7 @@ class SessionInline(admin.StackedInline):
 
 class EventAdmin(admin.ModelAdmin):
     list_display = ('name', 'url', 'start_date',
-                    'end_date', 'is_public', )
+                    'end_date', 'is_public', 'session_submission_is_open', )
     list_filter = ('is_public', )
     list_select_related = True
     date_hierarchy = 'start_date'
