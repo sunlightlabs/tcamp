@@ -85,7 +85,10 @@ def _get_registration(**kwargs):
 
     email = kwargs.get('email') or ''
     name = kwargs.get('name') or ''
-    attendees = json.loads(json_data).get('attendees', [])
+    try:
+        attendees = json.loads(json_data).get('attendees', [])
+    except:
+        attendees = []
     names = ["%s %s" % (x.get('first_name', '').lower(), x.get('last_name', '').lower()) for x in attendees]
     emails = [x.get('email', '').lower() for x in attendees]
     index = None
