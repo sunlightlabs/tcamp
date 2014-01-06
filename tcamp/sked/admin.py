@@ -39,7 +39,8 @@ class EventAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not obj.created_by:
             obj.created_by = request.user
-            obj.save()
+
+        obj.save()
 
 
 class LocationAdmin(admin.ModelAdmin):
