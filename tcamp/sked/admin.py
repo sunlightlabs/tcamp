@@ -36,6 +36,11 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ('name', )
     # inlines = (SessionInline, )
 
+    def save_model(self, request, obj, form, change):
+        if not obj.created_by:
+            obj.created_by = request.user
+            obj.save()
+
 
 class LocationAdmin(admin.ModelAdmin):
     list_display = ('pk', 'name', 'event', 'has_sessions', 'is_official', )

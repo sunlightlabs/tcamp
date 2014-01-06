@@ -55,7 +55,7 @@ class Event(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(User, related_name='sked_events')
+    created_by = models.ForeignKey(User, related_name='sked_events', blank=True, null=True)
 
     objects = EventManager()
 
