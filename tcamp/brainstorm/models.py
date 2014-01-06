@@ -26,7 +26,7 @@ SCORING_CHOICES = (
 
 class Subsite(models.Model):
     name = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50, primary_key=True,
+    slug = models.SlugField(max_length=50,
                             help_text='''The url fragment where the site
                                          will be mounted. Omit leading
                                          and trailing slashes.''')
