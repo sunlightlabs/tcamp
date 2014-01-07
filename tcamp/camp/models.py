@@ -52,3 +52,16 @@ class Sponsor(models.Model):
 
     def __unicode__(self):
         return self.name
+
+class EmailSubscriber(models.Model):
+    email = models.EmailField()
+    event = models.ForeignKey(Event, related_name='email_subscribers')
+
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False)
+
+    class Meta:
+        ordering = ('-event', '-created_at')
+
+    def __unicode__(self):
+        return u"%s for %s" % (self.email, self.event)

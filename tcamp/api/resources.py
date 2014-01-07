@@ -1,11 +1,12 @@
 from tastypie import fields
 from tastypie.resources import ModelResource
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
+from tastypie.authentication import BasicAuthentication
 
 from taggit.models import Tag
 from sked.models import Event, Session, Location
 from brainstorm.models import Subsite, Idea
-from camp.models import SponsorshipLevel, Sponsor
+from camp.models import SponsorshipLevel, Sponsor, EmailSubscriber
 
 
 class TagResource(ModelResource):
@@ -118,3 +119,14 @@ class SponsorResource(ModelResource):
             'name': ALL,
             'sponsorship': ALL_WITH_RELATIONS,
         }
+
+class EmailSubscriberResource(ModelResource):
+    event = fields.ToOneField(EventResource, 'event', null=True, full=False)
+
+    class Meta:
+        queryset = EmailSubscriber.objects.all()
+        filtering = {
+            'email': ALL,
+            'event': ALL_WITH_RELATIONS,
+        }
+        authentication = BasicAuthentication()

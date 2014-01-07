@@ -45,7 +45,6 @@ class Migration(SchemaMigration):
 
         # Re-adding foreign key constraint
         fk_sql = db.foreign_key_sql('brainstorm_idea', 'subsite_id', 'brainstorm_subsite', 'id')
-        print fk_sql
         db.execute(fk_sql)
 
         # Changing field 'Subsite.slug' to a plain old slugfield

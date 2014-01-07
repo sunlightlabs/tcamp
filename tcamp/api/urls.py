@@ -11,6 +11,7 @@ v1.register(SubsiteResource())
 v1.register(IdeaResource())
 v1.register(SponsorshipLevelResource())
 v1.register(SponsorResource())
+v1.register(EmailSubscriberResource())
 
 urlpatterns = patterns('',
     url(r'^', include(v1.urls)),

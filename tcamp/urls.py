@@ -25,6 +25,7 @@ urlpatterns = patterns(
     url(r'^staff/', include('googleauth.urls')),
     url(r'^schedule/', include('sked.urls', namespace='sked')),
     url(r'^sms/', include('sms.urls', namespace='sms')),
+    url(r'^camp/', include('camp.urls', namespace='camp')),
     url(r'^api/', include('api.urls')),
     url(r'^login/$', 'camp.views.login', name='login'),
     url(r'^logged-in/$', 'camp.views.logged_in', name='logged_in'),

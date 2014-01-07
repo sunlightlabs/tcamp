@@ -3,6 +3,11 @@ import urlparse
 from django.core.urlresolvers import resolve
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
+from django.views.decorators.cache import never_cache
+from django.views.generic import CreateView
+from camp.models import EmailSubscriber
+from camp.forms import BootstrapErrorList
+from sked.models import Event
 
 
 def index(request):
@@ -48,3 +53,26 @@ def logged_in(request):
 @require_POST
 def sponsor_contact(request):
     pass
+
+
+@require_POST
+@never_cache
+def email_subscribe(request):
+    email = request.POST.get('email')
+    event = Event.objects.current()
+    subscriber = None
+    if email and event:
+        try:
+            subscriber = EmailSubscriber.objects.get_or_create(event_id=event.id, email=email)
+            template = 'camp/partials/success.html'
+            error = None
+        except:
+            template = 'camp/partials/email_subscriber_form'
+            error = 'There was an error subscribing you.'
+
+    return render(request, template, {
+                  email: email,
+                  event: event,
+                  subscriber: subscriber,
+                  error: error,
+                  }, content_type='text/html')

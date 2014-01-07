@@ -9,7 +9,7 @@ from brainstorm.models import Idea
 from brainstorm.admin import IdeaAdmin
 from sked.models import Event, Session
 from sked.admin import SessionAdmin
-from camp.models import SponsorshipLevel, Sponsor
+from camp.models import SponsorshipLevel, Sponsor, EmailSubscriber
 
 
 class SponsorAdmin(admin.ModelAdmin):
@@ -27,9 +27,14 @@ class SponsorshipLevelAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
     search_fields = ('name', 'event', )
 
+class EmailSubscriberAdmin(admin.ModelAdmin):
+    list_display = ('email', 'event')
+    list_filter = ('event__name', )
+    search_fields = ('email', )
 
 admin.site.register(Sponsor, SponsorAdmin)
 admin.site.register(SponsorshipLevel, SponsorshipLevelAdmin)
+admin.site.register(EmailSubscriber, EmailSubscriberAdmin)
 
 
 '''
