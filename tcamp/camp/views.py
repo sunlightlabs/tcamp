@@ -67,10 +67,10 @@ def email_subscribe(request):
             template = 'camp/partials/success.html'
             error = None
         except:
-            template = 'camp/partials/email_subscriber_form'
+            template = 'camp/partials/email_subscriber_form.html'
             error = 'There was an error subscribing you.'
     else:
-        template = 'camp/partials/email_subscriber_form'
+        template = 'camp/partials/email_subscriber_form.html'
         error = 'Please provide an email address.'
 
     return render(request, template, {
