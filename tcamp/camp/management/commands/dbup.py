@@ -31,7 +31,7 @@ class Command(BaseCommand):
                              destdb['PORT'] or 5432,
                              destdb['USER'],
                              destdb['NAME'], )
-        pwprompt = '[pP]assword.*:'
+        pwprompt = r'[pP]assword.*:.*'
         timeout = 30
         ts = datetime.datetime.now().isoformat()
         temppath = '%s/.tmp' % settings.PROJECT_ROOT
