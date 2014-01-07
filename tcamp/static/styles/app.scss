@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /**
  * Site-specific styles for TCamp.
  *
@@ -313,6 +314,12 @@ $vgutter: 40px;
     background: rgba(84, 149, 147, 0.4);
     border-top: 3px solid $teal;
     border-bottom: 3px solid $teal;
+}
+
+.yellowwell {
+    background: rgba(238, 193, 81, 0.4);
+    border-top: 3px solid $yellow;
+    border-bottom: 3px solid $yellow;
 }
 
 .well h4, .well h5 {
