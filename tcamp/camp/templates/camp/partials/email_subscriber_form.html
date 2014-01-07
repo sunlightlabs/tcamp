@@ -1,6 +1,6 @@
 <form action="{% url "camp:create_email_subscriber" %}" method="post" class="form-callout">
     <div class="control-group">
-        <label for="title">Enter your email to stay informed!</label>
+        <label for="title">Enter your email address here:</label>
         <div class="controls">
             {% if error %}<span class="error">{{ error }}</span>{% endif %}
             <input type="email" placeholder="excited@transparencycamp.org" name="email" />
@@ -8,7 +8,7 @@
     </div>
     <div class="control-group">
         <div class="controls">
-            <button class="btn btn-primary" type="submit">Sign Up</button>
+            <button class="btn btn-primary" type="submit">Sign Me Up!</button>
         </div>
     </div>
 </form>
