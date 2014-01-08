@@ -33,6 +33,7 @@ def coming_up(request):
         # First try to base62 decode the message
         try:
             session = _get_session_from_base62(inmsg)
+            messages = _as_sms(session)
         except Session.DoesNotExist:
             messages = ["Couldn't find that session.\n\nText 'next' to get the upcoming block of sessions."]
         except ValueError:
