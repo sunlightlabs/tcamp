@@ -55,7 +55,7 @@ def coming_up(request):
 
 def _get_session_from_base62(id):
     session_id = base62.decode(id)
-    session = Session.objects.filter(pk=session_id)
+    session = Session.objects.published().filter(pk=session_id)
     return session
 
 
