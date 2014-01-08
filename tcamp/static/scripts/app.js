@@ -42,7 +42,7 @@
         twttr.ready(function(T){
           $('iframe.twitter-timeline').each(function(){
             $(this.contentDocument.head).append('<style>\
-              .timeline .stream { padding: 0 20px 0 10px; width: auto; }\
+              .timeline .stream { padding: 0 20px 0 10px; width: auto !important; }\
               .stream p.e-entry-title, .stream .profile, .var-chromeless .stream button.load-more { font-family: georgia, serif; font-weight: 300; }\
               .var-chromeless .stream button.load-more { font-size: 14px; }\
               .stream p.e-entry-title { color: #574227; }\
