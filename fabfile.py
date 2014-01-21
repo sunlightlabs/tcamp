@@ -115,6 +115,10 @@ def restart():
     #     run("./bin/run")
 
 
+def dump_cache():
+    run("sudo /etc/init.d/memcached restart", pty=False)
+
+
 def cleanup():
     with cd(WORKING_PATH):
         dirs = run("ls -d %s/*/" % RELEASES_DIR).split()

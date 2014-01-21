@@ -220,6 +220,13 @@ $vgutter: 40px;
         background: transparent url(../images/ribbon-rightside.png) no-repeat 100% 0;
     }
 }
+
+// NO SHADOWS ON MOBILE
+@include respond-to(phones) {
+    * { box-shadow: none !important; }
+}
+
+
 .hpad {@include hpad;}
 .vpad {@include vpad;}
 .module {

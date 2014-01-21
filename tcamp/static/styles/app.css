@@ -45,6 +45,9 @@ body {
   margin-right: 0; }
 
 /* utilities */
+@media (max-width: 767px) {
+  * {
+    box-shadow: none !important; } }
 .hpad {
   padding-left: 20px;
   padding-right: 20px;
