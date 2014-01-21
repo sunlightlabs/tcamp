@@ -45,9 +45,9 @@
     {% endcomment %}
 
     {% compress css %}
-    <link href="{% static "styles/bootstrap.css" %}" rel="stylesheet" type="text/css">
-    <link href="{% static "styles/bootstrap/responsive.css" %}" rel="stylesheet" type="text/css">
-    <link href="{% static "styles/app.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "styles/bootstrap.css" %}?{{ CACHEBUSTER }}" rel="stylesheet" type="text/css">
+    <link href="{% static "styles/bootstrap/responsive.css" %}?{{ CACHEBUSTER }}" rel="stylesheet" type="text/css">
+    <link href="{% static "styles/app.css" %}?{{ CACHEBUSTER }}" rel="stylesheet" type="text/css">
     {% endcompress %}
     {% block css %}
     {% endblock css %}
