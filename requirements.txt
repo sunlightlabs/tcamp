@@ -47,7 +47,7 @@ fabric
 pexpect
 raven
 python-memcached
-dj-database-url
 python-varnish
+# herokal-settings
 -e git://github.com/drinks/django-varnish.git#egg=varnishapp
 -e git://github.com/dlrust/python-memcached-stats.git#egg=memcached_stats

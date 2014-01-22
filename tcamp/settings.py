@@ -27,7 +27,7 @@ AWS_PRELOAD_METDATA = True
 AWS_HEADERS = {
     "Vary": "Accept-Encoding",
     "Cache-Control": "max-age=86400",
-    "Expires": "Sat, 3 May 2014 00:00:00 GMT"
+    "Expires": "Sat, 3 May 2020 00:00:00 GMT"
 }
 AWS_STORAGE_BUCKET_NAME = "assets.transparencycamp.org"
 S3_URL = 'http://assets.transparencycamp.org.s3.amazonaws.com/%s/' % ASSET_SITE_VERSION
@@ -160,6 +160,7 @@ INSTALLED_APPS = (
     'djutils',
     'django_twilio',
     'sfapp',
+    'herokal',
 
     'django_extensions',
     'debug_toolbar',
@@ -239,25 +240,4 @@ LOGGING = {
     }
 }
 
-if 'DEBUG' in os.environ.keys():
-    # Load .env file and
-    # Parse database configuration from $DATABASE_URL
-    import dj_database_url
-    DATABASES = {}
-    DATABASES['default'] = dj_database_url.config()
-    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    for setting, value in os.environ.iteritems():
-        if re.search(r'^[A-Z][A-Z0-9_]+$', setting):
-            try:
-                setattr(sys.modules[__name__], setting, json.loads(value))
-            except:
-                setattr(sys.modules[__name__], setting, value)
-else:
-    try:
-        from local_settings import *
-    except ImportError, e:
-        print """Caught %s trying to import local_settings. Please make sure
-                 local_settings.py exists and is free of errors.
-              """
-        raise
+from herokal.settings import *

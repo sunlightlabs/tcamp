@@ -26,6 +26,7 @@ class PathRestrictedProxy(object):
         return True
 
     def process_request(self, request):
+        print 'checking whether request is sessionable'
         if not self.is_restricted(request):
             try:
                 self.proxy.process_request(request)
