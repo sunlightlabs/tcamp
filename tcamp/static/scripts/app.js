@@ -71,12 +71,12 @@
         size = '16';
       }
       if(width < 768){
-        if(size == '16'){
+        if(size == '16' && social.length){
           social.attr('data-options', opts.replace(rexp, 'size=24'));
           social.trigger('auto');
         }
       }else if(width >= 768){
-        if(size == '24'){
+        if(size == '24' && social.length){
           social.attr('data-options', opts.replace(rexp, 'size=16'));
           social.trigger('auto');
         }
