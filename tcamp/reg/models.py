@@ -1,16 +1,31 @@
 from tcamp.sked.models import Event
 from django.db import models
 from django_extras.db import models as de_models
+from django_extensions.db.fields import PostgreSQLUUIDField
+import datetime
 
 class TicketType(models.Model):
     event = models.ForeignKey(Event)
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    expires = models.DateTimeField()
+    expires = models.DateTimeField(null=True)
     max_tickets = models.PositiveIntegerField(help_text="How many tickets of this type to sell; 0 indicates unlimited tickets.")
     price = de_models.MoneyField(decimal_places=2)
     enabled = models.BooleanField(default=False)
     position = models.PositiveIntegerField(default=0)
+
+    _count = None
+    @property
+    def count(self):
+        if self._count is None:
+            self._count = Ticket.objects.filter(event=self.event, success=True, type=self).count()
+        return self._count
+
+    def is_expired(self):
+        return datetime.datetime.now() > self.expires
+
+    def is_sold_out(self):
+        return self.max_tickets > 0 and self.max_tickets <= self.count
 
 class CouponCode(models.Model):
     event = models.ForeignKey(Event)
@@ -34,6 +49,8 @@ class Sale(models.Model):
     coupon_code = models.ForeignKey(CouponCode)
     amount = models.MoneyField(decimal_places=2, blank=True)
 
+    transaction_id = models.CharField(max_length=255, blank=True)
+
     success = models.BooleanField(default=False)
 
 AMBASSADOR_PROGRAM_CHOICES = (
@@ -45,6 +62,9 @@ AMBASSADOR_PROGRAM_CHOICES = (
 class Ticket(models.Model):
     event = models.ForeignKey(Event)
     sale = models.ForeignKey(Sale, null=True)
+    type = models.ForeignKey(TicketType)
+
+    barcode = PostgreSQLUUIDField(db_index=True)
 
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_lenght=255)
@@ -63,9 +83,12 @@ class Ticket(models.Model):
     diet_other = models.BooleanField(default=False)
     diet_other_desc = models.TextField(blank=True)
 
+    attend_day1 = models.BooleanField(default=True, label="Friday")
+    attend_day2 = models.BooleanField(default=True, label="Saturday")
+
     lobby_day = models.BooleanField(default=False)
     ambassador_program = models.CharField(default="no")
 
     subscribe = models.BooleanField(default=False)
 
-    success = models.BooleanField(default=False)
+    success = models.BooleanField(default=False, db_index=True)
