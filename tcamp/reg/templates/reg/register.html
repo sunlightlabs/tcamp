@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load sked_tags repl %}
+{% load bootstrap_toolkit %}
 
 {% block content %}
 <div class="row-fluid module collapse-bottom">
@@ -20,7 +21,7 @@
                 {% for type in ticket_types %}
                 <tr>
                     <td>{{ type.name }}</td>
-                    <td>{% if type.expires %}{{ type.expires|date:"N j, Y" }}{% else %}<em>None</em></td>
+                    <td>{% if type.expires %}{{ type.expires|date:"N j, Y" }}{% else %}<em>None</em>{% endif %}</td>
                     <td>{% if type.price > 0 %}${{ type.price }}{% else %}Free{% endif %}</td>
                     <td>
                         {% if type.is_expired %}
@@ -28,7 +29,7 @@
                         {% elif type.is_sold_out %}
                             <span class="text-danger">Sold Out</span>
                         {% else %}
-                            <select>
+                            <select class="input-small">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -57,5 +58,11 @@
                 {% endfor %}
             </tbody>
         </table>
+
     </div>
+
 </div>
+
+<h2>Attendee Information</h2>
+{% include "reg/partials/ticket_form.html" %}
+{% endblock %}

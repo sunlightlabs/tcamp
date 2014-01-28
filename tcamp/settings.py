@@ -168,6 +168,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'varnishapp',
     'raven.contrib.django.raven_compat',
+    'bootstrap_toolkit',
 
     'api',
     'brainstorm',
@@ -176,6 +177,7 @@ INSTALLED_APPS = (
     'camp',
     'sms',
     'twit',
+    'reg',
 )
 
 VARNISH_WATCHED_MODELS = (

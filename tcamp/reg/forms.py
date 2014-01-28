@@ -9,3 +9,4 @@ class SaleForm(ModelForm):
 class TicketForm(ModelForm):
     class Meta:
         model = Ticket
+        exclude = ['event', 'sale', 'success']
