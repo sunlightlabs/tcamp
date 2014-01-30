@@ -2,6 +2,8 @@
 {% load sked_tags repl %}
 {% load bootstrap_toolkit %}
 
+{% block bodyattrs %}{{block.super}} class="registration"{% endblock %}
+
 {% block content %}
 <div class="row-fluid module collapse-bottom">
     <div class="span12">
@@ -10,6 +12,11 @@
 </div>
 <div class="row module">
     <div class="span8">
+        <p>TransparencyCamp is an “unconference” for opengov. Each year, journalists, developers, technologists, policy-makers, government officials, students, academics, wonks and everyone in between gather together to share knowledge about how to use new technologies and policies to make our government really work for the people -- and to help our people work smarter with our government.</p>
+        <p><strong>Attendance at TCamp has grown exponentially over the years, so be sure to register early!</strong> Early Bird Registration ends at 11:59pm EST  Friday, February 21.</p>
+        <p>As an <a href="http://transparencycamp.org/about/tips/">unconference</a>, TransparencyCamp emphasizes the important contributions that each and every attendee brings with them into the sessions, workshops and conversations associated with this event. In fact, attendees (yes, all of them) are brought into the process of making the schedule for the conference with the organizers and are encouraged to step up and lead sessions themselves. (Check out our this <a href="http://www.youtube.com/watch?v=_3Jse9n80qk&list=PLdo_y1-rDBGZSvFmq1Nf5W1CzK76QwrZr&feature=share">video</a> to get a better sense of what we mean.) Never been to an unconference? No sweat, just let us know and we’ll pair you up with a member of our welcoming team.</p>
+
+        <hr />
         <h2>Tickets</h2>
         <table class="table ticket-types">
             <thead>
@@ -23,7 +30,7 @@
                     <td>
                         <span class="ticket-name">{{ type.name }}</span>
                         {% if type.description %}
-                        <a href="#" data-toggle="popover" title="{{ type.name }}" data-content="{{ type.description }}"><i class="icon-info-sign"></i></a>
+                        &nbsp;<a href="#" data-toggle="popover" title="{{ type.name }}" data-content="{{ type.description }}"><i class="icon-info-sign"></i></a>
                         {% endif %}
                     </td>
                     <td>{% if type.expires %}{{ type.expires|date:"N j, Y" }}{% else %}<em>None</em>{% endif %}</td>
@@ -80,6 +87,46 @@
                     Total: $<span class="total-price">0</span>
                 </div>
             </div>
+
+            <div class="payment-info">
+                <h2>Payment Information</h2>
+                {% include "reg/partials/payment_form.html" %}
+            </div>
+
+            <div class="row">
+                <input class="span2 pull-right btn" type="submit" value="Register!" />
+            </div>
+        </div>
+
+        <hr />
+        <p>Interested in attending TCamp but need a little help getting here? Click here to apply for our registration and travel stipends.</p>
+        <p>Have questions about TransparencyCamp 2014? <a href="http://sunlightfoundation.com/contact/">Contact us here!</a></p>
+    </div>
+
+
+    <div class="span3 event-sidebar">
+        <div class="event-info">
+            <h3>TransparencyCamp 2014</h3>
+            <strong>hosted by <a href="http://www.sunlightfoundation.com">Sunlight Foundation</a><br />
+            Friday, May 30 and Saturday, May 31</strong><br />
+            <a href="https://www.google.com/maps/preview/place/George+Mason+University,+Fairfax+Drive,+Arlington,+VA/@38.8849106,-77.1001032,17z/data=!3m1!4b1!4m2!3m1!1s0x89b7b6828ba038d9:0xdc8b8bb98b169604">
+                George Mason University, Arlington Campus<br />
+                Arlington, VA
+            </a>
+        <div>
+
+        <div class="attendee-info">
+            <h3>Who's going?</h3>
+            <div class="attendees">
+                {% for attendee in attendees %}
+                <div class="attendee">
+                    <div class="attendee-name">
+                        {% if attendee.twitter %}<a href="http://twitter.com/{{ attendee.twitter }}">{{ attendee.first_name }} {{ attendee.last_name }}</a>{% else %}{{ attendee.first_name }} {{ attendee.last_name }}{% endif %}
+                    </div>
+                    <div class="attendee-org">{{ attendee.organization }}</div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
@@ -101,9 +148,16 @@
 
 {% block js %}
 {{ block.super }}
+<script src="https://js.braintreegateway.com/v1/braintree.js"></script>
 <script type="text/javascript">
 (function() {
+    //payment stuff
+    braintree = Braintree.create('{{ BRAINTREE_CSE_KEY }}');
+
+    // make the diet toggles work
     $('.ticket-types a[data-toggle=popover]').popover();
+
+    $('body').on('click', 'a[data-toggle=popover]', function(evt) { evt.preventDefault(); });
 
     // show/hide of diet descriptions
     _.each(['diet_allergies', 'diet_other'], function(dtype) {
@@ -111,13 +165,29 @@
             var checkbox = $(event.target);
             var textarea = checkbox.parents('.row').find('textarea[name=' + dtype + '_desc]').parents('.control-group');
             if (checkbox.is(':checked')) {
-                if (textarea.is(':hidden')) textarea.slideDown('fast');
+                textarea.slideDown('fast');
             } else {
-                if (textarea.is(':visible')) textarea.slideUp('fast');
+                textarea.slideUp('fast');
             }
         }
-        $('#ticket-forms').on('change', 'input[name=' + dtype + ']', change).trigger('change');
+        $('#ticket-forms').on('change', 'input[name=' + dtype + ']', change).trigger('change', 'input[name=' + dtype + ']');
     })
+
+    var prepareTicketForm = function(form) {
+        form.find('input[type=checkbox]').trigger('change');
+        form.find('.label-help').each(function(idx, el) {
+            var $el = $(el);
+            var text = $el.html();
+            var parent = $el.parent();
+            $el.remove();
+
+            parent.find('label.control-label,label.checkbox').each(function(idx, lel) {
+                var $lel = $(lel);
+                $lel.append('&nbsp;<a href="#" data-placement="top" data-toggle="popover" title="{{ type.name }}" data-content="' + text + '"><i class="icon-info-sign"></i></a>');
+            })
+        });
+        form.find('a[data-toggle=popover]').popover();
+    }
 
     var updatePrice = function() {
         var tickets = {};
@@ -140,6 +210,11 @@
             dataType: 'json',
             success: function(data) {
                 $('.total-price').html(data['price']);
+                if (parseFloat(data['price']) > 0) {
+                    $('.payment-info').show();
+                } else {
+                    $('.payment-info').hide();
+                }
             }
         });
     }
@@ -174,10 +249,12 @@
                 for (var i = cqty + 1; i <= qty; i++) {
                     var row = $(tpl);
                     row.attr('data-ticket-id', id);
+                    row.find('form').attr('data-form-id', id + '-' + i);
+                    row.find('input[name=type]').val(id);
                     row.find('.accordion-toggle').html($el.find('.ticket-name').html() + ' #' + i).attr('href', '#collapse-' + id + '-' + i);
                     row.find('.accordion-body').attr('id', 'collapse-' + id + '-' + i);
                     sentinel.after(row);
-                    row.find('.diet-special input').trigger('change');
+                    prepareTicketForm(row.find('form'));
 
                     sentinel = row;
                 }
@@ -186,9 +263,100 @@
             }
         })
         
-        $('#ticket-forms .collapse').eq(0).collapse('show');
+        var collapses = $('#ticket-forms .collapse');
+        if (collapses.length > 0) {
+            $('.ticket-form-container').show();
+            collapses.eq(0).collapse('show');
+        } else {
+            $('.ticket-form-container').hide();
+        }
         updatePrice();
     });
+
+    // big scary form submission
+    var submitForm = function(evt) {
+        evt.preventDefault();
+
+        // the goal here is to serialize each ticket form, and the payment form if necessary
+        var data = {
+            'ticket_forms': {},
+            'coupon': $('#id_coupon_code').val(),
+            'expected_price': parseFloat($('.total-price').html())
+        }
+        $('#ticket-forms form').each(function(idx, el) {
+            var form = $(el);
+            var fdata = {};
+            _.each(form.serializeArray(), function(item) {
+                fdata[item.name] = item.value;
+            })
+            data.ticket_forms[form.attr('data-form-id')] = fdata;
+        });
+
+        // do we need to do payment?
+        if (data.expected_price > 0) {
+            var pform = $('.payment-info form');
+            braintree.encryptForm(pform.get(0));
+
+            var fdata = {};
+            _.each(pform.serializeArray(), function(item) {
+                fdata[item.name] = item.value;
+            })
+            data.payment_form = fdata;
+        }
+
+        // submit everything
+        $.ajax({
+            url: '/register/save/',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data),
+            dataType: 'json'
+        }).success(function(data) {
+            // okay, how'd we do?
+            if (data.success == true) {
+                // sweet!
+                document.location.href = '/register/thanks/';
+            } else {
+                // at least one of the forms was broken
+                _.each(data.ticket_forms, function(form) {
+                    if (!form.success) {
+                        var old = $('form[data-form-id=' + form.id + ']');
+                        var parent = old.parent();
+                        parent.html(form.text);
+                        var newf = parent.find('form');
+                        newf.attr('data-form-id', form.id);
+
+                        prepareTicketForm(newf);
+
+                        newf.parents('.accordion-group').addClass('has-errors');
+                    } else {
+                        $('form[data-form-id=' + form.id + ']').parents('.accordion-group').removeClass('has-errors');
+                    }
+                });
+                if (data.payment_form && !data.payment_form.success) {
+                    var old = $('.payment-info form');
+
+                    // for the stuff that didn't get sent to the server, copy it into the new form so we don't lose it
+                    var enc = {}
+                    old.find('input[data-encrypted-name]').each(function(idx, el) {
+                        var $el = $(el);
+                        enc[$el.attr('data-encrypted-name')] = $el.val();
+                    });
+                    old.replaceWith(data.payment_form.text);
+
+                    var newf = $('.payment-info form');
+                    $.each(enc, function(key, value) {
+                        newf.find('input[data-encrypted-name=' + key + ']').val(value);
+                    })
+                }
+            }
+        });
+    }
+
+    $('.ticket-form-container')
+        .on('submit', 'form', submitForm)
+        .on('click', 'input[type=submit]', submitForm);
+
 })();
 </script>
 {% endblock %}

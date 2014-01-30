@@ -1,0 +1,80 @@
+{% load bootstrap_toolkit %}
+
+<form role="form">
+    {% if payment_form.non_field_errors %}
+        {% with form=payment_form %}
+            {% include "bootstrap_toolkit/non_field_errors.html" %}
+        {% endwith %}
+    {% endif %}
+
+    <div class="row">
+        <div class="span3">
+            {{ payment_form.first_name|as_bootstrap }}
+        </div>
+        <div class="span3">
+            {{ payment_form.last_name|as_bootstrap }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span3">
+            <div class="control-group required {% if payment_form.errors.number %}error{% endif %}">
+                <label class="control-label" for="id_number">Credit Card Number</label>
+                <div class="controls">
+                    <input id="id_number" maxlength="1024" data-encrypted-name="number" type="text">
+                    {% for error in payment_form.errors.number %}
+                    <p class="help-block">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="span1">
+            <div class="control-group required {% if payment_form.errors.cvv %}error{% endif %}">
+                <label class="control-label" for="id_cvv">CVV2</label>
+                <div class="controls">
+                    <input id="id_cvv" class="input-mini" maxlength="1024" data-encrypted-name="cvv" type="text">
+                    {% for error in payment_form.errors.cvv %}
+                    <p class="help-block">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="span1">
+            {{ payment_form.exp_month|as_bootstrap }}
+        </div>
+        <div class="span2">
+            {{ payment_form.exp_year|as_bootstrap }}
+        </div>
+    </div>
+
+    <div class="row email-row">
+        <div class="span8">
+            {{ payment_form.email|as_bootstrap }}
+        </div>
+    </div>
+
+    <div class="control-group"></div>
+
+    <div class="row">
+        <div class="span6">
+            {{ payment_form.address1|as_bootstrap }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            {{ payment_form.address2|as_bootstrap }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span3">
+            {{ payment_form.city|as_bootstrap }}
+        </div>
+        <div class="span2">
+            {{ payment_form.state|as_bootstrap }}
+        </div>
+        <div class="span2">
+            {{ payment_form.zip|as_bootstrap }}
+        </div>
+    </div>
+</form>

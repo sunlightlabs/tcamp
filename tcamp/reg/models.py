@@ -42,17 +42,17 @@ class CouponCode(models.Model):
 class Sale(models.Model):
     event = models.ForeignKey(Event)
 
-    first_name = models.TextField()
-    last_name = models.TextField()
-    email = models.EmailField()
+    first_name = models.TextField(blank=True)
+    last_name = models.TextField(blank=True)
+    email = models.EmailField(blank=True)
 
-    address1 = models.TextField()
-    address2 = models.TextField()
-    city = models.CharField(max_length=255)
-    state = models.CharField(max_length=255)
-    zip = models.CharField(max_length=255)
+    address1 = models.TextField(blank=True)
+    address2 = models.TextField(blank=True)
+    city = models.CharField(max_length=255, blank=True)
+    state = models.CharField(max_length=255, blank=True)
+    zip = models.CharField(max_length=255, blank=True)
 
-    coupon_code = models.ForeignKey(CouponCode)
+    coupon_code = models.ForeignKey(CouponCode, null=True)
     amount = MoneyField(decimal_places=2, blank=True)
 
     transaction_id = models.CharField(max_length=255, blank=True)
@@ -92,7 +92,7 @@ class Ticket(models.Model):
     attend_day1 = models.BooleanField(default=True, verbose_name="Friday")
     attend_day2 = models.BooleanField(default=True, verbose_name="Saturday")
 
-    lobby_day = models.BooleanField(default=False)
+    lobby_day = models.BooleanField(default=False, verbose_name="Do you plan to attend The Sunlight Network's Lobby Day?")
     ambassador_program = models.CharField(default="no", choices=AMBASSADOR_PROGRAM_CHOICES, max_length=12, verbose_name="Would you like to be part of the TCamp Ambassador Program?")
 
     subscribe = models.BooleanField(default=False, verbose_name="Please subscribe me to emails from the Sunlight Foundation")
