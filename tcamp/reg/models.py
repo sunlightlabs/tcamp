@@ -27,6 +27,9 @@ class TicketType(models.Model):
     def is_sold_out(self):
         return self.max_tickets > 0 and self.max_tickets <= self.count
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         ordering = ['position']
 

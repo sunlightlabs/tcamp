@@ -173,11 +173,11 @@ INSTALLED_APPS = (
     'api',
     'brainstorm',
     'pages',
+    'reg',
     'sked',
     'camp',
     'sms',
     'twit',
-    'reg',
 )
 
 VARNISH_WATCHED_MODELS = (

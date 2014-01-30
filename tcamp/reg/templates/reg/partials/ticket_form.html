@@ -2,73 +2,73 @@
 
 <form action="/url/to/submit/" method="post" role="form">
     <input type="hidden" name="type" id="id_type" />
-    <div class="row-fluid">
-        <div class="span4">
+    <div class="row">
+        <div class="span3">
             {{ ticket_form.first_name|as_bootstrap }}
         </div>
-        <div class="span4">
+        <div class="span3">
             {{ ticket_form.last_name|as_bootstrap }}
         </div>
     </div>
-    <div class="row-fluid">
-        <div class="control-group required">
+    <div class="row">
+        <div class="span8">
             {{ ticket_form.email|as_bootstrap }}
         </div>
     </div>
 
     <div class="control-group"></div>
 
-    <div class="row-fluid">
-        <div class="span4">
+    <div class="row">
+        <div class="span3">
             {{ ticket_form.organization|as_bootstrap }}
         </div>
-        <div class="span4">
+        <div class="span3">
             {{ ticket_form.title|as_bootstrap }}
         </div>
     </div>
 
-    <div class="row-fluid">
-        <div class="span4">
+    <div class="row">
+        <div class="span3">
             {{ ticket_form.twitter|as_bootstrap }}
         </div>
-        <div class="span4">
+        <div class="span3">
             {{ ticket_form.website|as_bootstrap }}
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="span8">Do you have any special dietary needs?</div>
     </div>
-    <div class="row-fluid">
-        <div class="span3">
+    <div class="row">
+        <div class="span2">
             {{ ticket_form.diet_vegetarian|as_bootstrap }}
         </div>
-        <div class="span3">
+        <div class="span2">
             {{ ticket_form.diet_vegan|as_bootstrap }}
         </div>
         <div class="span2">
             {{ ticket_form.diet_gluten_free|as_bootstrap }}
         </div>
     </div>
-    <div class="row-fluid">
-        <div class="span4">
+    <div class="row diet-special">
+        <div class="span3">
             {{ ticket_form.diet_allergies|as_bootstrap }}
             {{ ticket_form.diet_allergies_desc|as_bootstrap }}
         </div>
-        <div class="span4">
+        <div class="span3">
             {{ ticket_form.diet_other|as_bootstrap }}
             {{ ticket_form.diet_other_desc|as_bootstrap }}
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="span8">Which days of TCamp do you plan to attend?</div>
     </div>
-    <div class="row-fluid">
-        <div class="span2">
+    <div class="row">
+        <div class="span1">
             {{ ticket_form.attend_day1|as_bootstrap }}
         </div>
-        <div class="span2">
+        <div class="span1">
             {{ ticket_form.attend_day2|as_bootstrap }}
         </div>
     </div>

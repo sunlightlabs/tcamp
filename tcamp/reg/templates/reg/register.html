@@ -8,10 +8,10 @@
         <h1>Register for TCamp</h1>
     </div>
 </div>
-<div class="row-fluid module collapse-both">
+<div class="row module">
     <div class="span8">
         <h2>Tickets</h2>
-        <table class="table">
+        <table class="table ticket-types">
             <thead>
                 <tr>
                     <th>Ticket Type</th><th>Sales End</th><th>Price</th><th>Quantity</th>
@@ -19,8 +19,13 @@
             </thead>
             <tbody>
                 {% for type in ticket_types %}
-                <tr>
-                    <td>{{ type.name }}</td>
+                <tr data-type-id="{{ type.id }}" data-type-price="{{ type.price }}">
+                    <td>
+                        <span class="ticket-name">{{ type.name }}</span>
+                        {% if type.description %}
+                        <a href="#" data-toggle="popover" title="{{ type.name }}" data-content="{{ type.description }}"><i class="icon-info-sign"></i></a>
+                        {% endif %}
+                    </td>
                     <td>{% if type.expires %}{{ type.expires|date:"N j, Y" }}{% else %}<em>None</em>{% endif %}</td>
                     <td>{% if type.price > 0 %}${{ type.price }}{% else %}Free{% endif %}</td>
                     <td>
@@ -29,7 +34,7 @@
                         {% elif type.is_sold_out %}
                             <span class="text-danger">Sold Out</span>
                         {% else %}
-                            <select class="input-small">
+                            <select class="input-small ticket-qty">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -59,10 +64,88 @@
             </tbody>
         </table>
 
+        <div class="ticket-form-container">
+            <h2>Attendee Information</h2>
+            <div class="accordion" id="ticket-forms">
+                {% for type in ticket_types %}
+                <span class="ticket-sentinel-{{ type.id}}"></span>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-
 </div>
 
-<h2>Attendee Information</h2>
-{% include "reg/partials/ticket_form.html" %}
+<script type="text/html" id="ticket-form-tpl">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#ticket-forms"></a>
+        </div>
+        <div class="accordion-body collapse">
+            <div class="accordion-inner">
+                {% include "reg/partials/ticket_form.html" %}
+            </div>
+        </div>
+    </div>
+</script>
+
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script type="text/javascript">
+(function() {
+    $('.ticket-types a[data-toggle=popover]').popover();
+
+    // show/hide of diet descriptions
+    _.each(['diet_allergies', 'diet_other'], function(dtype) {
+        var change = function(event) {
+            var checkbox = $(event.target);
+            var textarea = checkbox.parents('.row').find('textarea[name=' + dtype + '_desc]').parents('.control-group');
+            if (checkbox.is(':checked')) {
+                if (textarea.is(':hidden')) textarea.slideDown('fast');
+            } else {
+                if (textarea.is(':visible')) textarea.slideUp('fast');
+            }
+        }
+        $('#ticket-forms').on('change', 'input[name=' + dtype + ']', change).trigger('change');
+    })
+
+    // add the right number of forms
+    $('.ticket-types select').change(function() {
+        $('.ticket-types tbody tr').each(function(idx, el) {
+            var $el = $(el);
+            var id = $el.attr('data-type-id');
+            var qty = parseInt($el.find('select.ticket-qty').val());
+
+            // how many are there now?
+            // var group = $(".ticket-group-" + id);
+            var group = $('#ticket-forms');
+            var cqty = group.find('.accordion-group[data-ticket-id=' + id + ']').length;
+            if (cqty < qty) {
+                var tpl = $("#ticket-form-tpl").html();
+
+                if (cqty == 0) {
+                    var sentinel = group.find('.ticket-sentinel-' + id);
+                } else {
+                    var sentinel = group.find('.accordion-group[data-ticket-id=' + id + ']').slice(-1);
+                }
+
+                // add some more
+                for (var i = cqty + 1; i <= qty; i++) {
+                    var row = $(tpl);
+                    row.attr('data-ticket-id', id);
+                    row.find('.accordion-toggle').html($el.find('.ticket-name').html() + ' #' + i).attr('href', '#collapse-' + id + '-' + i);
+                    row.find('.accordion-body').attr('id', 'collapse-' + id + '-' + i);
+                    sentinel.after(row);
+                    row.find('.diet-special input').trigger('change');
+
+                    sentinel = row;
+                }
+            } else if (cqty > qty) {
+                group.find('.accordion-group[data-ticket-id=' + id + ']').slice(qty).remove();
+            }
+        })
+    });
+})();
+</script>
 {% endblock %}
