@@ -71,6 +71,15 @@
                 <span class="ticket-sentinel-{{ type.id}}"></span>
                 {% endfor %}
             </div>
+
+            <div class="text-right">
+                <div class="coupon">
+                    Coupon Code: <input class="input-small" type="text" id="id_coupon_code" name="coupon_code" /> <a href="#" id="apply-coupon" class="btn btn-small">Apply</a>
+                </div>
+                <div class="lead">
+                    Total: $<span class="total-price">0</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -110,6 +119,37 @@
         $('#ticket-forms').on('change', 'input[name=' + dtype + ']', change).trigger('change');
     })
 
+    var updatePrice = function() {
+        var tickets = {};
+        $('.ticket-types tbody tr').each(function(idx, el) {
+            var $el = $(el);
+            var id = $el.attr('data-type-id');
+            var qty = parseInt($el.find('select.ticket-qty').val());
+            tickets[parseInt(id)] = qty;
+        });
+        var data = {'tickets': tickets};
+
+        var code = $('#id_coupon_code').val();
+        if (code.length) data['coupon'] = code;
+
+        $.ajax({
+            url: '/register/price/',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function(data) {
+                $('.total-price').html(data['price']);
+            }
+        });
+    }
+
+    $('#apply-coupon').click(function(evt) {
+        evt.preventDefault();
+        updatePrice();
+    })
+
+
     // add the right number of forms
     $('.ticket-types select').change(function() {
         $('.ticket-types tbody tr').each(function(idx, el) {
@@ -145,6 +185,9 @@
                 group.find('.accordion-group[data-ticket-id=' + id + ']').slice(qty).remove();
             }
         })
+        
+        $('#ticket-forms .collapse').eq(0).collapse('show');
+        updatePrice();
     });
 })();
 </script>

@@ -5,6 +5,7 @@ from reg.views import *
 
 urlpatterns = patterns('',
     url(r'^$', register),
+    url(r'^price/$', price_check),
 )
 
 admin.autodiscover()
