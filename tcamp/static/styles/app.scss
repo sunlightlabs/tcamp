@@ -2036,10 +2036,30 @@ table.wall-table {
         }
     }
 
+    .control-label, label.checkbox {
+        font-weight: bold;
+        .whats-this {
+            font-weight: normal;
+        }
+    }
     .control-group {
         &.required {
-            label { font-weight: normal !important; }
+            .control-label, label.checkbox {
+                &:after {
+                    content: " *";
+                    font-weight: bold;
+                    color: #900;
+                }
+            }
         }
+    }
+    .simple-option {
+        .control-label, label.checkbox {
+            font-weight: normal !important;
+        }
+    }
+    .exp-month {
+        white-space: nowrap;
     }
 
     .label-help {

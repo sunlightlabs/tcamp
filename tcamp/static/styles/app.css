@@ -2203,8 +2203,18 @@ table.wall-table {
   display: none; }
 .registration #ticket-forms .last-ticket a.next-ticket {
   display: none; }
-.registration .control-group.required label {
+.registration .control-label, .registration label.checkbox {
+  font-weight: bold; }
+  .registration .control-label .whats-this, .registration label.checkbox .whats-this {
+    font-weight: normal; }
+.registration .control-group.required .control-label:after, .registration .control-group.required label.checkbox:after {
+  content: " *";
+  font-weight: bold;
+  color: #900; }
+.registration .simple-option .control-label, .registration .simple-option label.checkbox {
   font-weight: normal !important; }
+.registration .exp-month {
+  white-space: nowrap; }
 .registration .label-help {
   display: none; }
 .registration .accordion-group.has-errors .accordion-heading a:before {
