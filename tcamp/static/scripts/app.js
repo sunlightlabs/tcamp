@@ -73,7 +73,7 @@
         }
       }else if(width >= 1200){
         console.log('big');
-        if(topts.match(rexp)[1] == 'false'){
+        if(opts.match(rexp)[1] == 'false'){
           social.attr('data-options', opts.replace(rexp, 'show-counts=true'));
           social.trigger('auto');
         }
