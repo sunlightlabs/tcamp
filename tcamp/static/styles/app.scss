@@ -1049,16 +1049,14 @@ table.table-striped {
         color: $red;
         text-decoration: none;
     }
-
     .btn-large {
         width: 50%;
         margin: 0 auto;
         display: block;
         margin-top: $vbuffer * 2;
     }
-
     &:after{ height: 0; background: none; display: table; }
-    @include respond-to(handhelds) {
+    @include respond-to(mobile) {
         border-left: none;
         border-right: none;
     }

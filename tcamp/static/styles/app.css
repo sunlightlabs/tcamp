@@ -1114,6 +1114,11 @@ body .menu-drawer, body .menu-panel {
     height: 0;
     background: none;
     display: table; }
+  @media (max-width: 979px) {
+    .jumbotron,
+    #content .container.jumbotron {
+      border-left: none;
+      border-right: none; } }
 
 #featured .img-polaroid {
   padding: 3px;
