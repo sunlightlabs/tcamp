@@ -144,6 +144,15 @@ def save(request):
             for ticket in tickets:
                 ticket.success = True
                 ticket.save()
+    else:
+        # if they submitted a payment form, validate it anyway so we can offer useful feedback
+        if 'payment_form' in data:
+            payment_form = PaymentForm(data['payment_form'])
+            if payment_form.is_valid():
+                form_response = {'success': True}
+            else:
+                form_response = {'success': False, 'text': render_to_string('reg/partials/payment_form.html', {'payment_form': payment_form}, context_instance=RequestContext(request))}
+            out['payment_form'] = form_response
 
     return HttpResponse(json.dumps(out), content_type="application/json")
 
