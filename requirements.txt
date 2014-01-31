@@ -51,3 +51,7 @@ dj-database-url
 python-varnish
 -e git://github.com/drinks/django-varnish.git#egg=varnishapp
 -e git://github.com/dlrust/python-memcached-stats.git#egg=memcached_stats
+
+django-bootstrap-toolkit
+django-extras
+braintree
