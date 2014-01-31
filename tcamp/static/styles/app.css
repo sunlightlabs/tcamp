@@ -2197,6 +2197,12 @@ table.wall-table {
   .registration #ticket-forms .accordion-heading a {
     color: #FFF;
     text-decoration: underline; }
+.registration #ticket-forms a.next-ticket {
+  margin-left: 10px; }
+.registration #ticket-forms .first-ticket a.prev-ticket {
+  display: none; }
+.registration #ticket-forms .last-ticket a.next-ticket {
+  display: none; }
 .registration .control-group.required label {
   font-weight: normal !important; }
 .registration .label-help {

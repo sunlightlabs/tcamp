@@ -2023,6 +2023,17 @@ table.wall-table {
             a {color: #FFF;
                 text-decoration: underline;}
         }
+
+        a.next-ticket {
+            margin-left: 10px;
+        }
+
+        .first-ticket a.prev-ticket {
+            display: none;
+        }
+        .last-ticket a.next-ticket {
+            display: none;
+        }
     }
 
     .control-group {

@@ -277,13 +277,36 @@
         
         var collapses = $('#ticket-forms .collapse');
         if (collapses.length > 0) {
+            collapses.removeClass('first-ticket').removeClass('last-ticket');
+
             $('.ticket-form-container').show();
-            collapses.eq(0).collapse('show');
+            
+            // first one gets special treatment
+            var first = collapses.eq(0);
+            first.addClass('first-ticket')
+            if (!first.hasClass('in')) {
+                first.parent().find('.accordion-heading a').click()
+            }
+
+            // and the last one
+            collapses.eq(-1).addClass('last-ticket');
         } else {
             $('.ticket-form-container').hide();
         }
         updatePrice();
     });
+
+    // handle the next-ticket and previous-ticket buttons
+    $('#ticket-forms').on('click', 'a.next-ticket,a.prev-ticket', function(evt) {
+        evt.preventDefault();
+        var $el = $(evt.target);
+
+        var group = $el.parents('.accordion-group');
+        var sibling = $el.hasClass('prev-ticket') ? group.prevAll('.accordion-group').eq(0) : group.nextAll('.accordion-group').eq(0);
+        if (!sibling.find('.accordion-body').hasClass('in')) {
+            sibling.find('.accordion-heading a').click();
+        }
+    })
 
     // big scary form submission
     var submitForm = function(evt) {
