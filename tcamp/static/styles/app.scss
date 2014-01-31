@@ -26,6 +26,7 @@ $body_family: "open-sans", 'Helvetica Neue', Helvetica, Tahoma, "Nimbus Sans", A
 // text colors
 $lightyellow: #eec151;
 $yellow: #e4aa09;
+$jumboyellow: #f2db88;
 $red: #9b2c1d;
 $darkred: #802416;
 $orange: #ca6728;
@@ -47,7 +48,7 @@ $tan: #d7d4c4;
 $bg_tan: #FFF;
 $bg_brandingbar: #f4f2e3;
 $bg_page: #eef5ef;
-$bg_feature: #f2db88;
+$bg_feature: #b3da76;
 $bg_contentarea: $lightergray;
 $bg_contentfooter: #e1ecec;
 $bg_footer: $bg_feature;
@@ -1184,7 +1185,7 @@ table.table-striped {
 .homepage #content #featured {
     background: $bg_feature;
     .container, .jumbotron {
-        background: $yellow;
+        background: $jumboyellow;
         &:before, &:after{
             height: 0;
             background: none;

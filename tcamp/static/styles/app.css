@@ -211,10 +211,10 @@ body {
 
 /* general */
 html {
-  background: #f2db88; }
+  background: #b3da76; }
 
 body {
-  background: #f2db88;
+  background: #b3da76;
   font-family: "open-sans", "Helvetica Neue", Helvetica, Tahoma, "Nimbus Sans", Arial, sans-serif; }
 
 #content {
@@ -772,7 +772,7 @@ table.table-striped {
   background: transparent url(../images/sunlight-brand.png) no-repeat 50% 50%; }
 
 .masthead {
-  background: #f2db88; }
+  background: #b3da76; }
   .masthead .row, .masthead .row-fluid {
     padding-top: 20px;
     padding-bottom: 20px; }
@@ -803,7 +803,7 @@ table.table-striped {
         .masthead .share-buttons td {
           padding-left: 10px; } }
   .masthead .container {
-    background: #f2db88; }
+    background: #b3da76; }
   .masthead .navbar {
     margin-left: -20px;
     margin-right: -20px;
@@ -978,7 +978,7 @@ body .menu-drawer, body .menu-panel {
     z-index: 2;
     width: 100%;
     min-height: 100%;
-    background: #f2db88;
+    background: #b3da76;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -1085,7 +1085,7 @@ body .menu-drawer, body .menu-panel {
   border-left: 3px #FFF solid;
   border-right: 3px #FFF solid;
   padding-bottom: 20px;
-  background: #f2db88;
+  background: #b3da76;
   position: relative; }
   .jumbotron h1,
   #content .container.jumbotron h1 {
@@ -1238,9 +1238,9 @@ body .menu-drawer, body .menu-panel {
  * Homepage Styles
  *****************/
 .homepage #content #featured {
-  background: #f2db88; }
+  background: #b3da76; }
   .homepage #content #featured .container, .homepage #content #featured .jumbotron {
-    background: #e4aa09; }
+    background: #f2db88; }
     .homepage #content #featured .container:before, .homepage #content #featured .container:after, .homepage #content #featured .jumbotron:before, .homepage #content #featured .jumbotron:after {
       height: 0;
       background: none;
