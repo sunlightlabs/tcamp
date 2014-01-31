@@ -92,7 +92,7 @@ class Ticket(models.Model):
     attend_day1 = models.BooleanField(default=True, verbose_name="Friday")
     attend_day2 = models.BooleanField(default=True, verbose_name="Saturday")
 
-    lobby_day = models.BooleanField(default=False, verbose_name="Do you plan to attend The Sunlight Network's Lobby Day?")
+    lobby_day = models.BooleanField(default=False, verbose_name="Do you plan to attend the Sunlight Network's Lobby Day?")
     ambassador_program = models.CharField(default="no", choices=AMBASSADOR_PROGRAM_CHOICES, max_length=12, verbose_name="Would you like to be part of the TCamp Ambassador Program?")
 
     subscribe = models.BooleanField(default=False, verbose_name="Please subscribe me to emails from the Sunlight Foundation")
