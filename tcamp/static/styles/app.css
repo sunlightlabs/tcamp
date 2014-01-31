@@ -1097,7 +1097,7 @@ body .menu-drawer, body .menu-panel {
     color: #0d829b; }
   .jumbotron p a,
   #content .container.jumbotron p a {
-    color: #ca6728;
+    color: #FFE;
     text-decoration: underline; }
   .jumbotron p a:hover,
   #content .container.jumbotron p a:hover {
@@ -1242,7 +1242,7 @@ body .menu-drawer, body .menu-panel {
 .homepage #content #featured {
   background: #b3da76; }
   .homepage #content #featured .container, .homepage #content #featured .jumbotron {
-    background: #f2db88; }
+    background: #eec151; }
     .homepage #content #featured .container:before, .homepage #content #featured .container:after, .homepage #content #featured .jumbotron:before, .homepage #content #featured .jumbotron:after {
       height: 0;
       background: none;
