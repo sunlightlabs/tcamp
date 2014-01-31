@@ -1068,9 +1068,9 @@ table.table-striped {
             text-shadow: none;
             color: $brown;
             font-weight: normal;
-            td { padding-left: 5px;
-                 &:first-child { padding-left: 0; }
-             }
+        }
+        td { padding-left: 5px;
+            &:first-child { padding-left: 0; }
         }
     }
     @include respond-to(mobile) {
