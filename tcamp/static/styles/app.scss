@@ -2035,4 +2035,21 @@ table.wall-table {
         padding: $vbuffer $hbuffer;
         border-bottom: 1px solid rgba(200,200,200,0.6);
     }
+
+    .whats-this {
+        a {
+            font-weight: bold;
+            font-size: 80%;
+        }
+        &:before {
+            font-weight: bold;
+            font-size: 80%;
+            content: "(";
+        }
+        &:after {
+            font-weight: bold;
+            font-size: 80%;
+            content: ")";
+        }
+    }
 }

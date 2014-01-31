@@ -2188,3 +2188,14 @@ table.wall-table {
 .registration .attendee {
   padding: 20px 20px;
   border-bottom: 1px solid rgba(200, 200, 200, 0.6); }
+.registration .whats-this a {
+  font-weight: bold;
+  font-size: 80%; }
+.registration .whats-this:before {
+  font-weight: bold;
+  font-size: 80%;
+  content: "("; }
+.registration .whats-this:after {
+  font-weight: bold;
+  font-size: 80%;
+  content: ")"; }

@@ -30,7 +30,7 @@
                     <td>
                         <span class="ticket-name">{{ type.name }}</span>
                         {% if type.description %}
-                        &nbsp;<a href="#" data-toggle="popover" title="{{ type.name }}" data-content="{{ type.description }}"><i class="icon-info-sign"></i></a>
+                        &nbsp;<span class="whats-this"><a href="#" data-toggle="popover" title="{{ type.name }}" data-content="{{ type.description }}">what's this?</a></span>
                         {% endif %}
                     </td>
                     <td>{% if type.expires %}{{ type.expires|date:"N j, Y" }}{% else %}<em>None</em>{% endif %}</td>
@@ -81,7 +81,7 @@
 
             <div class="text-right">
                 <div class="coupon">
-                    Coupon Code: <input class="input-small" type="text" id="id_coupon_code" name="coupon_code" /> <a href="#" id="apply-coupon" class="btn btn-small">Apply</a>
+                    Coupon Code: <input class="input-small" type="text" id="id_coupon_code" name="coupon_code" /> <a href="#" id="apply-coupon" class="btn btn-small">Apply Code</a>
                 </div>
                 <div class="lead">
                     Total: $<span class="total-price">0</span>
@@ -113,7 +113,7 @@
                 George Mason University, Arlington Campus<br />
                 Arlington, VA
             </a>
-        <div>
+        </div>
 
         <div class="attendee-info">
             <h3>Who's going?</h3>
