@@ -100,7 +100,11 @@ body {
 
 @media (min-width: 980px) {
   .visible-mobile {
-    display: none; } }
+    display: none; }
+    .visible-mobile.jumbotron-only {
+      display: block; }
+    .with-jumbotron .visible-mobile.jumbotron-only {
+      display: none; } }
 
 .container,
 #content .container,
@@ -944,7 +948,8 @@ table.table-striped {
           font-size: 16px; }
           .navbar .nav > li > .dropdown-menu li a, .navbar .nav > li > .dropdown-menu li.active a {
             padding: 10px;
-            color: #FFF; } }
+            color: #FFF;
+            font-weight: bold; } }
       .navbar .nav > li > .dropdown-menu li:last-child {
         border-bottom: none; }
 .navbar .btn {

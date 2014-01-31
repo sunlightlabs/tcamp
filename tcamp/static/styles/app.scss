@@ -273,7 +273,11 @@ $vgutter: 40px;
     @include respond-to(mobile) { display: none; }
 }
 .visible-mobile {
-    @include respond-to(desktops) { display: none; }
+    @include respond-to(desktops) {
+        display: none;
+        &.jumbotron-only { display: block; }
+        .with-jumbotron &.jumbotron-only { display: none; }
+    }
 }
 .container,
 #content .container,
@@ -917,6 +921,7 @@ table.table-striped {
                     a, &.active a {
                         padding: 10px;
                         color: #FFF;
+                        font-weight: bold;
                     }
                 }
                 border-bottom: 1px solid $lightgray;
