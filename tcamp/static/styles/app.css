@@ -1130,19 +1130,19 @@ body .menu-drawer, body .menu-panel {
     height: 0;
     background: none;
     display: table; }
-  .jumbotron .socialite,
-  #content .container.jumbotron .socialite {
+  .jumbotron .share-buttons,
+  #content .container.jumbotron .share-buttons {
     margin-top: -3px; }
-    .jumbotron .socialite .counter,
-    #content .container.jumbotron .socialite .counter {
+    .jumbotron .share-buttons .counter,
+    #content .container.jumbotron .share-buttons .counter {
       text-shadow: none;
       color: #44331f;
       font-weight: normal; }
-    .jumbotron .socialite td,
-    #content .container.jumbotron .socialite td {
+    .jumbotron .share-buttons td,
+    #content .container.jumbotron .share-buttons td {
       padding-left: 5px; }
-      .jumbotron .socialite td:first-child,
-      #content .container.jumbotron .socialite td:first-child {
+      .jumbotron .share-buttons td:first-child,
+      #content .container.jumbotron .share-buttons td:first-child {
         padding-left: 0; }
   @media (max-width: 979px) {
     .jumbotron,
