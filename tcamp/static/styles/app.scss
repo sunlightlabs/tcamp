@@ -1054,6 +1054,8 @@ table.table-striped {
     .btn-large {
         width: 50%;
         margin: 0 auto;
+        display: block;
+        margin-top: $vbuffer * 2;
     }
 
     &:after{ height: 0; background: none; display: table; }

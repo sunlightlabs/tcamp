@@ -1106,7 +1106,9 @@ body .menu-drawer, body .menu-panel {
   .jumbotron .btn-large,
   #content .container.jumbotron .btn-large {
     width: 50%;
-    margin: 0 auto; }
+    margin: 0 auto;
+    display: block;
+    margin-top: 40px; }
   .jumbotron:after,
   #content .container.jumbotron:after {
     height: 0;
