@@ -100,7 +100,11 @@ body {
 
 @media (min-width: 980px) {
   .visible-mobile {
-    display: none; } }
+    display: none; }
+    .visible-mobile.jumbotron-only {
+      display: block; }
+    .with-jumbotron .visible-mobile.jumbotron-only {
+      display: none; } }
 
 .container,
 #content .container,
