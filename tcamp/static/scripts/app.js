@@ -62,23 +62,19 @@
     $(window).resize($.throttle(150, function(){
       var social = $('.share-buttons').filter(':visible'),
           opts = social.attr('data-options'),
-          topts = social.attr('data-twitter-options'),
-          fopts = social.attr('data-facebook-options'),
           width = $(window).width(),
           rexp = /\bshow-counts=(true|false)\b/;
       if(width < 1200){
         console.log('small');
         // too small, no counts
-        if(topts.match(rexp)[1] == 'true'){
-          social.attr('data-twitter-options', topts.replace(rexp, 'show-counts=false'));
-          social.attr('data-facebook-options', fopts.replace(rexp, 'show-counts=false'));
+        if(opts.match(rexp)[1] == 'true'){
+          social.attr('data-options', opts.replace(rexp, 'show-counts=false'));
           social.trigger('auto');
         }
       }else if(width >= 1200){
         console.log('big');
         if(topts.match(rexp)[1] == 'false'){
-          social.attr('data-twitter-options', topts.replace(rexp, 'show-counts=true'));
-          social.attr('data-facebook-options', fopts.replace(rexp, 'show-counts=true'));
+          social.attr('data-options', opts.replace(rexp, 'show-counts=true'));
           social.trigger('auto');
         }
       }
