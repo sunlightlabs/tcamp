@@ -26,7 +26,6 @@ $body_family: "open-sans", 'Helvetica Neue', Helvetica, Tahoma, "Nimbus Sans", A
 // text colors
 $lightyellow: #eec151;
 $yellow: #e4aa09;
-$jumboyellow: #f2db88;
 $red: #9b2c1d;
 $darkred: #802416;
 $orange: #ca6728;
@@ -48,7 +47,7 @@ $tan: #d7d4c4;
 $bg_tan: #FFF;
 $bg_brandingbar: #f4f2e3;
 $bg_page: #eef5ef;
-$bg_feature: #B3DA76;
+$bg_feature: #f2db88;
 $bg_contentarea: $lightergray;
 $bg_contentfooter: #e1ecec;
 $bg_footer: $bg_feature;
@@ -1043,14 +1042,24 @@ table.table-striped {
         color: $teal;
     }
     p a {
-        color: #FFF;
+        color: $orange;
         text-decoration: underline;
     }
     p a:hover {
         color: $red;
         text-decoration: none;
     }
+
+    .btn-large {
+        width: 50%;
+        margin: 0 auto;
+    }
+
     &:after{ height: 0; background: none; display: table; }
+    @include respond-to(handhelds) {
+        border-left: none;
+        border-right: none;
+    }
 }
 
 #featured .img-polaroid {
@@ -1930,3 +1939,97 @@ table.wall-table {
         }
     }
  }
+
+/**************
+ * Registration
+ **************/
+
+.registration {
+    .ticket-form-container {
+        &, .payment-info { display: none; }
+
+        input[type=text],
+        select,
+        textarea {
+            width: 100%;
+        }
+
+        .email-row input {
+            width: 400px;
+        }
+
+        label[for=id_exp_year] {
+            visibility: hidden;
+        }
+
+        .coupon {
+
+            margin-bottom: 10px;
+
+            input {
+                width: 90px;
+                display: inline-block;
+                margin: 0 10px;
+            }
+        }
+    }
+
+    .event-info {
+        font-size: 90%;
+    }
+
+    .event-sidebar {
+        h3 {
+            padding-top: 0;
+            margin-top: 0;
+            font-size: 20px;
+        }
+    }
+
+    #ticket-forms {
+        .accordion-heading {
+            background: rgba(200,200,200,0.6);
+            font-weight: bold;
+        }
+    }
+
+    .control-group {
+        &.required {
+            label { font-weight: normal !important; }
+        }
+    }
+
+    .label-help {
+        display: none;
+    }
+
+    .accordion-group {
+        &.has-errors {
+            .accordion-heading {
+                a:before {
+                    content: "!";
+                    background: #900;
+                    color: #fff;
+                    padding: 0 4px 0 4px;
+                    margin-right: 6px;
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    .attendee-info {
+        margin-top: $vbuffer;
+    }
+
+    .attendees {
+        overflow: auto;
+        height: 480px;
+        background: rgba(200,200,200,0.2);
+    }
+
+    .attendee {
+        padding: $vbuffer $hbuffer;
+        border-bottom: 1px solid rgba(200,200,200,0.6);
+    }
+}
