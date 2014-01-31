@@ -1235,7 +1235,9 @@ table.table-striped {
             &.volunteer a:before,
             &.sponsor a:before,
             &.scholarships a:before,
-            &.idea a:before
+            &.idea a:before,
+            &.ambassador a:before,
+            &.lobbyday a:before
              {
                 content: '';
                 display: inline-block;
@@ -1244,22 +1246,26 @@ table.table-striped {
                 position: relative;
                 top: 6px;
                 right: 4px;
-                background: transparent url(../images/callout-hand.png) no-repeat 50% 50%;
+                background: transparent url(../images/volunteer.svg) no-repeat 50% 50%;
                 background-size: contain;
                 @include respond-to(tablets) { width: 20px; height: 26px;}
             }
-            &.sponsor a:before {
-                width: 37px;
-                top: 8px;
-                background-image: url(../images/callout-piggybank.png);
-            }
+            // &.sponsor a:before {
+            //     width: 37px;
+            //     top: 8px;
+            //     background-image: url(../images/callout-piggybank.png);
+            // }
             &.scholarships a:before {
-                width: 42px;
-                background-image: url(../images/callout-cap.png);
+                background-image: url(../images/scholarships.png);
             }
-            &.idea a:before{
-                width: 22px;
-                background-image: url(../images/callout-lightbulb.png);
+            // &.idea a:before{
+            //     background-image: url(../images/callout-lightbulb.png);
+            // }
+            &.lobbyday a:before {
+                background-image: url(../images/lobby.svg);
+            }
+            &.ambassador a:before {
+                background-image: url(../images/ambassador.svg);
             }
         }
     }

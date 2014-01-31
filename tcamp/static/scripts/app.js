@@ -70,12 +70,14 @@
         console.log('small');
         // too small, no counts
         if(opts.match(rexp)[1] == 'true'){
+          console.log('removing counts');
           social.attr('data-options', opts.replace(rexp, 'show-counts=false'));
           social.trigger('auto');
         }
       }else if(width >= 1200){
         console.log('big');
         if(opts.match(rexp)[1] == 'false'){
+          console.log('adding counts');
           social.attr('data-options', opts.replace(rexp, 'show-counts=true'));
           social.trigger('auto');
         }

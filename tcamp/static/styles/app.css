@@ -1310,7 +1310,7 @@ body .menu-drawer, body .menu-panel {
   margin: -20px; }
 .homepage .callouts h3 {
   font-style: italic; }
-  .homepage .callouts h3.volunteer a:before, .homepage .callouts h3.sponsor a:before, .homepage .callouts h3.scholarships a:before, .homepage .callouts h3.idea a:before {
+  .homepage .callouts h3.volunteer a:before, .homepage .callouts h3.sponsor a:before, .homepage .callouts h3.scholarships a:before, .homepage .callouts h3.idea a:before, .homepage .callouts h3.ambassador a:before, .homepage .callouts h3.lobbyday a:before {
     content: '';
     display: inline-block;
     width: 31px;
@@ -1318,22 +1318,18 @@ body .menu-drawer, body .menu-panel {
     position: relative;
     top: 6px;
     right: 4px;
-    background: transparent url(../images/callout-hand.png) no-repeat 50% 50%;
+    background: transparent url(../images/volunteer.svg) no-repeat 50% 50%;
     background-size: contain; }
     @media (min-width: 768px) and (max-width: 979px) {
-      .homepage .callouts h3.volunteer a:before, .homepage .callouts h3.sponsor a:before, .homepage .callouts h3.scholarships a:before, .homepage .callouts h3.idea a:before {
+      .homepage .callouts h3.volunteer a:before, .homepage .callouts h3.sponsor a:before, .homepage .callouts h3.scholarships a:before, .homepage .callouts h3.idea a:before, .homepage .callouts h3.ambassador a:before, .homepage .callouts h3.lobbyday a:before {
         width: 20px;
         height: 26px; } }
-  .homepage .callouts h3.sponsor a:before {
-    width: 37px;
-    top: 8px;
-    background-image: url(../images/callout-piggybank.png); }
   .homepage .callouts h3.scholarships a:before {
-    width: 42px;
-    background-image: url(../images/callout-cap.png); }
-  .homepage .callouts h3.idea a:before {
-    width: 22px;
-    background-image: url(../images/callout-lightbulb.png); }
+    background-image: url(../images/scholarships.png); }
+  .homepage .callouts h3.lobbyday a:before {
+    background-image: url(../images/lobby.svg); }
+  .homepage .callouts h3.ambassador a:before {
+    background-image: url(../images/ambassador.svg); }
 
 /***********************
  * Schedule Page Styles
