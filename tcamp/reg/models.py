@@ -98,3 +98,10 @@ class Ticket(models.Model):
     subscribe = models.BooleanField(default=False, verbose_name="Please subscribe me to emails from the Sunlight Foundation")
 
     success = models.BooleanField(default=False, db_index=True)
+
+    @property
+    def clean_twitter(self):
+        if self.twitter and self.twitter.startswith("@"):
+            return self.twitter[1:]
+        else:
+            return self.twitter

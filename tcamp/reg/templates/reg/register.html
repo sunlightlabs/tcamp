@@ -14,7 +14,7 @@
     <div class="span8">
         <p>TransparencyCamp is an “unconference” for opengov. Each year, journalists, developers, technologists, policy-makers, government officials, students, academics, wonks and everyone in between gather together to share knowledge about how to use new technologies and policies to make our government really work for the people -- and to help our people work smarter with our government.</p>
         <p><strong>Attendance at TCamp has grown exponentially over the years, so be sure to register early!</strong> Early Bird Registration ends at 11:59pm EST  Friday, February 21.</p>
-        <p>As an <a href="http://transparencycamp.org/about/tips/">unconference</a>, TransparencyCamp emphasizes the important contributions that each and every attendee brings with them into the sessions, workshops and conversations associated with this event. In fact, attendees (yes, all of them) are brought into the process of making the schedule for the conference with the organizers and are encouraged to step up and lead sessions themselves. (Check out our this <a href="http://www.youtube.com/watch?v=_3Jse9n80qk&list=PLdo_y1-rDBGZSvFmq1Nf5W1CzK76QwrZr&feature=share">video</a> to get a better sense of what we mean.) Never been to an unconference? No sweat, just let us know and we’ll pair you up with a member of our welcoming team.</p>
+        <p>As an <a href="http://transparencycamp.org/about/tips/">unconference</a>, TransparencyCamp emphasizes the important contributions that each and every attendee brings with them into the sessions, workshops and conversations associated with this event. In fact, attendees (yes, all of them) are brought into the process of making the schedule for the conference with the organizers and are encouraged to step up and lead sessions themselves. (Check out this <a href="http://www.youtube.com/watch?v=_3Jse9n80qk&list=PLdo_y1-rDBGZSvFmq1Nf5W1CzK76QwrZr&feature=share">video</a> to get a better sense of what we mean.) Never been to an unconference? No sweat, just let us know and we’ll pair you up with a member of our welcoming team.</p>
 
         <hr />
         <h2>Tickets</h2>
@@ -99,8 +99,8 @@
         </div>
 
         <hr />
-        <p>Interested in attending TCamp but need a little help getting here? Click here to apply for our registration and travel stipends.</p>
-        <p>Have questions about TransparencyCamp 2014? <a href="http://sunlightfoundation.com/contact/">Contact us here!</a></p>
+        <p>Purchase of tickets to TransparencyCamp is non-refundable. If you are a member of the press who would like to attend TCamp, please contact Gabriela Schneider at <a href="mailto:gab@sunlightfoundation.com">gab@sunlightfoundation.com</a>.</p>
+        <p>Interested in attending TCamp but need a little help getting here? <a href="https://docs.google.com/forms/d/1OXX5c93rCLmVRxCe_Su8mCNSEgwWqf90zvidBCstpOk/viewform">Click here</a> to apply for our registration and travel stipends.</p>
     </div>
 
 
@@ -121,7 +121,7 @@
                 {% for attendee in attendees %}
                 <div class="attendee">
                     <div class="attendee-name">
-                        {% if attendee.twitter %}<a href="http://twitter.com/{{ attendee.twitter }}">{{ attendee.first_name }} {{ attendee.last_name }}</a>{% else %}{{ attendee.first_name }} {{ attendee.last_name }}{% endif %}
+                        {% if attendee.twitter %}<a href="http://twitter.com/{{ attendee.clean_twitter }}">{{ attendee.first_name }} {{ attendee.last_name }}</a>{% else %}{{ attendee.first_name }} {{ attendee.last_name }}{% endif %}
                     </div>
                     <div class="attendee-org">{{ attendee.organization }}</div>
                 </div>
