@@ -583,7 +583,7 @@ p {
         .icon-forward {
             width: 28px;
             height: 18px;
-            background: transparent url(../images/btn-icon-chevrons-b.png) no-repeat 50% 50%;
+            background: transparent url(../images/btn-icon-chevrons-y.png) no-repeat 50% 50%;
             background-size: contain;
             position: relative;
             top: -3px;
@@ -591,7 +591,7 @@ p {
         }
         &:hover .icon-forward,
         &:focus .icon-forward,
-        &:active .icon-forward { background-image: url(../images/btn-icon-chevrons-y.png); }
+        &:active .icon-forward { background-image: url(../images/btn-icon-chevrons-b.png); }
     }
     &.btn-inverse {
         @include vertical_gradient("#{$lightteal} 0%, #{$teal} 100%");
@@ -633,7 +633,20 @@ p {
     @include respond-to(phones) { height: 300px; }
 }
 
-table.table { @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.1)); }
+table.table { border: 3px solid $yellow; }
+
+.ticket-types thead tr {
+    background-color: $yellow;
+}
+
+.accordion-group {
+    border: 3px solid $lightteal;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+
 table.table-striped {
     width: 100%;
     th {
@@ -1062,7 +1075,7 @@ table.table-striped {
         margin-top: $vbuffer * 2;
     }
     &:after{ height: 0; background: none; display: table; }
-    .socialite {
+    .share-buttons {
         margin-top: -3px;
         .counter {
             text-shadow: none;
@@ -2005,8 +2018,10 @@ table.wall-table {
 
     #ticket-forms {
         .accordion-heading {
-            background: rgba(200,200,200,0.6);
+            background: $lightteal;
             font-weight: bold;
+            a {color: #FFF;
+                text-decoration: underline;}
         }
     }
 

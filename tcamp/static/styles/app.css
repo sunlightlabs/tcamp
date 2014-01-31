@@ -530,7 +530,7 @@ form textarea, form select, .brainstorm input[type="text"],
   .brainstorm .btn.btn-primary .icon-forward, form.brainstorm-form .btn.btn-primary .icon-forward {
     width: 28px;
     height: 18px;
-    background: transparent url(../images/btn-icon-chevrons-b.png) no-repeat 50% 50%;
+    background: transparent url(../images/btn-icon-chevrons-y.png) no-repeat 50% 50%;
     background-size: contain;
     position: relative;
     top: -3px;
@@ -539,7 +539,7 @@ form textarea, form select, .brainstorm input[type="text"],
   .brainstorm .btn.btn-primary:hover .icon-forward,
   .brainstorm .btn.btn-primary:focus .icon-forward,
   .brainstorm .btn.btn-primary:active .icon-forward, form.brainstorm-form .btn.btn-primary:hover .icon-forward, form.brainstorm-form .btn.btn-primary:focus .icon-forward, form.brainstorm-form .btn.btn-primary:active .icon-forward {
-    background-image: url(../images/btn-icon-chevrons-y.png); }
+    background-image: url(../images/btn-icon-chevrons-b.png); }
   .btn.btn-inverse, .btn-large.btn-inverse, .btn-small.btn-inverse,
   .brainstorm .btn.btn-inverse, form.brainstorm-form .btn.btn-inverse {
     background-image: -webkit-linear-gradient(top, #3eaec1 0%, #0d829b 100%);
@@ -626,8 +626,16 @@ form textarea, form select, .brainstorm input[type="text"],
     height: 300px; } }
 
 table.table {
-  -webkit-box-shadow:  0 0 10px 0 rgba(0, 0, 0, 0.1);
-  box-shadow:  0 0 10px 0 rgba(0, 0, 0, 0.1); }
+  border: 3px solid #e4aa09; }
+
+.ticket-types thead tr {
+  background-color: #e4aa09; }
+
+.accordion-group {
+  border: 3px solid #3eaec1;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px; }
 
 table.table-striped {
   width: 100%; }
@@ -1122,19 +1130,19 @@ body .menu-drawer, body .menu-panel {
     height: 0;
     background: none;
     display: table; }
-  .jumbotron .socialite,
-  #content .container.jumbotron .socialite {
+  .jumbotron .share-buttons,
+  #content .container.jumbotron .share-buttons {
     margin-top: -3px; }
-    .jumbotron .socialite .counter,
-    #content .container.jumbotron .socialite .counter {
+    .jumbotron .share-buttons .counter,
+    #content .container.jumbotron .share-buttons .counter {
       text-shadow: none;
       color: #44331f;
       font-weight: normal; }
-    .jumbotron .socialite td,
-    #content .container.jumbotron .socialite td {
+    .jumbotron .share-buttons td,
+    #content .container.jumbotron .share-buttons td {
       padding-left: 5px; }
-      .jumbotron .socialite td:first-child,
-      #content .container.jumbotron .socialite td:first-child {
+      .jumbotron .share-buttons td:first-child,
+      #content .container.jumbotron .share-buttons td:first-child {
         padding-left: 0; }
   @media (max-width: 979px) {
     .jumbotron,
@@ -2184,8 +2192,11 @@ table.wall-table {
   margin-top: 0;
   font-size: 20px; }
 .registration #ticket-forms .accordion-heading {
-  background: rgba(200, 200, 200, 0.6);
+  background: #3eaec1;
   font-weight: bold; }
+  .registration #ticket-forms .accordion-heading a {
+    color: #FFF;
+    text-decoration: underline; }
 .registration .control-group.required label {
   font-weight: normal !important; }
 .registration .label-help {
