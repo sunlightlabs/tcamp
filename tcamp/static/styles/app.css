@@ -94,6 +94,10 @@ body {
     .right-edge {
       margin-right: 0; } }
 
+@media (max-width: 979px) {
+  .hidden-mobile {
+    display: none; } }
+
 .container,
 #content .container,
 .container.jumbotron {

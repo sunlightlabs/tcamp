@@ -269,6 +269,9 @@ $vgutter: 40px;
     margin-right: -$hgutter;
     @include respond-to(mobile) { margin-right: 0;}
 }
+.hidden-mobile {
+    @include respond-to(mobile) { display: none; }
+}
 .container,
 #content .container,
 .container.jumbotron {
