@@ -60,7 +60,9 @@
     // redraw social buttons bigger when window is resized
     // also, enable/disable panel menu
     $(window).resize($.throttle(150, function(){
-      var social = $('.share-buttons').filter(':visible'),
+      var social = $('.share-buttons').filter(function(){
+            return $(this).css('display') == 'block';
+          }),
           opts = social.attr('data-options'),
           width = $(window).width(),
           rexp = /\bshow-counts=(true|false)\b/;
