@@ -272,6 +272,9 @@ $vgutter: 40px;
 .hidden-mobile {
     @include respond-to(mobile) { display: none; }
 }
+.visible-mobile {
+    @include respond-to(desktops) { display: none; }
+}
 .container,
 #content .container,
 .container.jumbotron {
@@ -1059,6 +1062,11 @@ table.table-striped {
         margin-top: $vbuffer * 2;
     }
     &:after{ height: 0; background: none; display: table; }
+    .socialite .counter {
+        text-shadow: none;
+        color: $brown;
+        font-weight: normal;
+    }
     @include respond-to(mobile) {
         border-left: none;
         border-right: none;
