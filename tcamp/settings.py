@@ -19,7 +19,7 @@ GRAPPELLI_ADMIN_TITLE = "TransparencyCamp"
 AUTOCOMPLETE_LIMIT = 5
 
 # This determines which folder static assets and media will be written to on S3.
-ASSET_SITE_VERSION = '3.0'
+ASSET_SITE_VERSION = '3.1'
 
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_SECURE_URLS = False

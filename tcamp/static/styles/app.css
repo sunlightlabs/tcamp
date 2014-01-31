@@ -234,32 +234,34 @@ h1 {
   text-transform: uppercase;
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
-  display: table;
   position: relative;
   background: #3eaec1;
   color: #fff;
-  padding: .3em 0 .3em;
+  padding: 0.3em 20px 0.3em;
+  margin: 10px -20px;
   text-shadow: 0 1px 3px #3492a2;
-  z-index: 20;
-  width: 100%; }
+  z-index: 20; }
+  @media (min-width: 980px) {
+    h1, h1 span {
+      white-space: nowrap; } }
   h1:before, h1:after {
     content: "";
     position: absolute;
     display: block;
-    bottom: 0em;
+    bottom: 0;
     border-width: .85em;
     border-style: solid;
     border-color: #3eaec1;
     z-index: -1; }
   h1:before {
-    left: -1.71em;
-    border-right-width: 1.35em;
-    border-left-width: 0.45em;
+    left: -30px;
+    border-right-width: 16px;
+    border-left-width: 14px;
     border-left-color: transparent; }
   h1:after {
-    right: -1.71em;
-    border-left-width: 1.35em;
-    border-right-width: 0.45em;
+    right: -30px;
+    border-left-width: 16px;
+    border-right-width: 14px;
     border-right-color: transparent; }
   @media (max-width: 767px) {
     h1 {
@@ -356,7 +358,7 @@ a {
 p {
   line-height: 1.6;
   font-size: 14px;
-  padding-bottom: 15px;
+  margin-bottom: 15px;
   color: #44331f; }
   @media (max-width: 767px) {
     p {
@@ -377,6 +379,9 @@ p {
   background: rgba(84, 149, 147, 0.4);
   color: #222222;
   text-shadow: none; }
+
+.centered {
+  margin: 0 auto; }
 
 .form-search input[type="text"],
 .form-search .input input[type="text"],
@@ -580,24 +585,24 @@ form textarea, form select, .brainstorm input[type="text"],
   top: -2px; }
 
 .btn-primary {
-  background: #e4aa09;
-  background-image: -webkit-linear-gradient(top, #eec151 0%, #e4aa09 100%);
+  background: #0d829b;
+  background-image: -webkit-linear-gradient(top, #3eaec1 0%, #0d829b 100%);
   /* Chrome 10-25, iOS 5+, Safari 5.1+ */
-  background-image: -moz-linear-gradient(top, #eec151 0%, #e4aa09 100%);
+  background-image: -moz-linear-gradient(top, #3eaec1 0%, #0d829b 100%);
   /* Firefox 3.6-15 */
-  background-image: -o-linear-gradient(top, #eec151 0%, #e4aa09 100%);
+  background-image: -o-linear-gradient(top, #3eaec1 0%, #0d829b 100%);
   /* Opera 11.10-12.00 */
-  background-image: linear-gradient(to bottom, #eec151 0%, #e4aa09 100%);
+  background-image: linear-gradient(to bottom, #3eaec1 0%, #0d829b 100%);
   /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */ }
   .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-    background: #0d829b;
-    background-image: -webkit-linear-gradient(top, #3eaec1 0%, #0d829b 100%);
+    background: #e4aa09;
+    background-image: -webkit-linear-gradient(top, #eec151 0%, #e4aa09 100%);
     /* Chrome 10-25, iOS 5+, Safari 5.1+ */
-    background-image: -moz-linear-gradient(top, #3eaec1 0%, #0d829b 100%);
+    background-image: -moz-linear-gradient(top, #eec151 0%, #e4aa09 100%);
     /* Firefox 3.6-15 */
-    background-image: -o-linear-gradient(top, #3eaec1 0%, #0d829b 100%);
+    background-image: -o-linear-gradient(top, #eec151 0%, #e4aa09 100%);
     /* Opera 11.10-12.00 */
-    background-image: linear-gradient(to bottom, #3eaec1 0%, #0d829b 100%);
+    background-image: linear-gradient(to bottom, #eec151 0%, #e4aa09 100%);
     /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */
     color: white;
     outline: none; }
@@ -2119,74 +2124,3 @@ table.wall-table {
     font-size: 32px; }
   .tvscreen tbody tr.single p {
     font-size: 20px; }
-
-/*************
- * Registration
- ************/
-.registration .ticket-form-container input[type=text], .registration .ticket-form-container select, .registration .ticket-form-container textarea {
-    width: 100%;
-}
-.registration .ticket-form-container .email-row input {
-    width: 400px;
-}
-.registration .ticket-form-container label[for=id_exp_year] {
-    visibility: hidden;
-}
-.registration .ticket-form-container .coupon input {
-    width: 90px;
-    display: inline-block;
-    margin: 0 10px 0 10px;
-}
-.registration .ticket-form-container .coupon {
-    margin-bottom: 10px;
-}
-.registration .event-info {
-    font-size: 90%;
-}
-.registration .ticket-form-container {
-    display: none;
-}
-.registration .ticket-form-container .payment-info {
-    display: none;
-}
-.registration .event-sidebar h3 {
-    padding-top: 0;
-    margin-top: 0;
-    font-size: 20px;
-}
-.registration #ticket-forms .accordion-heading {
-    background: rgba(200,200,200,0.6);
-    font-weight: bold;
-}
-.registration #ticket-forms .accordion-body {
-    background: rgba(200,200,200,0.2);
-}
-.registration .control-group.required label {
-    font-weight: bold;
-}
-.registration .ambassador-group label {
-    font-weight: normal !important;
-}
-.registration .label-help {
-    display: none;
-}
-.registration .accordion-group.has-errors .accordion-heading a::before {
-    content: "!";
-    background: #900;
-    color: #fff;
-    padding: 0 4px 0 4px;
-    margin-right: 6px;
-    display: inline-block;
-}
-.registration .attendee-info {
-    margin-top: 20px;
-}
-.registration .attendees {
-    overflow: auto;
-    height: 480px;
-    background: rgba(200,200,200,0.2);
-}
-.registration .attendee {
-    padding: 20px;
-    border-bottom: 1px solid rgba(200,200,200,0.6);
-}
