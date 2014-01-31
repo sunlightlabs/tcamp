@@ -18,7 +18,7 @@
     "model": "reg.tickettype",
     "fields": {
       "max_tickets": 100,
-      "description": "We make the cost of TCamp as low as we can to make sure we can be as inclusive as possible, but the reality is that the \"fair market value\" of each TCamp ticket is more than $130. If you register as a Super Camper, you will not only help cover the actual cost of TCamp, but we’ll toss in some extra bling for you to wear at TCamp!",
+      "description": "The actual cost of attending TransparencyCamp is over $130 per person. If you register as a Super Camper, you'll help us cover the true cost of TCamp.",
       "price": "130.00",
       "expires": "2014-05-02T03:59:00Z",
       "enabled": true,

@@ -2181,6 +2181,8 @@ table.wall-table {
     width: 90px;
     display: inline-block;
     margin: 0 10px; }
+.registration .ticket-form-container form select {
+  height: 37px; }
 .registration .event-info {
   font-size: 90%; }
 .registration .event-sidebar h3 {
