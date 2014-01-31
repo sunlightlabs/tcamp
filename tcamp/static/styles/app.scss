@@ -1062,10 +1062,16 @@ table.table-striped {
         margin-top: $vbuffer * 2;
     }
     &:after{ height: 0; background: none; display: table; }
-    .socialite .counter {
-        text-shadow: none;
-        color: $brown;
-        font-weight: normal;
+    .socialite {
+        margin-top: -3px;
+        .counter {
+            text-shadow: none;
+            color: $brown;
+            font-weight: normal;
+            td { padding-left: 5px;
+                 &:first-child { padding-left: 0; }
+             }
+        }
     }
     @include respond-to(mobile) {
         border-left: none;

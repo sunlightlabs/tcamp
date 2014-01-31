@@ -1122,11 +1122,20 @@ body .menu-drawer, body .menu-panel {
     height: 0;
     background: none;
     display: table; }
-  .jumbotron .socialite .counter,
-  #content .container.jumbotron .socialite .counter {
-    text-shadow: none;
-    color: #44331f;
-    font-weight: normal; }
+  .jumbotron .socialite,
+  #content .container.jumbotron .socialite {
+    margin-top: -3px; }
+    .jumbotron .socialite .counter,
+    #content .container.jumbotron .socialite .counter {
+      text-shadow: none;
+      color: #44331f;
+      font-weight: normal; }
+      .jumbotron .socialite .counter td,
+      #content .container.jumbotron .socialite .counter td {
+        padding-left: 5px; }
+        .jumbotron .socialite .counter td:first-child,
+        #content .container.jumbotron .socialite .counter td:first-child {
+          padding-left: 0; }
   @media (max-width: 979px) {
     .jumbotron,
     #content .container.jumbotron {
