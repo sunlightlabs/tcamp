@@ -60,7 +60,9 @@
     // redraw social buttons bigger when window is resized
     // also, enable/disable panel menu
     $(window).resize($.throttle(150, function(){
-      var social = $('.share-buttons').filter(':visible'),
+      var social = $('.share-buttons').filter(function(){
+            return $(this).css('display') == 'block';
+          }),
           opts = social.attr('data-options'),
           width = $(window).width(),
           rexp = /\bshow-counts=(true|false)\b/;
@@ -68,12 +70,14 @@
         console.log('small');
         // too small, no counts
         if(opts.match(rexp)[1] == 'true'){
+          console.log('removing counts');
           social.attr('data-options', opts.replace(rexp, 'show-counts=false'));
           social.trigger('auto');
         }
       }else if(width >= 1200){
         console.log('big');
-        if(topts.match(rexp)[1] == 'false'){
+        if(opts.match(rexp)[1] == 'false'){
+          console.log('adding counts');
           social.attr('data-options', opts.replace(rexp, 'show-counts=true'));
           social.trigger('auto');
         }
