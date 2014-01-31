@@ -626,8 +626,16 @@ form textarea, form select, .brainstorm input[type="text"],
     height: 300px; } }
 
 table.table {
-  -webkit-box-shadow:  0 0 10px 0 rgba(0, 0, 0, 0.1);
-  box-shadow:  0 0 10px 0 rgba(0, 0, 0, 0.1); }
+  border: 3px solid #e4aa09; }
+
+.ticket-types thead tr {
+  background-color: #e4aa09; }
+
+.accordion-group {
+  border: 3px solid #3eaec1;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px; }
 
 table.table-striped {
   width: 100%; }
@@ -2184,8 +2192,11 @@ table.wall-table {
   margin-top: 0;
   font-size: 20px; }
 .registration #ticket-forms .accordion-heading {
-  background: rgba(200, 200, 200, 0.6);
+  background: #3eaec1;
   font-weight: bold; }
+  .registration #ticket-forms .accordion-heading a {
+    color: #FFF;
+    text-decoration: underline; }
 .registration .control-group.required label {
   font-weight: normal !important; }
 .registration .label-help {
