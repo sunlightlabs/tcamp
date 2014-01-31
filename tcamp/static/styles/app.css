@@ -530,7 +530,7 @@ form textarea, form select, .brainstorm input[type="text"],
   .brainstorm .btn.btn-primary .icon-forward, form.brainstorm-form .btn.btn-primary .icon-forward {
     width: 28px;
     height: 18px;
-    background: transparent url(../images/btn-icon-chevrons-b.png) no-repeat 50% 50%;
+    background: transparent url(../images/btn-icon-chevrons-y.png) no-repeat 50% 50%;
     background-size: contain;
     position: relative;
     top: -3px;
@@ -539,7 +539,7 @@ form textarea, form select, .brainstorm input[type="text"],
   .brainstorm .btn.btn-primary:hover .icon-forward,
   .brainstorm .btn.btn-primary:focus .icon-forward,
   .brainstorm .btn.btn-primary:active .icon-forward, form.brainstorm-form .btn.btn-primary:hover .icon-forward, form.brainstorm-form .btn.btn-primary:focus .icon-forward, form.brainstorm-form .btn.btn-primary:active .icon-forward {
-    background-image: url(../images/btn-icon-chevrons-y.png); }
+    background-image: url(../images/btn-icon-chevrons-b.png); }
   .btn.btn-inverse, .btn-large.btn-inverse, .btn-small.btn-inverse,
   .brainstorm .btn.btn-inverse, form.brainstorm-form .btn.btn-inverse {
     background-image: -webkit-linear-gradient(top, #3eaec1 0%, #0d829b 100%);
