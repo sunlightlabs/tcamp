@@ -926,6 +926,7 @@ table.table-striped {
       font-smoothing: antialiased;
       font-size: 18px;
       font-size: 16px;
+      font-weight: bold;
       border-bottom: 1px solid #dddddd; }
       .navbar .nav > li > .dropdown-menu li a, .navbar .nav > li > .dropdown-menu li.active a {
         line-height: 1;
@@ -954,12 +955,11 @@ table.table-striped {
           font-size: 16px; }
           .navbar .nav > li > .dropdown-menu li a, .navbar .nav > li > .dropdown-menu li.active a {
             padding: 10px;
-            color: #FFF;
-            font-weight: bold; } }
+            color: #FFF; } }
       .navbar .nav > li > .dropdown-menu li:last-child {
         border-bottom: none; }
 .navbar .btn {
-  margin: -8px 0;
+  margin: -7px 0;
   position: relative;
   z-index: 2; }
   @media (min-width: 768px) and (max-width: 979px) {

@@ -923,12 +923,12 @@ table.table-striped {
             li {
                 @include navtext;
                 font-size: 16px;
+                font-weight: bold;
                 @include respond-to(tablets) {
                     font-size: 16px;
                     a, &.active a {
                         padding: 10px;
                         color: #FFF;
-                        font-weight: bold;
                     }
                 }
                 border-bottom: 1px solid $lightgray;
@@ -937,7 +937,7 @@ table.table-striped {
         }
     }
     .btn {
-        margin: -8px 0;
+        margin: -7px 0;
         position:relative;
         z-index: 2;
         @include respond-to(tablets) { font-size: 15px; margin: -3px -5px; padding: 8px 6px; }
