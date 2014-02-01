@@ -275,6 +275,9 @@ h1 {
     border-left-width: 16px;
     border-right-width: 14px;
     border-right-color: transparent; }
+  @media (max-width: 979px) {
+    h1:before, h1:after {
+      display: none; } }
   @media (max-width: 767px) {
     h1 {
       font-size: 38px; } }

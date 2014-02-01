@@ -417,6 +417,10 @@ h1 {
       border-right-width: $ribbon-outerwidth;
       border-right-color: transparent;
     }
+    @include respond-to(mobile) {
+        &:before,
+        &:after { display: none; }
+    }
     @include respond-to(phones) { font-size: 38px; }
 }
 
