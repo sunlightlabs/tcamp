@@ -1117,7 +1117,8 @@ body .menu-drawer, body .menu-panel {
   .jumbotron h1,
   #content .container.jumbotron h1 {
     font-size: 32px;
-    color: #FFF; }
+    color: #FFF;
+    position: relative; }
   .jumbotron h3,
   #content .container.jumbotron h3 {
     font-size: 24px;
@@ -1143,7 +1144,9 @@ body .menu-drawer, body .menu-panel {
     display: table; }
   .jumbotron .share-buttons,
   #content .container.jumbotron .share-buttons {
-    margin-top: -3px; }
+    position: absolute;
+    top: 5px;
+    right: 24px; }
     .jumbotron .share-buttons .counter,
     #content .container.jumbotron .share-buttons .counter {
       text-shadow: none;

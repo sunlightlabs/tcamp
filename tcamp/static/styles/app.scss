@@ -1067,6 +1067,7 @@ table.table-striped {
     h1 {
         font-size: 32px;
         color: #FFF;
+        position: relative;
     }
     h3 {
         font-size: 24px;
@@ -1088,7 +1089,9 @@ table.table-striped {
     }
     &:after{ height: 0; background: none; display: table; }
     .share-buttons {
-        margin-top: -3px;
+        position: absolute;
+        top: 5px;
+        right: 24px;
         .counter {
             text-shadow: none;
             color: $brown;
