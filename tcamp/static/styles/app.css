@@ -825,6 +825,9 @@ table.table-striped {
         margin-top: 30px; }
         .masthead .share-buttons td {
           padding-left: 10px; } }
+    @media (min-width: 768px) and (max-width: 979px) {
+      .masthead .share-buttons {
+        margin-top: 10px; } }
   .masthead .container {
     background: #b3da76; }
   .masthead .navbar {

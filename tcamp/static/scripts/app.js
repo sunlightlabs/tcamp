@@ -66,7 +66,7 @@
           opts = social.attr('data-options'),
           width = $(window).width(),
           rexp = /\bshow-counts=(true|false)\b/;
-      if(!opts) return;
+      if(!opts || !opts.match(rexp)) return;
       if(width < 1200){
         console.log('small');
         // too small, no counts
