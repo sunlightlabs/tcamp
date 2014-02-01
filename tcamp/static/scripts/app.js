@@ -40,17 +40,25 @@
     function checktwttr(){
       if(window.twttr){
         twttr.ready(function(T){
-          console.log('twttr.ready');
           $('iframe.twitter-timeline').each(function(){
-            console.log('widget found');
-            $(this.contentDocument.head).append('<style>\
-              .timeline .stream { padding: 0 20px 0 10px; width: auto !important; }\
-              .stream p.e-entry-title, .stream .profile, .var-chromeless .stream button.load-more { font-family: georgia, serif; font-weight: 300; }\
-              .var-chromeless .stream button.load-more { font-size: 14px; }\
-              .stream p.e-entry-title { color: #574227; }\
-              .profile .p-name { color: #574227; }\
-              .profile span.p-nickname { color: #736a5e; }\
-              </style>');
+            var binding = this;
+            function appendStylesheet(binding){
+              try{
+                $(binding.contentDocument.head).append('<style class="twttr-customized">\
+                .timeline .stream { padding: 0 20px 0 10px; width: auto !important; }\
+                .stream p.e-entry-title, .stream .profile, .var-chromeless .stream button.load-more { font-family: georgia, serif; font-weight: 300; }\
+                .var-chromeless .stream button.load-more { font-size: 14px; }\
+                .stream p.e-entry-title { color: #574227; }\
+                .profile .p-name { color: #574227; }\
+                .profile span.p-nickname { color: #736a5e; }\
+                </style>') &&
+                $(binding.contentDocument.head).find('.twttr-customized').length < 4 &&
+                setTimeout(function(){appendStylesheet(binding), 4000});
+              }catch(e){
+                setTimeout(function(){appendStylesheet(binding), 100});
+              }
+            }
+            appendStylesheet(this);
           });
         });
       }else{
@@ -70,17 +78,13 @@
           rexp = /\bshow-counts=(true|false)\b/;
       if(!opts || !opts.match(rexp)) return;
       if(width < 1200){
-        console.log('small');
         // too small, no counts
         if(opts.match(rexp)[1] == 'true'){
-          console.log('removing counts');
           social.attr('data-options', opts.replace(rexp, 'show-counts=false'));
           social.trigger('auto');
         }
       }else if(width >= 1200){
-        console.log('big');
         if(opts.match(rexp)[1] == 'false'){
-          console.log('adding counts');
           social.attr('data-options', opts.replace(rexp, 'show-counts=true'));
           social.trigger('auto');
         }
