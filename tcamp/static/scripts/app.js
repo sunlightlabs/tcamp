@@ -40,7 +40,9 @@
     function checktwttr(){
       if(window.twttr){
         twttr.ready(function(T){
+          console.log('twttr.ready');
           $('iframe.twitter-timeline').each(function(){
+            console.log('widget found');
             $(this.contentDocument.head).append('<style>\
               .timeline .stream { padding: 0 20px 0 10px; width: auto !important; }\
               .stream p.e-entry-title, .stream .profile, .var-chromeless .stream button.load-more { font-family: georgia, serif; font-weight: 300; }\
