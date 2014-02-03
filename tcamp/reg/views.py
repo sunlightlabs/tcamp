@@ -95,7 +95,7 @@ def save(request):
 
                     sale.amount = price['price']
                     if 'coupon' in price:
-                        coupon_code = CouponCode.objects.get(event=CURRENT_EVENT, code=price['coupon'])
+                        sale.coupon_code = CouponCode.objects.get(event=CURRENT_EVENT, code=price['coupon'])
 
                     sale.save()
 
@@ -172,16 +172,29 @@ def price_check(request):
 def get_price_data(tickets={}, coupon=None):
     out = {}
     total = 0
+    total_qty = 0
     for tk, qty in tickets.items():
         ticket = TicketType.objects.get(id=tk)
         total += float(ticket.price) * qty
+        total_qty += qty
 
     if coupon:
-        try:
-            cp = CouponCode.objects.get(event=CURRENT_EVENT, code=coupon)
-            out['coupon'] = coupon
-            total -= (cp.discount / 100.0) * total
-        except:
+        cpl = list(CouponCode.objects.filter(event=CURRENT_EVENT, code=coupon))
+        if len(cpl):
+            cp = cpl[0]
+            too_many = False
+            if cp.max_tickets != 0:
+                so_far = Ticket.objects.filter(success=True, sale__coupon_code=cp).count()
+                left = cp.max_tickets - so_far
+                if total_qty > left:
+                    too_many = True
+
+            if too_many:
+                out['coupon_error'] = "Not tickets are left for this coupon to cover your order."
+            else:
+                out['coupon'] = coupon
+                total -= (cp.discount / 100.0) * total
+        else:
             out['coupon_error'] = "Coupon code not found."
     out['price'] = total
 

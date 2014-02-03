@@ -37,7 +37,7 @@ class CouponCode(models.Model):
     event = models.ForeignKey(Event)
     code = models.CharField(max_length=255)
     discount = PercentField(default=100)
-    max_tickets = models.PositiveIntegerField(help_text="How many tickets to allow to obtain this discount; 0 indicates unlimited tickets.")
+    max_tickets = models.IntegerField(help_text="How many tickets to allow to obtain this discount; 0 indicates unlimited tickets.")
 
 class Sale(models.Model):
     event = models.ForeignKey(Event)
@@ -52,7 +52,7 @@ class Sale(models.Model):
     state = models.CharField(max_length=255, blank=True)
     zip = models.CharField(max_length=255, blank=True)
 
-    coupon_code = models.ForeignKey(CouponCode, null=True)
+    coupon_code = models.ForeignKey(CouponCode, null=True, on_delete=models.SET_NULL)
     amount = MoneyField(decimal_places=2, blank=True)
 
     transaction_id = models.CharField(max_length=255, blank=True)
