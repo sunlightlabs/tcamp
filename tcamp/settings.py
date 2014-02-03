@@ -22,7 +22,7 @@ AUTOCOMPLETE_LIMIT = 5
 ASSET_SITE_VERSION = '3.1'
 
 AWS_QUERYSTRING_AUTH = False
-AWS_S3_SECURE_URLS = False
+AWS_S3_SECURE_URLS = True
 AWS_PRELOAD_METDATA = True
 AWS_HEADERS = {
     "Vary": "Accept-Encoding",
@@ -30,7 +30,7 @@ AWS_HEADERS = {
     "Expires": "Sat, 3 May 2014 00:00:00 GMT"
 }
 AWS_STORAGE_BUCKET_NAME = "assets.transparencycamp.org"
-S3_URL = 'http://assets.transparencycamp.org.s3.amazonaws.com/%s/' % ASSET_SITE_VERSION
+S3_URL = 'https://assets.transparencycamp.org.s3.amazonaws.com/%s/' % ASSET_SITE_VERSION
 
 COMPRESS_STORAGE = 's3utils.StaticRootS3BotoStorage'
 COMPRESS_ROOT = os.path.join(PROJECT_ROOT, 'static-cache')
