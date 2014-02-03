@@ -203,7 +203,7 @@
         form.find('a[data-toggle=popover]').popover();
     }
 
-    var updatePrice = function() {
+    var updatePrice = function(callback) {
         var tickets = {};
         $('.ticket-types tbody tr').each(function(idx, el) {
             var $el = $(el);
@@ -226,16 +226,44 @@
                 $('.total-price').html(data['price']);
                 if (parseFloat(data['price']) > 0) {
                     $('.payment-info').show();
+                    if (callback) callback(data);
                 } else {
                     $('.payment-info').hide();
+                    if (callback) callback(data);
                 }
             }
         });
     }
 
+    var popoverMessage = function($el, message) {
+        $el.popover({'content': message, 'placement': 'top'});
+        $el.popover('show');
+        setTimeout(function() {
+            $el.popover('hide');
+            $el.popover('destroy');
+        }, 2000);
+    };
+
     $('#apply-coupon').click(function(evt) {
         evt.preventDefault();
-        updatePrice();
+        var $el = $(evt.target);
+
+        $el.addClass('disabled');
+
+        updatePrice(function(data) {
+            if (data.coupon) {
+                var message = "Coupon applied!";
+            } else if (data.coupon_error) {
+                var message = "Error: " + data.coupon_error;
+            } else {
+                var message = "No coupon applied.";
+            }
+
+            $el.removeClass('disabled');
+
+            var input = $el.parents('.coupon').find('input');
+            popoverMessage(input, message);
+        });
     })
 
 
@@ -313,6 +341,9 @@
     // big scary form submission
     var submitForm = function(evt) {
         evt.preventDefault();
+
+        var $btn = $('.ticket-form-container input[type=submit]');
+        $btn.addClass('disabled');
 
         // the goal here is to serialize each ticket form, and the payment form if necessary
         var data = {
@@ -392,6 +423,12 @@
                         newf.find('input[data-encrypted-name=' + key + ']').val(value);
                     })
                 }
+                
+                // re-enable the button
+                $btn.removeClass('disabled');
+                setTimeout(function() {
+                    popoverMessage($btn, "There was an error in your submission. Please check it for errors and try again.");
+                }, 500);
             }
         });
     }
