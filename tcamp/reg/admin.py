@@ -3,12 +3,24 @@ from reg.models import *
 from sked.admin import EventAdmin
 
 class TicketTypeAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'event')
+    list_filter = ('event',)
 admin.site.register(TicketType, TicketTypeAdmin)
 
-admin.site.register(Sale)
-admin.site.register(Ticket)
-admin.site.register(CouponCode)
+class SaleAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'event', 'success')
+    list_filter = ('event', 'success')
+admin.site.register(Sale, SaleAdmin)
+
+class TicketAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'event', 'type', 'success')
+    list_filter = ('event', 'type', 'success')
+admin.site.register(Ticket, TicketAdmin)
+
+class CouponCodeAdmin(admin.ModelAdmin):
+    list_display = ('code', 'event')
+    list_filter = ('event',)
+admin.site.register(CouponCode, CouponCodeAdmin)
 
 # class TicketTypeInline(admin.TabularInline):
 #     model = TicketType
