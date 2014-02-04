@@ -56,3 +56,4 @@ django-bootstrap-toolkit
 django-extras
 django-localflavor
 braintree
+html2text

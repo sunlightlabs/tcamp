@@ -2,6 +2,7 @@ from sked.models import Event
 from django.db import models
 from django_extras.db.models.fields import MoneyField, PercentField
 from django_extensions.db.fields import PostgreSQLUUIDField
+from email_utils import *
 import datetime
 
 class TicketType(models.Model):
@@ -58,6 +59,14 @@ class Sale(models.Model):
     transaction_id = models.CharField(max_length=255, blank=True)
 
     success = models.BooleanField(default=False)
+    
+    def send_receipts(self):
+        if self.email:
+            send_html_email_template(subject='Transparency Camp Receipt', to_addresses=[self.email], sender="info@transparencycamp.org", template='reg/email_sale.html', context={'sale': self}, images=[])
+        
+        for ticket in self.ticket_set.all():
+            if ticket.email and ticket.email != self.email:
+                send_html_email_template(subject='Transparency Camp Receipt', to_addresses=[ticket.email], sender="info@transparencycamp.org", template='reg/email_ticket.html', context={'ticket': ticket}, images=[])
 
 AMBASSADOR_PROGRAM_CHOICES = (
     ('no', 'No thank you'),

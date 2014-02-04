@@ -35,7 +35,8 @@ def save(request):
         data = json.loads(request.raw_post_data)
     except:
         raise Http404
-
+    
+    sale = Sale()
     out = {'ticket_forms': [], 'success': True}
     types = defaultdict(int)
     valid_tickets = []
@@ -54,7 +55,6 @@ def save(request):
 
     if out['success']:
         # get all the models ready
-        sale = Sale()
         sale.event = CURRENT_EVENT
         sale.amount = 0
         sale.save()
@@ -135,6 +135,9 @@ def save(request):
             if not form_response['success']:
                 out['success'] = False
                 form_response['text'] = render_to_string('reg/partials/payment_form.html', {'payment_form': payment_form}, context_instance=RequestContext(request))
+                
+                # avoid having junk hanging around in the DB
+                sale.delete()
             out['payment_form'] = form_response
         else:
             # we can blindly accept all the tickets, since no payment is necessary
@@ -153,6 +156,13 @@ def save(request):
             else:
                 form_response = {'success': False, 'text': render_to_string('reg/partials/payment_form.html', {'payment_form': payment_form}, context_instance=RequestContext(request))}
             out['payment_form'] = form_response
+    
+    if out['success']:
+        try:
+            sale.send_receipts()
+        except:
+            import traceback
+            traceback.print_exc()
 
     return HttpResponse(json.dumps(out), content_type="application/json")
 

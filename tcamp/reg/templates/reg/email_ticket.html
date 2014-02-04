@@ -1,0 +1,21 @@
+{% extends "reg/email_base.html" %}
+
+{% block content %}
+<p>Congratulations, you are registered for TCamp 2014!</p>
+
+<p>The following ticket was purchased for you:</p>
+<ul>
+    <li>
+        <strong>{{ ticket.first_name }} {{ ticket.last_name }}</strong>
+        {% if ticket.title or ticket.organization %}
+        <br />{% if ticket.title %}{{ ticket.title }}, {% endif %}{{ ticket.organization }}
+        {% endif %}
+        {% if ticket.twitter %}@{{ ticket.clean_twitter }}{% endif %}
+        <br />({{ ticket.type.name }})
+    </li>
+</ul>
+
+<p>We're so glad you're planning to join us May 30th and 31st, and hope you'll help us spread the word to other great folks by sharing this event with your friends.<p>
+
+<p>Got ideas or questions about TransparencyCamp? Send a tweet to @TCampDC or #TCamp14 and we'll answer.</p>
+{% endblock %}
