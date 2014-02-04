@@ -89,7 +89,9 @@
                                 <li><h4><a href="sms:1-202-817-2267">Text 202-817-CAMP (2267)</a></h4></li>
                                 <li{% if request.path == '/' %} class="active"{% endif %}><a href="/">Home</a></li>
                             </ul>
+                            {% cache 500 treenav request.path %}
                             {% show_treenav "transparencycamp" full_tree="True" %}
+                            {% endcache %}
                             {% if CURRENT_EVENT.registration_is_open %}
                             <form action="{{ CURRENT_EVENT.registration_url }}" class="navbar-form pull-right visible-desktop" method="get">
                                 <button class="btn btn-primary" type="submit">Register! <span class="hide-text icon icon-forward">&raquo;</span></button>
