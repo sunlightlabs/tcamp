@@ -8,6 +8,19 @@
     {% endif %}
 
     <div class="row">
+        <div class="span8 simple-option">
+            <div class="control-group">
+                <div class="controls">
+                    <label for="id_copy_info" class="checkbox">
+                        <input id="id_copy_info" class="copy-info" type="checkbox">
+                        Copy information from the first ticket
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="span3">
             {{ payment_form.first_name|as_bootstrap }}
         </div>

@@ -173,6 +173,18 @@
         });
     });
 
+    // copy info from one form to the other
+    $('.ticket-form-container').on('change', 'input.copy-info', function(evt) {
+        var $el = $(evt.target);
+        var payment = $('.payment-info');
+        var ticket = $('.accordion-body.first-ticket');
+        if ($el.is(":checked")) {
+            _.each(['first_name', 'last_name', 'email'], function(item) {
+                payment.find('input[name=' + item + ']').val(ticket.find('input[name=' + item + ']').val());
+            })
+        }
+    });
+
     // show/hide of diet descriptions
     _.each(['diet_allergies', 'diet_other'], function(dtype) {
         var change = function(event) {
@@ -185,7 +197,7 @@
             }
         }
         $('#ticket-forms').on('change', 'input[name=' + dtype + ']', change).trigger('change', 'input[name=' + dtype + ']');
-    })
+    });
 
     var prepareTicketForm = function(form) {
         form.find('input[type=checkbox]').trigger('change');
