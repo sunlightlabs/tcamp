@@ -48,6 +48,7 @@ $bg_tan: #FFF;
 $bg_brandingbar: #f4f2e3;
 $bg_page: #eef5ef;
 $bg_feature: #b3da76;
+$bg_menu :#a2d179;
 $bg_contentarea: $lightergray;
 $bg_contentfooter: #e1ecec;
 $bg_footer: $bg_feature;
@@ -1006,8 +1007,8 @@ table.table-striped {
 }
 
 .menu-drawer {
-    background: #b0dbdd;
-    border-top: 6px solid $teal;
+    background: $bg_menu;
+    border-top: 6px solid $green;
     padding-top: 0px;
     @include shadow(0 0 300px 0, rgba(0, 0, 0, 0.2), inset);
     .nav, .nav-collapse {
