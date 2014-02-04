@@ -1033,8 +1033,8 @@ body .menu-drawer, body .menu-panel {
   box-shadow:  0 0 0 0 #111; }
 
 .menu-drawer {
-  background: #b0dbdd;
-  border-top: 6px solid #0d829b;
+  background: #a2d179;
+  border-top: 6px solid #86b660;
   padding-top: 0px;
   -webkit-box-shadow: inset 0 0 300px 0 rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 300px 0 rgba(0, 0, 0, 0.2); }
