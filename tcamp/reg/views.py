@@ -19,16 +19,24 @@ from collections import defaultdict
 
 import braintree
 
-@never_cache
 def register(request):
     payment_form = PaymentForm()
     ticket_form = TicketForm()
 
     ticket_types = TicketType.objects.filter(event=CURRENT_EVENT, enabled=True).order_by('position')
 
-    attendees = Ticket.objects.filter(event=CURRENT_EVENT, success=True).order_by('-id')
+    return render_to_response('reg/register.html', {'ticket_form': ticket_form, 'payment_form': payment_form, 'ticket_types': ticket_types, 'BRAINTREE_CSE_KEY': getattr(settings, "BRAINTREE_CSE_KEY", "")}, context_instance=RequestContext(request))
 
-    return render_to_response('reg/register.html', {'ticket_form': ticket_form, 'payment_form': payment_form, 'ticket_types': ticket_types, 'attendees': attendees, 'BRAINTREE_CSE_KEY': getattr(settings, "BRAINTREE_CSE_KEY", "")}, context_instance=RequestContext(request))
+@never_cache
+def whos_going(request):
+    attendees = Ticket.objects.filter(event=CURRENT_EVENT, success=True).order_by('-id')
+    out = [{
+        'first_name': a.first_name,
+        'last_name': a.last_name,
+        'organization': a.organization,
+        'twitter': a.clean_twitter
+    } for a in attendees]
+    return HttpResponse(json.dumps({'attendees':out}), content_type="application/json")
 
 @csrf_exempt
 def save(request):

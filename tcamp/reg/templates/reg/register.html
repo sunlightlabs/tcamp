@@ -120,14 +120,6 @@
         <div class="attendee-info">
             <h3>Who's going?</h3>
             <div class="attendees">
-                {% for attendee in attendees %}
-                <div class="attendee">
-                    <div class="attendee-name">
-                        {% if attendee.twitter %}<a href="http://twitter.com/{{ attendee.clean_twitter }}">{{ attendee.first_name }} {{ attendee.last_name }}</a>{% else %}{{ attendee.first_name }} {{ attendee.last_name }}{% endif %}
-                    </div>
-                    <div class="attendee-org">{{ attendee.organization }}</div>
-                </div>
-                {% endfor %}
             </div>
         </div>
     </div>
@@ -146,6 +138,23 @@
     </div>
 </script>
 
+<script type="text/html" id="whos-going-tpl">
+    <% _.each(attendees, function(attendee) { %>
+    <div class="attendee">
+        <div class="attendee-name">
+            <strong>
+            <% if (attendee.twitter.length) { %>
+                <a href="http://twitter.com/<%=attendee.twitter%>"><%=(attendee.first_name + " " + attendee.last_name)%></a>
+            <% } else { %>
+                <%=(attendee.first_name + " " + attendee.last_name)%>
+            <% } %>
+            </strong>
+        </div>
+        <div class="attendee-org"><%=attendee.organization%></div>
+    </div>
+    <% }); %>
+</script>
+
 {% endblock %}
 
 {% block js %}
@@ -155,6 +164,12 @@
 (function() {
     //payment stuff
     braintree = Braintree.create('{{ BRAINTREE_CSE_KEY }}');
+
+    // populate the "who's going" box
+    $.getJSON("/register/whos-going/", function(data) {
+        var tpl = _.template($('#whos-going-tpl').html());
+        $('.attendees').html(tpl(data));
+    });
 
     // make the diet toggles work
     $('.ticket-types a[data-toggle=popover]').popover();

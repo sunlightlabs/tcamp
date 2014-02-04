@@ -8,7 +8,8 @@ urlpatterns = patterns('',
     url(r'^$', register),
     url(r'^price/$', price_check),
     url(r'^save/$', save),
-    url(r'^thanks/$', TemplateView.as_view(template_name="reg/thanks.html"))
+    url(r'^thanks/$', TemplateView.as_view(template_name="reg/thanks.html")),
+    url(r'^whos-going/$', whos_going),
 )
 
 admin.autodiscover()

@@ -3,7 +3,7 @@
     "pk": 1,
     "model": "reg.tickettype",
     "fields": {
-      "max_tickets": 100,
+      "max_tickets": 500,
       "description": "",
       "price": "25.00",
       "expires": "2014-02-22T04:59:00Z",
@@ -17,7 +17,7 @@
     "pk": 2,
     "model": "reg.tickettype",
     "fields": {
-      "max_tickets": 100,
+      "max_tickets": 500,
       "description": "The actual cost of attending TransparencyCamp is over $130 per person. If you register as a Super Camper, you'll help us cover the true cost of TCamp.",
       "price": "130.00",
       "expires": "2014-05-02T03:59:00Z",
