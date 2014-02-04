@@ -1,5 +1,6 @@
 from django import forms
 from localflavor.us import forms as us_forms
+from bootstrap_toolkit.widgets import BootstrapTextInput
 
 from reg.models import Sale, Ticket, AMBASSADOR_PROGRAM_CHOICES
 
@@ -12,6 +13,9 @@ class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         exclude = ['event', 'sale', 'success']
+        widgets = {
+            'twitter': BootstrapTextInput(attrs={'placeholder': "e.g., \"tcampdc\""}),
+        }
 
 class PaymentForm(forms.Form):
     first_name = forms.CharField(max_length=255)
