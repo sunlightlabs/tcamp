@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.cache import never_cache
 from django.conf import settings
 from reg.models import *
 from reg.forms import *
@@ -18,6 +19,7 @@ from collections import defaultdict
 
 import braintree
 
+@never_cache
 def register(request):
     payment_form = PaymentForm()
     ticket_form = TicketForm()
