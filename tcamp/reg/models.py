@@ -57,6 +57,7 @@ class Sale(models.Model):
 
     transaction_id = models.CharField(max_length=255, blank=True)
 
+    created = models.DateTimeField(auto_now_add=True)
     success = models.BooleanField(default=False)
     
     def send_receipts(self):
