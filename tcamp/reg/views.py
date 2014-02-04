@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from reg.models import *
 from reg.forms import *
+from reg.email_utils import *
 
 from django.forms.util import ErrorList
 
@@ -158,11 +159,7 @@ def save(request):
             out['payment_form'] = form_response
     
     if out['success']:
-        try:
-            sale.send_receipts()
-        except:
-            import traceback
-            traceback.print_exc()
+        send_sale_email(sale.id)
 
     return HttpResponse(json.dumps(out), content_type="application/json")
 
