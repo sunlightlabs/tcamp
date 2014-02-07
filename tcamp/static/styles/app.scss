@@ -2145,4 +2145,8 @@ table.wall-table {
             content: ")";
         }
     }
+
+    .sf-footer .span12 * {
+        visibility: hidden;
+    }
 }
