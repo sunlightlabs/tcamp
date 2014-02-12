@@ -86,8 +86,8 @@ class Command(BaseCommand):
                     'WebSite': t.website if ('://' in t.website or not t.website) else 'http://%s' % t.website,
                     'Email': t.email or s.email,
                     'Twitter': t.clean_twitter,
-                    'Subscribe': 'Y' if t.subscribe else 'N'
-
+                    'Subscribe': 'Y' if t.subscribe else 'N',
+                    'contrib_Amount': s.amount,
                 }
                 print s.id or "-", t.id or "-"
                 print record
