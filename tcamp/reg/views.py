@@ -209,7 +209,7 @@ def get_price_data(tickets={}, coupon=None):
                     too_many = True
 
             if too_many:
-                out['coupon_error'] = "Not tickets are left for this coupon to cover your order."
+                out['coupon_error'] = "Not enough tickets are left for this coupon to cover your order."
             else:
                 out['coupon'] = coupon
                 total -= (cp.discount / 100.0) * total
