@@ -82,6 +82,10 @@ def save(request):
         # tickets are good, so confirm price
         price = get_price_data(tickets=types, coupon=data.get('coupon', None))
 
+        # save the coupon code if there is one
+        if 'coupon' in price:
+            sale.coupon_code = CouponCode.objects.get(event=CURRENT_EVENT, code=price['coupon'])
+
         if price['price'] > 0:
             # there should have been a payment form
             form_response = {'success': True}
@@ -105,8 +109,6 @@ def save(request):
                     sale.zip = payment_form['zip'].value()
 
                     sale.amount = price['price']
-                    if 'coupon' in price:
-                        sale.coupon_code = CouponCode.objects.get(event=CURRENT_EVENT, code=price['coupon'])
 
                     sale.save()
 

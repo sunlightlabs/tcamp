@@ -10,7 +10,7 @@ class TicketType(models.Model):
     description = models.TextField(blank=True)
     expires = models.DateTimeField(null=True)
     max_tickets = models.PositiveIntegerField(help_text="How many tickets of this type to sell; 0 indicates unlimited tickets.")
-    price = MoneyField(decimal_places=2)
+    price = models.DecimalField(max_digits=20, decimal_places=2)
     enabled = models.BooleanField(default=False)
     position = models.PositiveIntegerField(default=0)
 
@@ -53,7 +53,7 @@ class Sale(models.Model):
     zip = models.CharField(max_length=255, blank=True)
 
     coupon_code = models.ForeignKey(CouponCode, null=True, on_delete=models.SET_NULL)
-    amount = MoneyField(decimal_places=2, blank=True)
+    amount = models.DecimalField(max_digits=20, decimal_places=2, blank=True)
 
     transaction_id = models.CharField(max_length=255, blank=True)
 
