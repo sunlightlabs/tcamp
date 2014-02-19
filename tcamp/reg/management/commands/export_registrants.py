@@ -88,6 +88,7 @@ class Command(BaseCommand):
                     'Twitter': t.clean_twitter,
                     'Subscribe': 'Y' if t.subscribe else 'N',
                     'contrib_Amount': s.amount,
+                    'contrib_Date': t.sale.created.strftime("%m/%d/%Y") if t.sale else s.created.strftime("%m/%d/%Y"),
                 }
                 print s.id or "-", t.id or "-"
                 print record
