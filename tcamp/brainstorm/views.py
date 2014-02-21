@@ -71,13 +71,14 @@ class CreateIdea(CreateView):
         subsite = self._get_subsite()
         kwargs = self.get_form_kwargs()
         kwargs['data'] = kwargs['data'].copy()
-        kwargs['data']['subsite'] = subsite.slug
+        kwargs['data']['subsite'] = subsite.id
         kwargs['request'] = self.request
         if not self.request.user.is_anonymous():
             kwargs['data']['user'] = self.request.user.id
         form = form_class(**kwargs)
         self.request.session['name'] = form['name'].value()
         self.request.session['email'] = form['email'].value()
+        import pdb; pdb.set_trace()
         return form
 
     def get_success_url(self):

@@ -105,7 +105,7 @@ class Idea(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('brainstorm:idea_detail', args=[self.subsite_id, self.id])
+        return reverse('brainstorm:idea_detail', args=[self.subsite.slug, self.id])
 
     def calculate_score(self):
         if self.subsite.scoring_algorithm is FRECENCY:
