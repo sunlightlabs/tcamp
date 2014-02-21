@@ -78,7 +78,6 @@ class CreateIdea(CreateView):
         form = form_class(**kwargs)
         self.request.session['name'] = form['name'].value()
         self.request.session['email'] = form['email'].value()
-        import pdb; pdb.set_trace()
         return form
 
     def get_success_url(self):
