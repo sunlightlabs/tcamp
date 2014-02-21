@@ -62,7 +62,7 @@ class CreateIdea(CreateView):
     form_class = IdeaForm
 
     def _get_subsite(self):
-        return get_object_or_404(Subsite, pk=self.kwargs.get('slug'))
+        return get_object_or_404(Subsite, slug=self.kwargs.get('slug'))
 
     def get(self, *args, **kwargs):
         return HttpResponse('Unauthorized', status=401)
