@@ -49,11 +49,11 @@ class Command(BaseCommand):
                     (ticket.sale.coupon_code and ticket.sale.coupon_code.id == fcoupon.id)
 
                 outc.writerow({
-                    'first_name': ticket.first_name,
-                    'last_name': ticket.last_name,
-                    'email': ticket.email,
-                    'state': ticket.sale.state,
-                    'organization': ticket.organization,
+                    'first_name': ticket.first_name.encode('utf8'),
+                    'last_name': ticket.last_name.encode('utf8'),
+                    'email': ticket.email.encode('utf8'),
+                    'state': ticket.sale.state.encode('utf8'),
+                    'organization': ticket.organization.encode('utf8'),
                     'ticket_type': ticket.type.name,
                     'is_staff': 'Y' if staff else 'N',
                 })
