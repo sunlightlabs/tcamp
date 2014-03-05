@@ -74,7 +74,7 @@ class Command(BaseCommand):
                 record = {
                     'Firstname': (t.first_name or s.first_name).encode('utf8'),
                     'Lastname': (t.last_name or s.last_name).encode('utf8'),
-                    'Mailname': ' '.join((s.first_name, s.last_name)).strip(),
+                    'Mailname': ' '.join((s.first_name, s.last_name)).strip().encode('utf8'),
                     'Address1': s.address1.encode('utf8'),
                     'Address2': s.address2.encode('utf8'),
                     'City': s.city.encode('utf8'),
