@@ -87,36 +87,39 @@ $ribbon-color: $lightteal;
 
 // Override small screen body padding
   body {
-    padding-left: 0;
-    padding-right: 0;
+  padding-left: 0;
+  padding-right: 0;
   }
   // Negative indent the now static "fixed" navbar
   .navbar-fixed-top,
   .navbar-fixed-bottom,
   .navbar-static-top {
-    margin-left: 0;
-    margin-right: 0;
+  margin-left: 0;
+  margin-right: 0;
   }
 
 @mixin respond-to($media) {
-    @if $media == tiny {
-        @media(max-width: "#{$phone - 1}") { @content; }
-    }
-    @if $media == phones {
-        @media (max-width: "#{$tablet - 1}") { @content; }
-    }
-    @else if $media == tablets {
-        @media (min-width: "#{$tablet}") and (max-width: "#{$desktop - 1}") { @content; }
-    }
-    @else if $media == mobile {
-        @media (max-width: "#{$desktop - 1}") { @content; }
-    }
-    @else if $media == desktops {
-        @media (min-width: "#{$desktop}") { @content; }
-    }
-    @else if $media == bigscreen {
-        @media (min-width: "#{$bigscreen}") { @content;}
-    }
+  @if $media == tiny {
+    @media(max-width: "#{$phone - 1}") { @content; }
+  }
+  @if $media == phones {
+    @media (max-width: "#{$tablet - 1}") { @content; }
+  }
+  @else if $media == tablets {
+    @media (min-width: "#{$tablet}") and (max-width: "#{$desktop - 1}") { @content; }
+  }
+    @else if $media == tablets_up {
+    @media (min-width: "#{$tablet}") { @content; }
+  }
+  @else if $media == mobile {
+    @media (max-width: "#{$desktop - 1}") { @content; }
+  }
+  @else if $media == desktops {
+    @media (min-width: "#{$desktop}") { @content; }
+  }
+  @else if $media == bigscreen {
+    @media (min-width: "#{$bigscreen}") { @content;}
+  }
 }
 
 // background gradients
@@ -139,43 +142,43 @@ $ribbon-color: $lightteal;
 // css3 junk
 @mixin shadow($dims:"1px 1px 1px 1px", $color:"#111", $inset:"") {
   -webkit-box-shadow: #{$inset} #{$dims} #{$color};
-          box-shadow: #{$inset} #{$dims} #{$color};
+      box-shadow: #{$inset} #{$dims} #{$color};
 
 }
 
 @mixin radius($dims:"0") {
-    -webkit-border-radius: #{$dims};
-       -moz-border-radius: #{$dims};
-            border-radius: #{$dims};
+  -webkit-border-radius: #{$dims};
+     -moz-border-radius: #{$dims};
+      border-radius: #{$dims};
 }
 
 @mixin border_image($url, $offset, $repeat:"") {
-    -webkit-border-image: url(#{$url}) $offset #{$repeat};
-       -moz-border-image: url(#{$url}) $offset #{$repeat};
-         -o-border-image: url(#{$url}) $offset #{$repeat};
-            border-image: url(#{$url}) $offset fill #{$repeat};
+  -webkit-border-image: url(#{$url}) $offset #{$repeat};
+     -moz-border-image: url(#{$url}) $offset #{$repeat};
+     -o-border-image: url(#{$url}) $offset #{$repeat};
+      border-image: url(#{$url}) $offset fill #{$repeat};
 }
 
 @mixin border_box {
 -webkit-box-sizing: border-box;
    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-        box-sizing: border-box;
+  -ms-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 @mixin transition($property:"all", $duration:"1s", $easing:"linear") {
 -webkit-transition: $property $duration $easing;
    -moz-transition: $property $duration $easing;
-     -o-transition: $property $duration $easing;
-        transition: $property $duration $easing;
+   -o-transition: $property $duration $easing;
+    transition: $property $duration $easing;
 }
 
 @mixin gpu {
 -webkit-transform: translatez(0);
    -moz-transform: translatez(0);
-    -ms-transform: translatez(0);
-     -o-transform: translatez(0);
-        transform: translatez(0);
+  -ms-transform: translatez(0);
+   -o-transform: translatez(0);
+    transform: translatez(0);
 }
 
 // horizontal space
@@ -183,118 +186,118 @@ $infinity: 9999px;
 $hbuffer: 20px;
 $hgutter: 20px;
 @mixin hpad {
-    padding-left: $hbuffer;
-    padding-right: $hbuffer;
-    @include border_box;
+  padding-left: $hbuffer;
+  padding-right: $hbuffer;
+  @include border_box;
 }
 
 //vertical space
 $vbuffer: 20px;
 $vgutter: 40px;
 @mixin vpad {
-    padding-top: $vbuffer;
-    padding-bottom: $vbuffer;
+  padding-top: $vbuffer;
+  padding-bottom: $vbuffer;
 }
 
 /* utilities
 @mixin dashed_line {
-    content: '';
-    display:block;
-    height: 4px;
-    background: #fff url(../images/dashed-border.png) repeat-x;
+  content: '';
+  display:block;
+  height: 4px;
+  background: #fff url(../images/dashed-border.png) repeat-x;
 } */
 @mixin dashed_line {
-    content: '';
-    display:block;
-    height: 4px;
-    background: #fff url(../images/dashed-border.png) repeat-x;
+  content: '';
+  display:block;
+  height: 4px;
+  background: #fff url(../images/dashed-border.png) repeat-x;
   }
 
 @mixin ribbon {
-    &:before,
-    &:after{
-        display:block;
-        content: '';
-        position:absolute;
-        bottom:0;
-        width: 60%;
-        height: 80px;
-        left: -18px;
-        background: transparent url(../images/ribbon-leftside.png) no-repeat 0 0;
-    }
-    &:after {
-        right: -18px;
-        left: auto;
-        background: transparent url(../images/ribbon-rightside.png) no-repeat 100% 0;
-    }
+  &:before,
+  &:after{
+    display:block;
+    content: '';
+    position:absolute;
+    bottom:0;
+    width: 60%;
+    height: 80px;
+    left: -18px;
+    background: transparent url(../images/ribbon-leftside.png) no-repeat 0 0;
+  }
+  &:after {
+    right: -18px;
+    left: auto;
+    background: transparent url(../images/ribbon-rightside.png) no-repeat 100% 0;
+  }
 }
 
 // NO SHADOWS ON MOBILE
 @include respond-to(phones) {
-    * { box-shadow: none !important; }
+  * { box-shadow: none !important; }
 }
 
 
 .hpad {@include hpad;}
 .vpad {@include vpad;}
 .module {
-    @include vpad;
+  @include vpad;
 }
 
 .collapse-both {
-    padding-top: 0;
-    margin-top: 0;
-    padding-bottom: 0;
-    margin-bottom: 0;
+  padding-top: 0;
+  margin-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 .collapse-top {
-    padding-top: 0;
-    margin-top: 0;
+  padding-top: 0;
+  margin-top: 0;
 }
 .collapse-bottom {
-    padding-bottom: 0;
-    margin-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 .affix-top, .affix-bottom {
-    position: absolute;
+  position: absolute;
 }
 .affix-bottom {
-    top: auto;
-    bottom: 0;
+  top: auto;
+  bottom: 0;
 }
 .affix {
-    top: $vbuffer;
-    z-index: 999;
+  top: $vbuffer;
+  z-index: 999;
 }
 .right-edge {
-    margin-right: -$hgutter;
-    @include respond-to(mobile) { margin-right: 0;}
+  margin-right: -$hgutter;
+  @include respond-to(mobile) { margin-right: 0;}
 }
 .hidden-mobile {
-    @include respond-to(mobile) { display: none; }
+  @include respond-to(mobile) { display: none; }
 }
 .visible-mobile {
-    @include respond-to(desktops) {
-        display: none;
-        &.jumbotron-only { display: block; }
-        .with-jumbotron &.jumbotron-only { display: none; }
-    }
+  @include respond-to(desktops) {
+    display: none;
+    &.jumbotron-only { display: block; }
+    .with-jumbotron &.jumbotron-only { display: none; }
+  }
 }
 .container,
 #content .container,
 .container.jumbotron {
-    @include respond-to(mobile) { width: auto; }
-    max-width: 1200px;
+  @include respond-to(mobile) { width: auto; }
+  max-width: 1200px;
 }
 .stripe {
-    @include hpad;
+  @include hpad;
 }
 
 .divider-right {
-    border-right: 2px dashed $lightgray;
-    padding-right: $hgutter;
-    margin-right: -$hgutter;
-    @include respond-to(phones) { border-right: none; padding-right: inherit; margin-right: inherit; }
+  border-right: 2px dashed $lightgray;
+  padding-right: $hgutter;
+  margin-right: -$hgutter;
+  @include respond-to(phones) { border-right: none; padding-right: inherit; margin-right: inherit; }
 }
 .divider-left { border-left: 2px dashed $lightgray; padding-left: $hgutter; margin-left: -$hgutter;}
 .divider-top { &:before { @include dashed_line; position:relative; top: -$vbuffer; } }
@@ -306,503 +309,503 @@ $vgutter: 40px;
 .triples > * { float: left; width: 33.3%; }
 
 .breadcrumb {
-    margin-left: (-$hbuffer*2);
-    margin-right: (-$hbuffer*2);
-    margin-bottom: 0;
-    padding: 10px ($hbuffer*2) 0;
-    background: transparent;
-    @include border_box;
-    &:after{ margin: 10px (-$hbuffer) 0; top: 0; }
-    a { font-family: $heading_family; color: $green; font-size: 16px;}
+  margin-left: (-$hbuffer*2);
+  margin-right: (-$hbuffer*2);
+  margin-bottom: 0;
+  padding: 10px ($hbuffer*2) 0;
+  background: transparent;
+  @include border_box;
+  &:after{ margin: 10px (-$hbuffer) 0; top: 0; }
+  a { font-family: $heading_family; color: $green; font-size: 16px;}
 }
 
 .breadcrumb-row {
-    // display:none;
-    // @include respond-to(phones) { display: block; }
+  // display:none;
+  // @include respond-to(phones) { display: block; }
 }
 
 .well {
-    @include radius(0);
-    background: rgba(146, 178, 95, 0.2);
-    background-color: #D9E6BA;
-    border: 3px solid $green;
-    h3 a, h4 { font-style: italic; }
-    h4 { font-weight: normal;}
-    p { font-size: 16px; }
-    padding-right: 5px;
-    margin-bottom:0;
-    @include respond-to(phones) { padding-right: 19px; }
+  @include radius(0);
+  background: rgba(146, 178, 95, 0.2);
+  background-color: #D9E6BA;
+  border: 3px solid $green;
+  h3 a, h4 { font-style: italic; }
+  h4 { font-weight: normal;}
+  p { font-size: 16px; }
+  padding-right: 5px;
+  margin-bottom:0;
+  @include respond-to(phones) { padding-right: 19px; }
 }
 
 .tealwell {
-    background: rgba(48, 143, 153, 0.7);
-    border: 3px solid $teal;
+  background: rgba(48, 143, 153, 0.7);
+  border: 3px solid $teal;
 }
 
 .yellowwell {
-    background: rgba(238, 193, 81, 0.4);
-    border: 3px solid $yellow;
+  background: rgba(238, 193, 81, 0.4);
+  border: 3px solid $yellow;
 }
 
 .well h4, .well h5 {
-    padding-top:0;
+  padding-top:0;
 }
 
 [class*="span"] > [class*="span"] {
-    &:before, &:after { display: none; }
+  &:before, &:after { display: none; }
 }
 
 /* general */
 html {
-    background: $bg_footer;
+  background: $bg_footer;
 }
 body {
-    // @include horizontal_gradient("#fff 0%, #{$bg_page} 30%, #{$bg_page} 70%, #fff 100%");
-    background: $bg_footer;
-    font-family: $body_family;
+  // @include horizontal_gradient("#fff 0%, #{$bg_page} 30%, #{$bg_page} 70%, #fff 100%");
+  background: $bg_footer;
+  font-family: $body_family;
 }
 #content {
-    background: $bg_contentarea;
+  background: $bg_contentarea;
 }
 h1, h2, h3, h4, h5, h6 {
-    font: 19px/1.2 $body_family;
-    color: $headinggray;
+  font: 19px/1.2 $body_family;
+  color: $headinggray;
 }
 h1 {
-    font-family: $display_family;
-    font-weight: 700;
-    font-size: 38px;
-    line-height: 1.1;
-    color: #FFF;
-    text-align: left;
-    text-transform: uppercase;
-    -webkit-font-smoothing: antialiased;
-            font-smoothing: antialiased;
+  font-family: $display_family;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1.1;
+  color: #FFF;
+  text-align: left;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+      font-smoothing: antialiased;
 
 
-    // display: table; // allows for dynamic width and centered // This didn't seem to be a need, removing.
-    // width: 100%;
-    position: relative;
-    background: $ribbon-color;
-    color: #fff;
-    padding: .3em $hbuffer .3em;
-    margin: 10px -#{$hbuffer};
-    text-shadow: 0 1px 3px darken($ribbon-color, 8%);
-    z-index: 20;
-    @include respond-to(desktops) {
-        &, & span {
-            white-space: nowrap;
-        }
+  // display: table; // allows for dynamic width and centered // This didn't seem to be a need, removing.
+  // width: 100%;
+  position: relative;
+  background: $ribbon-color;
+  color: #fff;
+  padding: .3em $hbuffer .3em;
+  margin: 10px -#{$hbuffer};
+  text-shadow: 0 1px 3px darken($ribbon-color, 8%);
+  z-index: 20;
+  @include respond-to(desktops) {
+    &, & span {
+      white-space: nowrap;
     }
+  }
 
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: 0;
+    border-width: .85em; // adjust according to height of parent
+    border-style: solid;
+    border-color: $ribbon-color;
+    z-index: -1;
+  }
+  &:before {
+    left: -#{$ribbon-innerwidth + $ribbon-outerwidth};
+    border-right-width: $ribbon-innerwidth;
+    border-left-width: $ribbon-outerwidth;
+    border-left-color: transparent;
+  }
+  &:after {
+    right: -#{$ribbon-innerwidth + $ribbon-outerwidth};
+    border-left-width: $ribbon-innerwidth;
+    border-right-width: $ribbon-outerwidth;
+    border-right-color: transparent;
+  }
+  @include respond-to(mobile) {
     &:before,
-    &:after {
-      content: "";
-      position: absolute;
-      display: block;
-      bottom: 0;
-      border-width: .85em; // adjust according to height of parent
-      border-style: solid;
-      border-color: $ribbon-color;
-      z-index: -1;
-    }
-    &:before {
-      left: -#{$ribbon-innerwidth + $ribbon-outerwidth};
-      border-right-width: $ribbon-innerwidth;
-      border-left-width: $ribbon-outerwidth;
-      border-left-color: transparent;
-    }
-    &:after {
-      right: -#{$ribbon-innerwidth + $ribbon-outerwidth};
-      border-left-width: $ribbon-innerwidth;
-      border-right-width: $ribbon-outerwidth;
-      border-right-color: transparent;
-    }
-    @include respond-to(mobile) {
-        &:before,
-        &:after { display: none; }
-    }
-    @include respond-to(phones) { font-size: 38px; }
+    &:after { display: none; }
+  }
+  @include respond-to(phones) { font-size: 38px; }
 }
 
 
 #unconference_organizing {
-    font-size: 32px;
+  font-size: 32px;
 }
 
 h2, h3 {
-    font-family: $heading_family;
-    font-size: 28px;
-    font-weight: 300;
-    color: $green;
-    @include respond-to(phones) { font-size: 24px; }
+  font-family: $heading_family;
+  font-size: 28px;
+  font-weight: 300;
+  color: $green;
+  @include respond-to(phones) { font-size: 24px; }
 }
 h3 {
-    font-size: 24px;
-    color: $teal;
-    padding-top: 5px;
-    font-weight: normal;
-    @include respond-to(phones) {
-        font-size: 20px;
-        margin-top: 1em;
-        &:first-child { margin-top: 0; }
-    }
+  font-size: 24px;
+  color: $teal;
+  padding-top: 5px;
+  font-weight: normal;
+  @include respond-to(phones) {
+    font-size: 20px;
+    margin-top: 1em;
+    &:first-child { margin-top: 0; }
+  }
 }
 
 h4 {
    font-family: $heading_family;
-    font-size: 18px;
-    color: $red;
-    font-weight:300;
-    padding-top: 20px;
+  font-size: 18px;
+  color: $red;
+  font-weight:300;
+  padding-top: 20px;
 }
 
 h5 {
    font-family: $body_family;
-    font-size: 16px;
-    color: $brown;
-    font-weight:bold;
-    padding-top: 20px;
-    font-style: italic;
+  font-size: 16px;
+  color: $brown;
+  font-weight:bold;
+  padding-top: 20px;
+  font-style: italic;
 }
 
 h6 {
    font-family: $heading_family;
-    font-size: 16px;
-    color: $brown;
-    font-weight:300;
+  font-size: 16px;
+  color: $brown;
+  font-weight:300;
 }
 
 h1 + h3 {
-    @include respond-to(phones) { margin-top: 0; }
+  @include respond-to(phones) { margin-top: 0; }
 }
 
 hr { height: 0; border-top: none; border-bottom: 1px dashed $lightgray;}
 
 a {
-    color: $orange;
-    &:hover { color: $red; }
+  color: $orange;
+  &:hover { color: $red; }
 }
 
 .module ul {
-    color: $teal;
+  color: $teal;
 }
 
 .module li {
-    padding-bottom:10px;
-    color: $brown;
-    }
+  padding-bottom:10px;
+  color: $brown;
+  }
 
 .intro {
-    font-family: $heading_family;
-    font-weight:300;
-    font-size: 17px;
-    line-height: 1.7;
-    color:$teal;
-    padding-bottom:20px;
+  font-family: $heading_family;
+  font-weight:300;
+  font-size: 17px;
+  line-height: 1.7;
+  color:$teal;
+  padding-bottom:20px;
 }
 
 .subhead {
-    color: $headinggray;
-    font-family: $heading_family;
-    font-size: 22px;
-    font-weight: 300;
-    @include respond-to(phones) { display: block; }
+  color: $headinggray;
+  font-family: $heading_family;
+  font-size: 22px;
+  font-weight: 300;
+  @include respond-to(phones) { display: block; }
 }
 
 .endlinks {
-    font-family: $heading_family;
-    font-weight: 300;
-    font-size: 18px;
+  font-family: $heading_family;
+  font-weight: 300;
+  font-size: 18px;
 }
 
 p {
-    line-height: $body_lineheight;
-    font-size: $body_textsize;
-    margin-bottom: 15px;
-    color: $brown;
-    @include respond-to(phones) { line-height: $mobile_lineheight; font-size: $mobile_textsize; }
+  line-height: $body_lineheight;
+  font-size: $body_textsize;
+  margin-bottom: 15px;
+  color: $brown;
+  @include respond-to(phones) { line-height: $mobile_lineheight; font-size: $mobile_textsize; }
 }
 
 .alert, div.brainstorm-alert { @include radius(0); border-width: 3px; border-left-width: 0; border-right-width: 0;}
 .alert-info {
-    border-top-color: $teal;
-    border-bottom-color: $teal;
-    background: rgba(84, 149, 147, 0.4);
-    color: $bodygray;
-    text-shadow: none;
+  border-top-color: $teal;
+  border-bottom-color: $teal;
+  background: rgba(84, 149, 147, 0.4);
+  color: $bodygray;
+  text-shadow: none;
 }
 
 .centered {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 .form-search, .form-inline, form, .brainstorm {
+  input[type="text"],
+  .input input[type="text"],
+  .textarea textarea,
+  textarea, select {
+    @include radius(0);
+    border: 5px solid $yellow;
+    border-color: rgba(228, 170, 9, 0.6);
+    opacity: 0.65;
+    margin-right: 6px;
+    &:focus, &:active {
+      opacity: .8;
+      border-color: rgba(228, 170, 9, 0.8);
+    }
+  }
+  @include respond-to(phones) {
     input[type="text"],
     .input input[type="text"],
     .textarea textarea,
-    textarea, select {
-        @include radius(0);
-        border: 5px solid $yellow;
-        border-color: rgba(228, 170, 9, 0.6);
-        opacity: 0.65;
-        margin-right: 6px;
-        &:focus, &:active {
-            opacity: .8;
-            border-color: rgba(228, 170, 9, 0.8);
-        }
+    textarea,
+    select,
+    .btn {
+      @include border_box;
+      float: none;
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
     }
-    @include respond-to(phones) {
-        input[type="text"],
-        .input input[type="text"],
-        .textarea textarea,
-        textarea,
-        select,
-        .btn {
-            @include border_box;
-            float: none;
-            display: block;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-        input[type="text"],
-        .input input[type="text"],
-        .textarea textarea,
-        textarea,
-        select { padding: 20px; }
-    }
+    input[type="text"],
+    .input input[type="text"],
+    .textarea textarea,
+    textarea,
+    select { padding: 20px; }
+  }
 }
 
 .btn, .btn-large, .btn-small,
 .brainstorm .btn, form.brainstorm-form .btn {
-    background: $teal;
+  background: $teal;
+  @include vertical_gradient("#{$lightteal} 0%, #{$teal} 100%");
+  font-family: $heading_family;
+  color: #fff;
+  text-shadow: none;
+  border: 3px solid #fff;
+  border-radius: 0.25em;
+  text-transform: uppercase;
+  line-height: 1.25em;
+  padding: 0.6em;
+  @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.2));
+  &:hover, &:focus, &:active { background: $orange; @include vertical_gradient("#{$orange} 0%, #{$red} 100%"); color: white; outline: none; }
+  &.btn-primary {
+    .icon { display: inline-block; }
+    .icon-forward {
+      width: 28px;
+      height: 18px;
+      background: transparent url(../images/btn-icon-chevrons-y.png) no-repeat 50% 50%;
+      background-size: contain;
+      position: relative;
+      top: -3px;
+      margin-bottom: -10px;
+    }
+    &:hover .icon-forward,
+    &:focus .icon-forward,
+    &:active .icon-forward { background-image: url(../images/btn-icon-chevrons-b.png); }
+  }
+  &.btn-inverse {
     @include vertical_gradient("#{$lightteal} 0%, #{$teal} 100%");
-    font-family: $heading_family;
-    color: #fff;
-    text-shadow: none;
-    border: 3px solid #fff;
-    border-radius: 0.25em;
-    text-transform: uppercase;
-    line-height: 1.25em;
-    padding: 0.6em;
-    @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.2));
-    &:hover, &:focus, &:active { background: $orange; @include vertical_gradient("#{$orange} 0%, #{$red} 100%"); color: white; outline: none; }
-    &.btn-primary {
-        .icon { display: inline-block; }
-        .icon-forward {
-            width: 28px;
-            height: 18px;
-            background: transparent url(../images/btn-icon-chevrons-y.png) no-repeat 50% 50%;
-            background-size: contain;
-            position: relative;
-            top: -3px;
-            margin-bottom: -10px;
-        }
-        &:hover .icon-forward,
-        &:focus .icon-forward,
-        &:active .icon-forward { background-image: url(../images/btn-icon-chevrons-b.png); }
-    }
-    &.btn-inverse {
-        @include vertical_gradient("#{$lightteal} 0%, #{$teal} 100%");
-        &:hover, &:focus, &:active { @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%"); }
-    }
-    &.btn-danger {
-        @include vertical_gradient("#{$red} 0%, #{$darkred} 100%");
-    }
+    &:hover, &:focus, &:active { @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%"); }
+  }
+  &.btn-danger {
+    @include vertical_gradient("#{$red} 0%, #{$darkred} 100%");
+  }
 }
 
 .btn-large {
-    &.btn-primary .icon-forward { width: 38px; height: 24px; top: -7px; }
-    @include respond-to(phones) {
-        display:block; margin-bottom: $vbuffer;
-        padding: $vbuffer;
-        font-size: 22px;
-        &.btn-primary .icon-forward { top: -3px; padding-bottom: 0 }
-    }
+  &.btn-primary .icon-forward { width: 38px; height: 24px; top: -7px; }
+  @include respond-to(phones) {
+    display:block; margin-bottom: $vbuffer;
+    padding: $vbuffer;
+    font-size: 22px;
+    &.btn-primary .icon-forward { top: -3px; padding-bottom: 0 }
+  }
 }
 
 .btn-small {
-    &.btn-primary .icon-forward { width: 25px; height: 16px; top: -2px; }
+  &.btn-primary .icon-forward { width: 25px; height: 16px; top: -2px; }
 }
 
 .btn-primary {
-        background: $teal;
-            @include vertical_gradient("#{$lightteal} 0%, #{$teal} 100%");
+    background: $teal;
+      @include vertical_gradient("#{$lightteal} 0%, #{$teal} 100%");
 &:hover, &:focus, &:active { background: $yellow; @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%"); color: white; outline: none; }
 }
 
 .img-polaroid {
-    padding: 4px;
-    background : $yellow;
-    border:none;
-    margin-bottom: $vgutter;
+  padding: 4px;
+  background : $yellow;
+  border:none;
+  margin-bottom: $vgutter;
 }
 
 .map-embed {
-    @include respond-to(phones) { height: 300px; }
+  @include respond-to(phones) { height: 300px; }
 }
 
 table.table { border: 3px solid $yellow; }
 
 .ticket-types thead tr {
-    background-color: $yellow;
+  background-color: $yellow;
 }
 
 .accordion-group {
-    border: 3px solid $lightteal;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
+  border: 3px solid $lightteal;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
 }
 
 
 table.table-striped {
-    width: 100%;
+  width: 100%;
+  th {
+    @include hpad;
+    @include vpad;
+    background-color: $tbody_odd;
+    font-family: $heading_family;
+    font-size: 22px;
+  }
+  thead{
+    tr {
+      background-color: $thead_odd;
+    }
     th {
-        @include hpad;
-        @include vpad;
-        background-color: $tbody_odd;
-        font-family: $heading_family;
-        font-size: 22px;
+      background-color: transparent;
     }
-    thead{
-        tr {
-            background-color: $thead_odd;
-        }
-        th {
-            background-color: transparent;
-        }
-    }
-    tbody{
-        td { background-color: $tbody_odd; @include hpad; @include vpad; color: $headinggray; }
-    }
+  }
+  tbody{
+    td { background-color: $tbody_odd; @include hpad; @include vpad; color: $headinggray; }
+  }
 }
 .nav-tabs {
-    border-bottom: 3px solid $bg_tan;
+  border-bottom: 3px solid $bg_tan;
+  margin-bottom: 0;
+  & > li {
+    font-family: $display_family;
+    font-size: 42px;
+    font-weight: 300;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    opacity: 0.7;
+    border: none;
+    position: relative;
     margin-bottom: 0;
-    & > li {
-        font-family: $display_family;
-        font-size: 42px;
-        font-weight: 300;
-        line-height: 1;
-        -webkit-font-smoothing: antialiased;
-        font-smoothing: antialiased;
-        opacity: 0.7;
-        border: none;
-        position: relative;
-        margin-bottom: 0;
-        @include respond-to(phones) {
-            font-size: 22px;
-            font-family: $heading_family;
-        }
-        & > a {
-            @include shadow(4px -4px 10px 0, rgba(0, 0, 0, 0.025));
-            @include radius(0);
-            padding: 16px $hbuffer 4px;
-            @include respond-to(phones) { padding: 10px $hbuffer; }
-            line-height: 1;
-            background: #fff;
-            border: none;
-            &:hover, &:active, &:focus {
-                background: #fff;
-                color: $orange;
-                border: none;
-            }
-        }
-        &.active {
-            opacity: 1;
-            border: none;
-            a {
-                @include shadow(4px -4px 10px 0, rgba(0, 0, 0, 0.075));
-                color: $orange;
-                border: none;
-                &:hover, &:active, &:focus {
-                    background: #fff;
-                    color: $orange;
-                    border: none;
-                }
-            }
-            &:after {
-                content: '';
-                border: 10px solid #fff;
-                display: block;
-                width: 0;
-                height: 0;
-                border-left-color: transparent;
-                border-right-color: transparent;
-                border-bottom-width: 0;
-                position:absolute;
-                left: 50%;
-                margin-left: -10px;
-            }
-        }
+    @include respond-to(phones) {
+      font-size: 22px;
+      font-family: $heading_family;
     }
+    & > a {
+      @include shadow(4px -4px 10px 0, rgba(0, 0, 0, 0.025));
+      @include radius(0);
+      padding: 16px $hbuffer 4px;
+      @include respond-to(phones) { padding: 10px $hbuffer; }
+      line-height: 1;
+      background: #fff;
+      border: none;
+      &:hover, &:active, &:focus {
+        background: #fff;
+        color: $orange;
+        border: none;
+      }
+    }
+    &.active {
+      opacity: 1;
+      border: none;
+      a {
+        @include shadow(4px -4px 10px 0, rgba(0, 0, 0, 0.075));
+        color: $orange;
+        border: none;
+        &:hover, &:active, &:focus {
+          background: #fff;
+          color: $orange;
+          border: none;
+        }
+      }
+      &:after {
+        content: '';
+        border: 10px solid #fff;
+        display: block;
+        width: 0;
+        height: 0;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        border-bottom-width: 0;
+        position:absolute;
+        left: 50%;
+        margin-left: -10px;
+      }
+    }
+  }
 }
 
 /* header */
 .brandingbar {
-    background: $bg_brandingbar;
-    // @include horizontal_gradient("#fff 0%, #{$bg_tan} 20%, #{$bg_tan} 80%, $fff 100%"");
-    // @include shadow(0 0 2px 0, rgba(0, 0, 0, 0.025));
-    &:after {
-        display:block;
-        height: 11px;
-        background: #fff url(../images/arrow-border.png) repeat-x;
-        border-left:1px solid #fff;
-        border-right:1px solid #fff;
+  background: $bg_brandingbar;
+  // @include horizontal_gradient("#fff 0%, #{$bg_tan} 20%, #{$bg_tan} 80%, $fff 100%"");
+  // @include shadow(0 0 2px 0, rgba(0, 0, 0, 0.025));
+  &:after {
+    display:block;
+    height: 11px;
+    background: #fff url(../images/arrow-border.png) repeat-x;
+    border-left:1px solid #fff;
+    border-right:1px solid #fff;
+    content: '';
+  }
+  .btn-navbar {
+    width: 22px;
+    // height: 16px;
+    margin: 5px 0 0 5px;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 1px;
+    // background: $bg_tan;
+    background: transparent;
+    // @include radius(0);
+    // @include vertical_gradient("$bg_tan 0%, #dfdccd 100%");
+    // @include shadow(0 0 2px 0, rgba(0, 0, 0, 0.2));
+    @include shadow(0 0 0 0, transparent);
+    // -webkit-transform: rotate(90deg);
+    // transform: rotate(90deg);
+    float: left;
+    [class^="icon-"], [class*="icon-"] {
+      position: relative;
+      background-image: none;
+      width: 100%;
+      height: 2px;
+      background-color: #bdb9ad;
+      margin: 4px 0;
+      padding: 0;
+      line-height: 1;
+      display: block;
+      &:first-child { margin-top: 8px; }
+      &:before {
         content: '';
+        display: block;
+        position: absolute;
+        width: 3px;
+        height: 2px;
+        background: $bg_brandingbar;
+        left: 4px;
+      }
     }
-    .btn-navbar {
-        width: 22px;
-        // height: 16px;
-        margin: 5px 0 0 5px;
-        padding: 4px 8px;
-        border: none;
-        border-radius: 1px;
-        // background: $bg_tan;
-        background: transparent;
-        // @include radius(0);
-        // @include vertical_gradient("$bg_tan 0%, #dfdccd 100%");
-        // @include shadow(0 0 2px 0, rgba(0, 0, 0, 0.2));
-        @include shadow(0 0 0 0, transparent);
-        // -webkit-transform: rotate(90deg);
-        // transform: rotate(90deg);
-        float: left;
-        [class^="icon-"], [class*="icon-"] {
-            position: relative;
-            background-image: none;
-            width: 100%;
-            height: 2px;
-            background-color: #bdb9ad;
-            margin: 4px 0;
-            padding: 0;
-            line-height: 1;
-            display: block;
-            &:first-child { margin-top: 8px; }
-            &:before {
-                content: '';
-                display: block;
-                position: absolute;
-                width: 3px;
-                height: 2px;
-                background: $bg_brandingbar;
-                left: 4px;
-            }
-        }
-    }
+  }
 
-    p { margin-bottom: 0; }
+  p { margin-bottom: 0; }
 
 }
 
 .sunlight-brand {
-    margin: 4px $hbuffer;
-    display:block;
-    background: transparent url(../images/sunlight-logo.svg) no-repeat 50% 50%;
-    background-size: contain;
-    width: 160px;
-    height: 28px;
-    @include respond-to(phones) { margin-top: 10px; }
+  margin: 4px $hbuffer;
+  display:block;
+  background: transparent url(../images/sunlight-logo.svg) no-repeat 50% 50%;
+  background-size: contain;
+  width: 160px;
+  height: 28px;
+  @include respond-to(phones) { margin-top: 10px; }
 }
 .ie7 .sunlight-brand,
 .ie8 .sunlight-brand,
@@ -810,481 +813,487 @@ table.table-striped {
 .android .sunlight-brand { background: transparent url(../images/sunlight-brand.png) no-repeat 50% 50%; }
 
 .masthead {
-    background: $bg_feature;
-    .row, .row-fluid { @include vpad; }
-    .pull-right {
-        text-align: right;
-        @include respond-to(phones) { text-align: left; }
-    }
-    h4 { font-family: $heading_family; font-weight: 300; margin-bottom: 0; padding-top: 0; }
-    a {
-        color: $bodygray;
-        &:hover{ text-decoration:none; color: $orange; }
-    }
-    p { margin-bottom: 0; }
-    .share-buttons {
-        float: right;
-        td { padding-left: 5px; }
-        @include respond-to(phones) {
-            margin-top: 30px;
-            td { padding-left: 10px;}
-        }
-        @include respond-to(tablets) {
-            margin-top:10px;
-        }
-    }
-    .container{ background: $bg_feature; }
-    .navbar { margin-left: -$hbuffer; margin-right: -$hbuffer; margin-bottom: 0;}
+  background: $bg_feature;
+  .row, .row-fluid { @include vpad; }
+  .pull-right {
+    text-align: right;
+    @include respond-to(phones) { text-align: left; }
+  }
+  h4 { font-family: $heading_family; font-weight: 300; margin-bottom: 0; padding-top: 0; }
+  a {
+    color: $bodygray;
+    &:hover{ text-decoration:none; color: $orange; }
+  }
+  p { margin-bottom: 0; }
+  .share-buttons {
+    float: right;
+    td { padding-left: 5px; }
     @include respond-to(phones) {
-        &:after{
-            @include dashed_line;
-        }
+      margin-top: 30px;
+      td { padding-left: 10px;}
     }
+    @include respond-to(tablets) {
+      margin-top:10px;
+    }
+  }
+  .container{ background: $bg_feature; }
+  .navbar { margin-left: -$hbuffer; margin-right: -$hbuffer; margin-bottom: 0;}
+  @include respond-to(phones) {
+    &:after{
+      @include dashed_line;
+    }
+  }
 }
 
 .logo {
-    display:block;
-    background: transparent url(../images/transparency-logo.svg) no-repeat 50% 50%;
-    background-size: 235px 68px;
-    background-size: contain;
-    width: 235px;
-    max-width: 235px;
-    height: 68px;
+  display:block;
+  background: transparent url(../images/transparency-logo.svg) no-repeat 50% 50%;
+  background-size: 235px 68px;
+  background-size: contain;
+  width: 235px;
+  max-width: 235px;
+  height: 68px;
 }
 .ie7 .logo,
 .ie8 .logo,
 .ie9 .logo,
 .android .logo { background: transparent url(../images/logo.png) no-repeat 50% 50%; }
 .siteheader {
-    @include respond-to(phones) {
-        .span8 { width: 66%; float: left; }
-        .span4 { width: 33%;}
-        .logo { width: 100%;}
-    }
+  @include respond-to(phones) {
+    .span8 { width: 66%; float: left; }
+    .span4 { width: 33%;}
+    .logo { width: 100%;}
+  }
 }
 
 /* bootstrap nav */
 @mixin navtext($color:#FFF, $hovercolor:#FFF, $hoverbg:$red) {
-    font-family: $heading_family;
-    font-weight: 700;
-    -webkit-font-smoothing: antialiased;
-    font-smoothing: antialiased;
-    font-size: 18px;
-    a, &.active a {
-        line-height: 1;
-        padding: 5px 15px;
-        color: $color;
-        outline: none;
-        @include shadow(0 0 0 0);
-        text-shadow: none;
-    }
-    &.dropdown > a.dropdown-toggle .caret { border-top-color: $color; border-bottom-color: $color; }
-    & > a:hover, & > a:active, & > a:focus,
-    &.active > a, &.active > a:hover, &.active > a:active, &.active > a:focus,
-    &.dropdown > a.dropdown-toggle:hover,
-    &.dropdown > a.dropdown-toggle:active,
-    &.dropdown > a.dropdown-toggle:focus,
-    &.dropdown.open > a.dropdown-toggle,
-    &.dropdown.active > a.dropdown-toggle,
-    &.dropdown.open.active > a.dropdown-toggle,
-    &.dropdown.open > a.dropdown-toggle:hover,
-    &.dropdown.active > a.dropdown-toggle:hover {
-        color: $hovercolor;
-        background: $hoverbg;
-        .caret { border-top-color: $hovercolor; border-bottom-color: $hovercolor; }
-    }
-    @include respond-to(tablets) {
-        font-size: 16px;
-        a, &.active a { padding: 10px; }
-    }
+  font-family: $heading_family;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  font-size: 18px;
+  a, &.active a {
+    line-height: 1;
+    padding: 5px 15px;
+    color: $color;
+    outline: none;
+    @include shadow(0 0 0 0);
+    text-shadow: none;
+  }
+  &.dropdown > a.dropdown-toggle .caret { border-top-color: $color; border-bottom-color: $color; }
+  & > a:hover, & > a:active, & > a:focus,
+  &.active > a, &.active > a:hover, &.active > a:active, &.active > a:focus,
+  &.dropdown > a.dropdown-toggle:hover,
+  &.dropdown > a.dropdown-toggle:active,
+  &.dropdown > a.dropdown-toggle:focus,
+  &.dropdown.open > a.dropdown-toggle,
+  &.dropdown.active > a.dropdown-toggle,
+  &.dropdown.open.active > a.dropdown-toggle,
+  &.dropdown.open > a.dropdown-toggle:hover,
+  &.dropdown.active > a.dropdown-toggle:hover {
+    color: $hovercolor;
+    background: $hoverbg;
+    .caret { border-top-color: $hovercolor; border-bottom-color: $hovercolor; }
+  }
+  @include respond-to(tablets) {
+    font-size: 16px;
+    a, &.active a { padding: 10px; }
+  }
 }
 
 .navbar{
-    .navbar-inner {
-        @include radius(0);
-        @include shadow(0 0 0 0);
-        background: $orange;
-        border-top: 3px #FFF solid;
-        border-left: 3px #FFF solid;
-        border-right: 3px #FFF solid;
-        border-bottom: none;
-        min-height: 0;
-    }
-    .nav > li {
+  .navbar-inner {
+    @include radius(0);
+    @include shadow(0 0 0 0);
+    background: $orange;
+    border-top: 3px #FFF solid;
+    border-left: 3px #FFF solid;
+    border-right: 3px #FFF solid;
+    border-bottom: none;
+    min-height: 0;
+  }
+  .nav > li {
+    @include navtext;
+    & > .dropdown-menu {
+      @include radius(0);
+      @include shadow(0 6px 6px 0, rgba(0, 0, 0, 0.1));
+      margin: 0;
+      background-color: $orange;
+      padding:0 0 5px;
+      border: 1px solid $lightgray;
+      border-top: none;
+      &:before, &:after { display: none; }
+      li {
         @include navtext;
-        & > .dropdown-menu {
-            @include radius(0);
-            @include shadow(0 6px 6px 0, rgba(0, 0, 0, 0.1));
-            margin: 0;
-            background-color: $orange;
-            padding:0 0 5px;
-            border: 1px solid $lightgray;
-            border-top: none;
-            &:before, &:after { display: none; }
-            li {
-                @include navtext;
-                font-size: 16px;
-                font-weight: bold;
-                @include respond-to(tablets) {
-                    font-size: 16px;
-                    a, &.active a {
-                        padding: 10px;
-                        color: #FFF;
-                    }
-                }
-                border-bottom: 1px solid $lightgray;
-                &:last-child { border-bottom: none; }
-            }
+        font-size: 16px;
+        font-weight: bold;
+        @include respond-to(tablets) {
+          font-size: 16px;
+          a, &.active a {
+            padding: 10px;
+            color: #FFF;
+          }
         }
+        border-bottom: 1px solid $lightgray;
+        &:last-child { border-bottom: none; }
+      }
     }
-    .btn {
-        margin: -7px 0;
-        position:relative;
-        z-index: 2;
-        @include respond-to(tablets) { font-size: 15px; margin: -3px -5px; padding: 8px 6px; }
-    }
+  }
+  .btn {
+    margin: -7px 0;
+    position:relative;
+    z-index: 2;
+    @include respond-to(tablets) { font-size: 15px; margin: -3px -5px; padding: 8px 6px; }
+  }
 }
 .navbar .nav .dropdown-toggle .caret {
-    @include respond-to(tablets) { margin-top: 6px;}
+  @include respond-to(tablets) { margin-top: 6px;}
 }
 
 /***************************
  * Panel/Drawer menu styles
  **************************/
  body {
-    .menu-drawer, .menu-panel { display: none; }
+  .menu-drawer, .menu-panel { display: none; }
  }
 .with-drawer-menu {
-    body {
-        width: 100%;
-        overflow-x: hidden;
-        .menu-drawer {
-            position: fixed;
-            display: block;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            z-index: 0;
-            overflow-x: hidden;
-            overflow-y: scroll;
-            @include border_box;
-            -webkit-overflow-scrolling: touch;
-        }
-        .menu-panel {
-            position: relative;
-            overflow: hidden;
-            display: block;
-            left: 0;
-            top: 0;
-            z-index: 2;
-            width: 100%;
-            min-height: 100%;
-            background: $bg_footer;
-            @include border_box;
+  body {
+    width: 100%;
+    overflow-x: hidden;
+    .menu-drawer {
+      position: fixed;
+      display: none;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 0;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      @include border_box;
+      -webkit-overflow-scrolling: touch;
 
-        }
+      @include respond-to(phones) {
+        display: block;
+      }
     }
-    &.gpu-enabled {
-        .menu-panel {
-            @include respond-to(phones) {
-                @include gpu;
-                @include transition(left, 0.05s, ease-out);
-                @include shadow(0 0 20px 0, rgba(0, 0, 0, 0.35));
-                &.moving {
-                    @include transition(none);
-                }
-            }
-        }
+    .menu-panel {
+      position: relative;
+      display: block;
+      left: 0;
+      top: 0;
+      z-index: 2;
+      width: 100%;
+      min-height: 100%;
+      background: $bg_footer;
+      @include border_box;
+
+      @include respond-to(phones) {
+        overflow: hidden;
+      }
     }
-    &.android {
-        // body { overflow-x: inherit; }
-        // overflow-x: hidden;
-        .menu-panel {
-            @include shadow(0 0 0 0);
+  }
+  &.gpu-enabled {
+    .menu-panel {
+      @include respond-to(phones) {
+        @include gpu;
+        @include transition(left, 0.05s, ease-out);
+        @include shadow(0 0 20px 0, rgba(0, 0, 0, 0.35));
+        &.moving {
+          @include transition(none);
         }
+      }
     }
+  }
+  &.android {
+    // body { overflow-x: inherit; }
+    // overflow-x: hidden;
+    .menu-panel {
+      @include shadow(0 0 0 0);
+    }
+  }
 }
 
 .menu-drawer {
-    background: $bg_menu;
-    border-top: 6px solid $green;
-    padding-top: 0px;
-    @include shadow(0 0 300px 0, rgba(0, 0, 0, 0.2), inset);
-    .nav, .nav-collapse {
-        li h4 {
-            padding: 0;
-            & > a {
-                color: $teal;
-                font-weight: bold;
-            }
-        }
-        height: auto;
-        li {
-            @include navtext(#fff, #fff, inherit);
-            &.active > a,
-            & > a:active,
-            &.active > a:active
-            a:active,
-            &.active a:active { background-color: $lightteal; color: #fff; }
-            .dropdown-menu {
-                display: block;
-                margin-left: 0;
-                font-weight: normal;
-                a {
-                    @include radius(0);
-                    // &:hover { color: #fff; }
-                }
-            }
-            .dropdown-toggle .caret { display: none; }
-            ul {
-                @include shadow(0 0 40px 0, rgba(87, 66, 39, 0.1), inset);
-                border-top: 1px solid rgba(87, 66, 39, 0.1);
-                border-bottom: 1px solid rgba(87, 66, 39, 0.1);
-                margin-right: 0;
-                padding: 10px;
-                li {
-                    font-size: 16px;
-                    &.active > a,
-                    &.active > a:hover { background: $lightteal; color: #fff;}
-                }
-            }
-            margin-bottom: 0;
-        }
-        margin-bottom: 0;
+  background: $bg_menu;
+  border-top: 6px solid $green;
+  padding-top: 0px;
+  @include shadow(0 0 300px 0, rgba(0, 0, 0, 0.2), inset);
+  .nav, .nav-collapse {
+    li h4 {
+      padding: 0;
+      & > a {
+        color: $teal;
+        font-weight: bold;
+      }
     }
+    height: auto;
+    li {
+      @include navtext(#fff, #fff, inherit);
+      &.active > a,
+      & > a:active,
+      &.active > a:active
+      a:active,
+      &.active a:active { background-color: $lightteal; color: #fff; }
+      .dropdown-menu {
+        display: block;
+        margin-left: 0;
+        font-weight: normal;
+        a {
+          @include radius(0);
+          // &:hover { color: #fff; }
+        }
+      }
+      .dropdown-toggle .caret { display: none; }
+      ul {
+        @include shadow(0 0 40px 0, rgba(87, 66, 39, 0.1), inset);
+        border-top: 1px solid rgba(87, 66, 39, 0.1);
+        border-bottom: 1px solid rgba(87, 66, 39, 0.1);
+        margin-right: 0;
+        padding: 10px;
+        li {
+          font-size: 16px;
+          &.active > a,
+          &.active > a:hover { background: $lightteal; color: #fff;}
+        }
+      }
+      margin-bottom: 0;
+    }
+    margin-bottom: 0;
+  }
 }
 
 /* feature area */
 .jumbotron,
 #content .container.jumbotron {
-    @include vpad;
-    border-top: 3px #FFF solid;
-    border-left: 3px #FFF solid;
-    border-right: 3px #FFF solid;
-    padding-bottom: $vbuffer;
-    background: $bg_feature;
-    position:relative;
-    h1 {
-        font-size: 32px;
-        color: #FFF;
-        position: relative;
+  @include vpad;
+  border-top: 3px #FFF solid;
+  border-left: 3px #FFF solid;
+  border-right: 3px #FFF solid;
+  padding-bottom: $vbuffer;
+  background: $bg_feature;
+  position:relative;
+  h1 {
+    font-size: 32px;
+    color: #FFF;
+    position: relative;
+  }
+  h3 {
+    font-size: 24px;
+    color: $teal;
+  }
+  p a {
+    color: #FFE;
+    text-decoration: underline;
+  }
+  p a:hover {
+    color: $red;
+    text-decoration: none;
+  }
+  .btn-large {
+    width: 50%;
+    margin: 0 auto;
+    display: block;
+    margin-top: $vbuffer * 2;
+  }
+  &:after{ height: 0; background: none; display: table; }
+  .share-buttons {
+    position: absolute;
+    top: 5px;
+    right: 24px;
+    .counter {
+      text-shadow: none;
+      color: $brown;
+      font-weight: normal;
     }
-    h3 {
-        font-size: 24px;
-        color: $teal;
+    td { padding-left: 5px;
+      &:first-child { padding-left: 0; }
     }
-    p a {
-        color: #FFE;
-        text-decoration: underline;
-    }
-    p a:hover {
-        color: $red;
-        text-decoration: none;
-    }
-    .btn-large {
-        width: 50%;
-        margin: 0 auto;
-        display: block;
-        margin-top: $vbuffer * 2;
-    }
-    &:after{ height: 0; background: none; display: table; }
-    .share-buttons {
-        position: absolute;
-        top: 5px;
-        right: 24px;
-        .counter {
-            text-shadow: none;
-            color: $brown;
-            font-weight: normal;
-        }
-        td { padding-left: 5px;
-            &:first-child { padding-left: 0; }
-        }
-    }
-    @include respond-to(mobile) {
-        border-left: none;
-        border-right: none;
-    }
+  }
+  @include respond-to(mobile) {
+    border-left: none;
+    border-right: none;
+  }
 }
 
 #featured .img-polaroid {
-    padding: 3px;
-    background : #FFF;
+  padding: 3px;
+  background : #FFF;
 }
 
 #featured h2{
-    color: $teal;
+  color: $teal;
 }
 
 #featured + .container, .jumbotron + .container {
-    padding-top: $vbuffer;
-    /* &:before { @include dashed_line; top: -$vbuffer; position: relative; } */
+  padding-top: $vbuffer;
+  /* &:before { @include dashed_line; top: -$vbuffer; position: relative; } */
 }
 
 /* content area */
 #content {
-    .container {
-        background: $bg_contentarea;
-        &:after { @include dashed_line; }
-    }
+  .container {
+    background: $bg_contentarea;
+    &:after { @include dashed_line; }
+  }
 }
 
 .tweets {
-    border-top: none;
-    background-color: rgba(150, 150, 150, 0.175);
-    @include respond-to(phones) { margin-left: -$hbuffer; margin-right: -$hbuffer;}
-    .timeline-wrap {
-        // padding: 0 $hbuffer;
-        // overflow: auto;
-        // height: 400px;
-    }
-    .twitter-timeline { width: 100%; }
+  border-top: none;
+  background-color: rgba(150, 150, 150, 0.175);
+  @include respond-to(phones) { margin-left: -$hbuffer; margin-right: -$hbuffer;}
+  .timeline-wrap {
+    // padding: 0 $hbuffer;
+    // overflow: auto;
+    // height: 400px;
+  }
+  .twitter-timeline { width: 100%; }
 }
 
 /* callout buckets */
 .callouts {
-    h3, h4 {
-        font-family: $heading_family;
-        @include respond-to(tablets) { font-size: 18px; }
-        @include respond-to(desktops) { font-size: 22px; }
-        a{
-            text-decoration: underline;
-            &:after {
-                content: '»';
-                font: 300 50px/1 $heading_family;
-                color: $red;
-                display: inline-block;
-                // width: 24px;
-                // height: 22px;
-                position: relative;
-                top: 0.125em;
-                left: 4px;
-                @include respond-to(tablets) { font-size: 30px; }
-                @include respond-to(desktops) { font-size: 34px; }
-            }
-        }
+  h3, h4 {
+    font-family: $heading_family;
+    @include respond-to(tablets) { font-size: 18px; }
+    @include respond-to(desktops) { font-size: 22px; }
+    a{
+      text-decoration: underline;
+      &:after {
+        content: '»';
+        font: 300 50px/1 $heading_family;
+        color: $red;
+        display: inline-block;
+        // width: 24px;
+        // height: 22px;
+        position: relative;
+        top: 0.125em;
+        left: 4px;
+        @include respond-to(tablets) { font-size: 30px; }
+        @include respond-to(desktops) { font-size: 34px; }
+      }
     }
-    p { font-size: 16px; }
-    @include respond-to(phones) {
-        [class*="span"] {
-            margin-bottom: $vbuffer;
-        }
-        h3 { font-size: 24px; }
+  }
+  p { font-size: 16px; }
+  @include respond-to(phones) {
+    [class*="span"] {
+      margin-bottom: $vbuffer;
     }
-    @include respond-to(tiny) {
-        [class*="span"] {
-            width: auto;
-            float: none;
-            padding-right: inherit;
-        }
+    h3 { font-size: 24px; }
+  }
+  @include respond-to(tiny) {
+    [class*="span"] {
+      width: auto;
+      float: none;
+      padding-right: inherit;
     }
+  }
 }
 
 /* sponsors area */
 .sponsors-inline {
-    @include vertical_gradient("#{$bg_contentfooter} 0%, #fff 100%");
-    h3, h4 { font-weight: normal; font-size: 19px; }
-    h4 a { font-style: italic; }
+  @include vertical_gradient("#{$bg_contentfooter} 0%, #fff 100%");
+  h3, h4 { font-weight: normal; font-size: 19px; }
+  h4 a { font-style: italic; }
 
-    .container {
-        @include vpad;
-        @include vertical_gradient("rgba(225, 236, 236, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%", ", url(../images/canvas-bg.png)");
-    }
-    .sponsors { margin-top: $vbuffer; }
-    .sponsor {
-        display:block;
-        text-align:center;
-        img {vertical-align:middle;}
-    }
+  .container {
+    @include vpad;
+    @include vertical_gradient("rgba(225, 236, 236, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%", ", url(../images/canvas-bg.png)");
+  }
+  .sponsors { margin-top: $vbuffer; }
+  .sponsor {
+    display:block;
+    text-align:center;
+    img {vertical-align:middle;}
+  }
 }
 
 /* footer */
 
 .footer {
-    position: relative;
-    &:before {
-        content:'';
-        display:block;
-        height: 11px;
-        background: #fff url(../images/arrow-border-reversed.png) repeat-x;
-    }
-    &:after {
-        content:'';
-        position:absolute;
-        top: 11px;
-        width: 100%;
-        height: 20px;
-        background: $teal;
-        opacity: 0.1;
-    }
-    .container {
-        padding: 40px $hbuffer;
+  position: relative;
+  &:before {
+    content:'';
+    display:block;
+    height: 11px;
+    background: #fff url(../images/arrow-border-reversed.png) repeat-x;
+  }
+  &:after {
+    content:'';
+    position:absolute;
+    top: 11px;
+    width: 100%;
+    height: 20px;
+    background: $teal;
+    opacity: 0.1;
+  }
+  .container {
+    padding: 40px $hbuffer;
 
-    }
+  }
 }
 
 /******************
  * Homepage Styles
  *****************/
 .homepage #content #featured {
-    background: $bg_feature;
-    .container, .jumbotron {
-        background: $lightyellow;
-        &:before, &:after{
-            height: 0;
-            background: none;
-            display: table;
-        }
+  background: $bg_feature;
+  .container, .jumbotron {
+    background: $lightyellow;
+    &:before, &:after{
+      height: 0;
+      background: none;
+      display: table;
     }
-    .jumbotron {
-        @include ribbon;
-        padding-bottom: 7em;
-    }
+  }
+  .jumbotron {
+    @include ribbon;
+    padding-bottom: 7em;
+  }
 }
 .homepage {
-    .callouts {
-        & > div { @include vpad; padding-top: $vgutter; }
-        &:before { @include dashed_line; margin: 0 -$hbuffer; }
-        h3 {
-            font-style: italic;
-            &.volunteer a:before,
-            &.sponsor a:before,
-            &.scholarships a:before,
-            &.idea a:before,
-            &.ambassador a:before,
-            &.lobbyday a:before
-             {
-                content: '';
-                display: inline-block;
-                width: 31px;
-                height: 40px;
-                position: relative;
-                top: 6px;
-                right: 4px;
-                background: transparent url(../images/volunteer.svg) no-repeat 50% 50%;
-                background-size: contain;
-                @include respond-to(tablets) { width: 20px; height: 26px;}
-            }
-            // &.sponsor a:before {
-            //     width: 37px;
-            //     top: 8px;
-            //     background-image: url(../images/callout-piggybank.png);
-            // }
-            &.scholarships a:before {
-                background-image: url(../images/scholarship.svg);
-            }
-            // &.idea a:before{
-            //     background-image: url(../images/callout-lightbulb.png);
-            // }
-            &.lobbyday a:before {
-                background-image: url(../images/lobby.svg);
-            }
-            &.ambassador a:before {
-                background-image: url(../images/ambassador.svg);
-            }
-        }
+  .callouts {
+    & > div { @include vpad; padding-top: $vgutter; }
+    &:before { @include dashed_line; margin: 0 -$hbuffer; }
+    h3 {
+      font-style: italic;
+      &.volunteer a:before,
+      &.sponsor a:before,
+      &.scholarships a:before,
+      &.idea a:before,
+      &.ambassador a:before,
+      &.lobbyday a:before
+       {
+        content: '';
+        display: inline-block;
+        width: 31px;
+        height: 40px;
+        position: relative;
+        top: 6px;
+        right: 4px;
+        background: transparent url(../images/volunteer.svg) no-repeat 50% 50%;
+        background-size: contain;
+        @include respond-to(tablets) { width: 20px; height: 26px;}
+      }
+      // &.sponsor a:before {
+      //     width: 37px;
+      //     top: 8px;
+      //     background-image: url(../images/callout-piggybank.png);
+      // }
+      &.scholarships a:before {
+        background-image: url(../images/scholarship.svg);
+      }
+      // &.idea a:before{
+      //     background-image: url(../images/callout-lightbulb.png);
+      // }
+      &.lobbyday a:before {
+        background-image: url(../images/lobby.svg);
+      }
+      &.ambassador a:before {
+        background-image: url(../images/ambassador.svg);
+      }
     }
+  }
 
 }
 
@@ -1293,344 +1302,344 @@ table.table-striped {
  * Schedule Page Styles
  **********************/
  .schedule-highlights {
-    display: table;
-    width: 100%;
+  display: table;
+  width: 100%;
+  @include respond-to(phones) { display: block; }
+  & > .row, & > .row-fluid {
+    margin: 0;
+    display: table-row;
     @include respond-to(phones) { display: block; }
-    & > .row, & > .row-fluid {
+    & > [class*="span"] {
+      display: table-cell;
+      float: none;
+      padding: 0;
+      margin: 0;
+      background: $tbody_odd;
+      @include shadow(0 0 12px 0, rgba(0, 0, 0, 0.05));
+      .header {
+        background: $thead_odd;
+        @include shadow(0 0 6px 0, rgba(0, 0, 0, 0.125));
+      }
+      h3, h4 {
+       text-align: center;
+       color: $headinggray;
+       margin: 0;
+       padding: 5px;
+      }
+      .header h4 {
+        padding: 0 0 5px 0;
         margin: 0;
-        display: table-row;
-        @include respond-to(phones) { display: block; }
-        & > [class*="span"] {
-            display: table-cell;
-            float: none;
-            padding: 0;
-            margin: 0;
-            background: $tbody_odd;
-            @include shadow(0 0 12px 0, rgba(0, 0, 0, 0.05));
-            .header {
-                background: $thead_odd;
-                @include shadow(0 0 6px 0, rgba(0, 0, 0, 0.125));
-            }
-            h3, h4 {
-             text-align: center;
-             color: $headinggray;
-             margin: 0;
-             padding: 5px;
-            }
-            .header h4 {
-                padding: 0 0 5px 0;
-                margin: 0;
-            }
-            .detail {
-                padding: 10px $hbuffer;
-                font: 300 18px $heading_family;
-            }
-            &:nth-child(even){
-                background: $tbody_even;
-                h3, h4 { background: $thead_even; }
-            }
-            @include respond-to(phones) { display: block; }
-        }
-        & > .span3 {
-            width: 25%;
-            @include respond-to(phones) { width: auto; }
-        }
+      }
+      .detail {
+        padding: 10px $hbuffer;
+        font: 300 18px $heading_family;
+      }
+      &:nth-child(even){
+        background: $tbody_even;
+        h3, h4 { background: $thead_even; }
+      }
+      @include respond-to(phones) { display: block; }
     }
+    & > .span3 {
+      width: 25%;
+      @include respond-to(phones) { width: auto; }
+    }
+  }
  }
 
 .session-group {
-    width: 100%;
-    display: table;
-    overflow: hidden;
+  width: 100%;
+  display: table;
+  overflow: hidden;
+  @include respond-to(phones) {
+    display: block;
+  }
+  & > .row-fluid {
+    display: table-row;
     @include respond-to(phones) {
-        display: block;
+      display: block;
     }
-    & > .row-fluid {
-        display: table-row;
-        @include respond-to(phones) {
-            display: block;
-        }
-    }
+  }
 }
 .hide-sessions .timeslot {
-    display: none;
+  display: none;
 }
 .session-group .show-sessions {
-    @include vertical_gradient("#f6f6f6 10%, #fff 50%, #f6f6f6 100%");
-    display: block;
-    text-align: center;
-    border-bottom: 2px solid $bg_tan;
-    &:first-child { display: none; }
+  @include vertical_gradient("#f6f6f6 10%, #fff 50%, #f6f6f6 100%");
+  display: block;
+  text-align: center;
+  border-bottom: 2px solid $bg_tan;
+  &:first-child { display: none; }
 }
 .timeslot {
-    h3 { font-size: 22px; }
-    .time-wrap, .detail-wrap {
-        float: none;
-        vertical-align: top;
-        display: table-cell;
-        border-bottom: 2px solid rgba(211, 209, 187, 0.75);
-        padding-top: 20px;
-        @include respond-to(phones) {
-            display: block;
-        }
+  h3 { font-size: 22px; }
+  .time-wrap, .detail-wrap {
+    float: none;
+    vertical-align: top;
+    display: table-cell;
+    border-bottom: 2px solid rgba(211, 209, 187, 0.75);
+    padding-top: 20px;
+    @include respond-to(phones) {
+      display: block;
     }
-    .time, .detail {
-        margin-bottom: 0;
+  }
+  .time, .detail {
+    margin-bottom: 0;
+  }
+  .time {
+    h3 { color: #fff; text-align: center; margin-top: 0;
+    padding-top: 0px; }
+  }
+  .time-wrap {
+    border-right: 2px solid rgba(211, 209, 187, 0.75);
+    background: $teal;
+    width: 17%;
+    @include respond-to(phones) {
+      width: auto;
+      border-right: none;
     }
-    .time {
-        h3 { color: #fff; text-align: center; margin-top: 0;
-        padding-top: 0px; }
+  }
+  &:nth-child(even) .time-wrap {
+    background: #709e97;
+  }
+  .detail-wrap {
+    width: 83%;
+    @include respond-to(phones) {
+      width: auto;
     }
-    .time-wrap {
-        border-right: 2px solid rgba(211, 209, 187, 0.75);
-        background: $teal;
-        width: 17%;
-        @include respond-to(phones) {
-            width: auto;
-            border-right: none;
-        }
+  }
+  .detail {
+    @include hpad;
+    h3 {
+      color: $teal; display:inline;
+      @include respond-to(phones) { display: block; }
+      a {
+        color: $teal;
+        &:hover { color: $teal; }
+      }
     }
-    &:nth-child(even) .time-wrap {
-        background: #709e97;
+    .meta {
+      display: inline;
+      padding-left: $hbuffer;
+      @include respond-to(phones) {
+        padding-left: none;
+        display: block;
+        padding-left: 0;
+      }
     }
-    .detail-wrap {
-        width: 83%;
-        @include respond-to(phones) {
-            width: auto;
-        }
+  }
+  .multi-header { margin-left: -$hbuffer; margin-right: -$hbuffer; padding: 0 20px 10px; }
+  .multi {
+    h4 {
+      font-size: 16px;
+      font-style: italic;
+      padding-top: 0;
+      @include respond-to(phones) { font-size: 14px; }
     }
-    .detail {
-        @include hpad;
-        h3 {
-            color: $teal; display:inline;
-            @include respond-to(phones) { display: block; }
-            a {
-                color: $teal;
-                &:hover { color: $teal; }
-            }
-        }
-        .meta {
-            display: inline;
-            padding-left: $hbuffer;
-            @include respond-to(phones) {
-                padding-left: none;
-                display: block;
-                padding-left: 0;
-            }
-        }
+    ul { margin-bottom: 0; }
+    .session {
+      float: left;
+      width: 52.325%;
+      @include border_box;
+      padding: 10px $hbuffer;
+      border-top: 2px solid $bg_tan;
+      margin-right: -$hbuffer;
+      border-left: 2px solid $bg_tan;
+      position: relative;
+      &:nth-child(odd) {
+        clear: left;
+        border-left: 0;
+        border-right: 2px solid $bg_tan;
+        margin-right: -2px;
+        margin-left: -$hbuffer;
+      }
+      @include respond-to(phones) {
+        float: none; width: auto; border-left: none; margin-right: -$hbuffer; margin-left: -$hbuffer; box-sizing: initial;
+        &:nth-child(odd) { border-right: none; margin-right: -$hbuffer; }
+        h4 { font-size: 17px; }
+        p { font-size: 14px; position: static; &:after{ content: ''; display: table; height: 0; clear: both;} }
+      }
     }
-    .multi-header { margin-left: -$hbuffer; margin-right: -$hbuffer; padding: 0 20px 10px; }
-    .multi {
-        h4 {
-            font-size: 16px;
-            font-style: italic;
-            padding-top: 0;
-            @include respond-to(phones) { font-size: 14px; }
+    .meta {
+      display: block;
+      padding-left: 0;
+      .speaker { float: left; font-style: italic; }
+      .location {
+        float: right;
+        font-weight: bold;
+        &.unofficial {
+          font-weight: normal;
+          font-style: italic;
         }
-        ul { margin-bottom: 0; }
-        .session {
-            float: left;
-            width: 52.325%;
-            @include border_box;
-            padding: 10px $hbuffer;
-            border-top: 2px solid $bg_tan;
-            margin-right: -$hbuffer;
-            border-left: 2px solid $bg_tan;
-            position: relative;
-            &:nth-child(odd) {
-                clear: left;
-                border-left: 0;
-                border-right: 2px solid $bg_tan;
-                margin-right: -2px;
-                margin-left: -$hbuffer;
-            }
-            @include respond-to(phones) {
-                float: none; width: auto; border-left: none; margin-right: -$hbuffer; margin-left: -$hbuffer; box-sizing: initial;
-                &:nth-child(odd) { border-right: none; margin-right: -$hbuffer; }
-                h4 { font-size: 17px; }
-                p { font-size: 14px; position: static; &:after{ content: ''; display: table; height: 0; clear: both;} }
-            }
-        }
-        .meta {
-            display: block;
-            padding-left: 0;
-            .speaker { float: left; font-style: italic; }
-            .location {
-                float: right;
-                font-weight: bold;
-                &.unofficial {
-                    font-weight: normal;
-                    font-style: italic;
-                }
-            }
-        }
+      }
+    }
 
-    }
-    .detail-wrap {
-        background: #eaf3f0;
-    }
-    &:nth-child(even) .detail-wrap {
-        background: #fff;
-    }
+  }
+  .detail-wrap {
+    background: #eaf3f0;
+  }
+  &:nth-child(even) .detail-wrap {
+    background: #fff;
+  }
 }
 
 .detail p em {
-    line-height: 1;
+  line-height: 1;
 }
 
 .session-detail {
-    h3 {
-        color: $headinggray;
-        font-weight: 300;
-        .day { font-family: $display_family; -webkit-font-smoothing: antialiased; font-size: 38px; }
-        a { color: $green; }
+  h3 {
+    color: $headinggray;
+    font-weight: 300;
+    .day { font-family: $display_family; -webkit-font-smoothing: antialiased; font-size: 38px; }
+    a { color: $green; }
+  }
+  p.meta {
+    font-family: $heading_family;
+    font-weight: 300;
+    font-size: 18px;
+    .speaker {
+      display: block;
     }
-    p.meta {
-        font-family: $heading_family;
-        font-weight: 300;
-        font-size: 18px;
-        .speaker {
-            display: block;
-        }
-        a, a.muted { color: $orange; }
-    }
+    a, a.muted { color: $orange; }
+  }
 }
 
 /************************
  * Submit a Session Form
  ***********************/
 .form-paper {
+  font-family: $heading_family;
+  h2 { margin-bottom: 1em; }
+  .control-group { margin-bottom: 3em; }
+  label {
+    float: left;
     font-family: $heading_family;
-    h2 { margin-bottom: 1em; }
-    .control-group { margin-bottom: 3em; }
+    color: $bodygray;
+    font-size: 18px;
+  }
+  .add-on { border: none; margin-left: -25px;
+    @include respond-to(phones) {
+      position: absolute;
+      margin-left: -4px;
+      margin-top: 5px;
+    }
+  }
+  input, input[type="text"], select, textarea {
+    font-family: $body_family;
+    &:focus {
+      outline: none;
+      @include shadow(0 0 0 0);
+    }
+    background: none;
+    border: none;
+    width: 100%;
+    // display: inline-block;
+    @include shadow(0 0 0 0);
+    @include transition(none);
+    border-bottom: 2px solid $yellow;
+    font:normal 15px/2 georgia;
+    font-style: italic;
+    color: $bodygray;
+    &.full { border-bottom-color: $red; }
+  }
+  label.inline {
+    float: none;
+    display: inline-block;
+    margin-left: 20px;
+    input { display: inline-block; float: none; width: auto; margin: 0 10px; }
+  }
+  input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+  }
+  input[type="radio"] + label:before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 0 5px 5px 0;
+    line-height: 24px;
+    content: "";
+    vertical-align: middle;
+    background: transparent url(../images/radio.png) no-repeat 0 0;
+  }
+  input[type="radio"]:checked + label:before {
+    background-image: url(../images/radio-checked.png);
+  }
+  textarea {
+    background: transparent url(../images/textarea-line-bg.png) repeat 0 0;
+    background-attachment: scroll;
+    border-bottom: none;
+    &.full { background: transparent url(../images/textarea-line-full-bg.png) repeat 0 0;}
+    @include respond-to(mobile) {
+      background-image: none;
+      border: 2px solid $yellow;
+      &.full { border-color: $red; }
+    }
+  }
+  .speakers{
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 1em;
+    input[type="text"] {
+      width: 50%;
+      display: block;
+      @include respond-to(phones) { width: 100%; }
+    }
+    .input-prepend { width: 100%; }
+    .input-prepend input[type="text"] { display: inline-block; }
     label {
-        float: left;
-        font-family: $heading_family;
-        color: $bodygray;
-        font-size: 18px;
+      font-family: $heading_family;
+      font-size: 24px;
+      color: $green;
     }
-    .add-on { border: none; margin-left: -25px;
-        @include respond-to(phones) {
-            position: absolute;
-            margin-left: -4px;
-            margin-top: 5px;
-        }
+    .close {
+      font-size: 16px;
+      font-weight: normal;
+      margin-top: 1em;
+      float: none;
+      display: inline-block;
+      color: $orange;
+      text-indent: 0;
+      text-shadow: none;
+      opacity: 1;
+      &:hover { text-decoration: underline; }
     }
-    input, input[type="text"], select, textarea {
-        font-family: $body_family;
-        &:focus {
-            outline: none;
-            @include shadow(0 0 0 0);
-        }
+    #add_speaker {
+      height: 0;
+      margin-bottom: 0;
+      @include respond-to(phones) {
+        height: auto;
+      }
+      .btn-link {
+        margin-bottom: 0;
+        position: absolute;
+        left: 350px;
+        bottom: 44px;
+        font-size: 16px;
         background: none;
         border: none;
-        width: 100%;
-        // display: inline-block;
+        color: $orange;
+        text-transform: none;
+        @include radius(0);
         @include shadow(0 0 0 0);
-        @include transition(none);
-        border-bottom: 2px solid $yellow;
-        font:normal 15px/2 georgia;
-        font-style: italic;
-        color: $bodygray;
-        &.full { border-bottom-color: $red; }
-    }
-    label.inline {
-        float: none;
-        display: inline-block;
-        margin-left: 20px;
-        input { display: inline-block; float: none; width: auto; margin: 0 10px; }
-    }
-    input[type="radio"] {
-        opacity: 0;
-        position: absolute;
-    }
-    input[type="radio"] + label:before {
-        content: '';
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        margin: 0 5px 5px 0;
-        line-height: 24px;
-        content: "";
-        vertical-align: middle;
-        background: transparent url(../images/radio.png) no-repeat 0 0;
-    }
-    input[type="radio"]:checked + label:before {
-        background-image: url(../images/radio-checked.png);
-    }
-    textarea {
-        background: transparent url(../images/textarea-line-bg.png) repeat 0 0;
-        background-attachment: scroll;
-        border-bottom: none;
-        &.full { background: transparent url(../images/textarea-line-full-bg.png) repeat 0 0;}
-        @include respond-to(mobile) {
-            background-image: none;
-            border: 2px solid $yellow;
-            &.full { border-color: $red; }
+        span { display: none; }
+        @include respond-to(phones) {
+          position: relative;
+          text-align: left;
+          left: -10px;
+          top: -2em;
         }
+      }
     }
-    .speakers{
-        position: relative;
-        padding-bottom: 10px;
-        margin-bottom: 1em;
-        input[type="text"] {
-            width: 50%;
-            display: block;
-            @include respond-to(phones) { width: 100%; }
-        }
-        .input-prepend { width: 100%; }
-        .input-prepend input[type="text"] { display: inline-block; }
-        label {
-            font-family: $heading_family;
-            font-size: 24px;
-            color: $green;
-        }
-        .close {
-            font-size: 16px;
-            font-weight: normal;
-            margin-top: 1em;
-            float: none;
-            display: inline-block;
-            color: $orange;
-            text-indent: 0;
-            text-shadow: none;
-            opacity: 1;
-            &:hover { text-decoration: underline; }
-        }
-        #add_speaker {
-            height: 0;
-            margin-bottom: 0;
-            @include respond-to(phones) {
-                height: auto;
-            }
-            .btn-link {
-                margin-bottom: 0;
-                position: absolute;
-                left: 350px;
-                bottom: 44px;
-                font-size: 16px;
-                background: none;
-                border: none;
-                color: $orange;
-                text-transform: none;
-                @include radius(0);
-                @include shadow(0 0 0 0);
-                span { display: none; }
-                @include respond-to(phones) {
-                    position: relative;
-                    text-align: left;
-                    left: -10px;
-                    top: -2em;
-                }
-            }
-        }
-        #speaker_0 + #add_speaker .btn-link {
-            bottom: 0;
-            left: 170px;
-            @include respond-to(phones) { left: 0; bottom: auto; }
-        }
+    #speaker_0 + #add_speaker .btn-link {
+      bottom: 0;
+      left: 170px;
+      @include respond-to(phones) { left: 0; bottom: auto; }
     }
-    .btn[type="submit"] { float: right; }
+  }
+  .btn[type="submit"] { float: right; }
 }
 
 
@@ -1638,111 +1647,111 @@ table.table-striped {
  * Brainstorm Page
  *****************/
 .brainstorm-alert {
-    background: rgba(77, 140, 138, 0.2);
-    border: 1px solid $teal;
-    padding: 1.5em 1.5em 0.5em;
-    margin: 2em 0 3em;
-    color: $bodygray;
-    h2 { margin-top: 0;
-        color:$teal;
-        text-shadow: none;
-        }
+  background: rgba(77, 140, 138, 0.2);
+  border: 1px solid $teal;
+  padding: 1.5em 1.5em 0.5em;
+  margin: 2em 0 3em;
+  color: $bodygray;
+  h2 { margin-top: 0;
+    color:$teal;
+    text-shadow: none;
+    }
 }
 .brainstorm-ideas ul { margin-left: 0; }
 .brainstorm-idea {
-    position: relative;
-    margin-bottom: $vbuffer;
-    padding-bottom: $vbuffer;
-    border-bottom: 1px dashed $lightgray;
-    .brainstorm-description {
-        .brainstorm-timestamp { margin-bottom: 120px; }
+  position: relative;
+  margin-bottom: $vbuffer;
+  padding-bottom: $vbuffer;
+  border-bottom: 1px dashed $lightgray;
+  .brainstorm-description {
+    .brainstorm-timestamp { margin-bottom: 120px; }
+  }
+  .login-blocks{
+    li {
+      display: block;
+      width: 47%;
+      float: left;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      a {
+        display: block;
+        background: rgba(255,255,255,0.5) url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/twitter.png) no-repeat 10px 13px;
+        border: 1px dotted rgba(0,0,0,0.1);
+        padding:10px;
+        text-decoration: none;
+        font-weight: bold;
+        text-indent: 23px;
+        &.facebook { background: rgba(255,255,255,0.5) url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/facebook.png) no-repeat 10px 13px; }
+        &.google { background: rgba(255,255,255,0.5) url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/googleplus.png) no-repeat 10px 13px; }
+        &.github { background: rgba(255,255,255,0.5) url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/github.png) no-repeat 10px 13px; }
+        &:hover { background-color: #ddd; }
+      }
     }
-    .login-blocks{
-        li {
-            display: block;
-            width: 47%;
-            float: left;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            a {
-                display: block;
-                background: rgba(255,255,255,0.5) url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/twitter.png) no-repeat 10px 13px;
-                border: 1px dotted rgba(0,0,0,0.1);
-                padding:10px;
-                text-decoration: none;
-                font-weight: bold;
-                text-indent: 23px;
-                &.facebook { background: rgba(255,255,255,0.5) url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/facebook.png) no-repeat 10px 13px; }
-                &.google { background: rgba(255,255,255,0.5) url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/googleplus.png) no-repeat 10px 13px; }
-                &.github { background: rgba(255,255,255,0.5) url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/github.png) no-repeat 10px 13px; }
-                &:hover { background-color: #ddd; }
-            }
-        }
-    }
+  }
 }
 .brainstorm-vote {
-    position: absolute; top: 120px; width: 100%;
-    .btn {width: 100%;}
+  position: absolute; top: 120px; width: 100%;
+  .btn {width: 100%;}
 }
 .brainstorm-vote .btn {
-    width: 100%;
-    margin-bottom: 6px;
+  width: 100%;
+  margin-bottom: 6px;
 }
 .brainstorm-votes-counted { float:left; width: 50%;}
 .brainstorm-votable {float: right; width: 50%; @include hpad;
-    p { line-height: 1.25; font-size: 13px;}
+  p { line-height: 1.25; font-size: 13px;}
 }
 .brainstorm .brainstorm-votable form { margin-bottom: 0; padding-bottom: 0; width: 56%; float: right; }
 .brainstorm-upvotes,
 .brainstorm-downvotes {
-    background: rgba(249,249,249,0.5);
-    margin-bottom: 0.5em;
+  background: rgba(249,249,249,0.5);
+  margin-bottom: 0.5em;
 }
 
 .brainstorm button.btn.btn-mini, .brainstorm input.btn.btn-mini[type="submit"] {
-    background-image: none;
-    color: #FFF;
-    text-shadow: none;
-    border: 4px solid #fff;
-    border-radius: 0.75em;
-    text-transform: uppercase;
-    line-height: 1.25em;
-    padding: 0.6em;
-    float:left;
-    &:hover, &:focus, &:active { background: $yellow; color: white; outline: none;
-    @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
-    }
+  background-image: none;
+  color: #FFF;
+  text-shadow: none;
+  border: 4px solid #fff;
+  border-radius: 0.75em;
+  text-transform: uppercase;
+  line-height: 1.25em;
+  padding: 0.6em;
+  float:left;
+  &:hover, &:focus, &:active { background: $yellow; color: white; outline: none;
+  @include vertical_gradient("#{$lightyellow} 0%, #{$yellow} 100%");
+  }
 
 }
 
 .brainstorm-vote-down {
-    background-color: $red !important;
+  background-color: $red !important;
 
 }
 
 .brainstorm-vote-up {
-    background-color: $green !important;
+  background-color: $green !important;
 }
 
 .brainstorm-upvotes:after,
 .brainstorm-downvotes:after {
-    content:" ";
-    clear:both;
-    display:block;
-    visibility:hidden;
+  content:" ";
+  clear:both;
+  display:block;
+  visibility:hidden;
 }
 .brainstorm-login-options {
-    // margin-top: 5px;
-    display: inline-block;
-    margin-left: 10px;
+  // margin-top: 5px;
+  display: inline-block;
+  margin-left: 10px;
 }
 .brainstorm-login-options a {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-right: 6px;
-    text-indent: -9999px;
-    overflow: hidden;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  text-indent: -9999px;
+  overflow: hidden;
 }
 .brainstorm-login-options a.twitter { background: url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/twitter.png) no-repeat;}
 .brainstorm-login-options a.facebook { background: url(http://assets.sunlightfoundation.com.s3.amazonaws.com/social/images/16/facebook.png) no-repeat;}
@@ -1751,69 +1760,69 @@ table.table-striped {
 
 .upvotes,
 .downvotes {
-    display:block;
-    float:left;
-    clear: left;
-    text-indent: -9999px;
-    background: $green;
-    padding-left: 1px;
-    max-width: 95%;
-    height: 32px;
+  display:block;
+  float:left;
+  clear: left;
+  text-indent: -9999px;
+  background: $green;
+  padding-left: 1px;
+  max-width: 95%;
+  height: 32px;
 }
 .downvotes { background: $red; }
 #disqus_thread { margin-top: 3em; }
 .brainstorm.brainstorm-form {
-    input, textarea, .uneditable-input {
-        width: 90%;
-        @include respond-to(phones) { width: 100%; }
-    }
-    .errorlist { list-style: none outside none; padding-left:0; margin-left:0; color: $red; }
-    .btn {
-        float: right; margin-right: 1em;
-        @include respond-to(phones) { float: none; margin: 0;}
-    }
+  input, textarea, .uneditable-input {
+    width: 90%;
+    @include respond-to(phones) { width: 100%; }
+  }
+  .errorlist { list-style: none outside none; padding-left:0; margin-left:0; color: $red; }
+  .btn {
+    float: right; margin-right: 1em;
+    @include respond-to(phones) { float: none; margin: 0;}
+  }
 }
 
 form.brainstorm-form legend {
-    color: $green;
-    font-family: $heading_family;
-    font-size: 22px;
+  color: $green;
+  font-family: $heading_family;
+  font-size: 22px;
 }
 
 form.brainstorm-form label {
-    color: $brown;
-    font-family: $heading_family;
-    font-weight:bold;
-    font-size: 14px;
+  color: $brown;
+  font-family: $heading_family;
+  font-weight:bold;
+  font-size: 14px;
 }
 
 form.brainstorm-form li {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .brainstorm input[type="text"], .brainstorm .input input[type="text"], .brainstorm .textarea textarea, .brainstorm textarea, .brainstorm select{
-    border: 3px solid $green;
+  border: 3px solid $green;
 }
 
 .brainstorm input[type="text"]:active, .brainstorm input[type="text"]:focus, .brainstorm .input input[type="text"]:active, .brainstorm .input input[type="text"]:focus, .brainstorm .textarea textarea:active, .brainstorm .textarea textarea:focus, .brainstorm textarea:active, .brainstorm textarea:focus, .brainstorm select:focus, .brainstorm select:active{
-    border: 3px solid $green;
-    box-shadow:none;
+  border: 3px solid $green;
+  box-shadow:none;
 }
 
 .brainstorm-votable p {
-    font-style: italic;
-    line-height: 1;
-    color: #666666;
-    font-size: 12px;
+  font-style: italic;
+  line-height: 1;
+  color: #666666;
+  font-size: 12px;
 }
 
 .brainstorm-votable strong {
-    font-style: italic;
-    color: $brown;
+  font-style: italic;
+  color: $brown;
 }
 
 .brainstorm-timestamp {
-    font-family: $heading_family;
+  font-family: $heading_family;
 }
 
 /**************
@@ -1821,33 +1830,33 @@ form.brainstorm-form li {
  *************/
 
 #howto_sidenav_target a{
-    font-family: $heading_family;
-    font-weight: normal;
-    color:#FFF;
-    text-shadow: 0;
-    font-size: 13px;
+  font-family: $heading_family;
+  font-weight: normal;
+  color:#FFF;
+  text-shadow: 0;
+  font-size: 13px;
 }
 
 #howto_sidenav_target a:hover, #howto_sidenav_target a:focus{
-    color:$teal;
+  color:$teal;
 }
 
 #howto_sidenav_target li a:hover, #howto_sidenav_target li a:focus{
-    background-color: #EEE;
-    text-decoration: none;
+  background-color: #EEE;
+  text-decoration: none;
 }
 #howto_sidenav_target li a,{
-    padding: 3px 15px;
-    margin-right: -15;
-    margin-left: -15;
+  padding: 3px 15px;
+  margin-right: -15;
+  margin-left: -15;
 }
 
 #howto_sidenav_target ul{
-    list-style: none;
+  list-style: none;
 }
 
 .nav-list > li > a, .nav-list .nav-header {
-    text-shadow: none;
+  text-shadow: none;
 }
 
 /***************
@@ -1856,89 +1865,89 @@ form.brainstorm-form li {
 
 html.display, html.display body { background: #fff; }
 body.reconnecting:before {
-    content: 'Connection lost!';
-    font-family: $heading_family;
-    font-size: 36px;
-    background: $bodygray;
-    color: #fff;
-    border: 3px solid #fff;
-    position: absolute;
-    top: 5px;
-    left: 50%;
-    margin-left: -170px;
-    opacity: 0.5;
-    @include vpad;
-    @include hpad;
-    @include radius(10px);
-    @include shadow(0 0 40px 0, rgba(0, 0, 0, 0.4));
+  content: 'Connection lost!';
+  font-family: $heading_family;
+  font-size: 36px;
+  background: $bodygray;
+  color: #fff;
+  border: 3px solid #fff;
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  margin-left: -170px;
+  opacity: 0.5;
+  @include vpad;
+  @include hpad;
+  @include radius(10px);
+  @include shadow(0 0 40px 0, rgba(0, 0, 0, 0.4));
 
 }
 table.wall-table {
-    margin-bottom: 0;
-    h1 { font-size: 38px; color: $orange; padding: 0; line-height: 38px; position: relative; top: 5px; }
-    th, td { border-right: 1px solid #ddd; border-left: 1px solid #ddd; border-collapse: collapse; }
+  margin-bottom: 0;
+  h1 { font-size: 38px; color: $orange; padding: 0; line-height: 38px; position: relative; top: 5px; }
+  th, td { border-right: 1px solid #ddd; border-left: 1px solid #ddd; border-collapse: collapse; }
+  th {
+    text-align: center;
+    h4 { padding: 0; font-weight: bold; }
+    h3 { padding: 0; line-height: 38px; color: $bodygray; }
+  }
+  thead{
     th {
-        text-align: center;
-        h4 { padding: 0; font-weight: bold; }
-        h3 { padding: 0; line-height: 38px; color: $bodygray; }
+      background: $teal;
+      color: #fff;
+      vertical-align: baseline;
+      border-right: none;
+      border-left: none;
+      &.day { background: #fff; }
+      h3 { color: #fff; }
     }
-    thead{
-        th {
-            background: $teal;
-            color: #fff;
-            vertical-align: baseline;
-            border-right: none;
-            border-left: none;
-            &.day { background: #fff; }
-            h3 { color: #fff; }
+  }
+  tbody {
+    font-family: $projector_family;
+    color: $bodygray;
+    td {
+      position: relative;
+      .constrained {
+        max-height: 126px;
+        overflow:hidden;
+        &:after {
+          content: ' ';
+          display: block;
+          position: absolute;
+          bottom: 0;
+          height: 15px;
+          width: 100%;
+          margin: 0 (-$hbuffer);
+          @include vertical_gradient("rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%");
         }
-    }
-    tbody {
+      }
+      padding: 0px 20px 5px;
+      h4 {
         font-family: $projector_family;
+        padding-top: 0;
         color: $bodygray;
-        td {
-            position: relative;
-            .constrained {
-                max-height: 126px;
-                overflow:hidden;
-                &:after {
-                    content: ' ';
-                    display: block;
-                    position: absolute;
-                    bottom: 0;
-                    height: 15px;
-                    width: 100%;
-                    margin: 0 (-$hbuffer);
-                    @include vertical_gradient("rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%");
-                }
-            }
-            padding: 0px 20px 5px;
-            h4 {
-                font-family: $projector_family;
-                padding-top: 0;
-                color: $bodygray;
-            }
-            p.meta {
-                margin-bottom: 0;
-                strong{ font-weight: 500; color: #000;}
-                line-height: 1.2;
-                padding-bottom: 10px;
-            }
-        }
-        tr.lunch {
-            background: url(../images/red-lines-bg.png) repeat;
-            td { text-align: center; vertical-align: middle; }
-            h4 { font-family: $heading_family; font-weight: bold; font-size: 28px; margin: 0; line-height: 1; position: relative; top: 3px; }
-            &.present { background: $orange; h4 { color: #fff; } }
-        }
-        tr.present {
-            background: $orange;
-            th h3 { color: #fff; }
-            h4 { color: #fff; }
-            p.meta, p.meta strong, p.meta a { color: #000; }
-            td .constrained:after { @include vertical_gradient("rgba(202, 103, 40, 0) 0%, rgba(202, 103, 40, 1) 100%"); }
-        }
+      }
+      p.meta {
+        margin-bottom: 0;
+        strong{ font-weight: 500; color: #000;}
+        line-height: 1.2;
+        padding-bottom: 10px;
+      }
     }
+    tr.lunch {
+      background: url(../images/red-lines-bg.png) repeat;
+      td { text-align: center; vertical-align: middle; }
+      h4 { font-family: $heading_family; font-weight: bold; font-size: 28px; margin: 0; line-height: 1; position: relative; top: 3px; }
+      &.present { background: $orange; h4 { color: #fff; } }
+    }
+    tr.present {
+      background: $orange;
+      th h3 { color: #fff; }
+      h4 { color: #fff; }
+      p.meta, p.meta strong, p.meta a { color: #000; }
+      td .constrained:after { @include vertical_gradient("rgba(202, 103, 40, 0) 0%, rgba(202, 103, 40, 1) 100%"); }
+    }
+  }
 }
 
 /*************
@@ -1946,50 +1955,50 @@ table.wall-table {
  ************/
 
  .tvscreen {
-    background: $lightteal url(../images/teal-arrow-bg.png) repeat 50% 50%;
-    #table_wrap:after {
-            @include dashed_line;
-        }
-    table { width: 100%; @include shadow(0 0 20px 0, rgba(0, 0, 0, 0.2));}
-    thead {
-        tr {
-            background: $orange;
-            color: #fff;
-            th { padding: 10px; @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.2));}
-            h1 { display: inline; font-size: 34px; color: #fff;}
-            h2 { display: inline; font-size: 28px; color: #fff; font-weight: 300; padding-left: 0.75em;
-                time { font-weight: bold; padding-left: 0.75em; }
-            }
-        }
+  background: $lightteal url(../images/teal-arrow-bg.png) repeat 50% 50%;
+  #table_wrap:after {
+      @include dashed_line;
     }
-    tbody {
-        h3 { color: $headinggray; margin-top: 0; margin-bottom: 5px; font-size: 17px;
-             @include respond-to(mobile) { font-size: 14px;}
-        }
-        p { color: $bodygray; font-size: 15px; font-family: "helvetica neue", helvetica, arial, "ubuntu sans", sans-serif; font-weight: 300; margin-bottom: 4px;
-            @include respond-to(mobile) { font-size: 13px; }
-        }
-        tr:nth-child(odd) {
-            background: #eaf3f0;
-            th { background: $lightteal; }
-        }
-        th, td { padding: 0 $hbuffer; }
-        th {
-            font-family: $heading_family;
-            font-size: 24px;
-            color: #fff;
-            background: $teal;
-            @include respond-to(mobile) { font-size: 16px; }
-        }
-        tr.single {
-            th, td {
-                padding: $vbuffer $hbuffer;
-            }
-            th { font-size: 32px; line-height: 1.25;}
-            h3 { font-size: 32px; }
-            p { font-size: 20px; }
-        }
+  table { width: 100%; @include shadow(0 0 20px 0, rgba(0, 0, 0, 0.2));}
+  thead {
+    tr {
+      background: $orange;
+      color: #fff;
+      th { padding: 10px; @include shadow(0 0 10px 0, rgba(0, 0, 0, 0.2));}
+      h1 { display: inline; font-size: 34px; color: #fff;}
+      h2 { display: inline; font-size: 28px; color: #fff; font-weight: 300; padding-left: 0.75em;
+        time { font-weight: bold; padding-left: 0.75em; }
+      }
     }
+  }
+  tbody {
+    h3 { color: $headinggray; margin-top: 0; margin-bottom: 5px; font-size: 17px;
+       @include respond-to(mobile) { font-size: 14px;}
+    }
+    p { color: $bodygray; font-size: 15px; font-family: "helvetica neue", helvetica, arial, "ubuntu sans", sans-serif; font-weight: 300; margin-bottom: 4px;
+      @include respond-to(mobile) { font-size: 13px; }
+    }
+    tr:nth-child(odd) {
+      background: #eaf3f0;
+      th { background: $lightteal; }
+    }
+    th, td { padding: 0 $hbuffer; }
+    th {
+      font-family: $heading_family;
+      font-size: 24px;
+      color: #fff;
+      background: $teal;
+      @include respond-to(mobile) { font-size: 16px; }
+    }
+    tr.single {
+      th, td {
+        padding: $vbuffer $hbuffer;
+      }
+      th { font-size: 32px; line-height: 1.25;}
+      h3 { font-size: 32px; }
+      p { font-size: 20px; }
+    }
+  }
  }
 
 /**************
@@ -1997,156 +2006,219 @@ table.wall-table {
  **************/
 
 .registration {
-    .ticket-form-container {
-        &, .payment-info { display: none; }
+  .ticket-form-container {
+    &, .payment-info { display: none; }
 
-        input[type=text],
-        select,
-        textarea {
-            width: 100%;
-        }
-
-        .email-row input {
-            width: 400px;
-        }
-
-        label[for=id_exp_year] {
-            visibility: hidden;
-        }
-
-        .coupon {
-
-            margin-bottom: 10px;
-
-            input {
-                width: 90px;
-                display: inline-block;
-                margin: 0 10px;
-            }
-        }
-
-        form {
-            select {
-                height: 37px;
-            }
-        }
+    input[type=text],
+    select,
+    textarea {
+      width: 100%;
     }
 
-    .event-info {
-        font-size: 90%;
+    .email-row input {
+      width: 400px;
     }
 
-    .event-sidebar {
-        h3 {
-            padding-top: 0;
-            margin-top: 0;
-            font-size: 20px;
-        }
+    label[for=id_exp_year] {
+      visibility: hidden;
     }
 
-    #ticket-forms {
-        .accordion-heading {
-            background: $lightteal;
-            font-weight: bold;
-            a {color: #FFF;
-                text-decoration: underline;}
-        }
+    .coupon {
 
-        a.next-ticket {
-            margin-left: 10px;
-        }
+      margin-bottom: 10px;
 
-        .first-ticket a.prev-ticket {
-            display: none;
-        }
-        .last-ticket a.next-ticket {
-            display: none;
-        }
-
-        .add-on {
-            padding-top: 8px;
-            height: 24px;
-        }
+      input {
+        width: 90px;
+        display: inline-block;
+        margin: 0 10px;
+      }
     }
 
-    .control-label, label.checkbox {
-        font-weight: bold;
-        .whats-this {
-            font-weight: normal;
-        }
+    form {
+      select {
+        height: 37px;
+      }
     }
-    .control-group {
-        &.required {
-            .control-label, label.checkbox {
-                &:after {
-                    content: " *";
-                    font-weight: bold;
-                    color: #900;
-                }
-            }
-        }
+  }
+
+  .event-info {
+    font-size: 90%;
+  }
+
+  .event-sidebar {
+    h3 {
+      padding-top: 0;
+      margin-top: 0;
+      font-size: 20px;
     }
-    .simple-option {
-        .control-label, label.checkbox {
-            font-weight: normal !important;
-        }
-    }
-    .exp-month {
-        white-space: nowrap;
+  }
+
+  #ticket-forms {
+    .accordion-heading {
+      background: $lightteal;
+      font-weight: bold;
+      a {color: #FFF;
+        text-decoration: underline;}
     }
 
-    .label-help {
-        display: none;
+    a.next-ticket {
+      margin-left: 10px;
     }
 
-    .accordion-group {
-        &.has-errors {
-            .accordion-heading {
-                a:before {
-                    content: "!";
-                    background: #900;
-                    color: #fff;
-                    padding: 0 4px 0 4px;
-                    margin-right: 6px;
-                    display: inline-block;
-                }
-            }
-        }
+    .first-ticket a.prev-ticket {
+      display: none;
+    }
+    .last-ticket a.next-ticket {
+      display: none;
     }
 
-    .attendee-info {
-        margin-top: $vbuffer;
+    .add-on {
+      padding-top: 8px;
+      height: 24px;
     }
+  }
 
-    .attendees {
-        overflow: auto;
-        height: 480px;
-        background: rgba(200,200,200,0.2);
-    }
-
-    .attendee {
-        padding: $vbuffer $hbuffer;
-        border-bottom: 1px solid rgba(200,200,200,0.6);
-    }
-
+  .control-label, label.checkbox {
+    font-weight: bold;
     .whats-this {
-        a {
-            font-weight: bold;
-            font-size: 80%;
-        }
-        &:before {
-            font-weight: bold;
-            font-size: 80%;
-            content: "(";
-        }
+      font-weight: normal;
+    }
+  }
+  .control-group {
+    &.required {
+      .control-label, label.checkbox {
         &:after {
-            font-weight: bold;
-            font-size: 80%;
-            content: ")";
+          content: " *";
+          font-weight: bold;
+          color: #900;
         }
+      }
+    }
+  }
+  .simple-option {
+    .control-label, label.checkbox {
+      font-weight: normal !important;
+    }
+  }
+  .exp-month {
+    white-space: nowrap;
+  }
+
+  .label-help {
+    display: none;
+  }
+
+  .accordion-group {
+    &.has-errors {
+      .accordion-heading {
+        a:before {
+          content: "!";
+          background: #900;
+          color: #fff;
+          padding: 0 4px 0 4px;
+          margin-right: 6px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .attendee-info {
+    margin-top: $vbuffer;
+  }
+
+  .attendees {
+    overflow: auto;
+    height: 480px;
+    background: rgba(200,200,200,0.2);
+  }
+
+  .attendee {
+    padding: $vbuffer $hbuffer;
+    border-bottom: 1px solid rgba(200,200,200,0.6);
+  }
+
+  .whats-this {
+    a {
+      font-weight: bold;
+      font-size: 80%;
+    }
+    &:before {
+      font-weight: bold;
+      font-size: 80%;
+      content: "(";
+    }
+    &:after {
+      font-weight: bold;
+      font-size: 80%;
+      content: ")";
+    }
+  }
+
+  .sf-footer .span12 * {
+    visibility: hidden;
+  }
+}
+
+/***********************
+ * Sunlight Branding Bar
+ **********************/
+
+.bb_wrapper {
+  &.is-active {
+    margin-top: 0;
+  }
+  @include respond-to(tablets_up) {
+    &.is-active {
+      margin-top: 250px;
+    }
+    .branding-bar_links {
+      margin: 10px 20px 0;
+      a {
+        font: 500 12px 'helvetica neue', helvetica, sans-serif;
+        color: #004454;
+        margin-right: 1em;
+        &:hover { color: #356f8a; }
+      }
     }
 
-    .sf-footer .span12 * {
-        visibility: hidden;
+    .bb_panel-container {
+      max-width: 1140px;
+      min-width: 960px;
+      width: auto;
     }
+
+    #bb_panel {
+      .bb_about, .bb_tools {
+        box-sizing: border-box;
+        width: 40%;
+      }
+      .bb_tools {
+        width: 55%;
+      }
+
+      p {
+        font: 300 12px/1.6 'helvetica neue', helvetica, sans-serif;
+        letter-spacing: 0.5px;
+        color: white;
+      }
+
+      .bb_input {
+        width: 50%;
+      }
+      .bb_input[name="zipcode"] {
+        width: 25%;
+      }
+
+      input[type="text"],
+      input[type="email"] {
+        background: white;
+        opacity: 1;
+      }
+
+      .bb_description {
+        margin-top: 1.5em
+      }
+    }
+  }
 }

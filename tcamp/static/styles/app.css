@@ -39,10 +39,10 @@ body {
 
 /* utilities
 @mixin dashed_line {
-    content: '';
-    display:block;
-    height: 4px;
-    background: #fff url(../images/dashed-border.png) repeat-x;
+  content: '';
+  display:block;
+  height: 4px;
+  background: #fff url(../images/dashed-border.png) repeat-x;
 } */
 @media (max-width: 767px) {
   * {
@@ -983,7 +983,7 @@ body .menu-drawer, body .menu-panel {
   overflow-x: hidden; }
   .with-drawer-menu body .menu-drawer {
     position: fixed;
-    display: block;
+    display: none;
     left: 0;
     top: 0;
     height: 100%;
@@ -996,9 +996,11 @@ body .menu-drawer, body .menu-panel {
     -ms-box-sizing: border-box;
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch; }
+    @media (max-width: 767px) {
+      .with-drawer-menu body .menu-drawer {
+        display: block; } }
   .with-drawer-menu body .menu-panel {
     position: relative;
-    overflow: hidden;
     display: block;
     left: 0;
     top: 0;
@@ -1010,6 +1012,9 @@ body .menu-drawer, body .menu-panel {
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box; }
+    @media (max-width: 767px) {
+      .with-drawer-menu body .menu-panel {
+        overflow: hidden; } }
 @media (max-width: 767px) {
   .with-drawer-menu.gpu-enabled .menu-panel {
     -webkit-transform: translatez(0);
@@ -2261,3 +2266,43 @@ table.wall-table {
   content: ")"; }
 .registration .sf-footer .span12 * {
   visibility: hidden; }
+
+/***********************
+ * Sunlight Branding Bar
+ **********************/
+.bb_wrapper.is-active {
+  margin-top: 0; }
+@media (min-width: 768px) {
+  .bb_wrapper.is-active {
+    margin-top: 250px; }
+  .bb_wrapper .branding-bar_links {
+    margin: 10px 20px 0; }
+    .bb_wrapper .branding-bar_links a {
+      font: 500 12px 'helvetica neue', helvetica, sans-serif;
+      color: #004454;
+      margin-right: 1em; }
+      .bb_wrapper .branding-bar_links a:hover {
+        color: #356f8a; }
+  .bb_wrapper .bb_panel-container {
+    max-width: 1140px;
+    min-width: 960px;
+    width: auto; }
+  .bb_wrapper #bb_panel .bb_about, .bb_wrapper #bb_panel .bb_tools {
+    box-sizing: border-box;
+    width: 40%; }
+  .bb_wrapper #bb_panel .bb_tools {
+    width: 55%; }
+  .bb_wrapper #bb_panel p {
+    font: 300 12px/1.6 'helvetica neue', helvetica, sans-serif;
+    letter-spacing: 0.5px;
+    color: white; }
+  .bb_wrapper #bb_panel .bb_input {
+    width: 50%; }
+  .bb_wrapper #bb_panel .bb_input[name="zipcode"] {
+    width: 25%; }
+  .bb_wrapper #bb_panel input[type="text"],
+  .bb_wrapper #bb_panel input[type="email"] {
+    background: white;
+    opacity: 1; }
+  .bb_wrapper #bb_panel .bb_description {
+    margin-top: 1.5em; } }
