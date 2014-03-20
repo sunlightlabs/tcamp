@@ -4,6 +4,7 @@ django-pdb
 django-template-repl
 django-grappelli
 django-extensions>=1.3.3
+django-devserver
 bpython
 
 boto>=2.8
