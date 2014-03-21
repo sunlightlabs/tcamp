@@ -2276,10 +2276,10 @@ table.wall-table {
   .bb_wrapper.is-active {
     margin-top: 250px; }
   .bb_wrapper .branding-bar_links {
-    margin: 10px 20px 0; }
+    margin: 9px 20px 0; }
     .bb_wrapper .branding-bar_links a {
-      font: 500 12px 'helvetica neue', helvetica, sans-serif;
-      color: #004454;
+      font: 400 12px 'helvetica neue', helvetica, sans-serif;
+      color: #555b5e;
       margin-right: 1em; }
       .bb_wrapper .branding-bar_links a:hover {
         color: #356f8a; }
