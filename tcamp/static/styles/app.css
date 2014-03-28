@@ -2286,12 +2286,13 @@ table.wall-table {
   .bb_wrapper .bb_panel-container {
     max-width: 1140px;
     min-width: 960px;
-    width: auto; }
+    width: auto;
+    padding: 0 20px; }
   .bb_wrapper #bb_panel .bb_about, .bb_wrapper #bb_panel .bb_tools {
     box-sizing: border-box;
     width: 40%; }
   .bb_wrapper #bb_panel .bb_tools {
-    width: 55%; }
+    width: 50%; }
   .bb_wrapper #bb_panel p {
     font: 300 12px/1.6 'helvetica neue', helvetica, sans-serif;
     letter-spacing: 0.5px;
