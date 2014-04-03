@@ -39,7 +39,7 @@ class Command(BaseCommand):
         fcoupon = CouponCode.objects.get(code=options['staff_coupon']) if options['staff_coupon'] else CouponCode()
 
         outs = cStringIO.StringIO()
-        outc = csv.DictWriter(outs, ['first_name', 'last_name', 'email', 'state', 'organization', 'ticket_type', 'is_staff'])
+        outc = csv.DictWriter(outs, ['first_name', 'last_name', 'email', 'address1', 'address2', 'city', 'state', 'zip', 'organization', 'ticket_type', 'is_staff'])
         outc.writeheader()
 
         for ticket in query.order_by('id').select_related():
@@ -48,11 +48,18 @@ class Command(BaseCommand):
                     (ticket.sale.email and fdomain and fdomain in ticket.sale.email) or \
                     (ticket.sale.coupon_code and ticket.sale.coupon_code.id == fcoupon.id)
 
+                if ticket.sale.state == 'non-us':
+                    continue
+
                 outc.writerow({
                     'first_name': ticket.first_name.encode('utf8'),
                     'last_name': ticket.last_name.encode('utf8'),
                     'email': ticket.email.encode('utf8'),
+                    'address1': ticket.sale.address1.encode('utf8'),
+                    'address2': ticket.sale.address2.encode('utf8'),
+                    'city': ticket.sale.city.encode('utf8'),
                     'state': ticket.sale.state.encode('utf8'),
+                    'zip': ticket.sale.zip.encode('utf8'),
                     'organization': ticket.organization.encode('utf8'),
                     'ticket_type': ticket.type.name,
                     'is_staff': 'Y' if staff else 'N',
