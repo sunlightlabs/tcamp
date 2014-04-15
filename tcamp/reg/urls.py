@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^whos-going/$', whos_going),
 
     url(r'^reports/overview/$', stats),
+    url(r'^reports/volunteers.csv$', volunteer_export),
 )
 
 admin.autodiscover()

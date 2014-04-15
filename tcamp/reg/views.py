@@ -236,3 +236,8 @@ braintree.Configuration.configure(
 def stats(request):
     stats = get_registration_report()
     return render_to_response('reg/stats.html', stats, context_instance=RequestContext(request))
+
+@never_cache
+@user_passes_test(lambda user: user.is_staff, login_url="/staff/login")
+def volunteer_export(request):
+    return HttpResponse(get_volunteer_export(), content_type="text/csv")
