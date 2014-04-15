@@ -32,6 +32,7 @@ urlpatterns = patterns(
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/', 'redirect_field_name': 'next'}, name='logout'),
     url(r'^sponsor-contact/$', 'camp.views.sponsor_contact', name='sponsor_contact'),
     url(r'^register/', include('reg.urls', namespace='reg')),
+    url(r'^registration/', include('reg.report_urls', namespace='reg_reports')),
     url(r'^', include('sfapp.urls')),
     url(r'^', include('social.apps.django_app.urls', namespace='social')),
     url(r'^', include('brainstorm.urls', namespace='brainstorm')),
