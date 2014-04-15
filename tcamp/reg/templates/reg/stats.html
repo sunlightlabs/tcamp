@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load sked_tags repl %}
+{% load bootstrap_toolkit %}
+
+{% block bodyattrs %}{{block.super}} class="registration"{% endblock %}
+
+{% block content %}
+<div class="row-fluid module collapse-bottom">
+    <div class="span12">
+        <h1>TCamp Registration Stats</h1>
+    </div>
+</div>
+<div class="row module">
+    <div class="span8">
+        <h2>Tickets sold</h2>
+        <table class="table">
+            <tr>
+                <td>Staff</td><td>{{ stats.staff }}</td>
+            </tr>
+            <tr>
+                <td>Non-staff</td><td>{{ stats.non_staff }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total</strong></td><td><strong>{{ stats.tickets }}</strong></td>
+            </tr>
+        </table>
+        
+        <h2>Non-staff ticket type breakdown</h2>
+        <table class="table">
+        {% for label, count in type_breakdown %}
+            <tr>
+                <td>{{ label }}</td><td>{{ count }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+        <h2>Non-staff tickets purchased with coupons</h2>
+        <table class="table">
+        {% for coupon, count in coupons.items %}
+            <tr>
+                <td>{{ coupon }}</td><td>{{ count }}</td>
+            </tr>
+        {% endfor %}
+        
+            <tr>
+                <td><strong>Total</strong></td><td><strong>{{ stats.ns_coupon }}</strong></td>
+            </tr>
+        </table>
+
+        <h2>Ambassador program</h2>
+        <table class="table">
+        {% for label, count in ambassador_counts %}
+            <tr>
+                <td>{{ label }}</td><td>{{ count }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+        <br />
+        <strong>Lobby day participants:</strong> {{ stats.lobby_day }}<br /><br />
+
+        <strong>Total sales:</strong> ${{ total_sales }}
+        <h2>Downloads</h2>
+        <a href="/register/reports/volunteers.csv">Download volunteer report</a>
+    </div>
+</div>
+
+{% endblock %}
