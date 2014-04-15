@@ -7,6 +7,7 @@ from django.conf import settings
 from reg.models import *
 from reg.forms import *
 from reg.email_utils import *
+from reg.reports import *
 
 from django.forms.util import ErrorList
 
@@ -18,6 +19,8 @@ import json
 from collections import defaultdict
 
 import braintree
+
+from django.contrib.auth.decorators import user_passes_test
 
 def register(request):
     payment_form = PaymentForm()
@@ -226,3 +229,10 @@ braintree.Configuration.configure(
     public_key=getattr(settings, "BRAINTREE_PUBLIC_KEY", ""),
     private_key=getattr(settings, "BRAINTREE_PRIVATE_KEY", "")
 )
+
+# info pages
+@never_cache
+@user_passes_test(lambda user: user.is_staff, login_url="/staff/login")
+def stats(request):
+    stats = get_registration_report()
+    return render_to_response('reg/stats.html', stats, context_instance=RequestContext(request))

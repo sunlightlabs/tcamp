@@ -38,6 +38,7 @@ class CouponCode(models.Model):
     code = models.CharField(max_length=255)
     discount = PercentField(default=100)
     max_tickets = models.IntegerField(help_text="How many tickets to allow to obtain this discount; 0 indicates unlimited tickets.")
+    is_staff = models.BooleanField(help_text="Indicates that people that use this code are staff; has no real effect but is useful for tabulating.", default=False)
 
 class Sale(models.Model):
     event = models.ForeignKey(Event)
