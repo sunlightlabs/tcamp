@@ -10,7 +10,7 @@ class IdeaForm(ModelForm):
     class Meta:
         model = Idea
         fields = ('title', 'name', 'email', 'description',
-                  'user', 'subsite')
+                  'user', 'subsite', )
 
     def __init__(self, **kwargs):
         try:

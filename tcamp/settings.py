@@ -64,6 +64,8 @@ DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
 
+HONEYPOT_FIELD_NAME = 'yourtext'
+
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
@@ -162,6 +164,7 @@ INSTALLED_APPS = (
     'djutils',
     'django_twilio',
     'sfapp',
+    'honeypot',
 
     'django_extensions',
     'debug_toolbar',

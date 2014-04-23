@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
 from django.views.decorators.cache import never_cache
+
 from sked.views import (SessionList, SessionDetail, CreateSession,
                         UpdateSession, SingleDayView, CurrentTimeslotView)
 from sked.models import Event

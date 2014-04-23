@@ -84,7 +84,7 @@ class Event(models.Model):
 
     @property
     def is_current(self):
-        now = timezone.now()
+        now = timezone.now().date()
         if self.start_date <= now and self.end_date >= now:
             return True
         return False
@@ -130,6 +130,12 @@ class Location(models.Model):
     def related_label(self):
         return u"{0} at {1} ({2})".format(self.name, self.event.name,
                                           'official' if self.is_official else 'unofficial')
+
+    @property
+    def etherpad_host(self):
+        return ("http://tcamp-pad-%s.herokuapp.com" % self.pk if
+                self.is_official and self.has_sessions and self.event.is_current else
+                "http://pad.transparencycamp.org")
 
     @staticmethod
     def autocomplete_search_fields():
@@ -222,7 +228,7 @@ class Session(models.Model):
         ordering = ('-event__start_date', 'start_time', )
 
     def __unicode__(self):
-        return "%s at %s" % (self.title, self.event)
+        return u"%s at %s" % (self.title, self.event)
 
     def get_absolute_url(self):
         url = reverse('sked:session_detail', kwargs={
@@ -295,6 +301,10 @@ class Session(models.Model):
             return self.extra_data['has_slides']
         except:
             return u'Unspecified'
+
+    @property
+    def etherpad_url(self):
+        return "%s/p/%s" % (self.location.etherpad_host, self.slug)
 
 
 class SentEmail(models.Model):

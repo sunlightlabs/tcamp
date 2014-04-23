@@ -12,6 +12,7 @@ django-compressor
 django-storages==1.1.8
 django-tastypie
 django-disqus
+django-honeypot
 django-taggit>0.10.0
 django-treenav
 django-reversion

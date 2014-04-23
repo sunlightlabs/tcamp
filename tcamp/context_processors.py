@@ -3,6 +3,7 @@ from django.conf import settings
 
 def basic_settings(request):
     return {
+        'DEBUG': getattr(settings, 'DEBUG'),
         'FAVICON': getattr(settings, 'FAVICON'),
         'APPLE_TOUCH_ICON': getattr(settings, 'APPLE_TOUCH_ICON'),
         'SHARING_IMAGE': getattr(settings, 'SHARING_IMAGE'),

@@ -1,4 +1,4 @@
-{% load brainstorm %}
+{% load brainstorm honeypot %}
 {% if request.user|can_post_in:subsite %}
     <form class="brainstorm brainstorm-form" action="{% url "brainstorm:new_idea" subsite.slug %}" method="post">
         {% csrf_token %}
@@ -31,6 +31,7 @@
                     <textarea rows="6" id="description" name="description">{{ form.description.value|default:""|escape }}</textarea>
                 </li>
             </ul>
+            {% render_honeypot_field %}
             <button type="submit" class="btn">Submit</button>
         </fieldset>
     </form>
