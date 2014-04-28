@@ -313,7 +313,7 @@ twttr.conversion.trackPid('l4dk4');
             var group = $('#ticket-forms');
             var cqty = group.find('.accordion-group[data-ticket-id=' + id + ']').length;
             if (cqty < qty) {
-                var tpl = $("#ticket-form-tpl").html();
+                var tpl = $.trim($("#ticket-form-tpl").html());
 
                 if (cqty == 0) {
                     var sentinel = group.find('.ticket-sentinel-' + id);
