@@ -8,7 +8,7 @@ from cStringIO import StringIO
 def get_staff_domains():
     staff_domains = set()
     for admin in settings.ADMINS:
-        staff_domains.add(admin[1].split('@')[0])
+        staff_domains.add(admin[1].split('@')[1])
     return list(staff_domains)
 
 def get_registration_report():
