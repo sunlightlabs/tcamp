@@ -7,6 +7,7 @@ from reg.views import *
 urlpatterns = patterns('',
     url(r'^reports/overview/$', stats),
     url(r'^reports/volunteers.csv$', volunteer_export),
+    url(r'^reports/attendees.csv$', attendee_export),
 )
 
 admin.autodiscover()

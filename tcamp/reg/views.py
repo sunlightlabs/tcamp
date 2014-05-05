@@ -248,3 +248,8 @@ def stats(request):
 @user_passes_test(lambda user: user.is_staff, login_url="/staff/login")
 def volunteer_export(request):
     return HttpResponse(get_volunteer_export(), content_type="text/csv")
+
+@never_cache
+@user_passes_test(lambda user: user.is_staff, login_url="/staff/login")
+def attendee_export(request):
+    return HttpResponse(get_attendee_export(), content_type="text/csv")

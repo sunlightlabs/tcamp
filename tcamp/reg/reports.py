@@ -68,7 +68,18 @@ def get_volunteer_export():
 
     from reg.views import CURRENT_EVENT
     for ticket in Ticket.objects.filter(event=CURRENT_EVENT, sale__success=True, type__name__contains="Volunteer").order_by('id').select_related():
-        print ticket.first_name, ticket.last_name
         outcsv.writerow({'ticket_id': ticket.id, 'first_name': ticket.first_name, 'last_name': ticket.last_name, 'organization': ticket.organization, 'email': ticket.email})
+
+    return outfile.getvalue()
+
+def get_attendee_export():
+    outfile = StringIO()
+    outcsv = csv.DictWriter(outfile, ['ticket_id', 'first_name', 'last_name', 'organization', 'email', 'ticket_type', 'ambassador'])
+    outcsv.writeheader()
+    ambassador_choices = dict(AMBASSADOR_PROGRAM_CHOICES)
+
+    from reg.views import CURRENT_EVENT
+    for ticket in Ticket.objects.filter(event=CURRENT_EVENT, sale__success=True).order_by('id').select_related():
+        outcsv.writerow({'ticket_id': ticket.id, 'first_name': ticket.first_name.encode('utf8'), 'last_name': ticket.last_name.encode('utf8'), 'organization': ticket.organization.encode('utf8'), 'email': ticket.email, 'ticket_type': ticket.type.name, 'ambassador': ambassador_choices[ticket.ambassador_program]})
 
     return outfile.getvalue()
