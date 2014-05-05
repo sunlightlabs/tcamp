@@ -59,3 +59,5 @@ django-extras
 django-localflavor
 braintree
 html2text
+qrcode
+shortuuid

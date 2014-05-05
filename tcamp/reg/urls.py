@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.views.generic.base import TemplateView
 
 from reg.views import *
+from reg.badges import qrcode_svg, attendees
 
 urlpatterns = patterns('',
     url(r'^$', register),
@@ -13,6 +14,9 @@ urlpatterns = patterns('',
 
     url(r'^reports/overview/$', stats),
     url(r'^reports/volunteers.csv$', volunteer_export),
+
+    url(r'^badges/qrcode/(?P<barcode>[A-Za-z0-9]+)\.svg', qrcode_svg),
+    url(r'^badges/export\.(?P<format>json|csv)$', attendees),
 )
 
 admin.autodiscover()
