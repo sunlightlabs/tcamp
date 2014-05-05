@@ -122,6 +122,8 @@ def attendees(request, format):
         outc.writeheader()
         
         for row in out:
-            outc.writerow(row)
+            outc.writerow(
+                dict([(key, value.encode('utf8') if type(value) == unicode else value) for key, value in row.items()])
+            )
 
         return response
