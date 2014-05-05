@@ -8,7 +8,7 @@ from reg.models import *
 from reg.forms import *
 from reg.email_utils import *
 from reg.reports import *
-from tcamp import slack
+import slack
 
 from django.forms.util import ErrorList
 
