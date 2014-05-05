@@ -87,3 +87,5 @@ TWILIO_AUTH_TOKEN = ''
 RAVEN_CONFIG = {
     'dsn': '',
 }
+
+SLACK_TOKEN = ''

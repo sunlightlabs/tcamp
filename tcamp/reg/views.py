@@ -8,6 +8,7 @@ from reg.models import *
 from reg.forms import *
 from reg.email_utils import *
 from reg.reports import *
+from tcamp import slack
 
 from django.forms.util import ErrorList
 
@@ -49,7 +50,7 @@ def save(request):
         data = json.loads(request.raw_post_data)
     except:
         raise Http404
-    
+
     sale = Sale()
     out = {'ticket_forms': [], 'success': True}
     types = defaultdict(int)
@@ -61,6 +62,10 @@ def save(request):
             form_response['success'] = True
             valid_tickets.append(form)
             types[int(form_data['type'])] += 1
+            try:
+                slack.post_registration(form.cleaned_data)
+            except:
+                pass
         else:
             out['success'] = False
             form_response['success'] = False
@@ -147,11 +152,11 @@ def save(request):
                         form_response['success'] = False
             else:
                 form_response['success'] = False
-                
+
             if not form_response['success']:
                 out['success'] = False
                 form_response['text'] = render_to_string('reg/partials/payment_form.html', {'payment_form': payment_form}, context_instance=RequestContext(request))
-                
+
                 # avoid having junk hanging around in the DB
                 sale.delete()
             out['payment_form'] = form_response
@@ -172,7 +177,7 @@ def save(request):
             else:
                 form_response = {'success': False, 'text': render_to_string('reg/partials/payment_form.html', {'payment_form': payment_form}, context_instance=RequestContext(request))}
             out['payment_form'] = form_response
-    
+
     if out['success']:
         send_sale_email(sale.id)
 
