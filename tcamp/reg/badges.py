@@ -57,7 +57,7 @@ def require_staff_code(func):
 
 ## views
 
-def qrcode_svg(request, barcode):
+def qrcode_svg(request, barcode, format):
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -69,12 +69,13 @@ def qrcode_svg(request, barcode):
 
     buff = StringIO()
 
-    img = qr.make_image(SvgImage)
-    img.save(buff)
+    if format == 'svg':
+        img = qr.make_image(SvgImage)
+        img.save(buff)
+        
+        scale = 15.0 / img.width
 
-    scale = 15.0 / img.width
-
-    out = \
+        out = \
 """<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE svg>
 <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
@@ -83,8 +84,13 @@ def qrcode_svg(request, barcode):
     </g>
 </svg>
 """ % (scale, scale, buff.getvalue().replace("<?xml version='1.0' encoding='UTF-8'?>", ""))
+        
+        return HttpResponse(out, content_type="image/svg+xml")
+    elif format == 'png':
+        img = qr.make_image()
+        img.save(buff)
 
-    return HttpResponse(out, content_type="image/svg+xml")
+        return HttpResponse(buff.getvalue(), content_type="image/png")
 
 MAX_UUID = float(uuid.UUID('ffffffff-ffff-ffff-ffff-ffffffffffff').int)
 
@@ -108,7 +114,7 @@ def attendees(request, format):
             'first_name': ticket.first_name,
             'last_name': ticket.last_name,
             'qrcode': qrcode,
-            'qrcode_path': request.build_absolute_uri('/register/badges/qrcode/%s.svg' % qrcode),
+            'qrcode_path': request.build_absolute_uri('/register/badges/qrcode/%s.png' % qrcode),
             'twitter': ticket.clean_twitter,
             'organization': ticket.organization,
             'is_staff': is_staff,

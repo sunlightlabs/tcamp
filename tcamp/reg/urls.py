@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^reports/volunteers.csv$', volunteer_export),
     url(r'^reports/attendees.csv$', attendee_export),
 
-    url(r'^badges/qrcode/(?P<barcode>[A-Za-z0-9]+)\.svg', qrcode_svg),
+    url(r'^badges/qrcode/(?P<barcode>[A-Za-z0-9]+)\.(?P<format>svg|png)$', qrcode_svg),
     url(r'^badges/export\.(?P<format>json|csv)$', attendees),
 )
 
