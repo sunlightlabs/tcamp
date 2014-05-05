@@ -62,10 +62,6 @@ def save(request):
             form_response['success'] = True
             valid_tickets.append(form)
             types[int(form_data['type'])] += 1
-            try:
-                slack.post_registration(form.cleaned_data)
-            except:
-                pass
         else:
             out['success'] = False
             form_response['success'] = False
@@ -86,6 +82,12 @@ def save(request):
             ticket.save()
 
             tickets.append(ticket)
+
+            if settings.SLACK_ENABLED:
+                try:
+                    slack.post_registration(ticket)
+                except:
+                    pass
 
         # tickets are good, so confirm price
         price = get_price_data(tickets=types, coupon=data.get('coupon', None))

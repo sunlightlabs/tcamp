@@ -2,17 +2,14 @@ import json
 import requests
 from django.conf import settings
 
-USERNAME = 'tcampbot'
-URL = 'https://sunlight.slack.com/services/hooks/incoming-webhook'
 
-
-def post_registration(data):
-    text = '%s %s just registered for Transparency Camp!' % (data['first_name'], data['last_name'])
+def post_registration(ticket):
+    text = '%s %s just registered for Transparency Camp!' % (ticket.first_name, ticket.last_name)
     payload = {
         'channel': '#transparencycamp',
         'icon_emoji': 'tent',
-        'username': USERNAME,
-        'text': text
+        'username': settings.SLACK_USERNAME,
+        'text': text,
     }
     params = {'token': settings.SLACK_TOKEN}
-    requests.post(URL, params=params, data=json.dumps(payload))
+    requests.post(settings.SLACK_URL, params=params, data=json.dumps(payload))

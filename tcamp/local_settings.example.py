@@ -88,4 +88,7 @@ RAVEN_CONFIG = {
     'dsn': '',
 }
 
+SLACK_ENABLED = False
+SLACK_URL = ''
 SLACK_TOKEN = ''
+SLACK_USERNAME = ''
