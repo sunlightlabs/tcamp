@@ -83,7 +83,7 @@ def save(request):
 
             tickets.append(ticket)
 
-            if settings.SLACK_ENABLED:
+            if getattr(settings, 'SLACK_ENABLED', False):
                 try:
                     slack.post_registration(ticket)
                 except:
