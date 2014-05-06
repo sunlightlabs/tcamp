@@ -76,9 +76,10 @@ def get_qrcode_image(barcode, format):
     qr.add_data(barcode)
     qr.make(fit=True)
 
-    buff = StringIO()
+    out_data = {}
+    if format in ('svg', 'both'):
+        buff = StringIO()
 
-    if format == 'svg':
         img = qr.make_image(SvgImage)
         img.save(buff)
         
@@ -94,21 +95,29 @@ def get_qrcode_image(barcode, format):
 </svg>
 """ % (scale, scale, buff.getvalue().replace("<?xml version='1.0' encoding='UTF-8'?>", ""))
         
-        return out
-    elif format == 'png':
+        if format == 'svg':
+            return out
+        else:
+            out_data['svg'] = out
+    if format in ('png', 'both'):
+        buff = StringIO()
+
         img = qr.make_image()
         img.save(buff)
 
-        return buff.getvalue()
+        if format == 'png':
+            return buff.getvalue()
+        else:
+            out_data['png'] = buff.getvalue()
+
+    return out_data
 
 ## data export stuff
 
 MAX_UUID = float(uuid.UUID('ffffffff-ffff-ffff-ffff-ffffffffffff').int)
 ICON_NAMES = ['bear.eps', 'bird.eps', 'canoe.eps', 'fire.eps', 'fish.eps', 'ivy.eps', 'robot.eps', 'sun.eps', 'tent.eps', 'tree.eps']
 
-@never_cache
-@require_staff_code
-def attendees(request, format):
+def get_attendees(request, format):
     staff_domains = get_staff_domains()
     fdomains = ['@%s' % domain for domain in staff_domains] if staff_domains else []
     fcoupon = set([c.id for c in CouponCode.objects.filter(is_staff=True)])
@@ -127,8 +136,8 @@ def attendees(request, format):
             'first_name': ticket.first_name,
             'last_name': ticket.last_name,
             'qrcode': qrcode,
-            'qrcode_png': '%s.png' % qrcode if format == 'zip' else request.build_absolute_uri('/register/badges/qrcode/%s.png' % qrcode),
-            'qrcode_svg': '%s.svg' % qrcode if format == 'zip' else request.build_absolute_uri('/register/badges/qrcode/%s.svg' % qrcode),
+            'qrcode_png': '%s.png' % qrcode if (format == 'zip' or not request) else request.build_absolute_uri('/register/badges/qrcode/%s.png' % qrcode),
+            'qrcode_svg': '%s.svg' % qrcode if (format == 'zip' or not request) else request.build_absolute_uri('/register/badges/qrcode/%s.svg' % qrcode),
             'twitter': ticket.clean_twitter,
             'organization': ticket.organization,
             'is_staff': is_staff,
@@ -154,9 +163,12 @@ def attendees(request, format):
 
             outz.writestr('export.csv', csvbuff.getvalue())
             for row in out:
-                outz.writestr(row['qrcode_png'], get_qrcode_image(row['qrcode'], 'png'), zipfile.ZIP_STORED)
-                outz.writestr(row['qrcode_svg'], get_qrcode_image(row['qrcode'], 'svg'))
+                img_data = get_qrcode_image(row['qrcode'], 'both')
+                outz.writestr(row['qrcode_png'], img_data['png'], zipfile.ZIP_STORED)
+                outz.writestr(row['qrcode_svg'], img_data['svg'])
 
             outz.close()
 
             return HttpResponse(zipbuff.getvalue(), content_type="application/zip")
+
+attendees = never_cache(require_staff_code(get_attendees))
