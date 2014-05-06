@@ -7,7 +7,7 @@ def post_registration(ticket):
     text = '%s %s just registered for Transparency Camp!' % (ticket.first_name, ticket.last_name)
     payload = {
         'channel': '#transparencycamp',
-        'icon_emoji': 'tent',
+        'icon_emoji': ':tcamp:',
         'username': settings.SLACK_USERNAME,
         'text': text,
     }
