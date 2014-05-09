@@ -153,7 +153,7 @@ idea_day_two.boolean = True
 idea_day_two.short_description = 'Attending day 2?'
 Idea.day_two = idea_day_two
 
-IdeaAdmin.list_display = list(IdeaAdmin.list_display) + ['day_one', 'day_two']
+# IdeaAdmin.list_display = list(IdeaAdmin.list_display) + ['day_one', 'day_two']
 
 
 def session_is_registered(instance):
@@ -176,4 +176,4 @@ session_day_two.boolean = True
 session_day_two.short_description = 'Attending day 2?'
 Session.day_two = session_day_two
 
-SessionAdmin.list_display = list(SessionAdmin.list_display) + ['day_one', 'day_two']
+# SessionAdmin.list_display = list(SessionAdmin.list_display) + ['day_one', 'day_two']

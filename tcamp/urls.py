@@ -11,11 +11,11 @@ urlpatterns = patterns(
     url(r'^sessions/(?P<pk>[\d]+)/$', RedirectFromPk.as_view()),
 
     # FIXME: These will need to be updated next year.
-    url(r'^submit/$', RedirectView.as_view(url='/schedule/2013/new/')),
-    url(r'^saturdaywall/$', RedirectView.as_view(url='/schedule/2013/wall/?timeslots=11:30am,12:30pm,1:30pm,2:30pm,3:30pm,4:30pm&refresh=300000')),
-    url(r'^sundaywall/$', RedirectView.as_view(url='/schedule/2013/wall/?timeslots=11:00am,12:00pm,1:00pm,2:00pm,3:00pm,4:00pm&refresh=300000')),
-    url(r'^tv/$', RedirectView.as_view(url='/schedule/2013/tv/?refresh=60000')),
-    url(r'^wallfail/$', RedirectView.as_view(url='/schedule/2013/wallfail/')),
+    url(r'^submit/$', RedirectView.as_view(url='/schedule/2014/new/')),
+    url(r'^fridaywall/$', RedirectView.as_view(url='/schedule/2014/wall/?timeslots=11:30am,12:30pm,1:40pm,2:40pm,3:40pm,4:40pm&refresh=300000')),
+    url(r'^saturdaywall/$', RedirectView.as_view(url='/schedule/2014/wall/?timeslots=11:00am,12:00pm,1:10pm,2:10pm,3:10pm,4:10pm&refresh=300000')),
+    url(r'^tv/$', RedirectView.as_view(url='/schedule/2014/tv/?refresh=60000')),
+    url(r'^wallfail/$', RedirectView.as_view(url='/schedule/2014/wallfail/')),
 
     url(r'^treenav/', include('treenav.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
