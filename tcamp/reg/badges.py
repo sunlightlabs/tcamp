@@ -5,6 +5,7 @@ from django.views.decorators.cache import never_cache
 import shortuuid, uuid
 from cStringIO import StringIO
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from sked.urls import CURRENT_EVENT
 from reg.models import Ticket, CouponCode
 from reg.reports import get_staff_domains
@@ -117,34 +118,47 @@ def get_qrcode_image(barcode, format):
 MAX_UUID = float(uuid.UUID('ffffffff-ffff-ffff-ffff-ffffffffffff').int)
 ICON_NAMES = ['bear.eps', 'bird.eps', 'canoe.eps', 'fire.eps', 'fish.eps', 'ivy.eps', 'robot.eps', 'sun.eps', 'tent.eps', 'tree.eps']
 
+STAFF_INFO = {}
+def get_badge(ticket, prefix=''):
+    # prime the staff info dict
+    if not STAFF_INFO:
+        staff_domains = get_staff_domains()
+        STAFF_INFO['domains'] = ['@%s' % domain for domain in staff_domains] if staff_domains else []
+        STAFF_INFO['coupons'] = set([c.id for c in CouponCode.objects.filter(is_staff=True)])
+
+    # are they staff?
+    is_staff = True if (ticket.email and any([fdomain in ticket.email for fdomain in STAFF_INFO['domains']])) or \
+        (ticket.sale.email and any([fdomain in ticket.sale.email for fdomain in STAFF_INFO['domains']])) or \
+        (ticket.sale.coupon_code and ticket.sale.coupon_code.id in STAFF_INFO['coupons']) else False
+
+    # prep their qr code
+    qrcode_uuid = uuid.UUID(ticket.barcode)
+    qrcode = shortuuid.encode(qrcode_uuid)
+    return {
+        'first_name': ticket.first_name,
+        'last_name': ticket.last_name,
+        'qrcode': qrcode,
+        'qrcode_png': '%s%s.png' % (prefix, qrcode),
+        'qrcode_svg': '%s%s.svg' % (prefix, qrcode),
+        'twitter': ticket.clean_twitter,
+        'organization': ticket.organization,
+        'is_staff': is_staff,
+        'icon': ICON_NAMES[int(math.floor(10 * (qrcode_uuid.int / MAX_UUID)))],
+        'checked_in': None
+    }
+
 def get_attendees(request, format):
     staff_domains = get_staff_domains()
     fdomains = ['@%s' % domain for domain in staff_domains] if staff_domains else []
     fcoupon = set([c.id for c in CouponCode.objects.filter(is_staff=True)])
 
     out = []
+    prefix = '' if (format == 'zip' or not request) else request.build_absolute_uri('/register/badges/qrcode/')
     for ticket in Ticket.objects.filter(success=True, event=CURRENT_EVENT).select_related():
-        # are they staff?
-        is_staff = True if (ticket.email and any([fdomain in ticket.email for fdomain in fdomains])) or \
-            (ticket.sale.email and any([fdomain in ticket.sale.email for fdomain in fdomains])) or \
-            (ticket.sale.coupon_code and ticket.sale.coupon_code.id in fcoupon) else False
+        out.append(get_badge(ticket, prefix))
 
-        # prep their qr code
-        qrcode_uuid = uuid.UUID(ticket.barcode)
-        qrcode = shortuuid.encode(qrcode_uuid)
-        out.append({
-            'first_name': ticket.first_name,
-            'last_name': ticket.last_name,
-            'qrcode': qrcode,
-            'qrcode_png': '%s.png' % qrcode if (format == 'zip' or not request) else request.build_absolute_uri('/register/badges/qrcode/%s.png' % qrcode),
-            'qrcode_svg': '%s.svg' % qrcode if (format == 'zip' or not request) else request.build_absolute_uri('/register/badges/qrcode/%s.svg' % qrcode),
-            'twitter': ticket.clean_twitter,
-            'organization': ticket.organization,
-            'is_staff': is_staff,
-            'icon': ICON_NAMES[int(math.floor(10 * (qrcode_uuid.int / MAX_UUID)))]
-        })
     if format == 'json':
-        return HttpResponse(json.dumps(out), content_type="application/json")
+        return HttpResponse(json.dumps({'attendees': out}), content_type="application/json")
     elif format in ('csv', 'zip'):
         csvbuff = StringIO()        
         outc = csv.DictWriter(csvbuff, ['first_name', 'last_name', 'qrcode', 'qrcode_png', 'qrcode_svg', 'twitter', 'organization', 'is_staff', 'icon'])
@@ -172,3 +186,10 @@ def get_attendees(request, format):
             return HttpResponse(zipbuff.getvalue(), content_type="application/zip")
 
 attendees = never_cache(require_staff_code(get_attendees))
+
+def attendee(request, barcode):
+    prefix = request.build_absolute_uri('/register/badges/qrcode/')
+    qrcode = shortuuid.decode(barcode)
+    ticket = get_object_or_404(Ticket, barcode=qrcode)
+
+    return HttpResponse(json.dumps(get_badge(ticket, prefix=prefix)), content_type="application/json")
