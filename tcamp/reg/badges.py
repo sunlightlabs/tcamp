@@ -211,6 +211,8 @@ def get_attendees(request, format):
 
 attendees = never_cache(require_staff_code(get_attendees))
 
+@never_cache
+@require_staff_code
 def attendee(request, barcode):
     prefix = request.build_absolute_uri('/register/badges/qrcode/')
     qrcode = shortuuid.decode(barcode)
