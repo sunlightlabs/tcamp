@@ -192,7 +192,7 @@ attendees = never_cache(require_staff_code(get_attendees))
 def attendee(request, barcode):
     prefix = request.build_absolute_uri('/register/badges/qrcode/')
     qrcode = shortuuid.decode(barcode)
-    ticket = get_object_or_404(Ticket, barcode=qrcode)
+    ticket = get_object_or_404(Ticket, barcode=qrcode, success=True)
 
     if request.method == "POST":
         checked_in = request.POST.get('checked_in', None)
