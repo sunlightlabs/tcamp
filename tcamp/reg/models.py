@@ -110,6 +110,8 @@ class Ticket(models.Model):
 
     success = models.BooleanField(default=False, db_index=True)
 
+    checked_in = models.DateTimeField(null=True, default=None)
+
     @property
     def clean_twitter(self):
         if self.twitter and self.twitter.startswith("@"):

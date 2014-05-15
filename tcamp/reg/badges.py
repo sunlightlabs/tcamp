@@ -4,8 +4,10 @@ from django.core.exceptions import PermissionDenied
 from django.views.decorators.cache import never_cache
 import shortuuid, uuid
 from cStringIO import StringIO
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
+from dateutil import parser
 from sked.urls import CURRENT_EVENT
 from reg.models import Ticket, CouponCode
 from reg.reports import get_staff_domains
@@ -144,7 +146,7 @@ def get_badge(ticket, prefix=''):
         'organization': ticket.organization,
         'is_staff': is_staff,
         'icon': ICON_NAMES[int(math.floor(10 * (qrcode_uuid.int / MAX_UUID)))],
-        'checked_in': None
+        'checked_in': ticket.checked_in.isoformat() if ticket.checked_in else None,
     }
 
 def get_attendees(request, format):
@@ -191,5 +193,32 @@ def attendee(request, barcode):
     prefix = request.build_absolute_uri('/register/badges/qrcode/')
     qrcode = shortuuid.decode(barcode)
     ticket = get_object_or_404(Ticket, barcode=qrcode)
+
+    if request.method == "POST":
+        checked_in = request.POST.get('checked_in', None)
+        checked_in_bool = checked_in in (True, "true", "True", 1, "1", False, None, "False", "false", "null", 0)
+        p_checked_in = None
+        if checked_in and type(checked_in) in (str, unicode):
+            try:
+                p_checked_in = parser.parse(checked_in)
+            except (AttributeError, ValueError):
+                pass
+
+        if 'checked_in' not in request.POST or (type(checked_in) in (str, unicode) and not p_checked_in and not checked_in_bool):
+            return HttpResponseBadRequest(json.dumps({'error': 'checked_in parameter required, and must be a datetime, true, false, or null.'}), content_type="application/json")
+
+        if checked_in in (False, None, "False", "false", "null", 0):
+            ticket.checked_in = None
+        else:
+            if ticket.checked_in is not None:
+                return HttpResponse(json.dumps({'error': 'Already checked in.'}), status=409, content_type="application/json")
+
+            if checked_in in (True, "true", "True", 1, "1"):
+                ticket.checked_in = timezone.localtime(timezone.now())
+            elif p_checked_in:
+                if not p_checked_in.tzinfo:
+                    p_checked_in = p_checked_in.replace(tzinfo=timezone.get_current_timezone())
+                ticket.checked_in = p_checked_in
+        ticket.save()
 
     return HttpResponse(json.dumps(get_badge(ticket, prefix=prefix)), content_type="application/json")
