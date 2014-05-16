@@ -210,6 +210,7 @@ class Session(models.Model):
 
     is_public = models.BooleanField(default=False, db_index=True)
     has_notes = models.BooleanField(default=True)
+    notes_slug = models.SlugField(blank=True, help_text="Set this to override the default slug (i.e., If you want more than one session to have the same pad.")
 
     event = models.ForeignKey(Event, related_name='sessions')
     location = models.ForeignKey(Location, blank=True, null=True, related_name='sessions')
@@ -304,6 +305,12 @@ class Session(models.Model):
 
     @property
     def etherpad_url(self):
+        if self.notes_slug:
+            return "%s/p/%s-%s" % (self.location.etherpad_host,
+                                   self.event.slug, self.notes_slug)
+        elif self.event.created_at.year > 2013:
+            return "%s/p/%s-%s" % (self.location.etherpad_host,
+                                   self.event.slug, self.slug)
         return "%s/p/%s" % (self.location.etherpad_host, self.slug)
 
 
