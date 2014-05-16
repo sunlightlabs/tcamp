@@ -130,7 +130,6 @@ def get_badge(ticket, prefix='', compact=True):
 
     # are they staff?
     is_staff = True if (ticket.email and any([fdomain in ticket.email for fdomain in STAFF_INFO['domains']])) or \
-        (ticket.sale.email and any([fdomain in ticket.sale.email for fdomain in STAFF_INFO['domains']])) or \
         (ticket.sale.coupon_code and ticket.sale.coupon_code.id in STAFF_INFO['coupons']) else False
 
     # prep their qr code

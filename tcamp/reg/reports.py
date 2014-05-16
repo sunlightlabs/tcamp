@@ -36,16 +36,16 @@ def get_registration_report():
 
         stats['tickets'] += 1
         if (ticket.email and any([fdomain in ticket.email for fdomain in fdomains])) or \
-            (ticket.sale.email and any([fdomain in ticket.sale.email for fdomain in fdomains])) or \
             (ticket.sale.coupon_code and ticket.sale.coupon_code.id in fcoupon):
                 stats['staff'] += 1
         else:
             stats['non_staff'] += 1
-            if ticket.sale.coupon_code:
-                stats['ns_coupon'] += 1
-                coupons[ticket.sale.coupon_code.code] += 1
             types[ticket.type.id] += 1
             type_labels[ticket.type.id] = ticket.type.name
+
+        if ticket.sale.coupon_code and not ticket.sale.coupon_code.is_staff:
+            stats['ns_coupon'] += 1
+            coupons[ticket.sale.coupon_code.code] += 1
 
         if ticket.lobby_day:
             stats['lobby_day'] += 1
