@@ -40,6 +40,9 @@ class CouponCode(models.Model):
     max_tickets = models.IntegerField(help_text="How many tickets to allow to obtain this discount; 0 indicates unlimited tickets.")
     is_staff = models.BooleanField(help_text="Indicates that people that use this code are staff; has no real effect but is useful for tabulating.", default=False)
 
+    def __str__(self):
+        return self.code
+
 class Sale(models.Model):
     event = models.ForeignKey(Event)
 
@@ -69,6 +72,9 @@ class Sale(models.Model):
         for ticket in self.ticket_set.all():
             if ticket.email and ticket.email != self.email:
                 send_html_email_template(subject='TransparencyCamp Receipt', to_addresses=[ticket.email], sender="info@transparencycamp.org", template='reg/email_ticket.html', context={'ticket': ticket}, images=[])
+
+    def __str__(self):
+        return u" ".join((self.first_name, self.last_name))
 
 AMBASSADOR_PROGRAM_CHOICES = (
     ('no', 'No thank you'),
@@ -118,3 +124,6 @@ class Ticket(models.Model):
             return self.twitter[1:]
         else:
             return self.twitter
+
+    def __str__(self):
+        return u" ".join((self.first_name, self.last_name))
