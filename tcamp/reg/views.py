@@ -27,9 +27,12 @@ def register(request):
     payment_form = PaymentForm()
     ticket_form = TicketForm()
 
-    ticket_types = TicketType.objects.filter(event=CURRENT_EVENT, enabled=True).order_by('position')
+    if CURRENT_EVENT.registration_is_open:
+        ticket_types = TicketType.objects.filter(event=CURRENT_EVENT, enabled=True, online=True).order_by('position')
+    else:
+        ticket_types = TicketType.objects.filter(event=CURRENT_EVENT, enabled=True, onsite=True).order_by('position')
 
-    return render_to_response('reg/register.html', {'ticket_form': ticket_form, 'payment_form': payment_form, 'ticket_types': ticket_types, 'BRAINTREE_CSE_KEY': getattr(settings, "BRAINTREE_CSE_KEY", "")}, context_instance=RequestContext(request))
+    return render_to_response('reg/register.html', {'ticket_form': ticket_form, 'payment_form': payment_form, 'ticket_types': ticket_types, 'BRAINTREE_CSE_KEY': getattr(settings, "BRAINTREE_CSE_KEY", ""), 'event': CURRENT_EVENT}, context_instance=RequestContext(request))
 
 @never_cache
 def whos_going(request):

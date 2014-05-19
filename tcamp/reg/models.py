@@ -13,6 +13,8 @@ class TicketType(models.Model):
     price = models.DecimalField(max_digits=20, decimal_places=2)
     enabled = models.BooleanField(default=False)
     position = models.PositiveIntegerField(default=0)
+    online = models.BooleanField(default=True)
+    onsite = models.BooleanField(default=False)
 
     _count = None
     @property
@@ -72,6 +74,9 @@ class Sale(models.Model):
         for ticket in self.ticket_set.all():
             if ticket.email and ticket.email != self.email:
                 send_html_email_template(subject='TransparencyCamp Receipt', to_addresses=[ticket.email], sender="info@transparencycamp.org", template='reg/email_ticket.html', context={'ticket': ticket}, images=[])
+
+    def __unicode__(self):
+        return u" ".join((self.first_name, self.last_name))
 
     def __str__(self):
         return u" ".join((self.first_name, self.last_name))

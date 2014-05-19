@@ -13,7 +13,13 @@
 <div class="row module">
     <div class="span8">
         <p>TransparencyCamp is an “unconference” for opengov. Each year, journalists, developers, technologists, policy-makers, government officials, students, academics, wonks and everyone in between gather together to share knowledge about how to use new technologies and policies to make our government really work for the people -- and to help our people work smarter with our government.</p>
+        
+        {% if event.registration_is_open %}
         <p><strong>Prices will increase the day of the event, so be sure to register today!</strong></p>
+        {% else %}
+        <p><strong>Registration for TCamp14 is now closed, but you can still register on site on Friday and Saturday, May 30&ndash;31st.  On-site registration prices are listed below.</strong></p>
+        {% endif %}
+
         <p>As an <a href="http://transparencycamp.org/about/tips/">unconference</a>, TransparencyCamp emphasizes the important contributions that each and every attendee brings with them into the sessions, workshops and conversations associated with this event. In fact, attendees (yes, all of them) are brought into the process of making the schedule for the conference with the organizers and are encouraged to step up and lead sessions themselves. (Check out this <a href="http://www.youtube.com/watch?v=_3Jse9n80qk&list=PLdo_y1-rDBGZSvFmq1Nf5W1CzK76QwrZr&feature=share">video</a> to get a better sense of what we mean.) Never been to an unconference? No sweat, just let us know and we’ll pair you up with a member of our welcoming team.</p>
 
         <hr />
@@ -21,7 +27,7 @@
         <table class="table ticket-types">
             <thead>
                 <tr>
-                    <th>Ticket Type</th><th>Sales End</th><th>Price</th><th>Quantity</th>
+                    <th>Ticket Type</th>{% if event.registration_is_open %}<th>Sales End</th>{% endif %}<th>Price</th>{% if event.registration_is_open %}<th>Quantity</th>{% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -33,8 +39,10 @@
                         &nbsp;<span class="whats-this"><a href="#" data-toggle="popover" title="{{ type.name }}" data-content="{{ type.description }}">what's this?</a></span>
                         {% endif %}
                     </td>
-                    <td>{% if type.expires %}{{ type.expires|date:"N j, Y" }}{% else %}<em>None</em>{% endif %}</td>
+                    {% if event.registration_is_open %}<td>{% if type.expires %}{{ type.expires|date:"N j, Y" }}{% else %}<em>None</em>{% endif %}</td>{% endif %}
                     <td>{% if type.price > 0 %}${{ type.price }}{% else %}Free{% endif %}</td>
+                    
+                    {% if event.registration_is_open %}
                     <td>
                         {% if type.is_expired %}
                             <span class="text-danger">Sale Over</span>
@@ -66,6 +74,8 @@
                             </select>
                         {% endif %}
                     </td>
+                    {% endif %}
+
                 </tr>
                 {% endfor %}
             </tbody>
