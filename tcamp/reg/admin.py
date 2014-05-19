@@ -15,6 +15,7 @@ admin.site.register(Sale, SaleAdmin)
 class TicketAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'event', 'type', 'success')
     list_filter = ('event', 'type', 'success')
+    exclude = ('checked_in',)
 admin.site.register(Ticket, TicketAdmin)
 
 class CouponCodeAdmin(admin.ModelAdmin):
