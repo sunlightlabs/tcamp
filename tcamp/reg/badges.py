@@ -138,6 +138,7 @@ def get_badge(ticket, prefix='', compact=True):
     out = {
         'first_name': ticket.first_name,
         'last_name': ticket.last_name,
+        'registered': ticket.sale.created.isoformat(),
         'qrcode': qrcode,
         'qrcode_png': '%s%s.png' % (prefix, qrcode),
         'qrcode_svg': '%s%s.svg' % (prefix, qrcode),
@@ -147,6 +148,7 @@ def get_badge(ticket, prefix='', compact=True):
         'is_staff': is_staff,
         'icon': ICON_NAMES[int(math.floor(10 * (qrcode_uuid.int / MAX_UUID)))],
         'checked_in': ticket.checked_in.isoformat() if ticket.checked_in else None,
+        'ambassador_program': ticket.ambassador_program,
     }
     if not compact:
         out['title'] = ticket.title
@@ -164,7 +166,6 @@ def get_badge(ticket, prefix='', compact=True):
         if out['diet']['other']:
             out['diet']['desc']['other'] = ticket.diet_other_desc
 
-        out['ambassador_program'] = ticket.ambassador_program
         out['lobby_day'] = ticket.lobby_day
         out['days'] = {'day1': ticket.attend_day1, 'day2': ticket.attend_day2}
     return out
@@ -177,14 +178,14 @@ def get_attendees(request, format):
     out = []
     prefix = '' if (format == 'zip' or not request) else request.build_absolute_uri('/register/badges/qrcode/')
     compact = format != 'json'
-    for ticket in Ticket.objects.filter(success=True, event=CURRENT_EVENT).select_related():
+    for ticket in Ticket.objects.filter(success=True, event=CURRENT_EVENT).order_by('sale__created').select_related():
         out.append(get_badge(ticket, prefix, compact))
 
     if format == 'json':
         return HttpResponse(json.dumps({'attendees': out}), content_type="application/json")
     elif format in ('csv', 'zip'):
         csvbuff = StringIO()        
-        outc = csv.DictWriter(csvbuff, ['first_name', 'last_name', 'qrcode', 'qrcode_png', 'qrcode_svg', 'email', 'twitter', 'organization', 'is_staff', 'icon', 'checked_in'])
+        outc = csv.DictWriter(csvbuff, ['first_name', 'last_name', 'registered', 'qrcode', 'qrcode_png', 'qrcode_svg', 'email', 'twitter', 'organization', 'is_staff', 'icon', 'checked_in', 'ambassador_program'])
         outc.writeheader()
         
         for row in out:
