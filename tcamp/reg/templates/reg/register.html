@@ -14,7 +14,7 @@
     <div class="span8">
         <p>TransparencyCamp is an “unconference” for opengov. Each year, journalists, developers, technologists, policy-makers, government officials, students, academics, wonks and everyone in between gather together to share knowledge about how to use new technologies and policies to make our government really work for the people -- and to help our people work smarter with our government.</p>
         
-        {% if event.registration_is_open %}
+        {% if registration_is_open %}
         <p><strong>Prices will increase the day of the event, so be sure to register today!</strong></p>
         {% else %}
         <p><strong>Registration for TCamp14 is now closed, but you can still register on site on Friday and Saturday, May 30&ndash;31st.  On-site registration prices are listed below.</strong></p>
@@ -27,7 +27,7 @@
         <table class="table ticket-types">
             <thead>
                 <tr>
-                    <th>Ticket Type</th>{% if event.registration_is_open %}<th>Sales End</th>{% endif %}<th>Price</th>{% if event.registration_is_open %}<th>Quantity</th>{% endif %}
+                    <th>Ticket Type</th>{% if registration_is_open %}<th>Sales End</th>{% endif %}<th>Price</th>{% if registration_is_open %}<th>Quantity</th>{% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -39,10 +39,10 @@
                         &nbsp;<span class="whats-this"><a href="#" data-toggle="popover" title="{{ type.name }}" data-content="{{ type.description }}">what's this?</a></span>
                         {% endif %}
                     </td>
-                    {% if event.registration_is_open %}<td>{% if type.expires %}{{ type.expires|date:"N j, Y" }}{% else %}<em>None</em>{% endif %}</td>{% endif %}
+                    {% if registration_is_open %}<td>{% if type.expires %}{{ type.expires|date:"N j, Y" }}{% else %}<em>None</em>{% endif %}</td>{% endif %}
                     <td>{% if type.price > 0 %}${{ type.price }}{% else %}Free{% endif %}</td>
                     
-                    {% if event.registration_is_open %}
+                    {% if registration_is_open %}
                     <td>
                         {% if type.is_expired %}
                             <span class="text-danger">Sale Over</span>

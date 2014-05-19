@@ -7,6 +7,7 @@ from reg.badges import qrcode_image, attendees, attendee
 
 urlpatterns = patterns('',
     url(r'^$', register),
+    url(r'^override/$', register_override),
     url(r'^price/$', price_check),
     url(r'^save/$', save),
     url(r'^thanks/$', TemplateView.as_view(template_name="reg/thanks.html")),

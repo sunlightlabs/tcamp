@@ -8,6 +8,7 @@ from reg.models import *
 from reg.forms import *
 from reg.email_utils import *
 from reg.reports import *
+from reg.badges import require_staff_code
 import slack
 
 from django.forms.util import ErrorList
@@ -23,16 +24,33 @@ import braintree
 
 from django.contrib.auth.decorators import user_passes_test
 
+
 def register(request):
+    if CURRENT_EVENT.registration_is_open:
+        return _open_register(request)
+    else:
+        return _closed_register(request)
+
+@require_staff_code
+def register_override(request):
+    return _open_register(request)
+
+def _closed_register(request):
     payment_form = PaymentForm()
     ticket_form = TicketForm()
 
-    if CURRENT_EVENT.registration_is_open:
-        ticket_types = TicketType.objects.filter(event=CURRENT_EVENT, enabled=True, online=True).order_by('position')
-    else:
-        ticket_types = TicketType.objects.filter(event=CURRENT_EVENT, enabled=True, onsite=True).order_by('position')
+    ticket_types = TicketType.objects.filter(event=CURRENT_EVENT, enabled=True, onsite=True).order_by('position')
 
-    return render_to_response('reg/register.html', {'ticket_form': ticket_form, 'payment_form': payment_form, 'ticket_types': ticket_types, 'BRAINTREE_CSE_KEY': getattr(settings, "BRAINTREE_CSE_KEY", ""), 'event': CURRENT_EVENT}, context_instance=RequestContext(request))
+    return render_to_response('reg/register.html', {'ticket_form': ticket_form, 'payment_form': payment_form, 'ticket_types': ticket_types, 'BRAINTREE_CSE_KEY': getattr(settings, "BRAINTREE_CSE_KEY", ""), 'event': CURRENT_EVENT, 'registration_is_open': False}, context_instance=RequestContext(request))
+
+
+def _open_register(request):
+    payment_form = PaymentForm()
+    ticket_form = TicketForm()
+
+    ticket_types = TicketType.objects.filter(event=CURRENT_EVENT, enabled=True, online=True).order_by('position')
+
+    return render_to_response('reg/register.html', {'ticket_form': ticket_form, 'payment_form': payment_form, 'ticket_types': ticket_types, 'BRAINTREE_CSE_KEY': getattr(settings, "BRAINTREE_CSE_KEY", ""), 'event': CURRENT_EVENT, 'registration_is_open': True}, context_instance=RequestContext(request))
 
 @never_cache
 def whos_going(request):
