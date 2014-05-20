@@ -345,7 +345,7 @@ class SentEmail(models.Model):
 def autogenerate_tags(sender, **kwargs):
     instance = kwargs['instance']
     tags = tgr('%s %s' % (instance.title, instance.description.raw))
-    instance.auto_tags.set(*[tag.string for tag in tags])
+    instance.auto_tags.set(*[tag.string for tag in tags if len(tag.string) <= 100])
 
 
 @receiver(post_save, sender=Session)
