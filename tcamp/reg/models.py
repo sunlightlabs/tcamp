@@ -1,8 +1,10 @@
 from sked.models import Event
 from django.db import models
+from django.db.models.query import QuerySet
 from django_extras.db.models.fields import MoneyField, PercentField
 from django_extensions.db.fields import PostgreSQLUUIDField
 import datetime
+import shortuuid, uuid
 
 class TicketType(models.Model):
     event = models.ForeignKey(Event)
@@ -81,6 +83,18 @@ class Sale(models.Model):
     def __str__(self):
         return u" ".join((self.first_name, self.last_name))
 
+# some barcode convenience methods for tickets
+class TicketQuerySet(QuerySet):
+    def filter(self, *args, **kwargs):
+        if 'short_barcode' in kwargs:
+            kwargs['barcode'] = shortuuid.decode(kwargs['short_barcode'])
+            del kwargs['short_barcode']
+        return super(TicketQuerySet, self).filter(*args, **kwargs)
+   
+class TicketManager(models.Manager):
+    def get_query_set(self):
+        return TicketQuerySet(self.model)
+
 AMBASSADOR_PROGRAM_CHOICES = (
     ('no', 'No thank you'),
     ('new', "Yes, I'm a new attendee and would like to be paired with an ambassador."),
@@ -123,12 +137,19 @@ class Ticket(models.Model):
 
     checked_in = models.DateTimeField(null=True, default=None)
 
+    objects = TicketManager()
+
     @property
     def clean_twitter(self):
         if self.twitter and self.twitter.startswith("@"):
             return self.twitter[1:]
         else:
             return self.twitter
+
+    @property
+    def short_barcode(self):
+        qrcode_uuid = uuid.UUID(self.barcode)
+        return shortuuid.encode(qrcode_uuid)
 
     def __unicode__(self):
         return u" ".join((self.first_name, self.last_name))
