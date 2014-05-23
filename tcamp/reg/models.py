@@ -5,6 +5,7 @@ from django_extras.db.models.fields import MoneyField, PercentField
 from django_extensions.db.fields import PostgreSQLUUIDField
 import datetime
 import shortuuid, uuid
+from reg.utils import *
 
 class TicketType(models.Model):
     event = models.ForeignKey(Event)
@@ -25,6 +26,10 @@ class TicketType(models.Model):
             self._count = Ticket.objects.filter(event=self.event, success=True, type=self).count()
         return self._count
 
+    @property
+    def short_name(self):
+        return shorten_ticket_type(self.name)
+
     def is_expired(self):
         return datetime.datetime.now() > self.expires
 
@@ -36,6 +41,10 @@ class TicketType(models.Model):
 
     class Meta:
         ordering = ['position']
+
+@memodict
+def shorten_ticket_type(name):
+    return name.split(":")[0].replace(" ", "_").lower()
 
 class CouponCode(models.Model):
     event = models.ForeignKey(Event)

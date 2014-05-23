@@ -168,6 +168,7 @@ def get_badge(ticket, prefix='', compact=True):
 
         out['lobby_day'] = ticket.lobby_day
         out['days'] = {'day1': ticket.attend_day1, 'day2': ticket.attend_day2}
+        out['ticket_type'] = ticket.type.short_name
     return out
 
 def get_attendees(request, format):
