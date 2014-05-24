@@ -9,6 +9,7 @@ from dateutil.parser import parse as dateparse
 from sked.models import Event, Session
 import base62
 
+
 @never_cache
 @twilio_view
 @require_http_methods(['POST', ])
@@ -88,7 +89,6 @@ def _format_multiple(qset):
     return msgs
 
 
-
 def _format_single(qset):
     sess = qset[0]
     tm = _convert_time(qset[0].start_time)
@@ -99,11 +99,11 @@ def _format_single(qset):
 
 {description}
 '''.format(title=sess.title,
-               time=u'%s at %s' % (tm.strftime('%A'), tm.strftime('%-I:%M')),
-               room=sess.location.name,
-               description=striptags(sess.description),
-               speaker_names=sess.speaker_names,
-               )
+           time=u'%s at %s' % (tm.strftime('%A'), tm.strftime('%-I:%M')),
+           room=sess.location.name,
+           description=striptags(sess.description).replace('&amp;', '&'),
+           speaker_names=sess.speaker_names,
+           )
     if sess.tags.count():
         detail += u"\n\nTagged: %s" % sess.tag_string
 
