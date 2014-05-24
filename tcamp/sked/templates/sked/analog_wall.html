@@ -36,7 +36,7 @@
     {% for session in session_list %}
     <div class="print-session">
         <h2>{{ session.title }}</h2>
-        <h3>{{ session.start_time|date:"g:i a"}} @ {{ session.location.name }}</h3>
+        {#<h3>{{ session.start_time|date:"g:i a"}} @ {{ session.location.name }}</h3>#}
         <p class="meta">
         {% for speaker in session.speakers %}
             <strong>{{ speaker.name }}</strong>{% if speaker.twitter %} (@{{ speaker.twitter }}){% endif %}{% if not forloop.last %},<br />{% endif %}
