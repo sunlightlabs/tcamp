@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load honeypot %}
 {% block title %}Submit a new Session{% endblock %}
 
 {% block content %}
@@ -84,6 +85,7 @@
                         {{ form.speakers.errors }}
                         <input type="text" id="speakers_0_name" name="speakers[name]" placeholder="Full Name" value="{{ form.speakers.data.0.name }}" />
                         <input type="text" id="speakers_0_email" name="speakers[email]" placeholder="Your Email" value="{{ form.speakers.data.0.email }}" />
+                        {% render_honeypot_field %}
                         <div class="input-prepend">
                             <span class="add-on">@</span>
                             <input type="text" id="speakers_0_twitter" name="speakers[twitter]" placeholder="Twitter (optional)" value="{{ form.speakers.data.0.twitter }}" />
