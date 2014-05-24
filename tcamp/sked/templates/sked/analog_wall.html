@@ -39,9 +39,21 @@
         <h3>{{ session.start_time|date:"g:i a"}} @ {{ session.location.name }}</h3>
         <p class="meta">
         {% for speaker in session.speakers %}
-            <strong>{{ speaker.name }}</strong>{% if speaker.twitter %} (<a href="http://twitter.com/{{ speaker.twitter }}">@{{ speaker.twitter }}</a>){% endif %}{% if not forloop.last %},<br />{% endif %}
+            <strong>{{ speaker.name }}</strong>{% if speaker.twitter %} (@{{ speaker.twitter }}){% endif %}{% if not forloop.last %},<br />{% endif %}
         {% endfor %}
         </p>
+        <div class="small">
+            {{ session.description | truncatewords:80 }}
+        </div>
+        <div class="tags">
+            {% if session.tags %}
+                <p>Tagged:
+                {% for tag in session.tags.all %}
+                <small>{% tag.name %}</small>
+                {% endfor %}
+                </p>
+            {% endif %}
+        </div>
     </div>
     {% endfor %}
 </body>
