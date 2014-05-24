@@ -49,7 +49,7 @@
             {% if session.tags %}
                 <p>Tagged:
                 {% for tag in session.tags.all %}
-                <small>{% tag.name %}</small>
+                <small>{{ tag.name }}</small>
                 {% endfor %}
                 </p>
             {% endif %}
