@@ -341,7 +341,7 @@ class Session(models.Model):
             try:
                 ticket = Ticket.objects.filter(email__iexact=self.contact_email,
                                                event_id=current_event.id)
-            rescue ValueError:
+            except ValueError:
                 return None
             try:
                 self.ticket = ticket[0]
