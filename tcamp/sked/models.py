@@ -1,5 +1,6 @@
 import hashlib
 import re
+import datetime
 
 from django.conf import settings
 from django.core.urlresolvers import reverse, Resolver404
@@ -17,7 +18,9 @@ from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
 
 from brainstorm.models import Idea
-from sked.email import SessionConfirmationEmailThread, SessionConversionEmailThread
+from sked.email import (SessionConfirmationEmailThread,
+                        SessionConversionEmailThread)
+# from reg.models import Ticket
 from tagger import extract_tags as tgr
 
 
@@ -277,6 +280,20 @@ class Session(models.Model):
             return None
 
     @property
+    def attending_day1(self):
+        ticket = self._get_current_ticket()
+        if ticket is None:
+            return False
+        return ticket.attend_day1
+
+    @property
+    def attending_day2(self):
+        ticket = self._get_current_ticket()
+        if ticket is None:
+            return False
+        return ticket.attend_day2
+
+    @property
     def leader(self):
         try:
             return self.speakers[0]['name']
@@ -312,6 +329,22 @@ class Session(models.Model):
             return "%s/p/%s-%s" % (self.location.etherpad_host,
                                    self.event.slug, self.slug)
         return "%s/p/%s" % (self.location.etherpad_host, self.slug)
+
+    def _get_current_ticket(self):
+        # Do this here to avoid a circular import of reg/sked models.
+        from reg.models import Ticket
+        from sked.models import Event
+        try:
+            return self.ticket
+        except AttributeError:
+            current_event = Event.objects.current()
+            ticket = Ticket.objects.filter(email__iexact=self.contact_email,
+                                           event_id=current_event.id)
+            try:
+                self.ticket = ticket[0]
+                return self.ticket
+            except IndexError:
+                pass
 
 
 class SentEmail(models.Model):

@@ -120,6 +120,7 @@ class SponsorResource(ModelResource):
             'sponsorship': ALL_WITH_RELATIONS,
         }
 
+
 class EmailSubscriberResource(ModelResource):
     event = fields.ToOneField(EventResource, 'event', null=True, full=False)
 

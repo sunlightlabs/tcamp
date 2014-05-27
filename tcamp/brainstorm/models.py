@@ -104,6 +104,20 @@ class Idea(models.Model):
     def __unicode__(self):
         return self.title
 
+    @property
+    def attending_day1(self):
+        ticket = self._get_current_ticket()
+        if ticket is None:
+            return False
+        return ticket.attend_day1
+
+    @property
+    def attending_day2(self):
+        ticket = self._get_current_ticket()
+        if ticket is None:
+            return False
+        return ticket.attend_day2
+
     def get_absolute_url(self):
         return reverse('brainstorm:idea_detail', args=[self.subsite.slug, self.id])
 
@@ -118,6 +132,22 @@ class Idea(models.Model):
                 return (score, upvotes, downvotes)
             except:
                 return (0, 0, 0)
+
+    def _get_current_ticket(self):
+        # Do this here to avoid a circular import.
+        from reg.models import Ticket
+        from sked.models import Event
+        try:
+            return self.ticket
+        except AttributeError:
+            current_event = Event.objects.current()
+            ticket = Ticket.objects.filter(email__iexact=self.email,
+                                           event_id=current_event.id)
+            try:
+                self.ticket = ticket[0]
+                return self.ticket
+            except IndexError:
+                pass
 
 
 class VoteManager(models.Manager):

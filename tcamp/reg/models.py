@@ -4,8 +4,10 @@ from django.db.models.query import QuerySet
 from django_extras.db.models.fields import MoneyField, PercentField
 from django_extensions.db.fields import PostgreSQLUUIDField
 import datetime
-import shortuuid, uuid
+import shortuuid
+import uuid
 from reg.utils import *
+
 
 class TicketType(models.Model):
     event = models.ForeignKey(Event)
@@ -42,9 +44,11 @@ class TicketType(models.Model):
     class Meta:
         ordering = ['position']
 
+
 @memodict
 def shorten_ticket_type(name):
     return name.split(":")[0].replace(" ", "_").lower()
+
 
 class CouponCode(models.Model):
     event = models.ForeignKey(Event)
@@ -55,6 +59,7 @@ class CouponCode(models.Model):
 
     def __str__(self):
         return self.code
+
 
 class Sale(models.Model):
     event = models.ForeignKey(Event)
@@ -76,12 +81,12 @@ class Sale(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     success = models.BooleanField(default=False)
-    
+
     def send_receipts(self):
-        from email_utils import *
+        from reg.email_utils import *
         if self.email:
             send_html_email_template(subject='TransparencyCamp Receipt', to_addresses=[self.email], sender="info@transparencycamp.org", template='reg/email_sale.html', context={'sale': self}, images=[])
-        
+
         for ticket in self.ticket_set.all():
             if ticket.email and ticket.email != self.email:
                 send_html_email_template(subject='TransparencyCamp Receipt', to_addresses=[ticket.email], sender="info@transparencycamp.org", template='reg/email_ticket.html', context={'ticket': ticket}, images=[])
@@ -92,6 +97,7 @@ class Sale(models.Model):
     def __str__(self):
         return u" ".join((self.first_name, self.last_name))
 
+
 # some barcode convenience methods for tickets
 class TicketQuerySet(QuerySet):
     def filter(self, *args, **kwargs):
@@ -99,10 +105,12 @@ class TicketQuerySet(QuerySet):
             kwargs['barcode'] = shortuuid.decode(kwargs['short_barcode'])
             del kwargs['short_barcode']
         return super(TicketQuerySet, self).filter(*args, **kwargs)
-   
+
+
 class TicketManager(models.Manager):
     def get_query_set(self):
         return TicketQuerySet(self.model)
+
 
 AMBASSADOR_PROGRAM_CHOICES = (
     ('no', 'No thank you'),
@@ -110,6 +118,8 @@ AMBASSADOR_PROGRAM_CHOICES = (
     ('vet', "Yes, I would like to be an ambassador, and welcome new members of our community."),
     ('maybe', "Maybe; please keep me informed."),
 )
+
+
 class Ticket(models.Model):
     event = models.ForeignKey(Event)
     sale = models.ForeignKey(Sale, null=True)
@@ -119,7 +129,7 @@ class Ticket(models.Model):
 
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    email = models.EmailField()
+    email = models.EmailField(db_index=True)
 
     title = models.CharField(max_length=255, blank=True)
     organization = models.CharField(max_length=255, blank=True)
