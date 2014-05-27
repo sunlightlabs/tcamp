@@ -99,7 +99,7 @@ class Idea(models.Model):
     objects = IdeaManager()
 
     class Meta:
-        ordering = ('-score',)
+        ordering = ('-score', '-upvotes', 'title')
 
     def __unicode__(self):
         return self.title
