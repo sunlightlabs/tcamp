@@ -338,8 +338,11 @@ class Session(models.Model):
             return self.ticket
         except AttributeError:
             current_event = Event.objects.current()
-            ticket = Ticket.objects.filter(email__iexact=self.contact_email,
-                                           event_id=current_event.id)
+            try:
+                ticket = Ticket.objects.filter(email__iexact=self.contact_email,
+                                               event_id=current_event.id)
+            rescue ValueError:
+                return None
             try:
                 self.ticket = ticket[0]
                 return self.ticket
