@@ -17,15 +17,15 @@ class IdeaList(ListView):
     context_object_name = 'idea_list'
     ordering = 'most_popular'
     ordering_map = {
-        'most_popular': '-score',
-        'latest': '-timestamp'
+        'most_popular': ('-score', '-upvotes', 'title',),
+        'latest': ('-timestamp',)
     }
 
     def get_queryset(self):
         return self.model.objects.with_user_vote(self.request.user).filter(
             subsite__slug=self.kwargs.get('slug'),
-            is_public=True).order_by(self.ordering_map.get(self.ordering,
-                                                           self.ordering))
+            is_public=True).order_by(*self.ordering_map.get(self.ordering,
+                                                           (self.ordering,)))
 
     def get_context_data(self, **kwargs):
         # Set up pagination interval before calling super()
