@@ -17,7 +17,7 @@ class IdeaList(ListView):
     context_object_name = 'idea_list'
     ordering = 'most_popular'
     ordering_map = {
-        'most_popular': ('-score', '-upvotes', 'title'),
+        'most_popular': '-score',
         'latest': '-timestamp'
     }
 
