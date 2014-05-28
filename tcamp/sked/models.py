@@ -251,6 +251,13 @@ class Session(models.Model):
         return url
 
     def save(self, *args, **kwargs):
+        # get the old instance for dirty tracking
+        try:
+            old = Session.objects.get(pk=self.id)
+        except Session.DoesNotExist, AttributeError:
+            old = None
+
+        # create a slug if doesn't exist
         if not self.slug:
             self.slug = slugify(self.title)[:50].rstrip('-')
             normalized_slug = re.sub(r'[\d]+$', '', self.slug)
@@ -259,7 +266,11 @@ class Session(models.Model):
                                          event=self.event).count():
                 count += 1
                 self.slug = '%s%s' % (normalized_slug, count)
-        if self.start_time:
+
+        # set the right end time if it should be set
+        if self.start_time and (not self.end_time or
+                                (old.start_time != self.start_time and
+                                 old.end_time == self.end_time)):
             self.end_time = self.start_time + self.event.session_length
 
         super(Session, self).save(*args, **kwargs)
