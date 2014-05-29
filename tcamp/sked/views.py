@@ -4,7 +4,7 @@ import datetime
 from dateutil.parser import parse as dateparse
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponseRedirect
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.contrib import messages
 from django.db.models import Count
 from django.utils import timezone
@@ -153,6 +153,21 @@ class CreateSession(SessionCrudMixin, CreateView):
 
 
 class UpdateSession(SessionCrudMixin, UpdateView, DeletionMixin):
+    def get_object(self, queryset=None):
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        slug = self.kwargs.get('slug', None)
+        event_slug = self.kwargs.get('event_slug', None)
+        queryset = queryset.filter(slug=slug, event__slug=event_slug)
+
+        try:
+            obj = queryset.get()
+        except ObjectDoesNotExist:
+            raise Http404(_("No %(verbose_name)s found matching the query") %
+                          {'verbose_name': queryset.model._meta.verbose_name})
+        return obj
+
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         if self.object.is_public:
