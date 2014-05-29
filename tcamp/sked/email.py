@@ -82,13 +82,16 @@ class SessionApprovedEmailThread(BasePostmarkSessionEmailThread):
         details = dict(start_time=self.session.start_time.astimezone(
                             timezone.get_current_timezone()
                             ).strftime('%I:%M %p'),
+                        start_date=self.session.start_time.astimezone(
+                            timezone.get_current_timezone()
+                            ).strftime('%a %D'),
                        location=self.session.location.name,
                        site=Site.objects.get_current().domain,
                        schedule_url=self.session.get_absolute_url())
-        self.subject = '[TCamp] {start_time} @ {location} -- Your Session is scheduled!'.format(**details)
+        self.subject = '[TCamp] {start_date}, {start_time} @ {location} -- Your Session is scheduled!'.format(**details)
         self.body = ("Your session has been approved and scheduled for:"
                      "\n\n"
-                     "{start_time} in {location}."
+                     "{start_date}, {start_time} in {location}."
                      "\n\n"
                      "Please see the registration desk 10 minutes before "
                      "your scheduled time slot if you need an "
