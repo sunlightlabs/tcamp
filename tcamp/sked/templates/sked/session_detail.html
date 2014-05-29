@@ -5,7 +5,7 @@
 <div class="row-fluid breadcrumb-row">
     <div class="span12">
         <div class="breadcrumb divider-bottom">
-            <a href="../#schedule">&laquo; Back to schedule</a>
+            <a href="{% url "session_list" event_slug=session.event.slug %}">&laquo; Back to schedule</a>
         </div>
     </div>
 </div>
