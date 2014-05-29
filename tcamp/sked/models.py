@@ -133,10 +133,9 @@ class Location(models.Model):
 
     @property
     def etherpad_host(self):
-        if self.is_official and self.has_sessions and self.event.is_current
-        return ("http://tcamp-pad-%s.herokuapp.com" % self.pk if
-                self.is_official and self.has_sessions and self.event.is_current else
-                "http://pad.transparencycamp.org")
+        if self.is_official and self.has_sessions and self.event.is_current:
+            return "http://tcamp-pad-%s.herokuapp.com" % self.pk
+        return "http://pad.transparencycamp.org"
 
     @staticmethod
     def autocomplete_search_fields():
