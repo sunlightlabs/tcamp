@@ -135,7 +135,7 @@ class Location(models.Model):
     def etherpad_host(self):
         if self.is_official and self.has_sessions and self.event.is_current:
             return "http://tcamp-pad-%s.herokuapp.com" % self.pk
-        return "http://pad.transparencycamp.org"
+        return "http://pad.transparencycamp.org"g
 
     @staticmethod
     def autocomplete_search_fields():
@@ -335,7 +335,7 @@ class Session(models.Model):
                                    self.event.slug, self.notes_slug)
         elif self.event.created_at.year > 2013:
             return "%s/p/%s-%s" % (self.location.etherpad_host,
-                                   self.event.slug, self.slug)
+                                   self.event.slug, self.slug[0:30])
         return "%s/p/%s" % (self.location.etherpad_host, self.slug)
 
     def _get_current_ticket(self):
