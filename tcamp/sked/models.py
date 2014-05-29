@@ -87,10 +87,7 @@ class Event(models.Model):
 
     @property
     def is_current(self):
-        now = timezone.now().date()
-        if self.start_date <= now and self.end_date >= now:
-            return True
-        return False
+        return self.pk == Event.objects.current().pk
 
     @property
     def is_upcoming(self):
@@ -136,6 +133,7 @@ class Location(models.Model):
 
     @property
     def etherpad_host(self):
+        if self.is_official and self.has_sessions and self.event.is_current
         return ("http://tcamp-pad-%s.herokuapp.com" % self.pk if
                 self.is_official and self.has_sessions and self.event.is_current else
                 "http://pad.transparencycamp.org")
