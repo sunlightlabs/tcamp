@@ -5,7 +5,7 @@ from sked.models import Session
 class SessionForm(ModelForm):
     class Meta:
         model = Session
-        fields = ('title', 'description', 'tags', 'speakers',
+        fields = ('title', 'description', 'tags', 'hashtag', 'speakers',
                   'extra_data', 'user_notes', 'event', )
         widgets = {
             'title': widgets.TextInput(attrs={'data-limit': '60'}),

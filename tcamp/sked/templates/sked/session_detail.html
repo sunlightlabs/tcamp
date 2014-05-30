@@ -21,8 +21,13 @@
             {% endfor %}
         </p>
         {{ session.description }}
+
+        {% if session.hashtag %}
+        <p>Tweet this session: <a href="https://twitter.com/search?q={{ session.hashtag|urlencode }}"></a></p>
+        {% endif %}
     </div>
 </div>
+
 {% if session.has_notes %}
 <div class="row-fluid module collapse-top">
     <div class="span12">
