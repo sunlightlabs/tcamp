@@ -71,6 +71,7 @@ def _as_sms(qset):
 
 
 def _format_multiple(qset):
+    msgs = []
     now = timezone.now()
     tm = _convert_time(qset[0].start_time)
     if tm.date() == now.date():
