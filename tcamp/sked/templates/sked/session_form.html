@@ -64,6 +64,18 @@
                     </div>
                 </div>
                 <div class="control-group">
+                    <label for="hashtag">Add a Twitter Hashtag</label>
+                    <div class="controls">
+                        {{ form.hashtag.errors }}
+                        {{ form.hashtag }}
+                        {% if form.hashtag.help_text %}
+                        <p class="help-block">
+                            {{ form.hashtag.help_text}}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="control-group">
                     <label for="extra_data_has_slides">Do you have slides or other media?</label>
                     <div class="controls">
                         <input type="radio" value="false" name="extra_data[has_slides]" id="extra_data_has_slides_no" {% if form.extra_data.data.has_slides == False %}checked="checked"{% endif %}> <label class="inline" for="extra_data_has_slides_no">No</label>

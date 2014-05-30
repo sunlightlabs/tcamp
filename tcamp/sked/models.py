@@ -23,6 +23,8 @@ from sked.email import (SessionConfirmationEmailThread,
 # from reg.models import Ticket
 from tagger import extract_tags as tgr
 
+import base62
+
 
 class EventManager(models.Manager):
     def current(qset, is_public=True):
@@ -87,10 +89,7 @@ class Event(models.Model):
 
     @property
     def is_current(self):
-        now = timezone.now().date()
-        if self.start_date <= now and self.end_date >= now:
-            return True
-        return False
+        return self.pk == Event.objects.current().pk
 
     @property
     def is_upcoming(self):
@@ -136,9 +135,9 @@ class Location(models.Model):
 
     @property
     def etherpad_host(self):
-        return ("http://tcamp-pad-%s.herokuapp.com" % self.pk if
-                self.is_official and self.has_sessions and self.event.is_current else
-                "http://pad.transparencycamp.org")
+        if self.is_official and self.has_sessions and self.event.is_current:
+            return "http://tcamp-pad-%s.herokuapp.com" % self.pk
+        return "http://pad.transparencycamp.org"
 
     @staticmethod
     def autocomplete_search_fields():
@@ -210,6 +209,7 @@ class Session(models.Model):
     auto_tags = TaggableManager(blank=True, through=AutoTags)
     auto_tags.rel.related_name = '+'
     user_notes = models.TextField(blank=True, default='', help_text='Note in this space if you need to request a specific timeslot, or make sure you have a projector, etc. We can\'t make guarantees about anything, but we\'ll do our best.')
+    hashtag = models.CharField(max_length=140, blank=True, null=True, help_text="Help others find and share info about your session! Include the '#'.")
 
     is_public = models.BooleanField(default=False, db_index=True)
     has_notes = models.BooleanField(default=True)
@@ -338,8 +338,12 @@ class Session(models.Model):
                                    self.event.slug, self.notes_slug)
         elif self.event.created_at.year > 2013:
             return "%s/p/%s-%s" % (self.location.etherpad_host,
-                                   self.event.slug, self.slug)
+                                   self.event.slug, self.slug[0:30])
         return "%s/p/%s" % (self.location.etherpad_host, self.slug)
+
+    @property
+    def sms_shortcode(self):
+        return base62.encode(self.id)
 
     def _get_current_ticket(self):
         # Do this here to avoid a circular import of reg/sked models.
