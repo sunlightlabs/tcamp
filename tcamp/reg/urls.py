@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^badges/qrcode/(?P<barcode>[A-Za-z0-9]+)\.(?P<format>svg|png)$', qrcode_image),
     url(r'^badges/types.json', ticket_types),
     url(r'^badges/new$', new_sale),
+    url(r'^badges/cf_config.json', cardflight_config),
 )
 
 admin.autodiscover()

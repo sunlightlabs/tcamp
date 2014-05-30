@@ -16,6 +16,7 @@ import json, csv, zipfile
 import math
 from reg.utils import cors_allow_all
 from reg.email_utils import *
+from django.conf import settings
 
 ### caching and auth
 # taken from http://djangosnippets.org/snippets/564/
@@ -313,3 +314,8 @@ def new_sale(request):
         send_sale_email(sale.id)
 
     return HttpResponse(json.dumps({'status': 'OK', 'url': '/register/badges/' + ticket.short_barcode + '.json?key=' + request.GET['key'], 'barcode': ticket.short_barcode}), content_type="application/json")
+
+@cors_allow_all
+@require_staff_code
+def cardflight_config(request):
+    return HttpResponse(json.dumps({'config': settings.CARDFLIGHT_CONFIG}), content_type="application/json");
