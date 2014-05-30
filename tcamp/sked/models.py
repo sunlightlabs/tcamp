@@ -23,6 +23,8 @@ from sked.email import (SessionConfirmationEmailThread,
 # from reg.models import Ticket
 from tagger import extract_tags as tgr
 
+import base62
+
 
 class EventManager(models.Manager):
     def current(qset, is_public=True):
@@ -338,6 +340,10 @@ class Session(models.Model):
             return "%s/p/%s-%s" % (self.location.etherpad_host,
                                    self.event.slug, self.slug[0:30])
         return "%s/p/%s" % (self.location.etherpad_host, self.slug)
+
+    @property
+    def sms_shortcode(self):
+        return base62.encode(self.id)
 
     def _get_current_ticket(self):
         # Do this here to avoid a circular import of reg/sked models.

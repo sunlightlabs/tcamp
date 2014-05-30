@@ -43,7 +43,7 @@
         {% endfor %}
         </p>
         <div class="small">
-            {{ session.description | truncatewords:30 }}
+        (SMS: <strong>{{ session.sms_shortcode }}</strong>) {{ session.description | truncatewords:30 }}
         </div>
         <div class="tags">
             {% if session.tags.count %}
