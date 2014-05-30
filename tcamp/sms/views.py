@@ -62,7 +62,6 @@ def _get_session_from_base62(id):
 
 def _as_sms(qset):
     msgs = ['No events.\n']
-    now = timezone.now()
     if qset.count() > 1:
         return _format_multiple(qset)
     elif qset.count() is 1:
@@ -72,6 +71,7 @@ def _as_sms(qset):
 
 
 def _format_multiple(qset):
+    now = timezone.now()
     tm = _convert_time(qset[0].start_time)
     if tm.date() == now.date():
         msgs[0] = u'At %s\n' % tm.strftime('%-I:%M')
