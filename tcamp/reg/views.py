@@ -140,6 +140,7 @@ def save(request):
                     sale.zip = payment_form['zip'].value()
 
                     sale.amount = price['price']
+                    sale.payment_type = 'online_credit'
 
                     sale.save()
 
@@ -185,6 +186,7 @@ def save(request):
             out['payment_form'] = form_response
         else:
             # we can blindly accept all the tickets, since no payment is necessary
+            sale.payment_type = 'none'
             sale.success = True
             sale.save()
 

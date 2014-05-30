@@ -61,6 +61,13 @@ class CouponCode(models.Model):
         return self.code
 
 
+PAYMENT_TYPE_CHOICES = (
+    ('none', 'No payment'),
+    ('online', "Online credit card payment"),
+    ('onsite_credit', "Onsite credit card payment"),
+    ('onsite_cash', "Onsite cash payment"),
+)
+
 class Sale(models.Model):
     event = models.ForeignKey(Event)
 
@@ -77,6 +84,7 @@ class Sale(models.Model):
     coupon_code = models.ForeignKey(CouponCode, null=True, on_delete=models.SET_NULL)
     amount = models.DecimalField(max_digits=20, decimal_places=2, blank=True)
 
+    payment_type = models.CharField(max_length=255, blank=True, choices=PAYMENT_TYPE_CHOICES, default='online_credit')
     transaction_id = models.CharField(max_length=255, blank=True)
 
     created = models.DateTimeField(auto_now_add=True)

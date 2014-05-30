@@ -2,17 +2,20 @@ import qrcode
 from qrcode.image.svg import *
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.cache import never_cache
+from django.views.decorators.http import require_POST
 import shortuuid, uuid
 from cStringIO import StringIO
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from dateutil import parser
 from sked.urls import CURRENT_EVENT
-from reg.models import Ticket, CouponCode
+from reg.models import Ticket, TicketType, Sale, CouponCode
 from reg.reports import get_staff_domains
 import json, csv, zipfile
 import math
+from reg.utils import cors_allow_all
+from reg.email_utils import *
 
 ### caching and auth
 # taken from http://djangosnippets.org/snippets/564/
@@ -210,8 +213,9 @@ def get_attendees(request, format):
 
             return HttpResponse(zipbuff.getvalue(), content_type="application/zip")
 
-attendees = never_cache(require_staff_code(get_attendees))
+attendees = cors_allow_all(never_cache(require_staff_code(get_attendees)))
 
+@cors_allow_all
 @never_cache
 @require_staff_code
 def attendee(request, barcode):
@@ -247,3 +251,65 @@ def attendee(request, barcode):
         ticket.save()
 
     return HttpResponse(json.dumps(get_badge(ticket, prefix=prefix, compact=False)), content_type="application/json")
+
+@cors_allow_all
+@require_staff_code
+def ticket_types(request):
+    types = TicketType.objects.all().order_by('position')
+    out = [{
+        'id': t.id,
+        'name': t.name,
+        'position': t.position,
+        'online': t.online,
+        'onsite': t.onsite,
+        'price': float(t.price)
+    } for t in types if t.enabled]
+
+    return HttpResponse(json.dumps({'ticket_types': out}), content_type="application/json")
+
+# this method does no error checking at all (yikes!) but I'm in a hurry
+@cors_allow_all
+@require_staff_code
+def new_sale(request):
+    post = json.loads(request.body)
+    now = timezone.localtime(timezone.now())
+
+    # sale
+    sale = Sale()
+    sale.event = CURRENT_EVENT
+    sale.first_name = post['sale'].get('first_name', '')
+    sale.last_name = post['sale'].get('last_name', '')
+    sale.email = post['sale'].get('email', '')
+    sale.payment_type = post['sale']['payment_type']
+    if post['sale'].get('coupon_code', None):
+        code = list(CouponCode.objects.filter(code=post['sale']['coupon_code']))
+        if code:
+            sale.coupon_code = code
+    sale.amount = post['sale']['amount']
+
+    if post['sale'].get('transaction_id', None):
+        sale.transaction_id = post['sale']['transaction_id']
+
+    sale.created = now
+    sale.success = True
+    sale.save()
+
+    # ticket
+    ticket = Ticket()
+    ticket.event = CURRENT_EVENT
+    ticket.sale = sale
+    ticket.type_id = post['ticket']['type']
+    ticket.first_name = post['ticket']['first_name']
+    ticket.last_name = post['ticket']['last_name']
+    ticket.email = post['ticket']['email']
+    ticket.twitter = post['ticket']['twitter']
+    ticket.organization = post['ticket']['organization']
+    ticket.checked_in = now if post['ticket']['checked_in'] else None
+    
+    ticket.success = True
+    ticket.save()
+
+    if post['sale']['send_receipts']:
+        send_sale_email(sale.id)
+
+    return HttpResponse(json.dumps({'status': 'OK', 'url': '/register/badges/' + ticket.short_barcode + '.json?key=' + request.GET['key'], 'barcode': ticket.short_barcode}), content_type="application/json")
