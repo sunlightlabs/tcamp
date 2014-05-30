@@ -207,7 +207,7 @@ class Session(models.Model):
     auto_tags = TaggableManager(blank=True, through=AutoTags)
     auto_tags.rel.related_name = '+'
     user_notes = models.TextField(blank=True, default='', help_text='Note in this space if you need to request a specific timeslot, or make sure you have a projector, etc. We can\'t make guarantees about anything, but we\'ll do our best.')
-    hashtag = models.CharField(max_length=140, blank=True, null=True, help_text="Help others find and share info about your session!")
+    hashtag = models.CharField(max_length=140, blank=True, null=True, help_text="Help others find and share info about your session! Include the '#'.")
 
     is_public = models.BooleanField(default=False, db_index=True)
     has_notes = models.BooleanField(default=True)

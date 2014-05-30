@@ -23,7 +23,7 @@
         {{ session.description }}
 
         {% if session.hashtag %}
-        <p>Tweet this session: <a href="https://twitter.com/search?q={{ session.hashtag|urlencode }}"></a></p>
+        <p>Tweet this session: <a href="https://twitter.com/search?q={{ session.hashtag|urlencode }}">{{ session.hashtag }}</a></p>
         {% endif %}
     </div>
 </div>
