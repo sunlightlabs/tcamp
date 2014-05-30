@@ -46,7 +46,7 @@
             {{ session.description | truncatewords:30 }}
         </div>
         <div class="tags">
-            {% if session.tags %}
+            {% if session.tags.count %}
                 <p>Tagged:
                 {% for tag in session.tags.all %}
                 <small>{{ tag.name }}</small>
