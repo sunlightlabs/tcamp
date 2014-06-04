@@ -45,7 +45,7 @@
         <li class="{% spaceless %}
         {# if we are outside the bounds of the conference, the first tab is active. #}
         {# otherwise, we should highlight the tab for whatever today is. #}
-        {% if forloop.first and (today < event.start_date or today > event.end_date) %}active
+        {% if forloop.first and today < event.start_date or today > event.end_date %}active
         {% elif today == day.date %}active
         {% endif %}
         {% endspaceless %}"><a href="#day{{ day|date:"m-d" }}" data-toggle="tab" >{{ day|date:"l" }}</a></li>
