@@ -50,6 +50,7 @@ class Event(models.Model):
     start_date = models.DateField(db_index=True)
     end_date = models.DateField(blank=True, null=True, db_index=True)
     is_public = models.BooleanField(default=False, db_index=True)
+    is_over = models.BooleanField(default=False, db_index=True)
     registration_is_open = models.BooleanField(default=False)
     registration_url = models.URLField(blank=True, default='')
     session_submission_is_open = models.BooleanField(default=False)
@@ -89,7 +90,7 @@ class Event(models.Model):
 
     @property
     def is_current(self):
-        return self.pk == Event.objects.current().pk
+        return (self.pk == Event.objects.current().pk and not self.is_over)
 
     @property
     def is_upcoming(self):
