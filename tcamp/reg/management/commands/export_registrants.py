@@ -83,7 +83,7 @@ class Command(BaseCommand):
                     'Employer': t.organization.encode('utf8'),
                     'Organization': t.organization.encode('utf8'),
                     'Occupation': t.title.encode('utf8'),
-                    'WebSite': t.website if ('://' in t.website or not t.website) else 'http://%s' % t.website,
+                    'WebSite': (t.website if ('://' in t.website or not t.website) else 'http://%s' % t.website).encode('utf8'),
                     'Email': t.email or s.email,
                     'Twitter': t.clean_twitter,
                     'Subscribe': 'Y' if t.subscribe else 'N',
