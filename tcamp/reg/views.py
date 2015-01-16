@@ -15,7 +15,7 @@ from django.forms.util import ErrorList
 
 from django.http import Http404, HttpResponse
 
-from sked.urls import CURRENT_EVENT
+from sked.utils import get_current_event
 
 import json
 from collections import defaultdict
@@ -26,7 +26,7 @@ from django.contrib.auth.decorators import user_passes_test
 
 
 def register(request):
-    if CURRENT_EVENT.registration_is_open:
+    if get_current_event().registration_is_open:
         return _open_register(request)
     else:
         return _closed_register(request)
@@ -39,22 +39,22 @@ def _closed_register(request):
     payment_form = PaymentForm()
     ticket_form = TicketForm()
 
-    ticket_types = TicketType.objects.filter(event=CURRENT_EVENT, enabled=True, onsite=True).order_by('position')
+    ticket_types = TicketType.objects.filter(event=get_current_event(), enabled=True, onsite=True).order_by('position')
 
-    return render_to_response('reg/register.html', {'ticket_form': ticket_form, 'payment_form': payment_form, 'ticket_types': ticket_types, 'BRAINTREE_CSE_KEY': getattr(settings, "BRAINTREE_CSE_KEY", ""), 'event': CURRENT_EVENT, 'registration_is_open': False}, context_instance=RequestContext(request))
+    return render_to_response('reg/register.html', {'ticket_form': ticket_form, 'payment_form': payment_form, 'ticket_types': ticket_types, 'BRAINTREE_CSE_KEY': getattr(settings, "BRAINTREE_CSE_KEY", ""), 'event': get_current_event(), 'registration_is_open': False}, context_instance=RequestContext(request))
 
 
 def _open_register(request):
     payment_form = PaymentForm()
     ticket_form = TicketForm()
 
-    ticket_types = TicketType.objects.filter(event=CURRENT_EVENT, enabled=True, online=True).order_by('position')
+    ticket_types = TicketType.objects.filter(event=get_current_event(), enabled=True, online=True).order_by('position')
 
-    return render_to_response('reg/register.html', {'ticket_form': ticket_form, 'payment_form': payment_form, 'ticket_types': ticket_types, 'BRAINTREE_CSE_KEY': getattr(settings, "BRAINTREE_CSE_KEY", ""), 'event': CURRENT_EVENT, 'registration_is_open': True}, context_instance=RequestContext(request))
+    return render_to_response('reg/register.html', {'ticket_form': ticket_form, 'payment_form': payment_form, 'ticket_types': ticket_types, 'BRAINTREE_CSE_KEY': getattr(settings, "BRAINTREE_CSE_KEY", ""), 'event': get_current_event(), 'registration_is_open': True}, context_instance=RequestContext(request))
 
 @never_cache
 def whos_going(request):
-    attendees = Ticket.objects.filter(event=CURRENT_EVENT, success=True).order_by('-id')
+    attendees = Ticket.objects.filter(event=get_current_event(), success=True).order_by('-id')
     out = [{
         'first_name': a.first_name,
         'last_name': a.last_name,
@@ -91,14 +91,14 @@ def save(request):
 
     if out['success']:
         # get all the models ready
-        sale.event = CURRENT_EVENT
+        sale.event = get_current_event()
         sale.amount = 0
         sale.save()
 
         tickets = []
         for ticket_form in valid_tickets:
             ticket = ticket_form.save(commit=False)
-            ticket.event = CURRENT_EVENT
+            ticket.event = get_current_event()
             ticket.sale = sale
             ticket.save()
 
@@ -115,7 +115,7 @@ def save(request):
 
         # save the coupon code if there is one
         if 'coupon' in price:
-            sale.coupon_code = CouponCode.objects.get(event=CURRENT_EVENT, code=price['coupon'])
+            sale.coupon_code = CouponCode.objects.get(event=get_current_event(), code=price['coupon'])
 
         if price['price'] > 0:
             # there should have been a payment form
@@ -231,7 +231,7 @@ def get_price_data(tickets={}, coupon=None):
         total_qty += qty
 
     if coupon:
-        cpl = list(CouponCode.objects.filter(event=CURRENT_EVENT, code=coupon))
+        cpl = list(CouponCode.objects.filter(event=get_current_event(), code=coupon))
         if len(cpl):
             cp = cpl[0]
             too_many = False

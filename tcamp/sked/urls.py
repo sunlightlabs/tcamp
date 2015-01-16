@@ -1,19 +1,15 @@
 from django.conf.urls import patterns, include, url
-from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
 from django.views.decorators.cache import never_cache
 from honeypot.decorators import check_honeypot
 
 from sked.views import (SessionList, SessionDetail, CreateSession,
-                        UpdateSession, SingleDayView, CurrentTimeslotView)
-from sked.models import Event
-
-CURRENT_EVENT = Event.objects.current()
+                        UpdateSession, SingleDayView, CurrentTimeslotView, LazyEventRedirectView)
 
 urlpatterns = patterns(
     'sked.views',
-    url(r'^new/$', RedirectView.as_view(url=reverse_lazy('sked:new_session', kwargs={'event_slug': CURRENT_EVENT.slug}))),
-    url(r'^$', RedirectView.as_view(url=reverse_lazy('sked:session_list', kwargs={'event_slug': CURRENT_EVENT.slug}))),
+    url(r'^new/$', LazyEventRedirectView.as_view(viewname='sked:new_session')),
+    url(r'^$', LazyEventRedirectView.as_view(viewname='sked:session_list')),
     url(r'^(?P<event_slug>[\w-]+)/$', never_cache(SessionList.as_view()), name="session_list"),
     url(r'^(?P<event_slug>[\w-]+)/wall/$', never_cache(SingleDayView.as_view(template_name="sked/wall.html")), name="wall"),
     url(r'^(?P<event_slug>[\w-]+)/print/$', never_cache(SingleDayView.as_view(template_name="sked/analog_wall.html")), name="analog_wall"),

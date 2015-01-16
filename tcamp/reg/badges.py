@@ -9,7 +9,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedire
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from dateutil import parser
-from sked.urls import CURRENT_EVENT
+from sked.utils import get_current_event
 from reg.models import Ticket, TicketType, Sale, CouponCode
 from reg.reports import get_staff_domains
 import json, csv, zipfile
@@ -183,7 +183,7 @@ def get_attendees(request, format):
     out = []
     prefix = '' if (format == 'zip' or not request) else request.build_absolute_uri('/register/badges/qrcode/')
     compact = format != 'json'
-    for ticket in Ticket.objects.filter(success=True, event=CURRENT_EVENT).order_by('sale__created').select_related():
+    for ticket in Ticket.objects.filter(success=True, event=get_current_event()).order_by('sale__created').select_related():
         out.append(get_badge(ticket, prefix, compact))
 
     if format == 'json':
@@ -277,7 +277,7 @@ def new_sale(request):
 
     # sale
     sale = Sale()
-    sale.event = CURRENT_EVENT
+    sale.event = get_current_event()
     sale.first_name = post['sale'].get('first_name', '')
     sale.last_name = post['sale'].get('last_name', '')
     sale.email = post['sale'].get('email', '')
@@ -297,7 +297,7 @@ def new_sale(request):
 
     # ticket
     ticket = Ticket()
-    ticket.event = CURRENT_EVENT
+    ticket.event = get_current_event()
     ticket.sale = sale
     ticket.type_id = post['ticket']['type']
     ticket.first_name = post['ticket']['first_name']

@@ -26,11 +26,11 @@ class Command(BaseCommand):
     )
 
     def handle(self, *args, **options):
-        from reg.views import CURRENT_EVENT
+        from sked.utils import get_current_event
 
         search = {
             'success': True,
-            'event': CURRENT_EVENT
+            'event': get_current_event()
         }
 
         query = Ticket.objects.filter(**search)

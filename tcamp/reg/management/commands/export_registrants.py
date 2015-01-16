@@ -26,11 +26,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         FIELDS = ["Prefix", "Middle", "Suffix", "Firstname", "Lastname", "Mailname", "Address1", "Address2", "Address3", "City", "State", "Zip", "Carrier_rt", "Salutation", "Employer", "Occupation", "Organization", "WorkPhone", "WorkExtension", "FaxPhone", "Email", "HomePhone", "Phone3", "Phone4", "Phone5", "County", "Precinct", "Gender", "Congress", "Statesenate", "Statehouse", "Districta", "Districtb", "Districtc", "Party", "Spousename", "Notes", "User1", "User2", "User3", "User4", "User5", "User6", "PACname", "CmteID", "AskToGive", "AskToRaise", "WebSite", "Email2", "Industry", "CandState", "CandID", "CandCycle", "CandDistrict", "CandOffice", "Assistant", "Nickname", "Birthdate", "Candname", "Work", "Mailname", "Work", "Address1", "Work", "Address2", "Work", "Address3", "Work", "City", "Work", "State", "Work", "Zip", "contrib_Date", "contrib_Amount", "contrib_Note", "contrib_Check", "contrib_Deposit", "contrib_Account", "contrib_Period", "contrib_Cycle", "contrib_Member", "contrib_Method", "contrib_Source", "contrib_Attribution", "contrib_ReportCode1", "contrib_Link", "contrib_Attribution2", "contrib_Batch", "contrib_ThankYou", "Twitter", "Subscribe"]
-        from reg.views import CURRENT_EVENT
+        from sked.utils import get_current_event
 
         search = {
             'success': True,
-            'event': CURRENT_EVENT
+            'event': get_current_event()
         }
         exclude = {}
         if options['exclude_coupon']:

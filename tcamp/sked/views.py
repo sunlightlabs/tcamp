@@ -8,12 +8,14 @@ from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.contrib import messages
 from django.db.models import Count
 from django.utils import timezone
+from django.core.urlresolvers import reverse
 from django.views.generic import (ListView, DetailView, CreateView,
                                   UpdateView, RedirectView)
 from django.views.generic.edit import DeletionMixin
 from camp.forms import BootstrapErrorList
 from sked.models import Event, Session, Location
 from sked.forms import SessionForm
+from sked.utils import get_current_event
 
 
 class SessionList(ListView):
@@ -190,11 +192,24 @@ class RedirectFromPk(RedirectView):
         obj = get_object_or_404(Session, pk=kwargs['pk'])
         return obj.get_absolute_url()
 
+class LazyEventRedirectView(RedirectView):
+    viewname = None
+
+    def __init__(self, viewname, *args, **kwargs):
+        self.viewname = viewname
+        return super(LazyEventRedirectView, self).__init__(*args, **kwargs)
+
+    def get_redirect_url(self, **kwargs):
+        return reverse(self.viewname, kwargs={'event_slug': get_current_event().slug})
+
 
 class SingleDayView(ListView):
     model = Session
     context_object_name = 'session_list'
-    event = Event.objects.current()
+    
+    @property
+    def event():
+        return Event.objects.current()
 
     def get_queryset(self):
         self.event = get_object_or_404(Event, slug=self.kwargs.get('event_slug'))
@@ -232,7 +247,10 @@ class SingleDayView(ListView):
 class CurrentTimeslotView(ListView):
     model = Session
     context_object_name = 'session_list'
-    event = Event.objects.current()
+    
+    @property
+    def event():
+        return Event.objects.current()
 
     def get_queryset(self):
         self.event = get_object_or_404(Event, slug=self.kwargs.get('event_slug'))
