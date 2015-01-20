@@ -15,7 +15,7 @@ django-disqus
 django-honeypot
 django-taggit>0.10.0
 django-treenav
-django-reversion
+django-reversion==1.8.0
 django-twilio
 django-markdown-deux
 django-markitup
@@ -43,7 +43,7 @@ gunicorn
 gaffer
 gevent
 psycopg2
-PIL
+Pillow
 pytz
 fabric
 pexpect
