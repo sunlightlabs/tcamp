@@ -207,12 +207,14 @@ class SingleDayView(ListView):
     model = Session
     context_object_name = 'session_list'
     
+    _event = None
     @property
-    def event():
-        return Event.objects.current()
+    def event(self):
+        if self._event is None:
+            self._event = get_object_or_404(Event, slug=self.kwargs.get('event_slug'))
+        return self._event
 
     def get_queryset(self):
-        self.event = get_object_or_404(Event, slug=self.kwargs.get('event_slug'))
         return Session.objects.today_or_first_for_event(self.event)
 
     def get_context_data(self, **kwargs):
@@ -248,12 +250,14 @@ class CurrentTimeslotView(ListView):
     model = Session
     context_object_name = 'session_list'
     
+    _event = None
     @property
-    def event():
-        return Event.objects.current()
+    def event(self):
+        if self._event is None:
+            self._event = get_object_or_404(Event, slug=self.kwargs.get('event_slug'))
+        return self._event
 
     def get_queryset(self):
-        self.event = get_object_or_404(Event, slug=self.kwargs.get('event_slug'))
         time = self.request.GET.get('time')
         qs = Session.objects.current(time)
         if not qs.count():
