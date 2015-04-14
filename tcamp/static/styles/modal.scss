@@ -1,0 +1,22 @@
+.overlay {
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  right: 0;
+  top: 0;
+  z-index: 9000;
+  .inner {
+    width: 300px;
+    height: 500px;
+    outline: 5px solid black;
+    margin: 100px auto 0 auto;
+    .quit {
+      height: 50px;
+      width: 50px;
+      position: relative;
+      top: 0;
+      background: orange;
+    }
+  }
+}
