@@ -26,7 +26,7 @@ validictory
 djutils
 jsonfield==0.9.5
 south
--e git://github.com/jamesturk/django-markupfield.git#egg=markupfield
+-e git://github.com/jamesturk/django-markupfield.git@70c2d13d4eeefa28bdf05c14045e71c99beff7fc#egg=django_markupfield-master
 
 akismet
 stemming
