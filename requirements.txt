@@ -17,7 +17,7 @@ django-taggit==0.11.2
 django-treenav==0.9.0
 django-reversion==1.8.0
 django-twilio==0.4.0
-django-markdown-deux
+django-markdown-deux==1.0.5
 django-markitup
 django-markupfield==1.3.2
 django-timedeltafield
@@ -30,7 +30,7 @@ south
 
 akismet
 stemming
-Markdown
+Markdown==2.6.1
 requests
 python-social-auth
 python-flickr
