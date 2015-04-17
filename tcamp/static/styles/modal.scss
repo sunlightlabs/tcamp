@@ -1,22 +1,52 @@
+@charset "UTF-8";
+
+
+@import "fonts";
+
 .overlay {
-  background-color: rgba(0,0,0,0.5);
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  right: 0;
-  top: 0;
-  z-index: 9000;
-  .inner {
-    width: 300px;
-    height: 500px;
-    outline: 5px solid black;
+    background-color: rgba(13, 68, 84, 0.8);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    right: 0;
+    top: 0;
+    z-index: 9000;
+    .inner {
+    width: 429px;
+    height: 512px;
     margin: 100px auto 0 auto;
-    .quit {
-      height: 50px;
-      width: 50px;
-      position: relative;
-      top: 0;
-      background: orange;
+    background-color: #87b564;
+    position: relative;
+        .quit {
+        height: 50px;
+        width: 50px;
+        position: relative;
+        top: 0;
+        background: orange;
+        }
     }
-  }
+    .modal-content-wrapper {
+        background: url(../images/tcamp-modal-robot-graphic.png) top center no-repeat;
+        display: block;
+        width: 396px;
+        height: 592px;
+        position: absolute;
+        top: -33px;
+        left: 17px;
+    }
+    .modal-content {
+        -ms-transform: rotate(-3deg); /* IE 9 */
+        -webkit-transform: rotate(-3deg); /* Chrome, Safari, Opera */
+        transform: rotate(-3deg);
+        font-family: $display_family;
+        margin: 162px auto;
+        width: 358px;
+        .logo {
+            margin: 0 auto;
+        }
+        h2 {
+
+        }
+        
+    }
 }
