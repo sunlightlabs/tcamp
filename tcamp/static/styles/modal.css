@@ -5,6 +5,7 @@
   width: 100%;
   right: 0;
   top: 0;
+  display: none;
   z-index: 9000; }
   .overlay .inner {
     width: 429px;
