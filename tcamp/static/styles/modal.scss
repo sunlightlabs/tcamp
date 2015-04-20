@@ -35,12 +35,14 @@
         left: 17px;
     }
     .modal-content {
-        -ms-transform: rotate(-3deg); /* IE 9 */
-        -webkit-transform: rotate(-3deg); /* Chrome, Safari, Opera */
-        transform: rotate(-3deg);
+        -ms-transform: rotate(-4.8deg); /* IE 9 */
+        -webkit-transform: rotate(-4.8deg); /* Chrome, Safari, Opera */
+        transform: rotate(-4.8deg);
         font-family: $display_family;
         margin: 162px auto;
         width: 358px;
+        padding: 41px;
+        box-sizing: border-box;
         .logo {
             margin: 0 auto;
         }
@@ -48,5 +50,45 @@
 
         }
         
+    }
+    input[type="email"] {
+        width: 100%;
+        border-radius: 0;
+        border: 0;
+        background: #bed6c8;
+        height: 50px;
+        box-sizing: border-box;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        margin-bottom: 4px;
+    }
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color: #87b564;
+        font-style: italic;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+       color: #87b564;
+       opacity:  1;
+       font-style: italic;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+       color: #87b564;
+       opacity:  1;
+       font-style: italic;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+       color: #87b564;
+       font-style: italic;
+    }
+    input[type="submit"] {
+        width: 100%;
+        border: 0;
+        background-color: #ded114;
+        height: 50px;
+        box-sizing: border-box;
+        font-family: $display_family;
+        color: #ffffff;
+        font-weight: bold;
+        text-transform: uppercase;
     }
 }

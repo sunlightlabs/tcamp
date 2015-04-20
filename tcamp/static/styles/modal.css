@@ -27,13 +27,53 @@
     top: -33px;
     left: 17px; }
   .overlay .modal-content {
-    -ms-transform: rotate(-3deg);
+    -ms-transform: rotate(-4.8deg);
     /* IE 9 */
-    -webkit-transform: rotate(-3deg);
+    -webkit-transform: rotate(-4.8deg);
     /* Chrome, Safari, Opera */
-    transform: rotate(-3deg);
+    transform: rotate(-4.8deg);
     font-family: "museo-slab", Rockwell, "Dejavu Serif", "Lucida Bright", "Trebuchet MS", sans-serif;
     margin: 162px auto;
-    width: 358px; }
+    width: 358px;
+    padding: 41px;
+    box-sizing: border-box; }
     .overlay .modal-content .logo {
       margin: 0 auto; }
+  .overlay input[type="email"] {
+    width: 100%;
+    border-radius: 0;
+    border: 0;
+    background: #bed6c8;
+    height: 50px;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    margin-bottom: 4px; }
+  .overlay ::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #87b564;
+    font-style: italic; }
+  .overlay :-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #87b564;
+    opacity: 1;
+    font-style: italic; }
+  .overlay ::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #87b564;
+    opacity: 1;
+    font-style: italic; }
+  .overlay :-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #87b564;
+    font-style: italic; }
+  .overlay input[type="submit"] {
+    width: 100%;
+    border: 0;
+    background-color: #ded114;
+    height: 50px;
+    box-sizing: border-box;
+    font-family: "museo-slab", Rockwell, "Dejavu Serif", "Lucida Bright", "Trebuchet MS", sans-serif;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase; }
