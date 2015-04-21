@@ -60,18 +60,15 @@
 <body {% block bodyattrs %}{% endblock %}>
     <div class='overlay'>
         <div class='inner'>
-            <div class='quit'>
-                Quit
-            </div>
             <div class="modal-content-wrapper">
                 <div class="modal-content">
                     <h1 class="hide-text logo">Transparency Camp</h1>
                     <h2>
-                        <span>Coming</span><br>
-                        <span>Fall 2015</span><br>
-                        <span>Washington DC</span>
+                        <span class="modal-arrow"><span class="modal-coming">Coming</span></span>
+                        <span class="modal-date">Fall 2015</span>
+                        <span class="modal-location">Washington DC</span>
                     </h2>
-                    <h3>Be the first to know</h3>
+                    <h3 class="call-to-action">Be the first to know</h3>
 
                     <!-- Begin MailChimp Signup Form -->
                     <div id="mc_embed_signup">
@@ -87,6 +84,9 @@
                     <!--End mc_embed_signup-->
                 </div>
             </div>
+            <a href="" class='quit hide-text'>
+                Quit
+            </a>
         </div>
     </div>
     {% block container %}

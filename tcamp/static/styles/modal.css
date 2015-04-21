@@ -5,7 +5,6 @@
   width: 100%;
   right: 0;
   top: 0;
-  display: none;
   z-index: 9000; }
   .overlay .inner {
     width: 429px;
@@ -14,11 +13,16 @@
     background-color: #87b564;
     position: relative; }
     .overlay .inner .quit {
-      height: 50px;
-      width: 50px;
-      position: relative;
+      background: url(../images/sprite-close.png) top center no-repeat;
+      height: 25px;
+      width: 30px;
+      position: absolute;
       top: 0;
-      background: orange; }
+      right: 0;
+      margin: 10px;
+      display: block; }
+      .overlay .inner .quit:hover {
+        background-position: bottom center; }
   .overlay .modal-content-wrapper {
     background: url(../images/tcamp-modal-robot-graphic.png) top center no-repeat;
     display: block;
@@ -37,9 +41,43 @@
     margin: 162px auto;
     width: 358px;
     padding: 41px;
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    text-transform: uppercase;
+    text-align: center; }
     .overlay .modal-content .logo {
-      margin: 0 auto; }
+      margin: -13px auto 25px auto;
+      width: 180px;
+      max-width: 235px;
+      height: 48px; }
+  .overlay .modal-arrow {
+    background: url(../images/modal-arrow.png) center top no-repeat;
+    width: 300px;
+    height: 30px;
+    margin-left: -6px;
+    display: block;
+    height: 44px;
+    color: #3eaec1;
+    text-align: center;
+    margin-bottom: -13px; }
+  .overlay .modal-coming {
+    background: #ffffff;
+    padding: 0 4px; }
+  .overlay .modal-date, .overlay .modal-location {
+    color: #006693;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    line-height: .9; }
+  .overlay .modal-date {
+    font-size: 54px; }
+  .overlay .modal-location {
+    font-size: 29px; }
+  .overlay .call-to-action {
+    color: #3eaec1;
+    font-size: 19px;
+    background: url(../images/modal-envelope.png) left center no-repeat;
+    text-align: right;
+    margin-top: 25px; }
   .overlay input[type="email"] {
     width: 100%;
     border-radius: 0;
@@ -77,4 +115,5 @@
     font-family: "museo-slab", Rockwell, "Dejavu Serif", "Lucida Bright", "Trebuchet MS", sans-serif;
     color: #ffffff;
     font-weight: bold;
-    text-transform: uppercase; }
+    text-transform: uppercase;
+    font-size: 19px; }
