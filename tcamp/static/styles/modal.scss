@@ -139,4 +139,15 @@
         text-transform: uppercase;
         font-size: 19px;
     }
+    input[type="submit"]:hover  {
+        background-color: #c2ad04;
+    }
+    input:focus:invalid:focus {
+        -webkit-box-shadow: 0 0 6px #f5b890;
+        -moz-box-shadow: 0 0 6px #f5b890;
+        box-shadow: 0 0 6px #f5b890;
+    }
+    input:focus:invalid {
+        color: #ce6928;
+    }
 }
