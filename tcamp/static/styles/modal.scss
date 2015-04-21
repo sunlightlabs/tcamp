@@ -18,11 +18,17 @@
     background-color: #87b564;
     position: relative;
         .quit {
-        height: 50px;
-        width: 50px;
-        position: relative;
+        background: url(../images/sprite-close.png) top center no-repeat;
+        height: 25px;
+        width: 30px;
+        position: absolute;
         top: 0;
-        background: orange;
+        right: 0;
+        margin: 10px;
+        display: block;
+        &:hover {
+            background-position: bottom center;
+        }
         }
     }
     .modal-content-wrapper {
@@ -43,14 +49,55 @@
         width: 358px;
         padding: 41px;
         box-sizing: border-box;
+        text-transform: uppercase;
+        text-align: center;
         .logo {
-            margin: 0 auto;
+            margin: -13px auto 25px auto;
+            width: 180px;
+            max-width: 235px;
+            height: 48px;
         }
         h2 {
 
         }
         
     }
+    .modal-arrow {
+        background: url(../images/modal-arrow.png) center top no-repeat;
+        width: 300px;
+        height: 30px;
+        margin-left: -6px;
+        display: block;
+        height: 44px;
+        color: #3eaec1;
+        text-align: center;
+        margin-bottom: -13px;
+    }
+    .modal-coming {
+        background: #ffffff;
+        padding: 0 4px;
+    }
+    .modal-date, .modal-location {
+        color: #006693;
+        font-weight: bold;
+        text-align: center;
+        display: block;
+        line-height: .9;
+    }
+    .modal-date {
+        font-size: 54px;
+    }
+    .modal-location {
+        font-size: 29px;
+    }
+    .call-to-action {
+        color: #3eaec1;
+        font-size: 19px;
+        background: url(../images/modal-envelope.png) left center no-repeat;
+        text-align: right;
+        margin-top: 25px;
+    }
+
     input[type="email"] {
         width: 100%;
         border-radius: 0;
@@ -90,5 +137,6 @@
         color: #ffffff;
         font-weight: bold;
         text-transform: uppercase;
+        font-size: 19px;
     }
 }
