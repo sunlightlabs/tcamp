@@ -19,7 +19,7 @@
     $('.overlay').show();
   };
   if (document.cookie.indexOf('tcampmodal=true') === -1){
-    //document.cookie='tcampmodal=true;path=/;'
+    document.cookie='tcampmodal=true;path=/;';
     showModal();
   }
 })(this, jQuery);
