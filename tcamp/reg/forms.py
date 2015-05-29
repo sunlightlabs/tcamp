@@ -1,6 +1,7 @@
 from django import forms
 from localflavor.us.us_states import STATE_CHOICES
 from bootstrap_toolkit.widgets import BootstrapTextInput
+import datetime
 
 from reg.models import Sale, Ticket, AMBASSADOR_PROGRAM_CHOICES
 
@@ -17,6 +18,7 @@ class TicketForm(forms.ModelForm):
             'twitter': BootstrapTextInput(attrs={'placeholder': "e.g., \"tcampdc\""}),
         }
 
+_current_year = datetime.datetime.now().year
 class PaymentForm(forms.Form):
     first_name = forms.CharField(max_length=255)
     last_name = forms.CharField(max_length=255)
@@ -28,7 +30,7 @@ class PaymentForm(forms.Form):
     zip = forms.CharField(max_length=255, label="Zip/Postal Code")
 
     exp_month = forms.ChoiceField(initial="01", label="Expiration", choices=(("01","01"),("02","02"),("03","03"),("04","04"),("05","05"),("06","06"),("07","07"),("08","08"),("09","09"),("10","10"),("11","11"),("12","12")))
-    exp_year = forms.ChoiceField(initial="2014", label="Year", choices=(("2014","2014"),("2015","2015"),("2016","2016"),("2017","2017"),("2018","2018"),("2019","2019"),("2020","2020"),("2021","2021"),("2022","2022"),("2023","2023"),("2024","2024")))
+    exp_year = forms.ChoiceField(initial="2014", label="Year", choices=tuple([2*(str(_current_year + i),) for i in xrange(11)]))
 
     # will be encrypted
     number = forms.CharField(max_length=4096)
