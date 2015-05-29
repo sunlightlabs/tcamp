@@ -1,7 +1,7 @@
 {% extends "reg/email_base.html" %}
 
 {% block content %}
-<p>Congratulations, you are registered for TCamp 2014!</p>
+<p>Congratulations, you are registered for TCamp {{ event.start_date|date:"Y" }}!</p>
 
 <p>You purchased the following ticket{{ sale.ticket_set.count|pluralize }}:</p>
 <ul>
@@ -20,7 +20,7 @@
 <strong>Total paid:</strong> {{ sale.amount }}</strong>
 </p>
 
-<p>We're so glad you're planning to join us May 30th and 31st, and hope you'll help us spread the word to other great folks by sharing this event with your friends.<p>
+<p>We're so glad you're planning to join us {{ event.start_date|date:"N j" }}&ndash;{{ event.end_date|date:"N j" }}, and hope you'll help us spread the word to other great folks by sharing this event with your friends.<p>
 
-<p>Got ideas or questions about TransparencyCamp? Send a tweet to @TCampDC or #TCamp14 and we'll answer.</p>
+<p>Got ideas or questions about TransparencyCamp? Send a tweet to @TCampDC or #TCamp{{ event.start_date|date:"y" }} and we'll answer.</p>
 {% endblock %}

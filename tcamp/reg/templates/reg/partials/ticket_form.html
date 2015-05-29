@@ -61,6 +61,7 @@
         </div>
     </div>
 
+    {% comment %}
     <div class="row">
         <div class="span8 control-label">Which days of TCamp do you plan to attend?</div>
     </div>
@@ -72,7 +73,9 @@
             {{ ticket_form.attend_day2|as_bootstrap }}
         </div>
     </div>
+    {% endcomment %}
 
+    {% comment %}
     <div class="ambassador-group">
         <div class="label-help">The greatest strength of TCamp is the collaborative community we build together at the event. To help first-time attendees get the full benefit of that community, we are pairing first- time attendees with seasoned TCamp veterans who will be their ambassadors into the community. Perks include: meeting new folks, making strong connections and some nomsy noms.</div>
         {{ ticket_form.ambassador_program|as_bootstrap }}
@@ -81,6 +84,8 @@
         <div class="label-help">The Sunlight Network’s Citizen Advocacy Day is a great way to let your members of Congress know how important a transparent government is to you. Join us for breakfast and a briefing on Capitol Hill on Thursday, May 29 before going to the offices of your senators and representative to discuss transparency issues like better lobbying disclosure, smarter open data and mandatory electronic filing of campaign finance reports.</div>
         {{ ticket_form.lobby_day|as_bootstrap }}
     </div>
+    {% endcomment %}
+
     {{ ticket_form.subscribe|as_bootstrap }}
 
     <div class="row">

@@ -1,10 +1,12 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
     <body>
         <p>
-        <strong>TransparencyCamp 2014</strong><br />
-        Friday, May 30 and Saturday, May 31<br />
-        George Mason University, Arlington Campus
-        Arlington, VA
+        <strong>{{ event.name }}</strong><br />
+        {{ event.start_date|date:"l, N j" }}&ndash;{{ event.end_date|date:"l, N j, Y" }}<br />
+        <a href="https://www.google.com/maps/place/Kellogg+Conference+Hotel/@38.907739,-76.995112,17z/data=!3m1!4b1!4m2!3m1!1s0x89b7b8115a960d3d:0x2d7fed4a38b132f4">
+            Kellogg Conference Hotel at Gallaudet&nbsp;University<br />
+            Washington, DC
+        </a>
         </p>
         {% block content %}{% endblock %}
     </body>

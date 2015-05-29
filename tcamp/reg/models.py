@@ -93,11 +93,11 @@ class Sale(models.Model):
     def send_receipts(self):
         from reg.email_utils import *
         if self.email:
-            send_html_email_template(subject='TransparencyCamp Receipt', to_addresses=[self.email], sender="info@transparencycamp.org", template='reg/email_sale.html', context={'sale': self}, images=[])
+            send_html_email_template(subject='TransparencyCamp Receipt', to_addresses=[self.email], sender="info@transparencycamp.org", template='reg/email_sale.html', context={'sale': self, 'event': self.event}, images=[])
 
         for ticket in self.ticket_set.all():
             if ticket.email and ticket.email != self.email:
-                send_html_email_template(subject='TransparencyCamp Receipt', to_addresses=[ticket.email], sender="info@transparencycamp.org", template='reg/email_ticket.html', context={'ticket': ticket}, images=[])
+                send_html_email_template(subject='TransparencyCamp Receipt', to_addresses=[ticket.email], sender="info@transparencycamp.org", template='reg/email_ticket.html', context={'ticket': ticket, 'event': self.event}, images=[])
 
     def __unicode__(self):
         return u" ".join((self.first_name, self.last_name))

@@ -12,9 +12,9 @@
 </div>
 <div class="row module">
     <div class="span8">
-        <p>Congratulations, you are registered for TCamp 2014!</p>
-        <p>We're so glad you're planning to join us May 30th and 31st, and hope you'll help us spread the word to other great folks by sharing this event with your friends.</p>
-        <p>Got ideas or questions about TransparencyCamp? Send a tweet to <a href="https://twitter.com/TCampDC">@TCampDC</a> or <a href="https://twitter.com/search?q=%23tcamp14">#TCamp14</a> and we'll answer.</p>
+        <p>Congratulations, you are registered for TCamp {{ CURRENT_EVENT.start_date|date:"Y" }}!</p>
+        <p>We're so glad you're planning to join us {{ CURRENT_EVENT.start_date|date:"N j" }}&ndash;{{ CURRENT_EVENT.end_date|date:"N j" }}, and hope you'll help us spread the word to other great folks by sharing this event with your friends.</p>
+        <p>Got ideas or questions about TransparencyCamp? Send a tweet to <a href="https://twitter.com/TCampDC">@TCampDC</a> or <a href="https://twitter.com/search?q=%23tcamp14">#TCamp{{ CURRENT_EVENT.start_date|date:"y" }}</a> and we'll answer.</p>
     </div>
 </div>
 
