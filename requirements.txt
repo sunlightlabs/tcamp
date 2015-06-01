@@ -61,3 +61,6 @@ braintree
 html2text
 qrcode
 shortuuid
+
+redis
+django-redis
