@@ -173,6 +173,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'varnishapp',
     'raven.contrib.django.raven_compat',
+    'admin_enhancer',
     'bootstrap_toolkit',
 
     'api',

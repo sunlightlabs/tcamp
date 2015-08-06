@@ -61,6 +61,7 @@ braintree
 html2text
 qrcode
 shortuuid
+django-admin-enhancer
 
 redis
 django-redis

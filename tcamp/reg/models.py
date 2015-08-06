@@ -1,4 +1,5 @@
 from sked.models import Event
+from sked.utils import get_current_event
 from django.db import models
 from django.db.models.query import QuerySet
 from django_extras.db.models.fields import MoneyField, PercentField
@@ -10,7 +11,7 @@ from reg.utils import *
 
 
 class TicketType(models.Model):
-    event = models.ForeignKey(Event)
+    event = models.ForeignKey(Event, default=get_current_event)
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     expires = models.DateTimeField(null=True)
@@ -51,7 +52,7 @@ def shorten_ticket_type(name):
 
 
 class CouponCode(models.Model):
-    event = models.ForeignKey(Event)
+    event = models.ForeignKey(Event, default=get_current_event)
     code = models.CharField(max_length=255)
     discount = PercentField(default=100)
     max_tickets = models.IntegerField(help_text="How many tickets to allow to obtain this discount; 0 indicates unlimited tickets.")
@@ -63,13 +64,13 @@ class CouponCode(models.Model):
 
 PAYMENT_TYPE_CHOICES = (
     ('none', 'No payment'),
-    ('online', "Online credit card payment"),
+    ('online_credit', "Online credit card payment"),
     ('onsite_credit', "Onsite credit card payment"),
     ('onsite_cash', "Onsite cash payment"),
 )
 
 class Sale(models.Model):
-    event = models.ForeignKey(Event)
+    event = models.ForeignKey(Event, default=get_current_event)
 
     first_name = models.TextField(blank=True)
     last_name = models.TextField(blank=True)
@@ -129,7 +130,7 @@ AMBASSADOR_PROGRAM_CHOICES = (
 
 
 class Ticket(models.Model):
-    event = models.ForeignKey(Event)
+    event = models.ForeignKey(Event, default=get_current_event)
     sale = models.ForeignKey(Sale, null=True)
     type = models.ForeignKey(TicketType)
 
