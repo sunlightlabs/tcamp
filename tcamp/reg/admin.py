@@ -4,6 +4,7 @@ from sked.admin import EventAdmin
 from sked.utils import get_current_event
 from django.core.urlresolvers import reverse
 from admin_enhancer.admin import EnhancedModelAdminMixin
+from admin_exporter.actions import export_as_csv_action
 import traceback
 
 # modified from http://stackoverflow.com/a/9712272/261412
@@ -52,6 +53,7 @@ class TicketAdmin(EnhancedModelAdminMixin, DefaultFilterMixin, admin.ModelAdmin)
     list_filter = ('event', 'type', 'success', 'sale__payment_type', 'sale__coupon_code')
     exclude = ('checked_in',)
     default_filters = (('event__id__exact', lambda: get_current_event().id), ('success__exact', 1))
+    actions = [export_as_csv_action]
 
     def payment_type(self, obj):
         return dict(PAYMENT_TYPE_CHOICES)[obj.sale.payment_type]
@@ -80,3 +82,5 @@ admin.site.register(CouponCode, CouponCodeAdmin)
 #     model = TicketType
 #     sortable_field_name = 'position'
 # EventAdmin.inlines.append(TicketTypeInline)
+
+from admin_exporter.actions import export_as_csv_action

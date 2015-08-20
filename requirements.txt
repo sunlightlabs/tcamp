@@ -62,6 +62,7 @@ html2text
 qrcode
 shortuuid
 django-admin-enhancer
+-e git://github.com/apendleton/django-admin-exporter.git@match_model_order#egg=admin_exporter
 
 redis
 django-redis

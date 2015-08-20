@@ -175,6 +175,7 @@ INSTALLED_APPS = (
     'raven.contrib.django.raven_compat',
     'admin_enhancer',
     'bootstrap_toolkit',
+    'admin_exporter',
 
     'api',
     'brainstorm',
