@@ -22,5 +22,9 @@
 
 <p>We're so glad you're planning to join us {{ event.start_date|date:"N j" }}&ndash;{{ event.end_date|date:"N j" }}, and hope you'll help us spread the word to other great folks by sharing this event with your friends.<p>
 
+{% if coupon %}
+<p>As part of our special BOGO promotion, here's your unique code to share with a friend: <strong>{{ coupon.code }}</strong></p>
+{% endif %}
+
 <p>Got ideas or questions about TransparencyCamp? Send a tweet to @TCampDC or #TCamp{{ event.start_date|date:"y" }} and we'll answer.</p>
 {% endblock %}

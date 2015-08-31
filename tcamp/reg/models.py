@@ -94,7 +94,11 @@ class Sale(models.Model):
     def send_receipts(self):
         from reg.email_utils import *
         if self.email:
-            send_html_email_template(subject='TransparencyCamp Receipt', to_addresses=[self.email], sender="info@transparencycamp.org", template='reg/email_sale.html', context={'sale': self, 'event': self.event}, images=[])
+            try:
+                promotional_coupon = CouponCode.objects.get(code='BOGO-{}-{}'.format(self.email, self.id))
+            except CouponCode.DoesNotExist:
+                promotional_coupon = None
+            send_html_email_template(subject='TransparencyCamp Receipt', to_addresses=[self.email], sender="info@transparencycamp.org", template='reg/email_sale.html', context={'sale': self, 'event': self.event, 'coupon': promotional_coupon}, images=[])
 
         for ticket in self.ticket_set.all():
             if ticket.email and ticket.email != self.email:

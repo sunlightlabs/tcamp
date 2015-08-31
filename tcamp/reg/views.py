@@ -17,6 +17,8 @@ from django.http import Http404, HttpResponse
 
 from sked.utils import get_current_event
 
+import datetime
+
 import json
 from collections import defaultdict
 
@@ -168,6 +170,19 @@ def save(request):
                         for ticket in tickets:
                             ticket.success = True
                             ticket.save()
+
+                        # Create BOGO coupon for the user, if promotion is ongoing
+                        if ('coupon' not in price and
+                                datetime.datetime.now() >= datetime.datetime.strptime(settings.BOGO_START_DATE, '%Y-%m-%d') and
+                                datetime.datetime.now() <= datetime.datetime.strptime(settings.BOGO_END_DATE, '%Y-%m-%d')):
+                            bogo_code = CouponCode(
+                                code='BOGO-{}-{}'.format(sale.email, sale.id),
+                                discount=100,
+                                max_tickets=1,
+                                is_staff=False
+                            )
+                            bogo_code.save()
+
                     else:
                         if hasattr(result.transaction, "id"):
                             sale.transaction_id = result.transaction.id
