@@ -81,7 +81,7 @@ def sync_remote_assets():
         with cd("%s/%s" % (WORKING_PATH, CURRENT_DIR)):
             run("./manage.py collectstatic --noinput")
             try:
-                run("./manage.py compress")
+                run("./manage.py compress --force")
             except:
                 pass
 
