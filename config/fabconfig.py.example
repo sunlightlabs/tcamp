@@ -1,8 +1,8 @@
 #$ cp fabconfig.py.example fabconfig.py
-REMOTE_HOSTS = []
-REMOTE_URL = ''
+REMOTE_HOSTS = ['54.204.249.97']
+REMOTE_URL = 'http://transparencycamp.org/'
 
-HOME_PATH = ''
+HOME_PATH = '/projects/tcamp'
 WORKING_PATH = '%s/src' % HOME_PATH
 VENV_PATH = '%s/virt' % HOME_PATH
 
@@ -10,13 +10,13 @@ CURRENT_DIR = 'current'
 RELEASES_DIR = 'releases'
 CHECKOUT_DIR = 'cached_copy'
 SHARED_DIR = 'shared'
-SHARED_FILES = []  # location in src dir, expects to find just the file in SHARED_DIR
+SHARED_FILES = ['tcamp/local_settings.py']  # location in src dir, expects to find just the file in SHARED_DIR
 
-USER = ''  # Login shell user
-FS_USER = ''  # Owner of files
-KEY_FILENAME = '~/.ssh/id_rsa.pub'
+USER = 'tcamp'
+SUDO_USER = 'ubuntu'
+KEY_FILENAME = 'path/to/your/sshkey.pub'
 
-GIT_URL = ""
+GIT_URL = "https://github.com/sunlightlabs/tcamp.git"
 GIT_BRANCH = "master"
 
 PAST_RELEASES = 5
