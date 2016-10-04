@@ -137,7 +137,7 @@ class Location(models.Model):
     @property
     def etherpad_host(self):
         if self.event.created_at.year >= 2015:
-            return "https://tcamp.etherpad.mozilla.org"
+            return "https://public.etherpad-mozilla.org"
         else:
             return "http://pad.transparencycamp.org"
 
