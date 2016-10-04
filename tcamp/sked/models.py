@@ -335,10 +335,7 @@ class Session(models.Model):
 
     @property
     def etherpad_url(self):
-        if self.event.created_at.year >= 2015:
-            pad_subdomain = '/'
-        else:
-            pad_subdomain = '/p/'
+        pad_subdomain = '/p/'
 
         if self.notes_slug:
             slug = '{}-{}'.format(self.event.slug, self.notes_slug)
