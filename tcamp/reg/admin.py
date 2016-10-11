@@ -36,7 +36,7 @@ class TicketTypeAdmin(EnhancedModelAdminMixin, DefaultFilterMixin, admin.ModelAd
 admin.site.register(TicketType, TicketTypeAdmin)
 
 class SaleAdmin(EnhancedModelAdminMixin, DefaultFilterMixin, admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'event', 'success', 'coupon_code')
+    list_display = ('first_name', 'last_name', 'email', 'event', 'success', 'coupon_code')
     list_filter = ('event', 'success', 'payment_type', 'coupon_code')
     default_filters = (('event__id__exact', lambda: get_current_event().id), ('success__exact', 1))
 
