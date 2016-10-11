@@ -49,7 +49,7 @@ class SaleAdmin(EnhancedModelAdminMixin, DefaultFilterMixin, admin.ModelAdmin):
 admin.site.register(Sale, SaleAdmin)
 
 class TicketAdmin(EnhancedModelAdminMixin, DefaultFilterMixin, admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'event', 'type', 'success', 'payment_type', 'coupon_code')
+    list_display = ('first_name', 'last_name', 'email', 'event', 'type', 'success', 'payment_type', 'coupon_code')
     list_filter = ('event', 'type', 'success', 'sale__payment_type', 'sale__coupon_code')
     exclude = ('checked_in',)
     default_filters = (('event__id__exact', lambda: get_current_event().id), ('success__exact', 1))
